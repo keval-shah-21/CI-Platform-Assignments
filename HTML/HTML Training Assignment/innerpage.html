@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company | Analysis</title>
+    <link rel="shortcut icon" href="./image/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <nav class="fixed-top d-flex bg-white">
+        <div class="left-nav d-flex align-items-center px-4 justify-content-around gap-3">
+            <img src="./image/menu-bar.svg" alt="menu-bar" id="menu-bar">
+            <img src="./image/header-logo.svg" alt="header-logo">
+        </div>
+        <div class="d-flex flex-grow-1 justify-content-end justify-content-lg-between p-4">
+            <div class="d-lg-flex d-none">
+                <img src="./image/search-icon.svg" alt="search-icon" class="p-1">
+                <input type="text" class="p-1 border-0" id="search" placeholder="Search">
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a href="#">
+                    <img src="./image/notification-icon.svg" alt="notification-icon" class="me-3 p-2">
+                </a>
+                <img src="./image/profile.png" alt="profile">
+                <span class="d-none d-md-inline">Johndoe</span>
+                <a href="#">
+                    <img src="./image/downward-arrow.svg" alt="downward-arrow">
+                </a>
+            </div>
+        </div>
+    </nav>
+    <main class="d-flex">
+
+        <!-- sidebar -->
+        <aside class="p-4 sidebar h-100 flex-shrink-0">
+            <ul class="list-unstyled">
+                <a href="#">
+                    <li class="p-2 rounded-2 sidebar-link">
+                        <img src="./image/dashboard-default.svg" alt="dashboard icon" class="me-3">
+                        <span>Dashboard</span>
+                    </li>
+                </a>
+                <a href="#">
+
+                    <li class="p-2 rounded-2 active-link">
+                        <img src="./image/graph-active.svg" alt="analysis icon" class="me-3">
+                        <span>Analysis</span>
+                    </li>
+                </a>
+                <a href="#">
+
+                    <li class="p-2 rounded-2 sidebar-link">
+                        <img src="./image/inbox-default.svg" alt="inbox icon" class="me-3">
+                        <span>Inbox</span>
+                    </li>
+                </a>
+                <a href="#">
+
+                    <li class="p-2 rounded-2 sidebar-link">
+                        <img src="./image/clock-default.svg" alt="history icon" class="me-3">
+                        <span>History</span>
+                    </li>
+                </a>
+                <a href="#">
+
+                    <li class="p-2 rounded-2 sidebar-link">
+                        <img src="./image/user-default.svg" alt="users icon" class="me-3">
+                        <span>Users</span>
+                    </li>
+                </a>
+                <a href="#">
+
+                    <li class="p-2 rounded-2 sidebar-link">
+                        <img src="./image/maintenance-default.svg" alt="maintenance icon" class="me-3">
+                        <span>Maintenance</span>
+                    </li>
+                </a>
+                <a href="#">
+                    <li class="p-2 rounded-2 sidebar-link">
+                        <img src="./image/setting-default.svg" alt="setting icon" class="me-3">
+                        <span>Setting</span>
+                    </li>
+                </a>
+            </ul>
+        </aside>
+
+        <section class="right-section flex-grow-1 p-4 d-flex flex-column gap-3">
+            <div class="admin-topic-title mt-1">Analysis</div>
+
+            <section class="bg-white p-4 d-grid gap-5">
+                <!-- one column -->
+                <section>
+                    <div class="mb-3 topic-title">One Column</div>
+                    <form class="d-grid gap-3">
+                        <div class="floating">
+                            <input type="text" required="required">
+                            <span>Name</span>
+                        </div>
+                        <select name="dropdown" id="dropdown" class="form-select">
+                            <option value="dropdown-value">Dropdown</option>
+                            <option value="dropdown-value">Another dropdown</option>
+                            <option value="dropdown-value">One more</option>
+                        </select>
+                        <textarea class="form-control" placeholder="Multiple line" rows="5"></textarea>
+                    </form>
+                </section>
+
+                <!-- two column -->
+                <section>
+                    <div class="mb-3 topic-title">Two Column</div>
+                    <form class="d-grid gap-3">
+                        <div class="row">
+                            <article class="col">
+                                <div class="floating">
+                                    <input type="text" required="required">
+                                    <span>Name</span>
+                                </div>
+                            </article>
+                            <article class="col">
+                                <div class="floating">
+                                    <input type="text" value="johndoe" required="required">
+                                    <span>Username</span>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="row">
+                            <article class="col">
+                                <div class="floating">
+                                    <input type="password" required="required">
+                                    <span>Password</span>
+                                </div>
+                            </article>
+                            <article class="col">
+                                <select name="dropdown" id="dropdown" class="form-select">
+                                    <option value="dropdown-value">Dropdown</option>
+                                    <option value="dropdown-value">Another dropdown</option>
+                                    <option value="dropdown-value">One more</option>
+                                </select>
+                            </article>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- three column -->
+                <section>
+                    <div class="mb-3 topic-title">Three Column</div>
+                    <form>
+                        <div class="row gap-3 gap-md-0">
+                            <article class="col-12 col-md-4">
+                                <div class="floating">
+                                    <input type="text" required="required" class="border-danger" autofocus>
+                                    <span>Focus</span>
+                                </div>
+                            </article>
+                            <article class="col-12 col-md-4">
+                                <div class="floating">
+                                    <input type="password" required="required" value="123jklsadf">
+                                    <span>Password</span>
+                                </div>
+                            </article>
+                            <article class="col-12 col-md-4">
+                                <div class="floating">
+                                    <input type="text" required="required" value="Johndoe" class="border-dashed">
+                                    <span>Disabled</span>
+                                </div>
+                            </article>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- four column -->
+                <section>
+                    <div class="mb-3 topic-title">Four Column</div>
+                    <form>
+                        <div class="row gap-3 gap-md-0">
+                            <article class="col-12 col-md-3">
+                                <div class="floating">
+                                    <input type="text" value="UI Designer" required="required" class="border-danger">
+                                    <span class="text-danger">Designation</span>
+                                </div>
+                                <div class="input-label text-danger ps-1 pt-1">Enter valid data</div>
+                            </article>
+                            <article class="col-12 col-md-3">
+                                <div class="floating">
+                                    <input type="text" required="required">
+                                    <span>Name</span>
+                                </div>
+                                <div class="input-label ps-1 pt-1">Enter your full name as per ID</div>
+                            </article>
+                            <article class="col-12 col-md-3">
+                                <div class="floating">
+                                    <input type="text" value="johndoe" required="required">
+                                    <span>Username</span>
+                                </div>
+                            </article>
+                            <article class="col-12 col-md-3">
+                                <select name="dropdown" id="dropdown" class="form-select">
+                                    <option value="dropdown-value">Dropdown</option>
+                                    <option value="dropdown-value">Another dropdown</option>
+                                    <option value="dropdown-value">One more</option>
+                                </select>
+                            </article>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- other design -->
+                <section class="d-grid gap-3">
+                    <div class="topic-title">Other Design Elements</div>
+                    <section>
+                        <div class="subtopic-title mb-2">File Upload</div>
+                        <article>
+                            <button class="btn rounded-pill border-danger text-danger px-4"><img
+                                    src="./image/cloud-upload-icon.svg" class="me-2" alt="cloud icon">Upload</button>
+                            <span class="input-label ms-3">No item selected</span>
+                        </article>
+                    </section>
+
+                    <section>
+                        <div class="subtopic-title mb-2">Radio Button</div>
+                        <div class="form-check-inline">
+                            <input type="radio" id="o1" name="radio" class="form-check-input">
+                            <label for="o1" class="form-check-label">Option 1</label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input type="radio" id="o2" name="radio" class="form-check-input" checked>
+                            <label for="o2" class="form-check-label">Option 2</label>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="subtopic-title mb-2">Checkbox</div>
+                        <div class="form-check-inline">
+                            <input type="checkbox" id="c1" name="checkbox1" class="form-check-input">
+                            <label for="c1" class="form-check-label">Option 1</label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input type="checkbox" id="c2" name="checkbox2" class="form-check-input" checked>
+                            <label for="c2" class="form-check-label">Option 2</label>
+                        </div>
+                    </section>
+
+                    <section class="d-grid gap-3">
+                        <div class="subtopic-title">Snakbar</div>
+                        <div class="row gap-3 gap-md-0">
+                            <div class="col-md-6 col-12">
+                                <div class="border-danger rounded border p-2 text-danger"><img
+                                        src="./image/error-icon.svg" width="25px" alt="info icon" class="me-2">This is
+                                    an error message!</div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="border-info rounded border p-2 text-info"><img src="./image/info-icon.svg"
+                                        width="25px" alt="info icon" class="me-2">This is an information message!</div>
+                            </div>
+                        </div>
+                        <div class="row gap-3 gap-md-0">
+                            <div class="col-md-6 col-12">
+                                <div class="border-warning rounded border p-2 text-warning"><img
+                                        src="./image/warning-icon.svg" width="25px" alt="info icon" class="me-2">This is
+                                    an warning message!</div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="border-success rounded border p-2 text-success"><img
+                                        src="./image/success-icon.svg" width="25px" alt="info icon" class="me-2">This is
+                                    an success message!</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="subtopic-title mb-2">Call to Action</div>
+                        <button class="btn btn-danger rounded-pill px-4 me-3 cta">Primary</button>
+                        <button class="btn border border-danger rounded-pill text-danger px-4 cta">Secondary</button>
+                    </section>
+
+                    <section>
+                        <div class="subtopic-title">Tabs</div>
+                        <div class="d-flex tabs">
+                            <div class="tab-item active-tab tab1 p-3">Tab 1</div>
+                            <div class="tab-item tab2 p-3">Tab 2</div>
+                            <div class="tab-item tab3 p-3">Tab 3</div>
+                        </div>
+                        <div class="tab-content mt-3"></div>
+                    </section>
+                </section>
+
+            </section>
+        </section>
+    </main>
+    <!-- js scripts -->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/custome.js"></script>
+</body>
+
+</html>

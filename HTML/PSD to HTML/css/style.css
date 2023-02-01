@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap');
+
+body{
+    font-family: 'Noto Sans', sans-serif;
+}
+:root{
+    --light-orange: #F88634;
+    --dark-gray: #414141;
+    --blue: #2B64B1;
+}
+img{
+    max-width: 100%;
+}
+a{
+    text-decoration: none;
+}
+
+/* login page css */
+.font-light{
+    font-weight: 300;
+}
+.color-blue{
+    color: var(--blue);
+}
+.color-darkgray{
+    color: var(--dark-gray);
+}
+.text-14{
+    font-size: 14px;
+}
+
+.left-background-image{
+    height: 70vh;
+    padding: 50px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+    url("../image/Grow-Trees-On-the-path-to-environment-sustainability-login.png")
+    center/cover no-repeat;
+}
+
+.left-background-title{
+    font-size: 30px;
+}
+@media (min-width: 992px) {
+    .left-background-image{
+        height: 100vh;
+        width: 70vw;
+    }
+}
+@media (min-width: 768px) {
+    .left-background-title{
+        font-size: 43px;
+    }
+}
+
+@media (min-width: 992px) {
+    .right-section{
+        width: 30vw;
+    }
+}
+    
+.right-section > a:hover{
+    color: var(--blue);
+}
+form input{
+    color: var(--dark-gray) !important;
+}
+form input:focus{
+    border-color: var(--blue) !important;
+    box-shadow: none !important;
+}
+.submit-btn{
+    border: 2px solid var(--light-orange);
+    font-size: 17px;
+    color: var(--light-orange);
+}
+.submit-btn:hover{
+    color: var(--blue);
+}
+@media (min-width: 992px){
+    .privacy-policy{
+        position: fixed;
+        bottom: 10px;
+    }
+}
+
+/* forgot password page */
+.forgot-password-title{
+    font-size: 22px;
+}
