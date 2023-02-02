@@ -168,13 +168,15 @@ nav {
     }
 }
 
-li>img {
+li img {
     width: 20px;
     height: 20px;
 }
 
-.active-link {
+.active-link{
     background-color: var(--light-red);
+}
+.active-link span{
     color: var(--dark-red);
 }
 
