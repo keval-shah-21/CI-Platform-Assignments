@@ -2,13 +2,23 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h2>Index</h2>
-
-<table class="table">
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-primary">Categories</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i>&nbsp;Create New Category</a>
+        </div>
+    </div>
+</div>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Cateogry Name</th>
             <th>Display Order</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +27,12 @@
             <tr>
                 <td>@item.Name</td>
                 <td>@item.DisplayOrder</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary px-2 me-3"><i class="bi bi-pencil-square"></i>Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger px-2"><i class="bi bi-trash">Delete</i></a>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>
