@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "Login";
+}
+<main class="d-flex flex-column flex-lg-row">
+    <partial name="_HeroSectionCarousel"></partial>
+    <section class="right-section d-flex flex-column gap-3 justify-content-center align-items-center p-5 p-lg-0">
+        <form class="login-form d-grid gap-4">
+            <div>
+                <label for="email" class="font-light">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email address"
+                    value="evan.donohue@gmail.com">
+            </div>
+            <div>
+                <label for="password" class="font-light">Password</label>
+                <input type="password" class="form-control" id="password" value="1243j;ll">
+            </div>
+            <button type="submit" class="btn submit-btn w-100 rounded-pill bg-white">Login</button>
+        </form>
+        <a asp-controller="User" asp-action="ForgotPassword" class="font-light color-darkgray text-14">Lost your password?</a>
+        <div class="font-light text-14 color-darkgray">Don't have an account? <a asp-controller="User" asp-action="Registration"
+                class="color-blue">Create new account</a></div>
+        <a href="#" class="font-light color-darkgray privacy-policy text-14">Privacy Policy</a>
+    </section>
+</main>

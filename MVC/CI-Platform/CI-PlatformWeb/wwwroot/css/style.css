@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap');
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+}
+
+:root {
+    --light-orange: #F88634;
+    --dark-gray: #414141;
+    --blue: #2B64B1;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+.font-light {
+    font-weight: 300;
+}
+
+.color-blue {
+    color: var(--blue);
+}
+
+.color-darkgray {
+    color: var(--dark-gray);
+}
+
+.text-14 {
+    font-size: 14px;
+}
+
+
+/* login page css */
+.carousel{
+    height: 70vh;
+}
+.carousel-item{
+    height: 100%;
+}
+
+.carousel-caption{
+    text-align: left;
+    left: 0;
+    padding: 2rem;
+    padding-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .carousel-caption > h5 {
+        font-size: 43px;
+    }
+    .carousel-overlay{
+        position: absolute;
+        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+        inset: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .carousel{
+        height: 100vh;
+        width: 70vw;
+    }
+    .right-section {
+        width: 30vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    .carousel-caption > h5 {
+        width: 80%;
+    }
+}
+
+.right-section>a:hover {
+    color: var(--blue);
+}
+form input {
+    color: var(--dark-gray) !important;
+}
+form input:focus {
+    border-color: var(--blue) !important;
+    box-shadow: none !important;
+}
+
+.submit-btn {
+    border: 2px solid var(--light-orange);
+    font-size: 17px;
+    color: var(--light-orange);
+}
+
+.submit-btn:hover {
+    color: var(--blue);
+}
+
+@media (min-width: 992px) {
+    .privacy-policy {
+        position: fixed;
+        bottom: 10px;
+    }
+}
+
+/* forgot password page */
+.forgot-password-title {
+    font-size: 22px;
+}
