@@ -11,14 +11,13 @@ body {
 }
 
 img {
+    display: block;
     max-width: 100%;
 }
 
 a {
     text-decoration: none;
 }
-
-/* login page css */
 .font-light {
     font-weight: 300;
 }
@@ -35,25 +34,35 @@ a {
     font-size: 14px;
 }
 
-.hero-image {
+
+/* login page css */
+.carousel{
     height: 70vh;
-    padding: 50px;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)),
-        url("../image/Grow-Trees-On-the-path-to-environment-sustainability-login.png") center/cover no-repeat;
+}
+.carousel-item{
+    height: 100%;
 }
 
-.hero-title {
-    font-size: 30px;
+.carousel-caption{
+    text-align: left;
+    left: 0;
+    padding: 2rem;
+    padding-bottom: 1rem;
 }
 
 @media (min-width: 768px) {
-    .hero-title {
+    .carousel-caption > h5 {
         font-size: 43px;
+    }
+    .carousel-overlay{
+        position: absolute;
+        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+        inset: 0;
     }
 }
 
 @media (min-width: 992px) {
-    .hero-image {
+    .carousel{
         height: 100vh;
         width: 70vw;
     }
@@ -63,7 +72,7 @@ a {
 }
 
 @media (min-width: 1200px) {
-    .hero-title {
+    .carousel-caption > h5 {
         width: 80%;
     }
 }
