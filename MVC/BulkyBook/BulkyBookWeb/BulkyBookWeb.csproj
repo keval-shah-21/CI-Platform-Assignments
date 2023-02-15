@@ -10,4 +10,8 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="6.0.0-preview.4.21253.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BulkyBook.Repository\BulkyBook.Repository.csproj" />
+    <ProjectReference Include="..\BulkyBook.Models\BulkyBook.Models.csproj" />
+  </ItemGroup>
 </Project>

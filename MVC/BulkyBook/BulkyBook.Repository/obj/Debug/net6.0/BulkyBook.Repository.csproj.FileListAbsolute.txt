@@ -1,0 +1,17 @@
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\BulkyBook.Repository.csproj.AssemblyReference.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\BulkyBook.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\BulkyBook.Repository.AssemblyInfoInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\BulkyBook.Repository.AssemblyInfo.cs
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\BulkyBook.Repository.csproj.CoreCompileInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\bin\Debug\net6.0\BulkyBook.Repository.deps.json
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\bin\Debug\net6.0\BulkyBook.Repository.runtimeconfig.json
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\bin\Debug\net6.0\BulkyBook.Repository.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\bin\Debug\net6.0\BulkyBook.Repository.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\bin\Debug\net6.0\BulkyBook.Models.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\bin\Debug\net6.0\BulkyBook.Models.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\BulkyBook.Repository.csproj.CopyComplete
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\BulkyBook.Repository.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\refint\BulkyBook.Repository.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\BulkyBook.Repository.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\BulkyBook.Repository.genruntimeconfig.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBook.Repository\obj\Debug\net6.0\ref\BulkyBook.Repository.dll

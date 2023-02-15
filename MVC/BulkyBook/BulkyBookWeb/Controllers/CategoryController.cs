@@ -1,7 +1,6 @@
-using BulkyBookWeb.Data;
-using BulkyBookWeb.Models;
+using BulkyBook.Repository;
+using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace BulkyBookWeb.Controllers;
 public class CategoryController: Controller

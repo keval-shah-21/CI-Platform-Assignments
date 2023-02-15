@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "QDOr8B9NdveBu30Udp3Xs2ZmKKNH4fWNEJLcrRKOV/QF7N/RTiKBp4EodgfXSLMKZ0cueCOf3RYG+MnFSUyTLA==",
+  "success": true,
+  "projectFilePath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\keval\\.nuget\\packages\\system.componentmodel.annotations\\6.0.0-preview.4.21253.7\\system.componentmodel.annotations.6.0.0-preview.4.21253.7.nupkg.sha512"
+  ],
+  "logs": []
+}

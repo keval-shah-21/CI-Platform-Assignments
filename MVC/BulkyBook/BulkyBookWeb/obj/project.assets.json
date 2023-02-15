@@ -1168,6 +1168,35 @@
             "rid": "win"
           }
         }
+      },
+      "BulkyBook.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "System.ComponentModel.Annotations": "6.0.0-preview.4.21253.7"
+        },
+        "compile": {
+          "bin/placeholder/BulkyBook.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BulkyBook.Models.dll": {}
+        }
+      },
+      "BulkyBook.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BulkyBook.Models": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "7.0.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.2",
+          "Microsoft.EntityFrameworkCore.Tools": "7.0.2"
+        },
+        "compile": {
+          "bin/placeholder/BulkyBook.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BulkyBook.Repository.dll": {}
+        }
       }
     }
   },
@@ -3601,10 +3630,22 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "BulkyBook.Models/1.0.0": {
+      "type": "project",
+      "path": "../BulkyBook.Models/BulkyBook.Models.csproj",
+      "msbuildProject": "../BulkyBook.Models/BulkyBook.Models.csproj"
+    },
+    "BulkyBook.Repository/1.0.0": {
+      "type": "project",
+      "path": "../BulkyBook.Repository/BulkyBook.Repository.csproj",
+      "msbuildProject": "../BulkyBook.Repository/BulkyBook.Repository.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BulkyBook.Models >= 1.0.0",
+      "BulkyBook.Repository >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 7.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.2",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.2",
@@ -3635,7 +3676,14 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj": {
+              "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj"
+            },
+            "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Repository\\BulkyBook.Repository.csproj": {
+              "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Repository\\BulkyBook.Repository.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

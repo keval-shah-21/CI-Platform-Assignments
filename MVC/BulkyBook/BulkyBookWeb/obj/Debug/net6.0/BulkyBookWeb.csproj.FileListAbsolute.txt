@@ -106,3 +106,7 @@ D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBookWeb\bin\Debug\net6.0
 D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\System.Text.Json.dll
 D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.Models.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.Repository.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.Repository.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.Models.pdb
