@@ -18,6 +18,10 @@ img {
 a {
     text-decoration: none;
 }
+a:hover {
+    color: var(--blue);
+    font-weight: 400;
+}
 .font-light {
     font-weight: 300;
 }
@@ -33,14 +37,27 @@ a {
 .text-14 {
     font-size: 14px;
 }
+form input {
+    color: var(--dark-gray) !important;
+}
+form input:focus {
+    border-color: var(--blue) !important;
+    box-shadow: none !important;
+}
 
+.button {
+    border: 2px solid var(--light-orange);
+    font-size: 17px;
+    color: var(--light-orange);
+}
+
+.button:hover {
+    color: var(--blue);
+}
 
 /* login page css */
 .carousel{
     height: 70vh;
-}
-.carousel-item{
-    height: 100%;
 }
 
 .carousel-caption{
@@ -77,27 +94,6 @@ a {
     }
 }
 
-.right-section>a:hover {
-    color: var(--blue);
-}
-form input {
-    color: var(--dark-gray) !important;
-}
-form input:focus {
-    border-color: var(--blue) !important;
-    box-shadow: none !important;
-}
-
-.submit-btn {
-    border: 2px solid var(--light-orange);
-    font-size: 17px;
-    color: var(--light-orange);
-}
-
-.submit-btn:hover {
-    color: var(--blue);
-}
-
 @media (min-width: 992px) {
     .privacy-policy {
         position: fixed;
@@ -108,4 +104,18 @@ form input:focus {
 /* forgot password page */
 .forgot-password-title {
     font-size: 22px;
+}
+
+/* index page */
+.dropdown-toggle::after{
+    display: none;
+}
+
+.profile-picture{
+    width: 40px;
+    height: 40px;
+}
+
+.filter{
+    width: 9rem;
 }

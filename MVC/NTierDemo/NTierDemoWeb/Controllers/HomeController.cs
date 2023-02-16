@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NTierDemoWeb.Models;
 using NTierDemoEntity.ViewModels;
 using NTierDemoRepository.Interface;
+using System.ComponentModel.DataAnnotations;
 
 namespace NTierDemoWeb.Controllers;
 
@@ -32,14 +33,31 @@ public class HomeController : Controller
     }
 
     [Route("home/create-employee", Name="CreateEmployee")]
-    public IActionResult Create(){
+    public IActionResult CreateEmployee(){
         return View();
     }
 
+    [HttpPost]
     [Route("home/create-employee", Name="CreateEmployee")]
-    public async Task<IActionResult> Create(EmployeeModel model){
+    public async Task<IActionResult> CreateEmployee(EmployeeModel model){
         if(ModelState.IsValid){
             await _employeeRepository.AddEmployeeAsync(model);
+            return RedirectToAction("Index");
+        }
+        ViewData["ModelState"] = "Model state invalid";
+        return View(model);
+    }
+
+    [Route("home/edit-employee", Name="EditEmployee")]
+    public IActionResult EditEmployee(int? Id){
+        return View();
+    }
+
+    [HttpPost]
+    [Route("home/edit-employee", Name="EditEmployee")]
+    public async Task<IActionResult> EditEmployee(EmployeeModel model){
+        if(ModelState.IsValid){
+            await _employeeRepository.EditEmployeeAsync(model);
             return RedirectToAction("EmployeeList");
         }
         ViewData["ModelState"] = "Model state invalid";

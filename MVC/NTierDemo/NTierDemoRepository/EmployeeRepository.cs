@@ -32,4 +32,19 @@ public class EmployeeRepository: IEmployeeRepository
          await _context.SaveChangesAsync();
         return employee.Id;
     }
+
+    public async Task<int> EditEmployeeAsync(EmployeeModel model){
+        Employee employee = new Employee(){
+            Id = model.Id,
+            FirstName = model.FirstName,
+            Role = model.Role,
+        };
+         _context.Employees.Update(employee);
+         await _context.SaveChangesAsync();
+        return employee.Id;
+    }
+
+    // public async Task<EmployeeModel> GetEmployeeById(int Id){
+    //     return await _context.Employees.Find(Id);
+    // }
 }
