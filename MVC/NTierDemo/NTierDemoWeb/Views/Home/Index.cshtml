@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h3 class="mt-5">List of Employees</h3>
+<partial name="_Partial_EmployeeGrid" model="Model" />
+
+<script>
+    //data table initiate
+    $(document).ready(function () {
+        $('#employeeTable').DataTable();
+    });
+</script>

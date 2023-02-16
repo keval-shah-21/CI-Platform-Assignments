@@ -1,0 +1,15 @@
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\NTierDemoRepository.csproj.AssemblyReference.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\NTierDemoRepository.GeneratedMSBuildEditorConfig.editorconfig
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\NTierDemoRepository.AssemblyInfoInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\NTierDemoRepository.AssemblyInfo.cs
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\NTierDemoRepository.csproj.CoreCompileInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\bin\Debug\net6.0\NTierDemoRepository.deps.json
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\bin\Debug\net6.0\NTierDemoRepository.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\bin\Debug\net6.0\NTierDemoRepository.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\bin\Debug\net6.0\NTierDemoEntity.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\bin\Debug\net6.0\NTierDemoEntity.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\NTierDemoRepository.csproj.CopyComplete
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\NTierDemoRepository.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\refint\NTierDemoRepository.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\NTierDemoRepository.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemoRepository\obj\Debug\net6.0\ref\NTierDemoRepository.dll

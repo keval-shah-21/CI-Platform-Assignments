@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierDemoEntity", "NTierDemoEntity\NTierDemoEntity.csproj", "{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierDemoRepository", "NTierDemoRepository\NTierDemoRepository.csproj", "{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierDemoWeb", "NTierDemoWeb\NTierDemoWeb.csproj", "{DF60D211-4618-4535-BC13-BF9BEC21C301}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF60D211-4618-4535-BC13-BF9BEC21C301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF60D211-4618-4535-BC13-BF9BEC21C301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF60D211-4618-4535-BC13-BF9BEC21C301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF60D211-4618-4535-BC13-BF9BEC21C301}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
