@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierDemoEntity", "NTierDemoEntity\NTierDemoEntity.csproj", "{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierDemo.Models", "NTierDemo.Models\NTierDemo.Models.csproj", "{BB232A16-A6F3-4F12-8F43-E2F7351A7B67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierDemoRepository", "NTierDemoRepository\NTierDemoRepository.csproj", "{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierDemo.Repositories", "NTierDemo.Repositories\NTierDemo.Repositories.csproj", "{3C96DF78-1A6F-4980-900F-9B9A8AF3AC32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierDemoWeb", "NTierDemoWeb\NTierDemoWeb.csproj", "{DF60D211-4618-4535-BC13-BF9BEC21C301}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierDemoWeb", "NTierDemoWeb\NTierDemoWeb.csproj", "{CC52FBC0-6655-4228-A05F-A3410147FAF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,17 +18,17 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C9BFAAC-42B9-4428-BFB6-B4DE387D0385}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBDEA0D4-07E7-45E5-972B-3CFDDB71F5B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF60D211-4618-4535-BC13-BF9BEC21C301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF60D211-4618-4535-BC13-BF9BEC21C301}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF60D211-4618-4535-BC13-BF9BEC21C301}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF60D211-4618-4535-BC13-BF9BEC21C301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB232A16-A6F3-4F12-8F43-E2F7351A7B67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB232A16-A6F3-4F12-8F43-E2F7351A7B67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB232A16-A6F3-4F12-8F43-E2F7351A7B67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB232A16-A6F3-4F12-8F43-E2F7351A7B67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C96DF78-1A6F-4980-900F-9B9A8AF3AC32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C96DF78-1A6F-4980-900F-9B9A8AF3AC32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C96DF78-1A6F-4980-900F-9B9A8AF3AC32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C96DF78-1A6F-4980-900F-9B9A8AF3AC32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC52FBC0-6655-4228-A05F-A3410147FAF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC52FBC0-6655-4228-A05F-A3410147FAF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC52FBC0-6655-4228-A05F-A3410147FAF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC52FBC0-6655-4228-A05F-A3410147FAF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

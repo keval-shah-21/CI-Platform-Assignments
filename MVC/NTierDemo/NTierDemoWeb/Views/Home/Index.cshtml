@@ -1,10 +1,11 @@
-﻿@{
+﻿@model IEnumerable<NTierDemo.Models.ViewModels.EmployeeModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="d-flex justify-content-between mt-2">
-    <h3 class="">List of Employees</h3>
-    <a asp-controller="Home" asp-action="CreateEmployee" class="btn btn-primary p-2">Create New Employee</a>
+<div class="d-flex justify-content-between align-items-center">
+<h3 class="mt-5">List of Employees</h3>
+<a asp-controller="Home" asp-action="CreateEmployee" class="btn btn-primary p-2">Add New Employee</a>
 </div>
 <partial name="_Partial_EmployeeGrid" model="Model" />
 

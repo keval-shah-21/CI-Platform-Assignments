@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <ItemGroup>
-    <ProjectReference Include="..\NTierDemoEntity\NTierDemoEntity.csproj" />
-    <ProjectReference Include="..\NTierDemoRepository\NTierDemoRepository.csproj" />
-  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NTierDemo.Models\NTierDemo.Models.csproj" />
+    <ProjectReference Include="..\NTierDemo.Repositories\NTierDemo.Repositories.csproj" />
+  </ItemGroup>
 </Project>

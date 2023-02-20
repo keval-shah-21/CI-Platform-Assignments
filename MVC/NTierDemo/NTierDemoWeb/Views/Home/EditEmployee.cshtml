@@ -1,12 +1,13 @@
-@model NTierDemoEntity.ViewModels.EmployeeModel;
+@model NTierDemo.Models.ViewModels.EmployeeModel;
 
 @{
     ViewData["Title"] = "Edit Employee";
     var modelStateMessage = ViewData["ModelState"];
 }
 
-<form asp-route="EditEmployee" method="post">
-    <div class="form-group">        
+<form asp-route="EditEmployeePost" method="post">
+    <input hidden asp-for="Id">
+    <div class="form-group">     
         <label asp-for="FirstName"></label>
         <input type="text" asp-for="FirstName" class="form-control" />
         <span asp-validation-for="FirstName" class="text-danger"></span>

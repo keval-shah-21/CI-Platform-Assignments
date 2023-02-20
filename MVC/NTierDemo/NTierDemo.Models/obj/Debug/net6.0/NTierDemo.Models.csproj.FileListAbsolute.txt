@@ -1,0 +1,14 @@
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\bin\Debug\net6.0\NTierDemo.Models.deps.json
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\bin\Debug\net6.0\NTierDemo.Models.runtimeconfig.json
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\bin\Debug\net6.0\NTierDemo.Models.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\bin\Debug\net6.0\NTierDemo.Models.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\NTierDemo.Models.csproj.AssemblyReference.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\NTierDemo.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\NTierDemo.Models.AssemblyInfoInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\NTierDemo.Models.AssemblyInfo.cs
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\NTierDemo.Models.csproj.CoreCompileInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\NTierDemo.Models.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\refint\NTierDemo.Models.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\NTierDemo.Models.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\NTierDemo.Models.genruntimeconfig.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\NTierDemo\NTierDemo.Models\obj\Debug\net6.0\ref\NTierDemo.Models.dll

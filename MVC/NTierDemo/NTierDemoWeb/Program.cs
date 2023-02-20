@@ -1,12 +1,14 @@
-using NTierDemoRepository;
-using NTierDemoRepository.Interface;
-using NTierDemoEntity.DataModels;
+using NTierDemo.Models.DataModels;
+using NTierDemo.Repositories.Interface;
+using NTierDemo.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<EmployeeDbContext>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<EmployeeDbContext>();
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

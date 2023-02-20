@@ -4,14 +4,14 @@
     "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoWeb\\NTierDemoWeb.csproj": {}
   },
   "projects": {
-    "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoEntity\\NTierDemoEntity.csproj": {
+    "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Models\\NTierDemo.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoEntity\\NTierDemoEntity.csproj",
-        "projectName": "NTierDemoEntity",
-        "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoEntity\\NTierDemoEntity.csproj",
+        "projectUniqueName": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Models\\NTierDemo.Models.csproj",
+        "projectName": "NTierDemo.Models",
+        "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Models\\NTierDemo.Models.csproj",
         "packagesPath": "C:\\Users\\keval\\.nuget\\packages\\",
-        "outputPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoEntity\\obj\\",
+        "outputPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\keval\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -54,10 +54,6 @@
               "target": "Package",
               "version": "[7.0.3, )"
             },
-            "Microsoft.EntityFrameworkCore.Tools.DotNet": {
-              "target": "Package",
-              "version": "[2.1.0-preview1-final, )"
-            },
             "System.ComponentModel.Annotations": {
               "target": "Package",
               "version": "[6.0.0-preview.4.21253.7, )"
@@ -83,14 +79,14 @@
         }
       }
     },
-    "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoRepository\\NTierDemoRepository.csproj": {
+    "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Repositories\\NTierDemo.Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoRepository\\NTierDemoRepository.csproj",
-        "projectName": "NTierDemoRepository",
-        "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoRepository\\NTierDemoRepository.csproj",
+        "projectUniqueName": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Repositories\\NTierDemo.Repositories.csproj",
+        "projectName": "NTierDemo.Repositories",
+        "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Repositories\\NTierDemo.Repositories.csproj",
         "packagesPath": "C:\\Users\\keval\\.nuget\\packages\\",
-        "outputPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoRepository\\obj\\",
+        "outputPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Repositories\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\keval\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -105,8 +101,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoEntity\\NTierDemoEntity.csproj": {
-                "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoEntity\\NTierDemoEntity.csproj"
+              "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Models\\NTierDemo.Models.csproj": {
+                "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Models\\NTierDemo.Models.csproj"
               }
             }
           }
@@ -168,11 +164,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoEntity\\NTierDemoEntity.csproj": {
-                "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoEntity\\NTierDemoEntity.csproj"
+              "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Models\\NTierDemo.Models.csproj": {
+                "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Models\\NTierDemo.Models.csproj"
               },
-              "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoRepository\\NTierDemoRepository.csproj": {
-                "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemoRepository\\NTierDemoRepository.csproj"
+              "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Repositories\\NTierDemo.Repositories.csproj": {
+                "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\NTierDemo\\NTierDemo.Repositories\\NTierDemo.Repositories.csproj"
               }
             }
           }
