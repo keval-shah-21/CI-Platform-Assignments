@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar sticky-top bg-white py-1 border-2 border-bottom">
+      <div class="container">
+        <div class="d-flex gap-5 align-items-center fw-light">
+          <a href="#">
+            <img src="./image/logo.png" alt="logo" class="navbar-brand" />
+          </a>
+          <a href="#" class="color-darkgray">Stories</a>
+          <div class="dropdown d-none d-md-block">
+            <button
+              class="btn color-darkgray dropdown-toggle fw-light"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Policy
+              <img
+                src="./image/drop-down.png"
+                alt="drop-down"
+                class="d-inline ms-2"
+              />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="dropdown">
+            <button
+              class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="./image/user-img.png"
+                alt="profile"
+                class="rounded-circle profile-picture"
+              />
+              <span class="d-none d-md-inline">Evan Donohue</span>
+              <img src="./image/drop-down.png" alt="drop-down" />
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section class="container py-4">
+      <h3 class="color-darkgray fw-light mb-4">Share your Story</h3>
+      <form class="d-flex flex-column gap-3 color-darkgray">
+        <div class="row row-cols-1 row-cols-md-3">
+          <div class="col">
+            <span> Select Mission </span>
+            <select class="form-select" id="storyMission">
+              <option disabled selected>Select your mission</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+          <div class="col">
+            <span> My Story Title </span>
+            <input
+              type="text"
+              class="form-control"
+              id="storyTitle"
+              placeholder="Enter story title"
+            />
+          </div>
+          <div class="col">
+            <span> Date </span>
+            <input type="date" class="form-control color-darkgray" id="storyDate"/>
+          </div>
+        </div>
+        <div>
+            <label for="storyURL">Enter Video URL</label>   
+            <input type="text" placeholder="Enter your URL" class="form-control" id="storyURL">
+        </div>
+        <div>
+            <label for="">Upload your Photos</label>
+            <div class="d-flex align-items-center justify-content-center p-3 border">
+                <img src="./image/drag-and-drop.png" alt="drag-and-drop">
+            </div>
+        </div>
+        <div class="d-flex gap-3 flex-wrap">
+            <div class="position-relative">
+                <img src="./image/Grow-Trees-On-the-path-to-environment-sustainability-1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/image.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/img1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/img11.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/Animal-welfare-&-save-birds-campaign-1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/Plantation-and-Afforestation-programme-1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/Grow-Trees-On-the-path-to-environment-sustainability-1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/image.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/img1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/img11.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/Animal-welfare-&-save-birds-campaign-1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+            <div class="position-relative">
+                <img src="./image/Plantation-and-Afforestation-programme-1.png" alt="story image"  height="80px" width="80px">
+                <div class="position-absolute top-0 end-0 p-1 bg-dark">
+                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-3">
+            <button class="btn border border-secondary rounded-pill color-darkgray">
+                Cancel
+            </button>
+            <div>
+                <button class="btn button">Save</button>
+                <button class="btn button">Submit</button>
+            </div>
+        </div>
+      </form>
+    </section>
+    <footer class="border-top">
+        <div class="container py-4 fw-light">
+            <a href="#" class="color-darkgray">Privacy Policy</a>
+        </div>
+    </footer>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

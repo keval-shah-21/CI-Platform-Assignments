@@ -1,344 +1,356 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap");
 
 body {
-    font-family: 'Noto Sans', sans-serif;
-    scroll-behavior: smooth !important;
+  font-family: "Noto Sans", sans-serif;
 }
 
 :root {
-    --light-orange: #F88634;
-    --dark-gray: #414141;
-    --blue: #2B64B1;
-    --transition: all 0.3s ease-out;
+  --light-orange: #f88634;
+  --dark-gray: #414141;
+  --blue: #2b64b1;
+  --transition: all 0.3s ease-out;
 }
 
 img {
-    display: block;
-    max-width: 100%;
+  display: block;
+  max-width: 100%;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:hover {
-    color: var(--blue);
-    font-weight: 400;
+  color: var(--blue);
+  font-weight: 400;
 }
 
 .flex-basis-100 {
-    flex-basis: 100%;
+  flex-basis: 100%;
 }
 
 .color-blue {
-    color: var(--blue);
+  color: var(--blue);
 }
 
 .color-darkgray {
-    color: var(--dark-gray);
+  color: var(--dark-gray);
 }
 
 .cursor-pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .text-15 {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .text-14 {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .text-13 {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .top-10 {
-    top: 10px;
+  top: 10px;
 }
 
 .width-max-conatent {
-    width: max-content;
+  width: max-content;
 }
 
 form input {
-    color: var(--dark-gray) !important;
+  color: var(--dark-gray) !important;
 }
 
 .mb-n2 {
-    margin-bottom: -2rem;
+  margin-bottom: -2rem;
 }
 
 .mt-n2 {
-    margin-top: -2rem;
+  margin-top: -2rem;
 }
 
 .mt-n1 {
-    margin-top: -1rem;
+  margin-top: -1rem;
 }
 
 .-translate-middle-y {
-    transform: translateY(50%);
+  transform: translateY(50%);
 }
 
 .bg-light-orange {
-    background-color: var(--light-orange);
+  background-color: var(--light-orange);
 }
 
 .row-gap-1 {
-    row-gap: 1rem;
+  row-gap: 1rem;
 }
 
 .row-gap-05 {
-    row-gap: .5rem;
+  row-gap: 0.5rem;
 }
 
 .grid-cols-3 {
-    grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 form input:focus {
-    border-color: var(--blue) !important;
-    box-shadow: none !important;
+  border-color: var(--blue) !important;
+  box-shadow: none !important;
 }
 
 .button {
-    border: 2px solid var(--light-orange);
-    font-size: 17px;
-    border-radius: 50rem;
-    color: var(--light-orange);
+  border: 2px solid var(--light-orange);
+  font-size: 17px;
+  border-radius: 50rem;
+  color: var(--light-orange);
 }
 
 .button:hover {
-    color: var(--blue);
+  color: var(--blue);
+  transition: var(--transition);
 }
 
 /* login page css */
 .carousel {
-    height: 70vh;
+  height: 70vh;
 }
 
 .carousel-caption {
-    text-align: left;
-    left: 0;
-    padding: 2rem;
-    padding-bottom: 1rem;
+  text-align: left;
+  left: 0;
+  padding: 2rem;
+  padding-bottom: 1rem;
 }
 
 @media (min-width: 768px) {
-    .carousel-caption>h5 {
-        font-size: 43px;
-    }
+  .carousel-caption > h5 {
+    font-size: 43px;
+  }
 
-    .carousel-overlay {
-        position: absolute;
-        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
-        inset: 0;
-    }
+  .carousel-overlay {
+    position: absolute;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+    inset: 0;
+  }
 }
 
 @media (min-width: 992px) {
-    .carousel {
-        height: 100vh;
-        width: 70vw;
-    }
+  .carousel {
+    height: 100vh;
+    width: 70vw;
+  }
 
-    .right-section {
-        width: 30vw;
-    }
+  .right-section {
+    width: 30vw;
+  }
 }
 
 @media (min-width: 1200px) {
-    .carousel-caption>h5 {
-        width: 80%;
-    }
+  .carousel-caption > h5 {
+    width: 80%;
+  }
 }
 
 @media (min-width: 992px) {
-    .privacy-policy {
-        position: fixed;
-        bottom: 10px;
-    }
+  .privacy-policy {
+    position: fixed;
+    bottom: 10px;
+  }
 }
 
 /* forgot password page */
 .forgot-password-title {
-    font-size: 22px;
+  font-size: 22px;
 }
 
 /* index page */
 .index-body {
-    grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
 }
 
 .dropdown-toggle::after {
-    display: none;
+  display: none;
 }
 
 .profile-picture {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 .index-header-section {
-    position: relative;
-    z-index: 100;
+  position: relative;
+  z-index: 100;
 }
 
 .filter-menu {
-    position: fixed;
-    transform: translateY(-300%);
+  position: fixed;
+  transform: translateY(-300%);
 }
 
 .show-filter-menu {
-    position: static;
-    transform: translateY(0);
-    transition: var(--transition);
+  position: static;
+  transform: translateY(0);
+  transition: var(--transition);
 }
 
 @media (min-width: 768px) {
-    .filter-menu {
-        position: static;
-        transform: translateY(0);
-    }
+  .filter-menu {
+    position: static;
+    transform: translateY(0);
+  }
 
-    .filter-item {
-        max-width: 10rem;
-    }
+  .filter-item {
+    max-width: 10rem;
+  }
 }
 
 #Search {
-    border: none;
+  border: none;
 }
 
 .index-top-title {
-    font-size: 23px;
+  font-size: 23px;
 }
 
-@media(min-width:768px) {
-    .index-top-title {
-        font-size: 28px;
-    }
+@media (min-width: 768px) {
+  .index-top-title {
+    font-size: 28px;
+  }
 }
 
 .active-index-view {
-    background-color: rgb(240, 240, 240);
+  background-color: rgb(240, 240, 240);
 }
 
 .ellipsis-2 {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .ellipsis-7 {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
 }
 
 .card-top {
-    height: 220px;
+  height: 220px;
 }
 
 .card-left {
-    min-height: 160px;
+  min-height: 160px;
 }
 
 .index-grid-view .col {
-    max-width: 440px !important;
-    margin-inline: auto;
+  max-width: 440px !important;
+  margin-inline: auto;
 }
 
 .index-wishlist {
-    bottom: 50px;
-    right: 15px;
-    background-color: rgba(0, 0, 0, 0.4);
+  bottom: 50px;
+  right: 15px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .index-invite {
-    bottom: 10px;
-    right: 15px;
-    background-color: rgba(0, 0, 0, 0.4);
+  bottom: 10px;
+  right: 15px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .index-city {
-    right: 15px;
-    top: 15px;
-    background-color: rgba(0, 0, 0, 0.4);
+  right: 15px;
+  top: 15px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-@media(max-width:767px) {
-    .index-list-view {
-        display: none !important;
-    }
+@media (max-width: 767px) {
+  .index-list-view {
+    display: none !important;
+  }
 
-    .index-grid-view {
-        display: flex !important;
-    }
+  .index-grid-view {
+    display: flex !important;
+  }
 }
 
 .active-page-btn {
-    background-color: var(--light-orange);
-    border-color: transparent !important;
+  background-color: var(--light-orange);
+  border-color: transparent !important;
 }
 
 /* mission page */
-.mp-top>div {
-    flex-basis: 100%;
+.mp-top > div {
+  flex-basis: 100%;
 }
 
-.mp-small-images>img {
-    height: 120px;
-    width: 175px;
+.mp-small-images > img {
+  height: 120px;
+  width: 175px;
 }
 
 .mp-small-images::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .mp-small-images {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .mp-small-images div {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55));
+  background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55));
 }
 
 .mp-tab1,
 .mp-tab2,
 .mp-tab3 {
-    color: #757575;
+  color: #757575;
 }
 
 .mp-tab1:focus,
 .mp-tab2:focus,
 .mp-tab3:focus {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .mp-tab-active {
-    border-bottom: 2px solid var(--dark-gray);
-    color: var(--dark-gray);
+  border-bottom: 2px solid var(--dark-gray);
+  color: var(--dark-gray);
 }
 
 .mp-comments-section {
-    max-height: 350px;
+  max-height: 25rem;
 }
-
 
 /* story list page */
 .sl-top {
-    background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url(../image/Grow-Trees-On-the-path-to-environment-sustainability-login.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center 25%;
-    height: 300px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 40%;
+  height: 18rem;
+}
+.sl-story-overlay{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+    inset: 0;
+}
+@media(min-width:768px){
+    .sl-top>div{width: 75%;}
+}
+@media(min-width:992px){
+    .sl-top>div{width: 50%;}
+    .sl-card:hover .sl-story-overlay{
+        display: flex !important;
+    }
 }

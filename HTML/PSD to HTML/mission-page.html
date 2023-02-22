@@ -195,7 +195,7 @@
     </section>
 
     <div class="container mt-3">
-        <section class="row gap-5">
+        <section class="row gy-5 gx-lg-5">
             <div class="col-12 col-lg-7">
                 <div class="mb-3 border-bottom">
                     <button class="btn mp-tab1 rounded-0 p-2 p-md-3 mp-tab-active">Mission</button>
@@ -651,8 +651,8 @@
         const leftScroll = document.querySelector(".mp-left-scroll");
         const rightScroll = document.querySelector(".mp-right-scroll");
         const smallImages = document.querySelector(".mp-small-images");
-        rightScroll.addEventListener("click", () => { smallImages.scrollTo(smallImages.scrollLeft + smallImages.offsetWidth -10, 0); })
-        leftScroll.addEventListener("click", () => { smallImages.scrollTo(smallImages.scrollLeft - smallImages.offsetWidth + 10, 0); })
+        rightScroll.addEventListener("click", () => { smallImages.scrollTo(smallImages.scrollLeft + smallImages.offsetWidth, 0); })
+        leftScroll.addEventListener("click", () => { smallImages.scrollTo(smallImages.scrollLeft - smallImages.offsetWidth, 0); })
 
         const Tab1 = document.querySelector(".mp-tab1");
         const Tab2 = document.querySelector(".mp-tab2");
