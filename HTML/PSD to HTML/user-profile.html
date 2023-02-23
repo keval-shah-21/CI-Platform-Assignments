@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar sticky-top bg-white py-1 border-2 border-bottom">
+      <div class="container">
+        <div class="d-flex gap-5 align-items-center fw-light">
+          <a href="#">
+            <img src="./image/logo.png" alt="logo" class="navbar-brand" />
+          </a>
+          <a href="#" class="color-darkgray">Stories</a>
+          <div class="dropdown d-none d-md-block">
+            <button
+              class="btn color-darkgray dropdown-toggle fw-light"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Policy
+              <img
+                src="./image/drop-down.png"
+                alt="drop-down"
+                class="d-inline ms-2"
+              />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="dropdown">
+            <button
+              class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="./image/user-img.png"
+                alt="profile"
+                class="rounded-circle"
+                width="40px"
+                height="40px"
+              />
+              <span class="d-none d-md-inline">Evan Donohue</span>
+              <img src="./image/drop-down.png" alt="drop-down" />
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <footer class="border-top">
+      <div class="container py-4 fw-light">
+        <a href="#" class="color-darkgray">Privacy Policy</a>
+      </div>
+    </footer>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

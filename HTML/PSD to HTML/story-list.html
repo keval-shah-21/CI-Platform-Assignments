@@ -9,194 +9,65 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <header class="border-bottom border-2 bg-white">
-      <nav class="navbar sticky-top bg-white py-1 border-2 border-bottom">
-        <div class="container">
-          <div class="d-flex gap-5 align-items-center fw-light">
-            <a href="#">
-              <img src="./image/logo.png" alt="logo" class="navbar-brand" />
-            </a>
-            <a href="#" class="color-darkgray">Stories</a>
-            <div class="dropdown d-none d-md-block">
-              <button
-                class="btn color-darkgray dropdown-toggle fw-light"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Policy
-                <img
-                  src="./image/drop-down.png"
-                  alt="drop-down"
-                  class="d-inline ms-2"
-                />
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <div class="dropdown">
-              <button
-                class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img
-                  src="./image/user-img.png"
-                  alt="profile"
-                  class="rounded-circle profile-picture"
-                />
-                <span class="d-none d-md-inline">Evan Donohue</span>
-                <img src="./image/drop-down.png" alt="drop-down" />
-              </button>
-              <ul
-                class="dropdown-menu dropdown-menu-end dropdown-menu-md-start"
-              >
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </div>
+    <nav class="navbar sticky-top bg-white py-1 border-2 border-bottom">
+      <div class="container">
+        <div class="d-flex gap-5 align-items-center fw-light">
+          <a href="#">
+            <img src="./image/logo.png" alt="logo" class="navbar-brand" />
+          </a>
+          <a href="#" class="color-darkgray">Stories</a>
+          <div class="dropdown d-none d-md-block">
+            <button
+              class="btn color-darkgray dropdown-toggle fw-light"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Policy
+              <img
+                src="./image/drop-down.png"
+                alt="drop-down"
+                class="d-inline ms-2"
+              />
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </li>
+            </ul>
           </div>
         </div>
-      </nav>
-      <section
-        class="container d-flex flex-column flex-md-row justify-content-md-between"
-      >
-        <div
-          class="d-flex justify-content-between index-header-section bg-white py-2"
-        >
-          <div class="d-flex">
-            <img
-              src="./image/search.png"
-              alt="search"
-              class="h-50 my-auto me-2"
-            />
-            <input
-              type="search"
-              id="Search"
-              placeholder="Search missions..."
-              class="form-control"
-            />
-          </div>
-
-          <img
-            src="./image/filter.png"
-            alt="filter"
-            class="h-50 my-auto d-md-none cursor-pointer filter-toggle-btn"
-          />
-        </div>
-        <div
-          class="filter-menu d-flex flex-column mb-3 mb-md-0 w-100 align-items-center flex-sm-row justify-content-end"
-        >
-          <div class="filter-item border p-1 p-md-0 py-md-2 w-100">
-            <div class="dropdown">
-              <button
-                class="fw-light w-100 d-flex justify-content-between align-items-center btn dropdown-toggle color-darkgray"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Country
-                <img
-                  src="./image/drop-down.png"
-                  alt="drop-down"
-                  class="d-inline"
-                />
-              </button>
-              <ul class="dropdown-menu filter-dropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="filter-item border p-1 p-md-0 py-md-2 w-100">
-            <div class="dropdown">
-              <button
-                class="fw-light w-100 d-flex justify-content-between align-items-center btn dropdown-toggle color-darkgray"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                City
-                <img
-                  src="./image/drop-down.png"
-                  alt="drop-down"
-                  class="d-inline"
-                />
-              </button>
-              <ul class="dropdown-menu filter-dropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="filter-item border p-1 p-md-0 py-md-2 w-100">
-            <div class="dropdown">
-              <button
-                class="fw-light w-100 d-flex justify-content-between align-items-center btn dropdown-toggle color-darkgray"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Theme
-                <img
-                  src="./image/drop-down.png"
-                  alt="drop-down"
-                  class="d-inline"
-                />
-              </button>
-              <ul class="dropdown-menu filter-dropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="filter-item border p-1 p-md-0 py-md-2 w-100">
-            <div class="dropdown">
-              <button
-                class="fw-light w-100 d-flex justify-content-between align-items-center btn dropdown-toggle color-darkgray"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Skill
-                <img
-                  src="./image/drop-down.png"
-                  alt="drop-down"
-                  class="d-inline"
-                />
-              </button>
-              <ul class="dropdown-menu filter-dropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </div>
+        <div>
+          <div class="dropdown">
+            <button
+              class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="./image/user-img.png"
+                alt="profile"
+                class="rounded-circle"
+                width="40px"
+                height="40px"
+              />
+              <span class="d-none d-md-inline">Evan Donohue</span>
+              <img src="./image/drop-down.png" alt="drop-down" />
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </li>
+            </ul>
           </div>
         </div>
-      </section>
-    </header>
+      </div>
+    </nav>
     <div
       class="sl-top d-flex justify-content-end justify-content-md-center align-items-center flex-column text-white gap-3 py-3 px-3 px-md-0"
     >
@@ -209,7 +80,7 @@
         class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
       >
         Share your Story
-        <img src="./image/right-arrow.png" alt="right arrow" class="text-13" />
+        <img src="./image/right-arrow-white.svg" alt="right arrow" />
       </a>
     </div>
     <main class="container py-4 py-md-5">
@@ -235,11 +106,7 @@
                   class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
                 >
                   View details
-                  <img
-                    src="./image/right-arrow.png"
-                    alt="right arrow"
-                    class="text-13"
-                  />
+                  <img src="./image/right-arrow-white.svg" alt="right arrow" />
                 </a>
               </div>
             </div>
@@ -268,11 +135,7 @@
                 class="btn border rounded-pill d-flex align-items-center gap-2 mt-3 p-2 width-max-conatent mx-auto border-dark d-lg-none"
               >
                 View details
-                <img
-                  src="./image/right-arrow.png"
-                  alt="right arrow"
-                  class="text-13"
-                />
+                <img src="./image/right-arrow-white.svg" alt="right arrow" />
               </a>
             </div>
           </div>
@@ -298,11 +161,7 @@
                   class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
                 >
                   View details
-                  <img
-                    src="./image/right-arrow.png"
-                    alt="right arrow"
-                    class="text-13"
-                  />
+                  <img src="./image/right-arrow-white.svg" alt="right arrow" />
                 </a>
               </div>
             </div>
@@ -331,11 +190,7 @@
                 class="btn border rounded-pill d-flex align-items-center gap-2 mt-3 p-2 width-max-conatent mx-auto border-dark d-lg-none"
               >
                 View details
-                <img
-                  src="./image/right-arrow.png"
-                  alt="right arrow"
-                  class="text-13"
-                />
+                <img src="./image/right-arrow-white.svg" alt="right arrow" />
               </a>
             </div>
           </div>
@@ -361,11 +216,7 @@
                   class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
                 >
                   View details
-                  <img
-                    src="./image/right-arrow.png"
-                    alt="right arrow"
-                    class="text-13"
-                  />
+                  <img src="./image/right-arrow-white.svg" alt="right arrow" />
                 </a>
               </div>
             </div>
@@ -394,11 +245,7 @@
                 class="btn border rounded-pill d-flex align-items-center gap-2 mt-3 p-2 width-max-conatent mx-auto border-dark d-lg-none"
               >
                 View details
-                <img
-                  src="./image/right-arrow.png"
-                  alt="right arrow"
-                  class="text-13"
-                />
+                <img src="./image/right-arrow-white.svg" alt="right arrow" />
               </a>
             </div>
           </div>
@@ -424,11 +271,7 @@
                   class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
                 >
                   View details
-                  <img
-                    src="./image/right-arrow.png"
-                    alt="right arrow"
-                    class="text-13"
-                  />
+                  <img src="./image/right-arrow-white.svg" alt="right arrow" />
                 </a>
               </div>
             </div>
@@ -457,11 +300,7 @@
                 class="btn border rounded-pill d-flex align-items-center gap-2 mt-3 p-2 width-max-conatent mx-auto border-dark d-lg-none"
               >
                 View details
-                <img
-                  src="./image/right-arrow.png"
-                  alt="right arrow"
-                  class="text-13"
-                />
+                <img src="./image/right-arrow-white.svg" alt="right arrow" />
               </a>
             </div>
           </div>
@@ -487,11 +326,7 @@
                   class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
                 >
                   View details
-                  <img
-                    src="./image/right-arrow.png"
-                    alt="right arrow"
-                    class="text-13"
-                  />
+                  <img src="./image/right-arrow-white.svg" alt="right arrow" />
                 </a>
               </div>
             </div>
@@ -520,11 +355,7 @@
                 class="btn border rounded-pill d-flex align-items-center gap-2 mt-3 p-2 width-max-conatent mx-auto border-dark d-lg-none"
               >
                 View details
-                <img
-                  src="./image/right-arrow.png"
-                  alt="right arrow"
-                  class="text-13"
-                />
+                <img src="./image/right-arrow-white.svg" alt="right arrow" />
               </a>
             </div>
           </div>
@@ -550,11 +381,7 @@
                   class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
                 >
                   View details
-                  <img
-                    src="./image/right-arrow.png"
-                    alt="right arrow"
-                    class="text-13"
-                  />
+                  <img src="./image/right-arrow-white.svg" alt="right arrow" />
                 </a>
               </div>
             </div>
@@ -583,11 +410,7 @@
                 class="btn border rounded-pill d-flex align-items-center gap-2 mt-3 p-2 width-max-conatent mx-auto border-dark d-lg-none"
               >
                 View details
-                <img
-                  src="./image/right-arrow.png"
-                  alt="right arrow"
-                  class="text-13"
-                />
+                <img src="./image/right-arrow-white.svg" alt="right arrow" />
               </a>
             </div>
           </div>
@@ -613,11 +436,7 @@
                   class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
                 >
                   View details
-                  <img
-                    src="./image/right-arrow.png"
-                    alt="right arrow"
-                    class="text-13"
-                  />
+                  <img src="./image/right-arrow-white.svg" alt="right arrow" />
                 </a>
               </div>
             </div>
@@ -646,11 +465,7 @@
                 class="btn border rounded-pill d-flex align-items-center gap-2 mt-3 p-2 width-max-conatent mx-auto border-dark d-lg-none"
               >
                 View details
-                <img
-                  src="./image/right-arrow.png"
-                  alt="right arrow"
-                  class="text-13"
-                />
+                <img src="./image/right-arrow-white.svg" alt="right arrow" />
               </a>
             </div>
           </div>
@@ -676,11 +491,7 @@
                   class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
                 >
                   View details
-                  <img
-                    src="./image/right-arrow.png"
-                    alt="right arrow"
-                    class="text-13"
-                  />
+                  <img src="./image/right-arrow-white.svg" alt="right arrow" />
                 </a>
               </div>
             </div>
@@ -709,11 +520,7 @@
                 class="btn border rounded-pill d-flex align-items-center gap-2 mt-3 p-2 width-max-conatent mx-auto border-dark d-lg-none"
               >
                 View details
-                <img
-                  src="./image/right-arrow.png"
-                  alt="right arrow"
-                  class="text-13"
-                />
+                <img src="./image/right-arrow-white.svg" alt="right arrow" />
               </a>
             </div>
           </div>
@@ -739,11 +546,7 @@
                   class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white"
                 >
                   View details
-                  <img
-                    src="./image/right-arrow.png"
-                    alt="right arrow"
-                    class="text-13"
-                  />
+                  <img src="./image/right-arrow-white.svg" alt="right arrow" />
                 </a>
               </div>
             </div>
@@ -772,11 +575,7 @@
                 class="btn border rounded-pill d-flex align-items-center gap-2 mt-3 p-2 width-max-conatent mx-auto border-dark d-lg-none"
               >
                 View details
-                <img
-                  src="./image/right-arrow.png"
-                  alt="right arrow"
-                  class="text-13"
-                />
+                <img src="./image/right-arrow-white.svg" alt="right arrow" />
               </a>
             </div>
           </div>

@@ -50,7 +50,9 @@
               <img
                 src="./image/user-img.png"
                 alt="profile"
-                class="rounded-circle profile-picture"
+                class="rounded-circle"
+                width="40px"
+                height="40px"
               />
               <span class="d-none d-md-inline">Evan Donohue</span>
               <img src="./image/drop-down.png" alt="drop-down" />
@@ -67,8 +69,8 @@
       </div>
     </nav>
     <section class="container py-4">
-      <h3 class="color-darkgray fw-light mb-4">Share your Story</h3>
-      <form class="d-flex flex-column gap-3 color-darkgray">
+      <h2 class="color-darkgray fw-light mb-4">Share your Story</h2>
+      <form class="d-flex flex-column gap-4 color-darkgray">
         <div class="row row-cols-1 row-cols-md-3">
           <div class="col">
             <span> Select Mission </span>
@@ -90,121 +92,288 @@
           </div>
           <div class="col">
             <span> Date </span>
-            <input type="date" class="form-control color-darkgray" id="storyDate"/>
+            <input
+              type="date"
+              class="form-control color-darkgray"
+              id="storyDate"
+            />
           </div>
         </div>
+
+        <!-- rich text editor -->
         <div>
-            <label for="storyURL">Enter Video URL</label>   
-            <input type="text" placeholder="Enter your URL" class="form-control" id="storyURL">
+          <span>My story</span>
+          <div id="editor"></div>
         </div>
         <div>
-            <label for="">Upload your Photos</label>
-            <div class="d-flex align-items-center justify-content-center p-3 border">
-                <img src="./image/drag-and-drop.png" alt="drag-and-drop">
-            </div>
+          <label for="storyURL">Enter Video URL</label>
+          <input
+            type="text"
+            placeholder="Enter your URL"
+            class="form-control"
+            id="storyURL"
+          />
         </div>
-        <div class="d-flex gap-3 flex-wrap">
-            <div class="position-relative">
-                <img src="./image/Grow-Trees-On-the-path-to-environment-sustainability-1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+        <div>
+          <label for="">Upload your Photos</label>
+          <div
+            class="d-flex align-items-center justify-content-center p-3 border cursor-pointer"
+          >
+            <img src="./image/drag-and-drop.png" alt="drag-and-drop" />
+          </div>
+        </div>
+        <div class="d-flex gap-2 gap-md-3 flex-wrap">
+          <div class="position-relative">
+            <img
+              src="./image/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/image.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/image.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/img1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/img1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/img11.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/img11.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/Animal-welfare-&-save-birds-campaign-1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/Animal-welfare-&-save-birds-campaign-1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/Plantation-and-Afforestation-programme-1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/Plantation-and-Afforestation-programme-1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/Grow-Trees-On-the-path-to-environment-sustainability-1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/image.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/image.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/img1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/img1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/img11.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/img11.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/Animal-welfare-&-save-birds-campaign-1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/Animal-welfare-&-save-birds-campaign-1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
-            <div class="position-relative">
-                <img src="./image/Plantation-and-Afforestation-programme-1.png" alt="story image"  height="80px" width="80px">
-                <div class="position-absolute top-0 end-0 p-1 bg-dark">
-                    <img src="./image/cross.png" alt="cross" height="10px" class="cursor-pointer">
-                </div>
+          </div>
+          <div class="position-relative">
+            <img
+              src="./image/Plantation-and-Afforestation-programme-1.png"
+              alt="story image"
+              height="80px"
+              width="80px"
+            />
+            <div class="position-absolute top-0 end-0 p-1 bg-dark">
+              <img
+                src="./image/cross.png"
+                alt="cross"
+                height="10px"
+                class="cursor-pointer"
+              />
             </div>
+          </div>
         </div>
         <div class="d-flex justify-content-between mt-3">
-            <button class="btn border border-secondary rounded-pill color-darkgray">
-                Cancel
-            </button>
-            <div>
-                <button class="btn button">Save</button>
-                <button class="btn button">Submit</button>
-            </div>
+          <button
+            class="btn border border-secondary rounded-pill color-darkgray"
+          >
+            Cancel
+          </button>
+          <div>
+            <button class="btn button">Save</button>
+            <button class="btn button">Submit</button>
+          </div>
         </div>
       </form>
     </section>
     <footer class="border-top">
-        <div class="container py-4 fw-light">
-            <a href="#" class="color-darkgray">Privacy Policy</a>
-        </div>
+      <div class="container py-4 fw-light">
+        <a href="#" class="color-darkgray">Privacy Policy</a>
+      </div>
     </footer>
     <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./ckeditor5/build/ckeditor.js"></script>
+    <script>
+      CKSource.Editor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
   </body>
 </html>
