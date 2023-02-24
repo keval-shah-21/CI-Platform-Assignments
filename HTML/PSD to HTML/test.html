@@ -1,73 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <style>
-      .ss-images-list{
-        display:flex !important;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <style>
+  </style>
+</head>
+
+<body>
+  <div
+    class="ss-images-input d-flex flex-column align-items-center justify-content-center border border-secondary border-dashed py-4">
+    <img src="./image/drag-and-drop.png" alt="drag" />
+    <input type="file" name="" id="ssImages" multiple style="display: none" />
+  </div>
+  <div class="ss-images-list d-flex gap-2 gap-md-3 flex-wrap">
+  </div>
+  </div>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script>
+    const ssImagesInput = document.querySelector(".ss-images-input");
+    const ssImagesList = document.querySelector(".ss-images-list");
+    const ssImages = document.querySelector("#ssImages");
+    ssImagesInput.addEventListener("click", () => {
+      ssImages.click();
+    });
+    files = [];
+    ssImages.addEventListener("change", () => {
+      let file = ssImages.files;
+
+      // if user select no image
+      if (file.length == 0) return;
+
+      for (let i = 0; i < file.length; i++) {
+        if (file[i].type.split("/")[0] != "image") continue;
+        if (!files.some((e) => e.name == file[i].name)) files.push(file[i]);
       }
-    </style>
-  </head>
-  <body>
-    <div
-      class="ss-images-input d-flex flex-column align-items-center justify-content-center border border-secondary border-dashed py-4"
-    >
-      <img src="./image/drag-and-drop.png" alt="drag" />
-      <input type="file" name="" id="ssImages" multiple style="display: none" />
-    </div>
-    <div class="ss-images-list d-flex gap-2 gap-md-3 flex-wrap">
-    </div>
-    </div>
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <script>
-      const ssImagesInput = document.querySelector(".ss-images-input");
-      const ssImagesList = document.querySelector(".ss-images-list");
-      const ssImages = document.querySelector("#ssImages");
-      ssImagesInput.addEventListener("click", () => {
-        ssImages.click();
-      });
-      files = [];
-      ssImages.addEventListener("change", () => {
-        let file = ssImages.files;
+      ssImages.files = null;
+      console.log(ssImages.files);
+      showImages();
+    });
+    ssImagesInput.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
+    ssImagesInput.addEventListener("dragenter", (e) => {
+      e.preventDefault();
+    });
+    ssImagesInput.addEventListener("drop", (e) => {
+      e.preventDefault();
 
-        // if user select no image
-        if (file.length == 0) return;
+      let file = e.dataTransfer.files;
+      for (let i = 0; i < file.length; i++) {
+        /** Check selected file is image */
+        if (file[i].type.split("/")[0] != "image") continue;
 
-        for (let i = 0; i < file.length; i++) {
-          if (file[i].type.split("/")[0] != "image") continue;
-          if (!files.some((e) => e.name == file[i].name)) files.push(file[i]);
-        }
-        ssImages.files = null;
-        console.log(ssImages.files);
-        showImages();
-      });
-      ssImagesInput.addEventListener("dragover", (e) => {
-        e.preventDefault();
-      });
-      ssImagesInput.addEventListener("dragenter", (e) => {
-        e.preventDefault();
-      });
-      ssImagesInput.addEventListener("drop", (e) => {
-        e.preventDefault();
-
-        let file = e.dataTransfer.files;
-        for (let i = 0; i < file.length; i++) {
-          /** Check selected file is image */
-          if (file[i].type.split("/")[0] != "image") continue;
-
-          if (!files.some((e) => e.name == file[i].name)) files.push(file[i]);
-        }
-        showImages();
-      });
-      function showImages() {
-        let images = files.reduce(function (prev, file, index) {
-          return (prev += `<div class="position-relative">
-        <img src="${URL.createObjectURL(file)}" alt="story image" height="80px" width="80px" />
+        if (!files.some((e) => e.name == file[i].name)) files.push(file[i]);
+      }
+      showImages();
+    });
+    function showImages() {
+      ssImagesList.innerHTML = ''
+      files.forEach((element, index, _) => {
+        ssImagesList.innerHTML += `<div class="position-relative">
+        <img src="${URL.createObjectURL(element)}" alt="story image" height="80px" width="80px" />
         <div class="position-absolute top-0 end-0 p-1 bg-dark">
           <img
             src="./image/cross.png"
@@ -76,14 +75,14 @@
             onClick=delImage(${index})
             class="cursor-pointer"
           />
-        </div>`);
-            }, "");
-            ssImagesList.innerHTML = images;
-        }
-        function delImage(index) {
-   files.splice(index, 1);
-   showImages();
-}
-    </script>
-  </body>
+        </div>`;
+      })
+    }
+    function delImage(index) {
+      files.splice(index, 1);
+      showImages();
+    }
+  </script>
+</body>
+
 </html>
