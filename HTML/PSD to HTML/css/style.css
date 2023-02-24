@@ -15,13 +15,13 @@ img {
   display: block;
   max-width: 100%;
 }
+
 a {
   text-decoration: none;
 }
 
 a:hover {
   color: var(--blue);
-  font-weight: 400;
 }
 
 .flex-basis-100 {
@@ -59,7 +59,11 @@ a:hover {
 .width-max-conatent {
   width: max-content;
 }
-.border-dashed{border-style: dashed !important;}
+
+.border-dashed {
+  border-style: dashed !important;
+}
+
 form input {
   color: var(--dark-gray) !important;
 }
@@ -110,7 +114,7 @@ form input:focus {
 
 .button:hover {
   color: var(--light-orange);
-  background-color: rgb(240, 240, 240);
+  background-color: lightgrey;
   transition: var(--transition);
 }
 
@@ -127,7 +131,7 @@ form input:focus {
 }
 
 @media (min-width: 768px) {
-  .carousel-caption > h5 {
+  .carousel-caption>h5 {
     font-size: 43px;
   }
 
@@ -150,7 +154,7 @@ form input:focus {
 }
 
 @media (min-width: 1200px) {
-  .carousel-caption > h5 {
+  .carousel-caption>h5 {
     width: 80%;
   }
 }
@@ -168,7 +172,7 @@ form input:focus {
 }
 
 /* index page */
-.index-body {
+.grid-body {
   grid-template-rows: auto 1fr auto;
 }
 
@@ -284,11 +288,11 @@ form input:focus {
 }
 
 /* mission page */
-.mp-top > div {
+.mp-top>div {
   flex-basis: 100%;
 }
 
-.mp-small-images > img {
+.mp-small-images>img {
   height: 120px;
   width: 175px;
 }
@@ -336,16 +340,29 @@ form input:focus {
   background-position: center 40%;
   height: 18rem;
 }
-.sl-story-overlay{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
-    inset: 0;
+
+.sl-story-overlay {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  inset: 0;
 }
-@media(min-width:768px){
-    .sl-top>div{width: 75%;}
+
+@media(min-width:768px) {
+  .sl-top>div {
+    width: 75%;
+  }
 }
-@media(min-width:992px){
-    .sl-top>div{width: 50%;}
-    .sl-card:hover .sl-story-overlay{
-        display: flex !important;
-    }
+
+@media(min-width:992px) {
+  .sl-top>div {
+    width: 50%;
+  }
+}
+
+@media(hover:hover) {
+  .sl-view-btn {
+    display: none !important;
+  }
+  .sl-card:hover .sl-story-overlay {
+    display: flex !important;
+  }
 }

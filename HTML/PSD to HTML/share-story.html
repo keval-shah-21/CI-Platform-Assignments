@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/style.css" />
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <div class="grid-body d-grid min-vh-100">
     <nav class="navbar sticky-top bg-white py-1 border-2 border-bottom">
       <div class="container">
         <div class="d-flex gap-5 align-items-center fw-light">
@@ -17,18 +20,10 @@
           </a>
           <a href="#" class="color-darkgray">Stories</a>
           <div class="dropdown d-none d-md-block">
-            <button
-              class="btn color-darkgray dropdown-toggle fw-light"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               Policy
-              <img
-                src="./image/drop-down.png"
-                alt="drop-down"
-                class="d-inline ms-2"
-              />
+              <img src="./image/drop-down.png" alt="drop-down" class="d-inline ms-2" />
             </button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Action</a></li>
@@ -41,19 +36,9 @@
         </div>
         <div>
           <div class="dropdown">
-            <button
-              class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                src="./image/user-img.png"
-                alt="profile"
-                class="rounded-circle"
-                width="40px"
-                height="40px"
-              />
+            <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light" type="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="./image/user-img.png" alt="profile" class="rounded-circle" width="40px" height="40px" />
               <span class="d-none d-md-inline">Evan Donohue</span>
               <img src="./image/drop-down.png" alt="drop-down" />
             </button>
@@ -83,20 +68,11 @@
           </div>
           <div class="col">
             <span> My Story Title </span>
-            <input
-              type="text"
-              class="form-control"
-              id="storyTitle"
-              placeholder="Enter story title"
-            />
+            <input type="text" class="form-control" id="storyTitle" placeholder="Enter story title" />
           </div>
           <div class="col">
             <span> Date </span>
-            <input
-              type="date"
-              class="form-control color-darkgray"
-              id="storyDate"
-            />
+            <input type="date" class="form-control color-darkgray" id="storyDate" />
           </div>
         </div>
 
@@ -107,256 +83,23 @@
         </div>
         <div>
           <label for="storyURL">Enter Video URL</label>
-          <input
-            type="text"
-            placeholder="Enter your URL"
-            class="form-control"
-            id="storyURL"
-          />
+          <input type="text" placeholder="Enter your URL" class="form-control" id="storyURL" />
         </div>
-        <div>
-          <label for="">Upload your Photos</label>
-          <div
-            class="d-flex align-items-center justify-content-center p-3 border cursor-pointer"
-          >
-            <img src="./image/drag-and-drop.png" alt="drag-and-drop" />
-          </div>
+
+        <div
+          class="ss-dragndrop d-flex flex-column align-items-center justify-content-center border border-secondary border-dashed py-4 cursor-pointer">
+          <img src="./image/drag-and-drop.png" alt="drag" />
+          <input type="file" name="ssImagesInput" id="ssImagesInput" multiple hidden accept=".png, .jpg, .jpeg"/>
         </div>
-        <div class="d-flex gap-2 gap-md-3 flex-wrap">
-          <div class="position-relative">
-            <img
-              src="./image/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/image.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/img1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/img11.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/Animal-welfare-&-save-birds-campaign-1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/Plantation-and-Afforestation-programme-1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/Grow-Trees-On-the-path-to-environment-sustainability-1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/image.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/img1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/img11.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/Animal-welfare-&-save-birds-campaign-1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-          <div class="position-relative">
-            <img
-              src="./image/Plantation-and-Afforestation-programme-1.png"
-              alt="story image"
-              height="80px"
-              width="80px"
-            />
-            <div class="position-absolute top-0 end-0 p-1 bg-dark">
-              <img
-                src="./image/cross.png"
-                alt="cross"
-                height="10px"
-                class="cursor-pointer"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between mt-3">
-          <button
-            class="btn border border-secondary rounded-pill color-darkgray"
-          >
+        <div class="ss-selected-images d-flex gap-2 gap-md-3 flex-wrap"></div>
+
+        <div class="d-flex justify-content-between">
+          <a href="#" class="btn border border-secondary rounded-pill color-darkgray">
             Cancel
-          </button>
+          </a>
           <div>
-            <button class="btn button">Save</button>
-            <button class="btn button">Submit</button>
+            <a href="#" class="btn button me-md-1">Save</a>
+            <a href="#" class="btn button">Submit</a>
           </div>
         </div>
       </form>
@@ -366,14 +109,62 @@
         <a href="#" class="color-darkgray">Privacy Policy</a>
       </div>
     </footer>
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./ckeditor5/build/ckeditor.js"></script>
-    <script>
-      CKSource.Editor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
-  </body>
+  </div>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./ckeditor5/build/ckeditor.js"></script>
+  <script>
+    CKSource.Editor
+      .create(document.querySelector('#editor'))
+      .catch(error => {
+        console.error(error);
+      });
+
+    ssDragndrop = document.querySelector(".ss-dragndrop");
+    ssImagesInput = document.querySelector("#ssImagesInput");
+    ssSelectedImages = document.querySelector(".ss-selected-images");
+    ssDragndrop.addEventListener("click", () => { ssImagesInput.click(); });
+    files = [];
+
+    ssImagesInput.addEventListener("change", () => {
+      let file = ssImagesInput.files;
+      // if user select no image
+      if (file.length == 0) return;
+
+      for (let i = 0; i < file.length; i++) {
+        if (file[i].type.split("/")[0] != "image") continue;
+        if (!files.some((e) => e.name == file[i].name)) files.push(file[i]);
+      }
+      showImages();
+    });
+    ssDragndrop.addEventListener("dragover", e => e.preventDefault());
+    ssDragndrop.addEventListener("dragenter", e => e.preventDefault());
+    ssDragndrop.addEventListener("drop", e => {
+      e.preventDefault();
+      let file = e.dataTransfer.files;
+      for (let i = 0; i < file.length; i++) {
+        /** Check selected file is image */
+        if (file[i].type.split("/")[1] != "png" && file[i].type.split("/")[1] != "jpg" && file[i].type.split("/")[1] != "jpeg") continue;
+        if (!files.some((e) => e.name == file[i].name)) files.push(file[i]);
+      }
+      showImages();
+    });
+    function showImages() {
+      ssSelectedImages.innerHTML = '';
+      files.forEach((element, index, _) => {
+        ssSelectedImages.innerHTML += `<div class="position-relative">
+        <img src="${URL.createObjectURL(element)}" alt="story image" height="90px" width="90px" />
+        <div class="position-absolute top-0 end-0 p-1 bg-dark cursor-pointer" onClick=delImage(${index})>
+          <img src="./image/cross.png" alt="cross" height="10px"/>
+        </div>`;
+      });
+    }
+    function delImage(index) {
+      files.splice(index, 1);
+      showImages();
+    }
+
+
+  </script>
+</body>
+
 </html>
