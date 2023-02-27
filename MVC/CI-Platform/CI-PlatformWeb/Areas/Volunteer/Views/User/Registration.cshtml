@@ -8,38 +8,39 @@
         class="right-section d-flex flex-column gap-2 justify-content-center align-items-center p-5 p-lg-0 mb-lg-4">
         <form class="d-grid gap-3">
             <div>
-                <label for="first-name" class="font-light">First Name</label>
+                <label for="first-name" class="fw-light">First Name</label>
                 <input type="text" class="form-control" id="first-name" placeholder="Enter your first name"
                     value="evan">
             </div>
             <div>
-                <label for="last-name" class="font-light">Last Name</label>
+                <label for="last-name" class="fw-light">Last Name</label>
                 <input type="text" class="form-control" id="last-name" placeholder="Enter your last name"
                     value="donohue">
             </div>
             <div>
-                <label for="phone" class="font-light">Phone Number</label>
+                <label for="phone" class="fw-light">Phone Number</label>
                 <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number"
                     value="8912341234">
             </div>
             <div>
-                <label for="email" class="font-light">Email Address</label>
+                <label for="email" class="fw-light">Email Address</label>
                 <input type="email" class="form-control" id="email" placeholder="Enter your email address"
                     value="evan.donohue@gmail.com">
             </div>
             <div>
-                <label for="password" class="font-light">Password</label>
+                <label for="password" class="fw-light">Password</label>
                 <input type="password" class="form-control" id="password" value="1243j;ll">
             </div>
             <div>
-                <label for="confirm-password" class="font-light">Confirm Password</label>
+                <label for="confirm-password" class="fw-light">Confirm Password</label>
                 <input type="password" class="form-control" id="confirm-password" value="1243j;ll">
             </div>
-            <button type="submit" class="btn button w-100 rounded-pill bg-white">Register</button>
+            <button type="submit" class="btn button w-100 bg-white">Register</button>
         </form>
-        <a asp-controller="User" asp-action="ForgotPassword" class="font-light color-darkgray text-14">Lost your password?</a>
-        <div class="font-light text-14 color-darkgray">Already Registered? <a asp-controller="User" asp-action="Login"
+        <a asp-controller="User" asp-action="ForgotPassword" class="fw-light color-darkgray text-14">Lost your
+            password?</a>
+        <div class="fw-light text-14 color-darkgray">Already Registered? <a asp-controller="User" asp-action="Login"
                 class="color-blue">Login now</a></div>
-        <a href="#" class="font-light color-darkgray privacy-policy text-14">Privacy Policy</a>
+        <a href="#" class="fw-light color-darkgray privacy-policy text-14">Privacy Policy</a>
     </section>
 </main>

@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CI-PlatformWeb", "CI-PlatformWeb\CI-PlatformWeb.csproj", "{8AB9F7FF-E873-4024-BA91-708459D1A049}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CI-Platform.DataAccess", "CI-Platform.DataAccess\CI-Platform.DataAccess.csproj", "{2DD8921C-78F9-4A51-8428-39749D337ECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CI-Platform.Entities", "CI-Platform.Entities\CI-Platform.Entities.csproj", "{8FCB6986-A767-43E8-A8B2-E250DE4FE8D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{8AB9F7FF-E873-4024-BA91-708459D1A049}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB9F7FF-E873-4024-BA91-708459D1A049}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB9F7FF-E873-4024-BA91-708459D1A049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DD8921C-78F9-4A51-8428-39749D337ECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DD8921C-78F9-4A51-8428-39749D337ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DD8921C-78F9-4A51-8428-39749D337ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DD8921C-78F9-4A51-8428-39749D337ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FCB6986-A767-43E8-A8B2-E250DE4FE8D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FCB6986-A767-43E8-A8B2-E250DE4FE8D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FCB6986-A767-43E8-A8B2-E250DE4FE8D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FCB6986-A767-43E8-A8B2-E250DE4FE8D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

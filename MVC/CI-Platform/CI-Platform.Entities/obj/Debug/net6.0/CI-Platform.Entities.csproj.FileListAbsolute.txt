@@ -1,0 +1,14 @@
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\bin\Debug\net6.0\CI-Platform.Entities.deps.json
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\bin\Debug\net6.0\CI-Platform.Entities.runtimeconfig.json
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\bin\Debug\net6.0\CI-Platform.Entities.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\bin\Debug\net6.0\CI-Platform.Entities.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\CI-Platform.Entities.csproj.AssemblyReference.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\CI-Platform.Entities.GeneratedMSBuildEditorConfig.editorconfig
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\CI-Platform.Entities.AssemblyInfoInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\CI-Platform.Entities.AssemblyInfo.cs
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\CI-Platform.Entities.csproj.CoreCompileInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\CI-Platform.Entities.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\refint\CI-Platform.Entities.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\CI-Platform.Entities.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\CI-Platform.Entities.genruntimeconfig.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Entities\obj\Debug\net6.0\ref\CI-Platform.Entities.dll
