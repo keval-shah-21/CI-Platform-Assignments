@@ -4,6 +4,8 @@ using CI_PlatformWeb.Models;
 
 namespace CI_PlatformWeb.Controllers;
 
+[Area("Volunteer")]
+[Route("/volunteer/home/")]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -13,6 +15,8 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [Route("/", name = "Default")]
+    [Route("index")]
     public IActionResult Index()
     {
         return View();

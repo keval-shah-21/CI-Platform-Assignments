@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CI_Platform.Entities.DataModels;
 
-public partial class DbContext : DbContext
+public partial class ApplicationDbContext : DbContext
 {
-    public DbContext()
+    public ApplicationDbContext()
     {
     }
 
-    public DbContext(DbContextOptions<DbContext> options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }
@@ -38,18 +38,19 @@ public partial class DbContext : DbContext
     public virtual DbSet<UserSkill> UserSkills { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.;Database=CI_Platform;Trusted_Connection=True;Encrypt=False;");
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:CI_Platform");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Admin>(entity =>
         {
-            entity.HasKey(e => e.AdminId).HasName("PK__admin__43AA41414844CEBE");
+            entity.HasKey(e => e.AdminId).HasName("PK__admin__43AA4141ED4A941E");
 
             entity.ToTable("admin");
 
-            entity.Property(e => e.AdminId).HasColumnName("admin_id");
+            entity.Property(e => e.AdminId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("admin_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -75,14 +76,14 @@ public partial class DbContext : DbContext
 
         modelBuilder.Entity<Banner>(entity =>
         {
-            entity.HasKey(e => e.BannerId).HasName("PK__banner__10373C3442DD6A43");
+            entity.HasKey(e => e.BannerId).HasName("PK__banner__10373C3447B822CA");
 
             entity.ToTable("banner");
 
-            entity.Property(e => e.BannerId)
-                .ValueGeneratedNever()
-                .HasColumnName("banner_id");
-            entity.Property(e => e.BannerImage).HasColumnName("banner_image");
+            entity.Property(e => e.BannerId).HasColumnName("banner_id");
+            entity.Property(e => e.BannerImage)
+                .IsUnicode(false)
+                .HasColumnName("banner_image");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -102,13 +103,11 @@ public partial class DbContext : DbContext
 
         modelBuilder.Entity<City>(entity =>
         {
-            entity.HasKey(e => e.CityId).HasName("PK__city__031491A84F8F18C2");
+            entity.HasKey(e => e.CityId).HasName("PK__city__031491A82BB20BEB");
 
             entity.ToTable("city");
 
-            entity.Property(e => e.CityId)
-                .ValueGeneratedNever()
-                .HasColumnName("city_id");
+            entity.Property(e => e.CityId).HasColumnName("city_id");
             entity.Property(e => e.CityName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -123,18 +122,16 @@ public partial class DbContext : DbContext
             entity.HasOne(d => d.Country).WithMany(p => p.Cities)
                 .HasForeignKey(d => d.CountryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__city__country_id__6B24EA82");
+                .HasConstraintName("FK__city__country_id__2BFE89A6");
         });
 
         modelBuilder.Entity<CmsPage>(entity =>
         {
-            entity.HasKey(e => e.CmsPageId).HasName("PK__cms_page__B46D5B5205C4A972");
+            entity.HasKey(e => e.CmsPageId).HasName("PK__cms_page__B46D5B527714D802");
 
             entity.ToTable("cms_page");
 
-            entity.Property(e => e.CmsPageId)
-                .ValueGeneratedNever()
-                .HasColumnName("cms_page_id");
+            entity.Property(e => e.CmsPageId).HasColumnName("cms_page_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -159,13 +156,11 @@ public partial class DbContext : DbContext
 
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.CountryId).HasName("PK__country__7E8CD055C3560037");
+            entity.HasKey(e => e.CountryId).HasName("PK__country__7E8CD055261DCFC7");
 
             entity.ToTable("country");
 
-            entity.Property(e => e.CountryId)
-                .ValueGeneratedNever()
-                .HasColumnName("country_id");
+            entity.Property(e => e.CountryId).HasColumnName("country_id");
             entity.Property(e => e.CountryName)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -183,13 +178,11 @@ public partial class DbContext : DbContext
 
         modelBuilder.Entity<Mission>(entity =>
         {
-            entity.HasKey(e => e.MissionId).HasName("PK__mission__B5419AB2EB6689BD");
+            entity.HasKey(e => e.MissionId).HasName("PK__mission__B5419AB25EFDC0A4");
 
             entity.ToTable("mission");
 
-            entity.Property(e => e.MissionId)
-                .ValueGeneratedNever()
-                .HasColumnName("mission_id");
+            entity.Property(e => e.MissionId).HasColumnName("mission_id");
             entity.Property(e => e.Availability).HasColumnName("availability");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -225,13 +218,11 @@ public partial class DbContext : DbContext
 
         modelBuilder.Entity<MissionSkill>(entity =>
         {
-            entity.HasKey(e => e.MissionSkillId).HasName("PK__mission___827120080CD1557C");
+            entity.HasKey(e => e.MissionSkillId).HasName("PK__mission___82712008CC35B3A7");
 
             entity.ToTable("mission_skill");
 
-            entity.Property(e => e.MissionSkillId)
-                .ValueGeneratedNever()
-                .HasColumnName("mission_skill_id");
+            entity.Property(e => e.MissionSkillId).HasColumnName("mission_skill_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -243,15 +234,13 @@ public partial class DbContext : DbContext
 
         modelBuilder.Entity<MissionTheme>(entity =>
         {
-            entity.HasKey(e => e.MissionThemeId).HasName("PK__mission___4925C5ACA116C852");
+            entity.HasKey(e => e.MissionThemeId).HasName("PK__mission___4925C5ACD6D1CA54");
 
             entity.ToTable("mission_theme");
 
-            entity.HasIndex(e => e.MissionThemeName, "UQ__mission___A8CFF9584916463F").IsUnique();
+            entity.HasIndex(e => e.MissionThemeName, "UQ__mission___A8CFF958A8E88772").IsUnique();
 
-            entity.Property(e => e.MissionThemeId)
-                .ValueGeneratedNever()
-                .HasColumnName("mission_theme_id");
+            entity.Property(e => e.MissionThemeId).HasColumnName("mission_theme_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -269,15 +258,13 @@ public partial class DbContext : DbContext
 
         modelBuilder.Entity<Skill>(entity =>
         {
-            entity.HasKey(e => e.SkillId).HasName("PK__skill__FBBA837981BAA8EC");
+            entity.HasKey(e => e.SkillId).HasName("PK__skill__FBBA8379B987BB58");
 
             entity.ToTable("skill");
 
-            entity.HasIndex(e => e.SkillName, "UQ__skill__73C038ADDAED2D40").IsUnique();
+            entity.HasIndex(e => e.SkillName, "UQ__skill__73C038ADD606E8F2").IsUnique();
 
-            entity.Property(e => e.SkillId)
-                .ValueGeneratedNever()
-                .HasColumnName("skill_id");
+            entity.Property(e => e.SkillId).HasColumnName("skill_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -295,14 +282,14 @@ public partial class DbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__user__B9BE370F80409BA1");
+            entity.HasKey(e => e.UserId).HasName("PK__user__B9BE370F59AC672E");
 
             entity.ToTable("user");
 
-            entity.Property(e => e.UserId)
-                .ValueGeneratedNever()
-                .HasColumnName("user_id");
-            entity.Property(e => e.Avatar).HasColumnName("avatar");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Avatar)
+                .IsUnicode(false)
+                .HasColumnName("avatar");
             entity.Property(e => e.CityId).HasColumnName("city_id");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
             entity.Property(e => e.CreatedAt)
@@ -359,22 +346,20 @@ public partial class DbContext : DbContext
 
             entity.HasOne(d => d.City).WithMany(p => p.Users)
                 .HasForeignKey(d => d.CityId)
-                .HasConstraintName("FK__user__city_id__6FE99F9F");
+                .HasConstraintName("FK__user__city_id__30C33EC3");
 
             entity.HasOne(d => d.Country).WithMany(p => p.Users)
                 .HasForeignKey(d => d.CountryId)
-                .HasConstraintName("FK__user__country_id__70DDC3D8");
+                .HasConstraintName("FK__user__country_id__31B762FC");
         });
 
         modelBuilder.Entity<UserSkill>(entity =>
         {
-            entity.HasKey(e => e.UserSkillId).HasName("PK__user_ski__FD3B576B874AD43E");
+            entity.HasKey(e => e.UserSkillId).HasName("PK__user_ski__FD3B576B07389B1D");
 
             entity.ToTable("user_skill");
 
-            entity.Property(e => e.UserSkillId)
-                .ValueGeneratedNever()
-                .HasColumnName("user_skill_id");
+            entity.Property(e => e.UserSkillId).HasColumnName("user_skill_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");

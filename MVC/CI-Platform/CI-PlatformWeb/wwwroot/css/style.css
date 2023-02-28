@@ -113,8 +113,8 @@ form input:focus {
 }
 
 .button:hover {
-  color: var(--light-orange);
-  background-color: rgb(231, 231, 231) !important;
+  color: white !important;
+  background-color: var(--light-orange) !important;
   transition: var(--transition);
 }
 
@@ -169,6 +169,12 @@ form input:focus {
 /* forgot password page */
 .forgot-password-title {
   font-size: 22px;
+}
+
+/* registration page */
+@media(min-width:992px) and (max-width:1400px){
+  #RegistrationForm label{font-size: 13px !important;}
+  #RegistrationForm input{font-size: 13px !important;}
 }
 
 /* index page */

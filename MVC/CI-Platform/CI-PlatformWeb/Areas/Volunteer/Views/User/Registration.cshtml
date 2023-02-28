@@ -1,3 +1,4 @@
+@model UserVM;
 @{
     ViewData["Title"] = "Registration";
 }
@@ -5,37 +6,39 @@
 <main class="d-flex flex-column flex-lg-row">
     <partial name="_HeroSectionCarousel"></partial>
     <section
-        class="right-section d-flex flex-column gap-2 justify-content-center align-items-center p-5 p-lg-0 mb-lg-4">
-        <form class="d-grid gap-3">
+        class="right-section d-flex flex-column gap-3 gap-lg-1 gap-xxl-3 justify-content-center align-items-center p-5 p-lg-0 mb-lg-4">
+        <form method="post" asp-action="Registration" class="d-grid gap-3 gap-lg-1 gap-xxl-3" id="RegistrationForm">
             <div>
-                <label for="first-name" class="fw-light">First Name</label>
-                <input type="text" class="form-control" id="first-name" placeholder="Enter your first name"
-                    value="evan">
+                <label asp-for="FirstName" class="fw-light"></label>
+                <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter your first name">
+                <span asp-validation-for="FirstName" class="text-danger text-13"></span>
             </div>
             <div>
-                <label for="last-name" class="fw-light">Last Name</label>
-                <input type="text" class="form-control" id="last-name" placeholder="Enter your last name"
-                    value="donohue">
+                <label asp-for="LastName" class="fw-light"></label>
+                <input type="text" asp-for="LastName" class="form-control" placeholder="Enter your last name">
+                <span asp-validation-for="LastName" class="text-danger text-13"></span>
             </div>
             <div>
-                <label for="phone" class="fw-light">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number"
-                    value="8912341234">
+                <label asp-for="PhoneNumber" class="fw-light"></label>
+                <input type="tel" asp-for="PhoneNumber" class="form-control" placeholder="Enter your phone number">
+                <span asp-validation-for="PhoneNumber" class="text-danger text-13"></span>
             </div>
             <div>
-                <label for="email" class="fw-light">Email Address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email address"
-                    value="evan.donohue@gmail.com">
+                <label asp-for="Email" class="fw-light"></label>
+                <input type="email" asp-for="Email" class="form-control" placeholder="Enter your email address">
+                <span asp-validation-for="Email" class="text-danger text-13"></span>
             </div>
             <div>
-                <label for="password" class="fw-light">Password</label>
-                <input type="password" class="form-control" id="password" value="1243j;ll">
+                <label asp-for="Password" class="fw-light">Password</label>
+                <input type="password" asp-for="Password" class="form-control">
+                <span asp-validation-for="Password" id="Password" class="text-danger text-13"></span>
             </div>
             <div>
-                <label for="confirm-password" class="fw-light">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm-password" value="1243j;ll">
+                <label for="ConfirmPassword" class="fw-light">Confirm Password</label>
+                <input type="password" class="form-control" id="ConfirmPassword">
+                <span id="ConfirmPasswordError" class="text-danger text-13"></span>
             </div>
-            <button type="submit" class="btn button w-100 bg-white">Register</button>
+            <button type="submit" class="btn button w-100 bg-white mt-1">Register</button>
         </form>
         <a asp-controller="User" asp-action="ForgotPassword" class="fw-light color-darkgray text-14">Lost your
             password?</a>
@@ -44,3 +47,20 @@
         <a href="#" class="fw-light color-darkgray privacy-policy text-14">Privacy Policy</a>
     </section>
 </main>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial.cshtml"></partial>
+}
+<script>
+    const ConfirmPassword = document.querySelector("#ConfirmPassword");
+    const Password = document.querySelector("#Passwrod");
+    const ConfirmPasswordError = document.querySelector("#ConfirmPasswordError");
+
+    ConfirmPassword.addEventListener('change', ()=>{
+        if(Password.value != ConfirmPassword.value)
+            ConfirmPasswordError.textContent = "Confirm password must be same as password."
+        else
+            ConfirmPasswordError.textContent = '';
+    })
+
+</script>

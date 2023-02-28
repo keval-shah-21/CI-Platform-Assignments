@@ -7,7 +7,7 @@ public partial class Banner
 {
     public int BannerId { get; set; }
 
-    public byte[] BannerImage { get; set; } = null!;
+    public string BannerImage { get; set; } = null!;
 
     public string Title { get; set; } = null!;
 

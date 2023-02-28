@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "I+SjBXHu/YhIxH7ME8YpwRzIfXtNxnhi3Okb770cZr0=",
+  "Hash": "xbk37KsETsnuEcXapVcVvb0Na/ToovS1R7fRVYkGK1c=",
   "Source": "CI-PlatformWeb",
   "BasePath": "_content/CI-PlatformWeb",
   "Mode": "Default",
@@ -102,12 +102,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\404-Page-image.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\404-Page-image.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/404-Page-image.png",
+      "RelativePath": "images/static/404-Page-image.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -116,15 +116,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\404-Page-image.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\404-Page-image.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\achieved.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\achieved.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/achieved.png",
+      "RelativePath": "images/static/achieved.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -133,15 +133,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\achieved.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\achieved.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\add.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\add.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/add.png",
+      "RelativePath": "images/static/add.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -150,15 +150,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\add.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\add.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\add1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\add1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/add1.png",
+      "RelativePath": "images/static/add1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -167,15 +167,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\add1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\add1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Already-volunteered.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Already-volunteered.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Already-volunteered.png",
+      "RelativePath": "images/static/Already-volunteered.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -184,15 +184,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Already-volunteered.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Already-volunteered.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Animal-welfare-&-save-birds-campaign-1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Animal-welfare-&-save-birds-campaign-1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Animal-welfare-&-save-birds-campaign-1.png",
+      "RelativePath": "images/static/Animal-welfare-&-save-birds-campaign-1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -201,15 +201,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Animal-welfare-&-save-birds-campaign-1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Animal-welfare-&-save-birds-campaign-1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Animal-welfare-&-save-birds-campaign.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Animal-welfare-&-save-birds-campaign.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Animal-welfare-&-save-birds-campaign.png",
+      "RelativePath": "images/static/Animal-welfare-&-save-birds-campaign.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -218,15 +218,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Animal-welfare-&-save-birds-campaign.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Animal-welfare-&-save-birds-campaign.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\arrow.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\arrow.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/arrow.png",
+      "RelativePath": "images/static/arrow.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -235,15 +235,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\arrow.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\arrow.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\bell-big.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\bell-big.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/bell-big.png",
+      "RelativePath": "images/static/bell-big.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -252,15 +252,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\bell-big.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\bell-big.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\bell.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\bell.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/bell.png",
+      "RelativePath": "images/static/bell.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -269,15 +269,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\bell.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\bell.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\bin.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\bin.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/bin.png",
+      "RelativePath": "images/static/bin.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -286,15 +286,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\bin.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\bin.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\calender.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\calender.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/calender.png",
+      "RelativePath": "images/static/calender.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -303,15 +303,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\calender.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\calender.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\cancel.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\cancel.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/cancel.png",
+      "RelativePath": "images/static/cancel.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -320,15 +320,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\cancel.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\cancel.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\cancel1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\cancel1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/cancel1.png",
+      "RelativePath": "images/static/cancel1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -337,15 +337,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\cancel1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\cancel1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\checked.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\checked.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/checked.png",
+      "RelativePath": "images/static/checked.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -354,15 +354,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\checked.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\checked.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\cross.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\cross.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/cross.png",
+      "RelativePath": "images/static/cross.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -371,15 +371,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\cross.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\cross.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png",
+      "RelativePath": "images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -388,15 +388,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png",
+      "RelativePath": "images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -405,15 +405,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png",
+      "RelativePath": "images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -422,15 +422,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png",
+      "RelativePath": "images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -439,15 +439,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png",
+      "RelativePath": "images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -456,15 +456,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-5.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png",
+      "RelativePath": "images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -473,15 +473,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-6.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png",
+      "RelativePath": "images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -490,15 +490,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\deadline.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\deadline.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/deadline.png",
+      "RelativePath": "images/static/deadline.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -507,15 +507,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\deadline.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\deadline.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\doc.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\doc.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/doc.png",
+      "RelativePath": "images/static/doc.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -524,15 +524,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\doc.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\doc.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\down.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\down.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/down.png",
+      "RelativePath": "images/static/down.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -541,15 +541,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\down.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\down.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\drag-and-drop.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\drag-and-drop.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/drag-and-drop.png",
+      "RelativePath": "images/static/drag-and-drop.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -558,15 +558,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\drag-and-drop.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\drag-and-drop.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\drop-down.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\drop-down.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/drop-down.png",
+      "RelativePath": "images/static/drop-down.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -575,15 +575,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\drop-down.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\drop-down.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png",
+      "RelativePath": "images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -592,15 +592,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png",
+      "RelativePath": "images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -609,15 +609,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Education-Supplies-for-Every--Pair-of-Shoes-Sold.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Education-Supplies-for-Every--Pair-of-Shoes-Sold.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png",
+      "RelativePath": "images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -626,15 +626,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\eye.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\eye.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/eye.png",
+      "RelativePath": "images/static/eye.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -643,15 +643,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\eye.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\eye.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\facebook.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\facebook.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/facebook.png",
+      "RelativePath": "images/static/facebook.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -660,15 +660,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\facebook.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\facebook.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\filter.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\filter.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/filter.png",
+      "RelativePath": "images/static/filter.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -677,15 +677,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\filter.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\filter.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\gift.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\gift.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/gift.png",
+      "RelativePath": "images/static/gift.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -694,15 +694,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\gift.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\gift.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\graph.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\graph.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/graph.png",
+      "RelativePath": "images/static/graph.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -711,15 +711,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\graph.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\graph.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\grid.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\grid.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/grid.png",
+      "RelativePath": "images/static/grid.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -728,15 +728,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\grid.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\grid.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Grow-Trees-On-the-path-to-environment-sustainability-1.png",
+      "RelativePath": "images/static/Grow-Trees-On-the-path-to-environment-sustainability-1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -745,15 +745,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-2.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-2.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Grow-Trees-On-the-path-to-environment-sustainability-2.png",
+      "RelativePath": "images/static/Grow-Trees-On-the-path-to-environment-sustainability-2.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -762,15 +762,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-2.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-2.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-3.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-3.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Grow-Trees-On-the-path-to-environment-sustainability-3.png",
+      "RelativePath": "images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -779,15 +779,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-3.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-3.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-4.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-4.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Grow-Trees-On-the-path-to-environment-sustainability-4.png",
+      "RelativePath": "images/static/Grow-Trees-On-the-path-to-environment-sustainability-4.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -796,15 +796,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-4.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-4.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-5.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-5.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Grow-Trees-On-the-path-to-environment-sustainability-5.png",
+      "RelativePath": "images/static/Grow-Trees-On-the-path-to-environment-sustainability-5.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -813,15 +813,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-5.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-5.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-login.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-login.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Grow-Trees-On-the-path-to-environment-sustainability-login.png",
+      "RelativePath": "images/static/Grow-Trees-On-the-path-to-environment-sustainability-login.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -830,15 +830,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability-login.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability-login.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Grow-Trees-On-the-path-to-environment-sustainability.png",
+      "RelativePath": "images/static/Grow-Trees-On-the-path-to-environment-sustainability.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -847,15 +847,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Grow-Trees-On-the-path-to-environment-sustainability.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Grow-Trees-On-the-path-to-environment-sustainability.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\heart.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\heart.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/heart.png",
+      "RelativePath": "images/static/heart.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -864,15 +864,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\heart.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\heart.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\heart1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\heart1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/heart1.png",
+      "RelativePath": "images/static/heart1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -881,15 +881,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\heart1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\heart1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\hours.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\hours.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/hours.png",
+      "RelativePath": "images/static/hours.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -898,15 +898,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\hours.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\hours.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\image.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\image.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/image.png",
+      "RelativePath": "images/static/image.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -915,15 +915,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\image.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\image.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\image1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\image1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/image1.png",
+      "RelativePath": "images/static/image1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -932,15 +932,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\image1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\image1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\image2.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\image2.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/image2.png",
+      "RelativePath": "images/static/image2.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -949,15 +949,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\image2.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\image2.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\img.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\img.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/img.png",
+      "RelativePath": "images/static/img.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -966,15 +966,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\img.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\img.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\img1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\img1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/img1.png",
+      "RelativePath": "images/static/img1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -983,15 +983,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\img1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\img1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\img11.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\img11.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/img11.png",
+      "RelativePath": "images/static/img11.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1000,15 +1000,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\img11.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\img11.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\img2.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\img2.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/img2.png",
+      "RelativePath": "images/static/img2.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1017,15 +1017,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\img2.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\img2.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\img22.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\img22.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/img22.png",
+      "RelativePath": "images/static/img22.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1034,15 +1034,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\img22.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\img22.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\img3.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\img3.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/img3.png",
+      "RelativePath": "images/static/img3.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1051,15 +1051,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\img3.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\img3.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\img33.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\img33.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/img33.png",
+      "RelativePath": "images/static/img33.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1068,15 +1068,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\img33.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\img33.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\info.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\info.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/info.png",
+      "RelativePath": "images/static/info.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1085,15 +1085,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\info.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\info.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\left.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\left.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/left.png",
+      "RelativePath": "images/static/left.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1102,15 +1102,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\left.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\left.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\left1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\left1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/left1.png",
+      "RelativePath": "images/static/left1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1119,15 +1119,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\left1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\left1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\linkedin.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\linkedin.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/linkedin.png",
+      "RelativePath": "images/static/linkedin.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1136,15 +1136,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\linkedin.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\linkedin.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\list.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\list.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/list.png",
+      "RelativePath": "images/static/list.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1153,15 +1153,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\list.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\list.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\logo.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\logo.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/logo.png",
+      "RelativePath": "images/static/logo.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1170,15 +1170,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\logo.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\logo.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\mission.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\mission.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/mission.png",
+      "RelativePath": "images/static/mission.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1187,15 +1187,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\mission.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\mission.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\my-story.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\my-story.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/my-story.png",
+      "RelativePath": "images/static/my-story.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1204,15 +1204,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\my-story.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\my-story.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\new-message.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\new-message.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/new-message.png",
+      "RelativePath": "images/static/new-message.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1221,15 +1221,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\new-message.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\new-message.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\next.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\next.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/next.png",
+      "RelativePath": "images/static/next.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1238,15 +1238,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\next.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\next.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Nourish-the-Children-in--African-country-1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Nourish-the-Children-in--African-country-1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Nourish-the-Children-in--African-country-1.png",
+      "RelativePath": "images/static/Nourish-the-Children-in--African-country-1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1255,15 +1255,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Nourish-the-Children-in--African-country-1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Nourish-the-Children-in--African-country-1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Nourish-the-Children-in--African-country.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Nourish-the-Children-in--African-country.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Nourish-the-Children-in--African-country.png",
+      "RelativePath": "images/static/Nourish-the-Children-in--African-country.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1272,15 +1272,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Nourish-the-Children-in--African-country.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Nourish-the-Children-in--African-country.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Open-Volunteering-Requests.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Open-Volunteering-Requests.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Open-Volunteering-Requests.png",
+      "RelativePath": "images/static/Open-Volunteering-Requests.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1289,15 +1289,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Open-Volunteering-Requests.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Open-Volunteering-Requests.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\organization.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\organization.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/organization.png",
+      "RelativePath": "images/static/organization.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1306,15 +1306,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\organization.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\organization.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\pdf.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\pdf.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/pdf.png",
+      "RelativePath": "images/static/pdf.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1323,15 +1323,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\pdf.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\pdf.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\pin.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\pin.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/pin.png",
+      "RelativePath": "images/static/pin.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1340,15 +1340,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\pin.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\pin.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\pin1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\pin1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/pin1.png",
+      "RelativePath": "images/static/pin1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1357,15 +1357,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\pin1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\pin1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Plantation-and-Afforestation-programme-1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Plantation-and-Afforestation-programme-1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Plantation-and-Afforestation-programme-1.png",
+      "RelativePath": "images/static/Plantation-and-Afforestation-programme-1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1374,15 +1374,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Plantation-and-Afforestation-programme-1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Plantation-and-Afforestation-programme-1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Plantation-and-Afforestation-programme.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Plantation-and-Afforestation-programme.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Plantation-and-Afforestation-programme.png",
+      "RelativePath": "images/static/Plantation-and-Afforestation-programme.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1391,15 +1391,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Plantation-and-Afforestation-programme.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Plantation-and-Afforestation-programme.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\previous.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\previous.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/previous.png",
+      "RelativePath": "images/static/previous.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1408,15 +1408,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\previous.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\previous.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\right-arrow.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\right-arrow.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/right-arrow.png",
+      "RelativePath": "images/static/right-arrow.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1425,15 +1425,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\right-arrow.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\right-arrow.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\right-arrow1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\right-arrow1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/right-arrow1.png",
+      "RelativePath": "images/static/right-arrow1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1442,15 +1442,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\right-arrow1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\right-arrow1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\right-arrow2.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\right-arrow2.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/right-arrow2.png",
+      "RelativePath": "images/static/right-arrow2.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1459,15 +1459,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\right-arrow2.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\right-arrow2.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\right-white.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\right-white.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/right-white.png",
+      "RelativePath": "images/static/right-white.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1476,15 +1476,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\right-white.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\right-white.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\right.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\right.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/right.png",
+      "RelativePath": "images/static/right.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1493,15 +1493,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\right.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\right.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\search.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\search.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/search.png",
+      "RelativePath": "images/static/search.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1510,15 +1510,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\search.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\search.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Seats-left.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Seats-left.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Seats-left.png",
+      "RelativePath": "images/static/Seats-left.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1527,15 +1527,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Seats-left.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Seats-left.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\selected-star.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\selected-star.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/selected-star.png",
+      "RelativePath": "images/static/selected-star.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1544,15 +1544,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\selected-star.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\selected-star.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\settings.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\settings.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/settings.png",
+      "RelativePath": "images/static/settings.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1561,15 +1561,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\settings.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\settings.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\star-empty.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\star-empty.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/star-empty.png",
+      "RelativePath": "images/static/star-empty.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1578,15 +1578,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\star-empty.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\star-empty.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\star.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\star.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/star.png",
+      "RelativePath": "images/static/star.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1595,15 +1595,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\star.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\star.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\twitter.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\twitter.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/twitter.png",
+      "RelativePath": "images/static/twitter.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1612,15 +1612,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\twitter.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\twitter.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\up.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\up.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/up.png",
+      "RelativePath": "images/static/up.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1629,15 +1629,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\up.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\up.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\user-img-large.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\user-img-large.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/user-img-large.png",
+      "RelativePath": "images/static/user-img-large.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1646,15 +1646,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\user-img-large.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\user-img-large.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\user-img.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\user-img.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/user-img.png",
+      "RelativePath": "images/static/user-img.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1663,15 +1663,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\user-img.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\user-img.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\user.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\user.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/user.png",
+      "RelativePath": "images/static/user.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1680,15 +1680,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\user.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\user.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\user1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\user1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/user1.png",
+      "RelativePath": "images/static/user1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1697,15 +1697,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\user1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\user1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\volunteer1.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\volunteer1.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/volunteer1.png",
+      "RelativePath": "images/static/volunteer1.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1714,15 +1714,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\volunteer1.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\volunteer1.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\volunteer2.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\volunteer2.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/volunteer2.png",
+      "RelativePath": "images/static/volunteer2.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1731,15 +1731,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\volunteer2.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\volunteer2.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\volunteer3.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\volunteer3.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/volunteer3.png",
+      "RelativePath": "images/static/volunteer3.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1748,15 +1748,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\volunteer3.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\volunteer3.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\volunteer4.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\volunteer4.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/volunteer4.png",
+      "RelativePath": "images/static/volunteer4.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1765,15 +1765,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\volunteer4.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\volunteer4.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\volunteer5.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\volunteer5.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/volunteer5.png",
+      "RelativePath": "images/static/volunteer5.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1782,15 +1782,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\volunteer5.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\volunteer5.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\volunteer6.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\volunteer6.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/volunteer6.png",
+      "RelativePath": "images/static/volunteer6.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1799,15 +1799,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\volunteer6.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\volunteer6.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\volunteer7.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\volunteer7.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/volunteer7.png",
+      "RelativePath": "images/static/volunteer7.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1816,15 +1816,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\volunteer7.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\volunteer7.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\volunteer8.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\volunteer8.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/volunteer8.png",
+      "RelativePath": "images/static/volunteer8.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1833,15 +1833,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\volunteer8.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\volunteer8.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\volunteer9.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\volunteer9.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/volunteer9.png",
+      "RelativePath": "images/static/volunteer9.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1850,15 +1850,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\volunteer9.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\volunteer9.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Volunteering-Rank.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Volunteering-Rank.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Volunteering-Rank.png",
+      "RelativePath": "images/static/Volunteering-Rank.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1867,15 +1867,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Volunteering-Rank.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Volunteering-Rank.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\Voted-Missions.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\Voted-Missions.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/Voted-Missions.png",
+      "RelativePath": "images/static/Voted-Missions.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1884,15 +1884,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\Voted-Missions.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\Voted-Missions.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\web.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\web.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/web.png",
+      "RelativePath": "images/static/web.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1901,15 +1901,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\web.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\web.png"
     },
     {
-      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\image\\xlsx.png",
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\xlsx.png",
       "SourceId": "CI-PlatformWeb",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
       "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "image/xlsx.png",
+      "RelativePath": "images/static/xlsx.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1918,7 +1918,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\image\\xlsx.png"
+      "OriginalItemSpec": "wwwroot\\images\\static\\xlsx.png"
     },
     {
       "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\js\\site.js",

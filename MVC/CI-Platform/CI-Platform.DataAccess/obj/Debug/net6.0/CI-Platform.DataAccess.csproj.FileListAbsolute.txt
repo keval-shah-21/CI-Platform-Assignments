@@ -1,0 +1,15 @@
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\bin\Debug\net6.0\CI-Platform.DataAccess.deps.json
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\bin\Debug\net6.0\CI-Platform.DataAccess.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\bin\Debug\net6.0\CI-Platform.DataAccess.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\bin\Debug\net6.0\CI-Platform.Entities.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\bin\Debug\net6.0\CI-Platform.Entities.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\CI-Platform.DataAccess.csproj.AssemblyReference.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\CI-Platform.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\CI-Platform.DataAccess.AssemblyInfoInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\CI-Platform.DataAccess.AssemblyInfo.cs
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\CI-Platform.DataAccess.csproj.CoreCompileInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\CI-Platform.DataAccess.csproj.CopyComplete
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\CI-Platform.DataAccess.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\refint\CI-Platform.DataAccess.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\CI-Platform.DataAccess.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.DataAccess\obj\Debug\net6.0\ref\CI-Platform.DataAccess.dll

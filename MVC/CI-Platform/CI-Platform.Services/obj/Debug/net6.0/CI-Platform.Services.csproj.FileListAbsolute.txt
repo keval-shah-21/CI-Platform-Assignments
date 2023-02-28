@@ -1,0 +1,5 @@
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.csproj.AssemblyReference.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.AssemblyInfoInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.AssemblyInfo.cs
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.csproj.CoreCompileInputs.cache

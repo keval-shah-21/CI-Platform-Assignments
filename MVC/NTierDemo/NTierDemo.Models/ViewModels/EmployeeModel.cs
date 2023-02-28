@@ -3,7 +3,6 @@ namespace NTierDemo.Models.ViewModels;
 
 public class EmployeeModel
 {
-    [Key]
     public int Id {get; set;}
 
     [Required(ErrorMessage = "First name is required field")]
