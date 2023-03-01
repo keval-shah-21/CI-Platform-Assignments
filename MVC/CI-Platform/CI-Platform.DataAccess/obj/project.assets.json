@@ -3534,11 +3534,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-Platform.DataAccess\\CI-Platform.DataAccess.csproj",
+      "projectUniqueName": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-Platform.DataAccess\\CI-Platform.DataAccess.csproj",
       "projectName": "CI-Platform.DataAccess",
-      "projectPath": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-Platform.DataAccess\\CI-Platform.DataAccess.csproj",
+      "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-Platform.DataAccess\\CI-Platform.DataAccess.csproj",
       "packagesPath": "C:\\Users\\keval\\.nuget\\packages\\",
-      "outputPath": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-Platform.DataAccess\\obj\\",
+      "outputPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-Platform.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\keval\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -22,6 +22,7 @@ a {
 
 a:hover {
   color: var(--blue);
+  font-weight: 400 !important;
 }
 
 .flex-basis-100 {
