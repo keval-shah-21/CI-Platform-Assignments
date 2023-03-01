@@ -46,4 +46,10 @@ public partial class User
     public virtual City? City { get; set; }
 
     public virtual Country? Country { get; set; }
+
+    public virtual ICollection<FavouriteMission> FavouriteMissions { get; } = new List<FavouriteMission>();
+
+    public virtual ICollection<Story> Stories { get; } = new List<Story>();
+
+    public virtual ICollection<UserSkill> UserSkills { get; } = new List<UserSkill>();
 }

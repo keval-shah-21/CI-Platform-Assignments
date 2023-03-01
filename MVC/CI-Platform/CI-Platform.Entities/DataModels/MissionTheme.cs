@@ -16,4 +16,6 @@ public partial class MissionTheme
     public DateTimeOffset? UpdatedAt { get; set; }
 
     public DateTimeOffset? DeletedAt { get; set; }
+
+    public virtual ICollection<Mission> Missions { get; } = new List<Mission>();
 }

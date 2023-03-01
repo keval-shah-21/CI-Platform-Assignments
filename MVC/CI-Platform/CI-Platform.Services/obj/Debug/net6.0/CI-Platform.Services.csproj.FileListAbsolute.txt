@@ -3,3 +3,15 @@ D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\De
 D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.AssemblyInfoInputs.cache
 D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.AssemblyInfo.cs
 D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.csproj.CoreCompileInputs.cache
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\bin\Debug\net6.0\CI-Platform.Services.deps.json
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\bin\Debug\net6.0\CI-Platform.Services.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\bin\Debug\net6.0\CI-Platform.Services.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\bin\Debug\net6.0\CI-Platform.DataAccess.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\bin\Debug\net6.0\CI-Platform.Entities.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\bin\Debug\net6.0\CI-Platform.Entities.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\bin\Debug\net6.0\CI-Platform.DataAccess.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.csproj.CopyComplete
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\refint\CI-Platform.Services.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\CI-Platform.Services.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-Platform.Services\obj\Debug\net6.0\ref\CI-Platform.Services.dll

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using CI_PlatformWeb.Models;
 
-namespace CI_PlatformWeb.Controllers;
+namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
 
 [Area("Volunteer")]
 [Route("/volunteer/home/")]
@@ -15,7 +15,7 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    [Route("/", name = "Default")]
+    [Route("/", Name = "Default")]
     [Route("index")]
     public IActionResult Index()
     {

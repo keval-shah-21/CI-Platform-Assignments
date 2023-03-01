@@ -1,18 +1,20 @@
+@model LoginVM;
 @{
     ViewData["Title"] = "Login";
 }
 <main class="d-flex flex-column flex-lg-row">
     <partial name="_HeroSectionCarousel"></partial>
     <section class="right-section d-flex flex-column gap-3 justify-content-center align-items-center p-5 p-lg-0">
-        <form class="login-form d-grid gap-4">
+        <form method="post" asp-route="LoginPost" class="login-form d-grid gap-4">
             <div>
-                <label for="email" class="fw-light">Email Address</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email address"
-                    value="evan.donohue@gmail.com">
+                <label asp-for="Email" class="fw-light"></label>
+                <input type="email" asp-for="Email" class="form-control" placeholder="Enter your email address">
+                <span asp-validation-for="Email" class="text-13 text-danger"></span>
             </div>
             <div>
-                <label for="password" class="fw-light">Password</label>
-                <input type="password" class="form-control" id="password" value="1243j;ll">
+                <label asp-for="Password" class="fw-light"></label>
+                <input type="password" asp-for="Password" class="form-control">
+                <span asp-validation-for="Password" class="text-13 text-danger"></span>
             </div>
             <button type="submit" class="btn button w-100 bg-white">Login</button>
         </form>
@@ -23,3 +25,7 @@
         <a href="#" class="fw-light color-darkgray privacy-policy text-14">Privacy Policy</a>
     </section>
 </main>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial.cshtml"></partial>
+}

@@ -40,4 +40,16 @@ public partial class Mission
     public DateTimeOffset? UpdatedAt { get; set; }
 
     public DateTimeOffset? DeletedAt { get; set; }
+
+    public virtual ICollection<FavouriteMission> FavouriteMissions { get; } = new List<FavouriteMission>();
+
+    public virtual City MissionCityNavigation { get; set; } = null!;
+
+    public virtual Country MissionCountryNavigation { get; set; } = null!;
+
+    public virtual ICollection<MissionSkill> MissionSkills { get; } = new List<MissionSkill>();
+
+    public virtual MissionTheme MissionTheme { get; set; } = null!;
+
+    public virtual ICollection<Story> Stories { get; } = new List<Story>();
 }

@@ -14,4 +14,8 @@ public class UnitOfService : IUnitOfService
     }
 
     public IUserService User{get; private set;}
+
+    public void Save(){
+        _unitOfWork.Save();
+    }
 }

@@ -16,4 +16,8 @@ public partial class MissionSkill
     public DateTimeOffset? UpdatedAt { get; set; }
 
     public DateTimeOffset? DeletedAt { get; set; }
+
+    public virtual Mission Mission { get; set; } = null!;
+
+    public virtual Skill Skill { get; set; } = null!;
 }

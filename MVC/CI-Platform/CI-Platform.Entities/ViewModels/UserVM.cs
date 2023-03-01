@@ -14,14 +14,17 @@ public class UserVM{
 
     [Required]
     [Display(Name ="Email Address")]
+    [EmailAddress]
     public string Email {get; set;} = string.Empty;
 
     [Required]
+    [MinLength(8, ErrorMessage ="Password should be of minimum 8 digits.")]
     public string Password {get; set;} = string.Empty;
 
     [Required]
     [Display(Name ="Phone Number")]
-    [RegularExpression("([0-9]+)", ErrorMessage = "Please enter valid Number")]
+    [RegularExpression("([0-9]+)", ErrorMessage = "Please enter valid Phone Number.")]
     [StringLength(10, ErrorMessage ="Phone number should be of 10 digits only.", MinimumLength =10)]
     public string PhoneNumber {get; set;} = string.Empty;
+    public string? Avatar {get; set;}
 }

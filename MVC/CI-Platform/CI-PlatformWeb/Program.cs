@@ -1,12 +1,21 @@
 using CI_Platform.Entities.DataModels;
 using CI_Platform.Services.Service;
 using CI_Platform.Services.Service.Interface;
+using CI_Platform.DataAccess.Repository;
+using CI_Platform.DataAccess.Repository.Interface;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<ApplicationDbContext>();
+
 builder.Services.AddScoped<IUnitOfService, UnitOfService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +32,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
