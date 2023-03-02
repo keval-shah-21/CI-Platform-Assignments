@@ -2,5 +2,5 @@ namespace CI_Platform.Services.Service.Interface;
 
 public interface IEmailService
 {
-    Task SendEmail(string Email, string Subject, string HtmlMessage);
+    Task SendEmail(string email, string subject, string htmlMessage);
 }

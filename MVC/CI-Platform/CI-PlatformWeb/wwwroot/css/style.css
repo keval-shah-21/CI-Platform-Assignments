@@ -114,8 +114,8 @@ form input:focus {
 }
 
 .button:hover {
-  color: white !important;
-  background-color: var(--light-orange) !important;
+  color: var(--light-orange) !important;
+  background-color: rgb(241, 241, 241) !important;
   transition: var(--transition);
 }
 

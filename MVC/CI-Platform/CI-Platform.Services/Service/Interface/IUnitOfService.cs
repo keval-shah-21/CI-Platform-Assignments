@@ -4,5 +4,7 @@ public interface IUnitOfService
 {
     IUserService User{get;}
 
+    IResetPasswordService ResetPassword{get;}
+
     void Save();
 }

@@ -86,3 +86,6 @@ D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-PlatformWeb\bin\Debug\ne
 D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-PlatformWeb\obj\Debug\net6.0\CI-PlatformWeb.csproj.CopyComplete
 D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-PlatformWeb\bin\Debug\net6.0\CI-Platform.Services.dll
 D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-PlatformWeb\bin\Debug\net6.0\CI-Platform.Services.pdb
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-PlatformWeb\bin\Debug\net6.0\MailKit.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-PlatformWeb\bin\Debug\net6.0\MimeKit.dll
+D:\TatvaSoft\CI-Platform-Assignments\MVC\CI-Platform\CI-PlatformWeb\bin\Debug\net6.0\BouncyCastle.Crypto.dll

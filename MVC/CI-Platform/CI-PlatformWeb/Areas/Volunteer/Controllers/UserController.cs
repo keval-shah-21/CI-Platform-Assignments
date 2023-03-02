@@ -9,10 +9,12 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
 public class UserController: Controller
 {
     private readonly IUnitOfService _unitOfService;
+    private readonly IEmailService _emailService;
 
-    public UserController(IUnitOfService unitOfService)
+    public UserController(IUnitOfService unitOfService, IEmailService emailService)
     {
         _unitOfService = unitOfService;
+        _emailService = emailService;
     }
 
     [Route("login", Name="Login")]
@@ -36,6 +38,7 @@ public class UserController: Controller
                 SetUserLoginSession(userVM);
                 return RedirectToAction("Index", "Home");
             }
+            TempData["Error"] = "Invalid username or password.";
         }
         return View(loginVM);
     }
@@ -77,22 +80,55 @@ public class UserController: Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Route("forgot-password", Name="ForgotPasswordPost")]
-    public IActionResult ForgotPassword(string? Email){
-        if(Email == null){
-            return NotFound();
+    public IActionResult ForgotPassword(string? email){
+        if(email == null){ return NotFound();}
+
+        if(_unitOfService.User.GetFirstOrDefaultByEmail(email) != null){
+            string token = Guid.NewGuid().ToString();
+            var url = Url.Action("ResetPassword", "User", new { email = email, token = token }, "https");
+
+            ResetPasswordVM obj = new ResetPasswordVM(){Email = email, Token = token};
+            if(_unitOfService.ResetPassword.GetFirstOrDefaultByEmail(email) != null)
+                _unitOfService.ResetPassword.Update(obj);
+            else
+                _unitOfService.ResetPassword.Add(obj);
+
+            _unitOfService.User.SendResetPasswordEmail(email, url!);
+            _unitOfService.Save();
+
+            TempData["Success"] = "Mail is sent on your email address";
         }
-        return View();
+        else
+            TempData["Error"] = "You don't have an account with this email address.";
+        return RedirectToRoute("ForgotPassword");
     }
 
     [Route("reset-password", Name="ResetPassword")]
-    public IActionResult ResetPassword(){
-        return View();
+    public IActionResult ResetPassword(string email, string token){
+        if(!_unitOfService.ResetPassword.IsValidRecord(email)){
+            TempData["Error"] = "Invalid Token or Token Expired.";
+            return RedirectToAction("ForgotPassword");
+        }
+        return View(
+            new ResetPasswordDataVM(){
+                Email = email,
+                Token = token
+            }
+        );
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Route("reset-password", Name="ResetPasswordPost")]
-    public IActionResult ResetPassword(string? Password){
-        return View();
+    public IActionResult ResetPassword(ResetPasswordDataVM resetPasswordDataVM){
+        if(ModelState.IsValid){
+            _unitOfService.ResetPassword.Remove(resetPasswordDataVM);
+            _unitOfService.User.UpdateByPassword(resetPasswordDataVM.Email, resetPasswordDataVM.Password);
+            _unitOfService.Save();
+
+            TempData["PasswordSuccess"] = "Password updated successfully.";
+            return RedirectToRoute("Login");
+        }
+        return View(resetPasswordDataVM);
     }
 }

@@ -10,32 +10,32 @@
         <form method="post" asp-route="RegistrationPost" class="d-grid gap-3 gap-lg-1 gap-xxl-3" id="RegistrationForm">
             <div>
                 <label asp-for="FirstName" class="fw-light"></label>
-                <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter your first name">
+                <input type="text" asp-for="FirstName" class="form-control p-lg-1 p-xxl-2" placeholder="Enter your first name">
                 <span asp-validation-for="FirstName" class="text-danger text-13"></span>
             </div>
             <div>
                 <label asp-for="LastName" class="fw-light"></label>
-                <input type="text" asp-for="LastName" class="form-control" placeholder="Enter your last name">
+                <input type="text" asp-for="LastName" class="form-control p-lg-1 p-xxl-2" placeholder="Enter your last name">
                 <span asp-validation-for="LastName" class="text-danger text-13"></span>
             </div>
             <div>
                 <label asp-for="PhoneNumber" class="fw-light"></label>
-                <input type="tel" asp-for="PhoneNumber" class="form-control" placeholder="Enter your phone number">
+                <input type="tel" asp-for="PhoneNumber" class="form-control p-lg-1 p-xxl-2" placeholder="Enter your phone number">
                 <span asp-validation-for="PhoneNumber" class="text-danger text-13"></span>
             </div>
             <div>
                 <label asp-for="Email" class="fw-light"></label>
-                <input type="email" asp-for="Email" class="form-control" placeholder="Enter your email address">
+                <input type="email" asp-for="Email" class="form-control p-lg-1 p-xxl-2" placeholder="Enter your email address">
                 <span asp-validation-for="Email" class="text-danger text-13"></span>
             </div>
             <div>
                 <label asp-for="Password" class="fw-light">Password</label>
-                <input type="password" asp-for="Password" class="form-control">
+                <input type="password" asp-for="Password" class="form-control p-lg-1 p-xxl-2">
                 <span asp-validation-for="Password" id="Password" class="text-danger text-13"></span>
             </div>
             <div>
                 <label for="ConfirmPassword" class="fw-light">Confirm Password</label>
-                <input type="password" class="form-control" id="ConfirmPassword">
+                <input type="password" class="form-control p-lg-1 p-xxl-2" id="ConfirmPassword">
                 <span id="ConfirmPasswordError" class="text-danger text-13"></span>
             </div>
             <button type="submit" class="btn button w-100 bg-white mt-1">Register</button>
@@ -53,14 +53,27 @@
 }
 <script>
     const ConfirmPassword = document.querySelector("#ConfirmPassword");
-    const Password = document.querySelector("#Passwrod");
+    const Password = document.querySelector("#Password");
+    const RegForm = document.querySelector("#RegistrationForm")
     const ConfirmPasswordError = document.querySelector("#ConfirmPasswordError");
 
-    ConfirmPassword.addEventListener('change', ()=>{
+    ConfirmPassword.addEventListener('input', ()=>{
         if(Password.value != ConfirmPassword.value)
             ConfirmPasswordError.textContent = "Confirm password must be same as password."
         else
             ConfirmPasswordError.textContent = '';
     })
-
+    
+    RegForm.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        if(ConfirmPassword.value == null || ConfirmPassword.value == ""){
+            ConfirmPasswordError.textContent = "The Confirm password field is required."
+            return;
+        }
+        if(ConfirmPassword.value != Password.value){
+            ConfirmPasswordError.textContent = "Confirm password must be same as password."
+            return;
+        }
+        RegForm.submit();
+    })
 </script>

@@ -9,9 +9,11 @@ public class UnitOfWork : IUnitOfWork
     {
         _context = context;
         User = new UserRepository(_context);
+        ResetPassword = new ResetPasswordRepository(_context);
     }
     public IUserRepository User{get; private set;}
 
+    public IResetPasswordRepository ResetPassword{get; private set;}
     public void Save()
     {
         _context.SaveChanges();

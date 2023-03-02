@@ -18,7 +18,7 @@ public class UserVM{
     public string Email {get; set;} = string.Empty;
 
     [Required]
-    [MinLength(8, ErrorMessage ="Password should be of minimum 8 digits.")]
+    [StringLength(255, MinimumLength = 8, ErrorMessage ="Password length should be between 8 to 255")]
     public string Password {get; set;} = string.Empty;
 
     [Required]

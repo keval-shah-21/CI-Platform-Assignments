@@ -10,4 +10,6 @@ public interface IRepository<T> where T: class
     void Remove(T entity);
 
     T GetFirstOrDefault(Expression<Func<T, bool>> filter);
+
+    void Update(T entity);
 }

@@ -5,17 +5,19 @@
 <main class="d-flex flex-column flex-lg-row">
     <partial name="_HeroSectionCarousel"></partial>
     <section class="right-section d-flex flex-column gap-3 justify-content-center align-items-center p-5 p-lg-0">
+        <span class="text-danger text-14"></span>
         <form method="post" asp-route="LoginPost" class="login-form d-grid gap-4">
             <div>
                 <label asp-for="Email" class="fw-light"></label>
                 <input type="email" asp-for="Email" class="form-control" placeholder="Enter your email address">
-                <span asp-validation-for="Email" class="text-13 text-danger"></span>
+                <span asp-validation-for="Email" class="text-14 text-danger"></span>
             </div>
             <div>
                 <label asp-for="Password" class="fw-light"></label>
                 <input type="password" asp-for="Password" class="form-control">
-                <span asp-validation-for="Password" class="text-13 text-danger"></span>
+                <span asp-validation-for="Password" class="text-14 text-danger"></span>
             </div>
+            <span class="text-success text-14">@TempData["PasswordSuccess"]</span>
             <button type="submit" class="btn button w-100 bg-white">Login</button>
         </form>
         <a asp-controller="User" asp-action="ForgotPassword" class="fw-light color-darkgray text-14">Lost your

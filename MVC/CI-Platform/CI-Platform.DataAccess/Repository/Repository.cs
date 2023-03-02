@@ -36,4 +36,9 @@ public class Repository<T> : IRepository<T> where T : class
     {
         dbSet.Remove(entity);
     }
+
+    public void Update(T entity)
+    {
+        dbSet.Update(entity);
+    }
 }

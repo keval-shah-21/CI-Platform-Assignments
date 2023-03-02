@@ -11,12 +11,16 @@ public class EmailService : IEmailService
         var emailToSend = new MimeMessage();
         emailToSend.From.Add(MailboxAddress.Parse("keval.itaims@gmail.com"));
         emailToSend.To.Add(MailboxAddress.Parse(email));
-        emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html{Text = htmlMessage});
+        emailToSend.Subject = subject;
+        emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html){Text = htmlMessage};
 
         using (var emailClient = new SmtpClient())
         {
-            emailClient.Connect("smtp.gmail.com");
+            emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+            emailClient.Authenticate("keval.itaims@gmail.com", "sxmffstquwixzuht");
+            emailClient.Send(emailToSend);
+            emailClient.Disconnect(true);
         }
-        throw new NotImplementedException();
+        return  Task.CompletedTask;
     }
 }

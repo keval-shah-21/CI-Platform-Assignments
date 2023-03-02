@@ -315,21 +315,21 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<ResetPassword>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("reset_password");
+            entity.HasKey(e => e.Email).HasName("PK__reset_pa__AB6E6165BC21CA8C");
 
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnName("created_at");
+            entity.ToTable("reset_password");
+
             entity.Property(e => e.Email)
                 .HasMaxLength(128)
                 .IsUnicode(false)
                 .HasColumnName("email");
-            entity.Property(e => e.Toekn)
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Token)
                 .HasMaxLength(255)
                 .IsUnicode(false)
-                .HasColumnName("toekn");
+                .HasColumnName("token");
         });
 
         modelBuilder.Entity<Skill>(entity =>

@@ -1,14 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 namespace CI_Platform.Entities.ViewModels;
 
-public class LoginVM
+public class ResetPasswordDataVM : ResetPasswordVM
 {
-    [Required]
-    [EmailAddress]
-    [Display(Name = "Email Address")]
-    public string Email {get; set;} = string.Empty;
-
     [Required]
     [StringLength(255, MinimumLength = 8, ErrorMessage ="Password length should be between 8 to 255")]
     public string Password {get; set;} = string.Empty;
+
+    [Required]
+    [Display(Name ="Confirm Password")]
+    public string ConfirmPassword {get; set;} = string.Empty;
 }
