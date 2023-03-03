@@ -11,5 +11,5 @@ public interface IUserService
 
     void SendResetPasswordEmail(string email, string url);
 
-    void UpdateByPassword(string email, string password);
+    void UpdatePassword(string email, string password);
 }

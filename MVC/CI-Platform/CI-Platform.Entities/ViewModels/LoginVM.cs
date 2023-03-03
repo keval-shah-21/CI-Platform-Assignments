@@ -4,7 +4,7 @@ namespace CI_Platform.Entities.ViewModels;
 public class LoginVM
 {
     [Required]
-    [EmailAddress]
+    [EmailAddress(ErrorMessage ="Invalid email address.")]
     [Display(Name = "Email Address")]
     public string Email {get; set;} = string.Empty;
 

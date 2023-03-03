@@ -6,9 +6,13 @@ public interface IResetPasswordService
 {
     void Add(ResetPasswordVM resetPasswordVM);
 
-    bool IsValidRecord(string email);
+    bool IsValidRequest(string email, string token);
 
-    void Remove(ResetPasswordDataVM resetPasswordDataVM);
+    byte IsValidRecord(string email);
+
+    void Remove(ResetPasswordVM resetPasswordVM);
+
+    void RemoveByEmail(string email);
 
     void Update(ResetPasswordVM resetPasswordVM);
 

@@ -48,6 +48,7 @@ public class UserController: Controller
         HttpContext.Session.SetString("LastName", userVM.LastName.ToString());
         HttpContext.Session.SetString("UserId", userVM.UserId.ToString());
         HttpContext.Session.SetString("Email", userVM.Email.ToString());
+        HttpContext.Session.SetString("Avatar", userVM.Avatar!.ToString());
     }
 
     public void SetUserProfileSession(){
@@ -64,10 +65,14 @@ public class UserController: Controller
     [Route("registration", Name="RegistrationPost")]
     public IActionResult Registration(UserVM userVM){
         if(ModelState.IsValid){
-            _unitOfService.User.Add(userVM);
-            _unitOfService.Save();
-            SetUserLoginSession(userVM);
-            return RedirectToAction("Index", "Home");
+            if(_unitOfService.User.GetFirstOrDefaultByEmail(userVM.Email) == null){
+                userVM.Avatar = @"\images\static\default-profile.webp";
+                _unitOfService.User.Add(userVM);
+                _unitOfService.Save();
+                SetUserLoginSession(userVM);
+                return RedirectToAction("Index", "Home");
+            }
+            TempData["Error"] = "This email is already registered.";
         }
         return View(userVM);
     }
@@ -81,22 +86,27 @@ public class UserController: Controller
     [ValidateAntiForgeryToken]
     [Route("forgot-password", Name="ForgotPasswordPost")]
     public IActionResult ForgotPassword(string? email){
-        if(email == null){ return NotFound();}
+        if(email == null){ return RedirectToAction("Error", "Home");}
 
         if(_unitOfService.User.GetFirstOrDefaultByEmail(email) != null){
             string token = Guid.NewGuid().ToString();
             var url = Url.Action("ResetPassword", "User", new { email = email, token = token }, "https");
 
             ResetPasswordVM obj = new ResetPasswordVM(){Email = email, Token = token};
-            if(_unitOfService.ResetPassword.GetFirstOrDefaultByEmail(email) != null)
-                _unitOfService.ResetPassword.Update(obj);
-            else
-                _unitOfService.ResetPassword.Add(obj);
+            byte result = _unitOfService.ResetPassword.IsValidRecord(email);
+            if(result == 0){
+                TempData["Error"] = "Try again after sometime.";
+                return RedirectToRoute("ForgotPassword");
+            }
+            else if(result == 1)
+                _unitOfService.ResetPassword.RemoveByEmail(email);
 
-            _unitOfService.User.SendResetPasswordEmail(email, url!);
+            _unitOfService.ResetPassword.Add(obj);
             _unitOfService.Save();
-
+            
+            _unitOfService.User.SendResetPasswordEmail(email, url!);
             TempData["Success"] = "Mail is sent on your email address";
+            return RedirectToRoute("Login");
         }
         else
             TempData["Error"] = "You don't have an account with this email address.";
@@ -105,7 +115,7 @@ public class UserController: Controller
 
     [Route("reset-password", Name="ResetPassword")]
     public IActionResult ResetPassword(string email, string token){
-        if(!_unitOfService.ResetPassword.IsValidRecord(email)){
+        if(!_unitOfService.ResetPassword.IsValidRequest(email, token)){
             TempData["Error"] = "Invalid Token or Token Expired.";
             return RedirectToAction("ForgotPassword");
         }
@@ -123,10 +133,10 @@ public class UserController: Controller
     public IActionResult ResetPassword(ResetPasswordDataVM resetPasswordDataVM){
         if(ModelState.IsValid){
             _unitOfService.ResetPassword.Remove(resetPasswordDataVM);
-            _unitOfService.User.UpdateByPassword(resetPasswordDataVM.Email, resetPasswordDataVM.Password);
+            _unitOfService.User.UpdatePassword(resetPasswordDataVM.Email, resetPasswordDataVM.Password);
             _unitOfService.Save();
 
-            TempData["PasswordSuccess"] = "Password updated successfully.";
+            TempData["Success"] = "Password updated successfully.";
             return RedirectToRoute("Login");
         }
         return View(resetPasswordDataVM);

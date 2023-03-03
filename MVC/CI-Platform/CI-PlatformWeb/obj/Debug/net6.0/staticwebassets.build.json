@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xbk37KsETsnuEcXapVcVvb0Na/ToovS1R7fRVYkGK1c=",
+  "Hash": "Yo/pVHWpAwSYMQCUhTURAVEezmAS/VDXoxHMLj3Y668=",
   "Source": "CI-PlatformWeb",
   "BasePath": "_content/CI-PlatformWeb",
   "Mode": "Default",
@@ -508,6 +508,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\static\\deadline.png"
+    },
+    {
+      "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\default-profile.webp",
+      "SourceId": "CI-PlatformWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
+      "BasePath": "_content/CI-PlatformWeb",
+      "RelativePath": "images/static/default-profile.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\static\\default-profile.webp"
     },
     {
       "Identity": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\doc.png",

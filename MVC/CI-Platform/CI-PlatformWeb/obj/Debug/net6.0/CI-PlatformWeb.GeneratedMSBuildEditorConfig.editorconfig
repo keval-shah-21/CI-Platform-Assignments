@@ -35,6 +35,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/TatvaSoft/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Home/_GridViewIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcX0dyaWRWaWV3SW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/TatvaSoft/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Home/_ListViewIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcX0xpc3RWaWV3SW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/TatvaSoft/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXFNoYXJlZFxfRm9vdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

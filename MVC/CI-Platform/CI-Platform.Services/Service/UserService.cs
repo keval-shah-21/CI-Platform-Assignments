@@ -25,7 +25,9 @@ public class UserService : IUserService
             LastName = userVM.LastName,
             Email = userVM.Email,
             Password = userVM.Password,
-            PhoneNumber = userVM.PhoneNumber
+            PhoneNumber = userVM.PhoneNumber,
+            CreatedAt = userVM.CreatedAt,
+            Avatar = userVM.Avatar
         };
         _unitOfWork.User.Add(obj);
     }
@@ -43,6 +45,7 @@ public class UserService : IUserService
                 Email = obj.Email,
                 Password = obj.Password,
                 PhoneNumber = obj.PhoneNumber,
+                Avatar = obj.Avatar
             };
         return null!;
     }
@@ -60,6 +63,7 @@ public class UserService : IUserService
                 Email = obj.Email,
                 Password = obj.Password,
                 PhoneNumber = obj.PhoneNumber,
+                Avatar = obj.Avatar
             };
         }
         return null!;
@@ -72,8 +76,7 @@ public class UserService : IUserService
         string body = $"<p style='text-align:center;font-size:1.5rem'>Click on the link below to reset your password</p><hr/>{link}";
         _emailService.SendEmail(email, subject, body);
     }
-
-    public void UpdateByPassword(string email, string password)
+    public void UpdatePassword(string email, string password)
     {
         User user = _unitOfWork.User.GetFirstOrDefault(user => user.Email == email);
         user.Password = password;

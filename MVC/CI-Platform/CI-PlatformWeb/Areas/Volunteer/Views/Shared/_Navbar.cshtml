@@ -22,12 +22,12 @@
             </div>
         </div>
         <div>
-            @if(@HttpContextAccessor.HttpContext.Session.GetString("Email") != null){
+            @if(@HttpContextAccessor.HttpContext!.Session.GetString("Email") != null){
                 <div class="dropdown">
                     <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="~/images/static/user-img.png" alt="profile" class="rounded-circle" width="40px" height="40px">
-                    <span class="d-none d-md-inline">@HttpContextAccessor.HttpContext.Session.GetString("FirstName")</span>
+                    <img src='@HttpContextAccessor.HttpContext.Session.GetString("Avatar")' alt="profile" class="rounded-circle object-fit-cover" width="40px" height="40px">
+                    <span class="d-none d-md-inline">@HttpContextAccessor.HttpContext.Session.GetString("FirstName") @HttpContextAccessor.HttpContext.Session.GetString("LastName")</span>
                     <img src="~/images/static/drop-down.png" alt="drop-down">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">

@@ -27,6 +27,7 @@
                 <label asp-for="Email" class="fw-light"></label>
                 <input type="email" asp-for="Email" class="form-control p-lg-1 p-xxl-2" placeholder="Enter your email address">
                 <span asp-validation-for="Email" class="text-danger text-13"></span>
+                <span class="text-danger text-14">@TempData["Error"]</span>
             </div>
             <div>
                 <label asp-for="Password" class="fw-light">Password</label>

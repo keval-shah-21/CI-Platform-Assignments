@@ -10,7 +10,9 @@ body {
   --blue: #2b64b1;
   --transition: all 0.3s ease-out;
 }
-
+.object-fit-cover{
+  object-fit: cover;
+}
 img {
   display: block;
   max-width: 100%;
