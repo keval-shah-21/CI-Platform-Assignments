@@ -215,7 +215,9 @@ form input:focus {
     max-width: 10rem;
   }
 }
-
+.dropdown-menu > li{
+  cursor:pointer;
+}
 #Search {
   border: none;
 }

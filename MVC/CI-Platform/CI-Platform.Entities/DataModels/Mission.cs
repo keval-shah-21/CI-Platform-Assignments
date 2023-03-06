@@ -33,7 +33,7 @@ public partial class Mission
 
     public DateTime? RegistrationDeadline { get; set; }
 
-    public byte Availability { get; set; }
+    public byte? Availability { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
@@ -41,11 +41,23 @@ public partial class Mission
 
     public DateTimeOffset? DeletedAt { get; set; }
 
+    public byte? MissionRating { get; set; }
+
     public virtual ICollection<FavouriteMission> FavouriteMissions { get; } = new List<FavouriteMission>();
+
+    public virtual ICollection<MissionApplication> MissionApplications { get; } = new List<MissionApplication>();
 
     public virtual City MissionCityNavigation { get; set; } = null!;
 
     public virtual Country MissionCountryNavigation { get; set; } = null!;
+
+    public virtual ICollection<MissionDocument> MissionDocuments { get; } = new List<MissionDocument>();
+
+    public virtual ICollection<MissionGoal> MissionGoals { get; } = new List<MissionGoal>();
+
+    public virtual ICollection<MissionMedia> MissionMedia { get; } = new List<MissionMedia>();
+
+    public virtual ICollection<MissionRating> MissionRatings { get; } = new List<MissionRating>();
 
     public virtual ICollection<MissionSkill> MissionSkills { get; } = new List<MissionSkill>();
 

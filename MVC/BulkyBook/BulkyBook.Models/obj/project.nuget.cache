@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "A87t1MvE9058Z+NupKJ+vN+OKoPs0lWEexgdf3B9a21E6v9KO3urfGmoK7YrwPMym+SDZrX8ShzK/CVkWMI9ew==",
+  "dgSpecHash": "2PpvwKvtuPmM4gFbuJuJp3WIilcRyTj51rZbg4fg6qNPNM95YO3JrkNo5NTyBMZNHoqAuN5zoz9VRZI9/ypq+g==",
   "success": true,
-  "projectFilePath": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
+  "projectFilePath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\keval\\.nuget\\packages\\system.componentmodel.annotations\\6.0.0-preview.4.21253.7\\system.componentmodel.annotations.6.0.0-preview.4.21253.7.nupkg.sha512"
   ],

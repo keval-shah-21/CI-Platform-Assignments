@@ -3654,11 +3654,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
+      "projectUniqueName": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
       "projectName": "BulkyBookWeb",
-      "projectPath": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
+      "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
       "packagesPath": "C:\\Users\\keval\\.nuget\\packages\\",
-      "outputPath": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBookWeb\\obj\\",
+      "outputPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBookWeb\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\keval\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3673,11 +3673,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.DataAccess\\BulkyBook.DataAccess.csproj": {
-              "projectPath": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.DataAccess\\BulkyBook.DataAccess.csproj"
+            "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.DataAccess\\BulkyBook.DataAccess.csproj": {
+              "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.DataAccess\\BulkyBook.DataAccess.csproj"
             },
-            "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj": {
-              "projectPath": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj"
+            "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj": {
+              "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj"
             }
           }
         }
@@ -3710,7 +3710,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
       }
     }
   }

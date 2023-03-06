@@ -51,30 +51,30 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial.cshtml"></partial>
-}
-<script>
-    const ConfirmPassword = document.querySelector("#ConfirmPassword");
-    const Password = document.querySelector("#Password");
-    const RegForm = document.querySelector("#RegistrationForm")
-    const ConfirmPasswordError = document.querySelector("#ConfirmPasswordError");
+    <script>
+        const ConfirmPassword = document.querySelector("#ConfirmPassword");
+        const Password = document.querySelector("#Password");
+        const RegForm = document.querySelector("#RegistrationForm")
+        const ConfirmPasswordError = document.querySelector("#ConfirmPasswordError");
 
-    ConfirmPassword.addEventListener('input', ()=>{
-        if(Password.value != ConfirmPassword.value)
-            ConfirmPasswordError.textContent = "Confirm password must be same as password."
-        else
-            ConfirmPasswordError.textContent = '';
-    })
-    
-    RegForm.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        if(ConfirmPassword.value == null || ConfirmPassword.value == ""){
-            ConfirmPasswordError.textContent = "The Confirm password field is required."
-            return;
-        }
-        if(ConfirmPassword.value != Password.value){
-            ConfirmPasswordError.textContent = "Confirm password must be same as password."
-            return;
-        }
-        RegForm.submit();
-    })
-</script>
+        ConfirmPassword.addEventListener('input', ()=>{
+            if(Password.value != ConfirmPassword.value)
+                ConfirmPasswordError.textContent = "Confirm password must be same as password."
+            else
+                ConfirmPasswordError.textContent = '';
+        })
+        
+        RegForm.addEventListener('submit', (e)=>{
+            e.preventDefault();
+            if(ConfirmPassword.value == null || ConfirmPassword.value == ""){
+                ConfirmPasswordError.textContent = "The Confirm password field is required."
+                return;
+            }
+            if(ConfirmPassword.value != Password.value){
+                ConfirmPasswordError.textContent = "Confirm password must be same as password."
+                return;
+            }
+            RegForm.submit();
+        })
+    </script>
+}

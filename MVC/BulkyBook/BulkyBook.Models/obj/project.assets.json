@@ -118,11 +118,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
+      "projectUniqueName": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
       "projectName": "BulkyBook.Models",
-      "projectPath": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
+      "projectPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
       "packagesPath": "C:\\Users\\keval\\.nuget\\packages\\",
-      "outputPath": "d:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\obj\\",
+      "outputPath": "D:\\TatvaSoft\\CI-Platform-Assignments\\MVC\\BulkyBook\\BulkyBook.Models\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\keval\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -170,7 +170,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.406\\RuntimeIdentifierGraph.json"
       }
     }
   }

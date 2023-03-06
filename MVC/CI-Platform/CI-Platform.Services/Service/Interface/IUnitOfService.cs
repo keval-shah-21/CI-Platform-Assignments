@@ -6,5 +6,25 @@ public interface IUnitOfService
 
     IResetPasswordService ResetPassword{get;}
 
+    IMissionService Mission{get;}
+
+    ICityService City{get;}
+
+    ICountryService Country{get;}
+
+    IFavouriteMissionService FavouriteMission{get;}
+
+    IMissionApplicationService MissionApplication{get;}
+
+    IMissionGoalService MissionGoal{get;}
+
+    IMissionMediaService MissionMedia {get;}
+
+    IMissionRatingService MissionRating{get;}
+
+    IMissionSkillService MissionSkill {get;}
+
+    IMissionThemeService MissionTheme {get;}
+
     void Save();
 }

@@ -49,6 +49,10 @@ public partial class User
 
     public virtual ICollection<FavouriteMission> FavouriteMissions { get; } = new List<FavouriteMission>();
 
+    public virtual ICollection<MissionApplication> MissionApplications { get; } = new List<MissionApplication>();
+
+    public virtual ICollection<MissionRating> MissionRatings { get; } = new List<MissionRating>();
+
     public virtual ICollection<Story> Stories { get; } = new List<Story>();
 
     public virtual ICollection<UserSkill> UserSkills { get; } = new List<UserSkill>();
