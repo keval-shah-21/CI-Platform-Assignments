@@ -20,6 +20,7 @@ public class UnitOfWork : IUnitOfWork
         MissionGoal = new MissionGoalRepository(_context);
         FavouriteMission = new FavouriteMissionRepository(_context);
         MissionApplication = new MissionApplicationRepository(_context);
+        Skill = new SkillRepository(_context);
     }
     public IUserRepository User{get; private set;}
 
@@ -44,6 +45,8 @@ public class UnitOfWork : IUnitOfWork
     public IMissionSkillRepository MissionSkill{get; private set;}
 
     public IMissionThemeRepository MissionTheme{get; private set;}
+
+    public ISkillRepository Skill {get; private set;}
 
     public void Save()
     {

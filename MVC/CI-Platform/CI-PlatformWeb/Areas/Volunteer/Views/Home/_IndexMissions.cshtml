@@ -1,16 +1,17 @@
 @model IndexMissionVM
 <section class="index-grid-view row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    @foreach(MissionVM mission in Model.missionVM){
     <div class="col">
         <div class="card shadow-sm h-100">
             <div class="position-relative card-top">
                 <a href="#">
-                    <img src="~/images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png"
-                    class="card-img-top h-100" alt="mission image">
+                    <img src="@mission.MissionMedia"
+                    class="card-img-top h-100 object-fit-cover" alt="mission image">
                 </a>
                 <div
                     class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
                     <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                        class="text-light fw-light text-14">@mission.MissionCountry</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -20,23 +21,16 @@
                 </a>
                 <div
                     class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    Environment
+                    @mission.MissionThemeName
                 </div>
             </div>
             <div class="card-body color-darkgray">
                 <a href="#" class="color-darkgray">
-                    <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
+                    <h4 class="card-title">@mission.Title</h4>
                 </a>
-                <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
-                    example text to
-                    build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                    sit
-                    amet
-                    consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                    dolore.
-                    Deserunt, veritatis tempora.</p>
+                <p class="card-text fw-light ellipsis-2 text-black-50 text-15">@mission.ShortDescription</p>
                 <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">Tree Canada</span>
+                    <span class="fw-light">@mission.OrganizationName</span>
                     <div class="d-flex align-items-center">
                         <img src="~/images/static/selected-star.png" alt="selected-star">
                         <img src="~/images/static/selected-star.png" alt="selected-star">
@@ -85,7 +79,8 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    }
+    @* <div class="col">
         <div class="card shadow-sm h-100">
             <div class="card-top position-relative">
                 <img src="~/images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
@@ -733,7 +728,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> *@
 </section>
 
 <section class="index-list-view gap-3 d-none">

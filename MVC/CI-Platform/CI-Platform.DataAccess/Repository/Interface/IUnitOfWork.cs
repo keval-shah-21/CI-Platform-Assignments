@@ -24,5 +24,7 @@ public interface IUnitOfWork{
     IMissionThemeRepository MissionTheme { get; }
 
     IMissionRepository Mission {get;}
+
+    ISkillRepository Skill {get;}
     void Save();
 }

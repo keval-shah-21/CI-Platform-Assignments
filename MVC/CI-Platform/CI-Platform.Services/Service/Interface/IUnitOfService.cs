@@ -26,5 +26,7 @@ public interface IUnitOfService
 
     IMissionThemeService MissionTheme {get;}
 
+    ISkillService Skill{get;}
+
     void Save();
 }

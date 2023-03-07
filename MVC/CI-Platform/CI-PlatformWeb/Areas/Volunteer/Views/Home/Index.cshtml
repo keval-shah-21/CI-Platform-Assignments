@@ -26,9 +26,9 @@
                             <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline">
                         </button>
                         <ul class="dropdown-menu" id="countryDropdown">
-                            <li class="dropdown-item">Action</li>
-                            <li class="dropdown-item">Another action</li>
-                            <li class="dropdown-item">Something else here</li>
+                        @foreach(CountryVM country in Model.countryVM){
+                            <li class="dropdown-item">@country.CountryName</li>
+                        }
                         </ul>
                     </div>
                 </div>
@@ -41,9 +41,9 @@
                             <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline">
                         </button>
                         <ul class="dropdown-menu" id="cityDropdown">
-                            <li class="dropdown-item">Action</li>
-                            <li class="dropdown-item">Another action</li>
-                            <li class="dropdown-item">Something else here</li>
+                        @foreach(CityVM city in Model.cityVM){
+                            <li class="dropdown-item">@city.CityName</li>
+                        }
                         </ul>
                     </div>
                 </div>
@@ -56,9 +56,9 @@
                             <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline">
                         </button>
                         <ul class="dropdown-menu" id="themeDropdown">
-                            <li class="dropdown-item">Action</li>
-                            <li class="dropdown-item">Another action</li>
-                            <li class="dropdown-item">Something else here</li>
+                        @foreach(MissionThemeVM theme in Model.missionThemeVM){
+                            <li class="dropdown-item">@theme.MissionThemeName</li>
+                        }
                         </ul>
                     </div>
                 </div>
@@ -71,9 +71,9 @@
                             <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline">
                         </button>
                         <ul class="dropdown-menu" id="skillDropdown">
-                            <li class="dropdown-item">Action</li>
-                            <li class="dropdown-item">Another action</li>
-                            <li class="dropdown-item">Something else here</li>
+                        @foreach(SkillVM skill in Model.skillVM){
+                            <li class="dropdown-item">@skill.SkillName</li>
+                        }
                         </ul>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
         
         <section class="index-top d-flex justify-content-between align-items-center mb-4">
             <div class="index-top-title color-darkgray">
-                <span class="fw-light">Explore </span><span class="total-missions">73</span> missions
+                <span class="fw-light">Explore </span><span class="total-missions">@Model.missionVM.Count()</span> missions
             </div>
             <div class="d-flex gap-1 align-items-center">
                 <div class="dropdown border rounded me-3">
@@ -97,9 +97,12 @@
                         <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-md-5">
                     </button>
                     <ul class="dropdown-menu" id="sortDropdown">
-                        <li class="dropdown-item">Action</li>
-                        <li class="dropdown-item">Another action</li>
-                        <li class="dropdown-item">Something else here</li>
+                        <li class="dropdown-item">Newest</li>
+                        <li class="dropdown-item">Oldest</li>
+                        <li class="dropdown-item">Highest available seats</li>
+                        <li class="dropdown-item">Lowest available seats</li>
+                        <li class="dropdown-item">My favourites</li>
+                        <li class="dropdown-item">Registration deadline</li>
                     </ul>
                 </div>
                 <div class="p-1 rounded-circle d-none d-md-block active-index-view cursor-pointer grid-btn">

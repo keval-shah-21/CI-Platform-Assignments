@@ -5,4 +5,6 @@ namespace CI_Platform.Services.Service.Interface;
 public interface IMissionService
 {
     List<MissionVM> GetAll();
+
+    List<MissionVM> GetAllIndexMission();
 }

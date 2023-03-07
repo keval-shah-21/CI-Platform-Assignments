@@ -268,19 +268,19 @@ form input:focus {
 .index-wishlist {
   bottom: 50px;
   right: 15px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .index-invite {
   bottom: 10px;
   right: 15px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .index-city {
   right: 15px;
   top: 15px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 @media (max-width: 767px) {

@@ -3,11 +3,14 @@ namespace CI_Platform.Entities.ViewModels;
 public class MissionVM{
     public long MissionId { get; set; }
 
-    public int MissionCity { get; set; }
+    // public int MissionCity { get; set; }
+    public string MissionCity{get; set;} = string.Empty;
 
-    public short MissionCountry { get; set; }
+    // public short MissionCountry { get; set; }
+    public string MissionCountry{get; set;} = string.Empty;
 
-    public short MissionThemeId { get; set; }
+    // public short MissionThemeId { get; set; }
+    public string MissionThemeName{get; set;} = string.Empty;
 
     public string Title { get; set; } = null!;
 
@@ -28,4 +31,14 @@ public class MissionVM{
     public DateTimeOffset CreatedAt { get; set; }
 
     public byte? MissionRating { get; set; }
+
+    public string MissionMedia {get; set;} = string.Empty;
+
+    public List<FavouriteMissionVM>? FavouriteMissionVM {get; set;}
+
+    public List<MissionApplicationVM>? MissionApplicationVM {get; set;}
+
+    public MissionGoalVM? MissionGoalVM{get; set;}
+
+    public List<MissionSkillVM>? MissionSkillVM {get; set;}
 }
