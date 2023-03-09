@@ -4,9 +4,9 @@ public class IndexMissionVM
 {
     public List<MissionVM>? missionVM {get; set;}
 
-    public HashSet<CityVM>? cityVM {get; set;}
+    public List<CityVM>? cityVM {get; set;}
 
-    public HashSet<CountryVM>? countryVM {get; set;}
+    public List<CountryVM>? countryVM {get; set;}
 
     public List<SkillVM>? skillVM {get; set;}
 

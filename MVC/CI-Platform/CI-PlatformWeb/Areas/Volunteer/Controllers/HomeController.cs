@@ -11,8 +11,8 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
 public class HomeController : Controller
 {
     private readonly IUnitOfService _unitOfService;
-    private HashSet<CityVM> cityVM = new();
-    private HashSet<CountryVM> countryVM = new();
+    private List<CityVM> cityVM = new();
+    private List<CountryVM> countryVM = new();
     private List<SkillVM> skillVM = new();
     private List<MissionThemeVM> missionThemeVM = new();
 
@@ -34,9 +34,10 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         missionVM = _unitOfService.Mission.GetAllIndexMission();
-        filteredVM.AddRange(missionVM);
-
-        GetAllCountryCityByMission(missionVM);
+        
+        cityVM = _unitOfService.Mission.GetCitiesByMission(missionVM);
+        countryVM = _unitOfService.Mission.GetCountriesByMission(missionVM);
+        
         skillVM = _unitOfService.Skill.GetAll();
         missionThemeVM = _unitOfService.MissionTheme.GetAll();
 
@@ -46,6 +47,12 @@ public class HomeController : Controller
         indexMissionVM.missionThemeVM = this.missionThemeVM;
         indexMissionVM.skillVM = this.skillVM;
         return View(indexMissionVM);
+    }
+
+    [Route("filter-data")]
+    public IActionResult FilterData(int? country, int[]? city, int[]? theme, int[]? skill, string? search, string? sort){
+        IndexMissionVM indexMissionVM = _unitOfService.Mission.FilterData(country, city, theme, skill, search, sort);
+        return Json(indexMissionVM);
     }
 
     [Route("search")]
@@ -100,17 +107,5 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-
-    public void GetAllCountryCityByMission(List<MissionVM> missionVM){
-        List<CityVM> allCities = _unitOfService.City.GetAll();
-        List<CountryVM> allCountries = _unitOfService.Country.GetAll();
-        missionVM.ForEach(mission => {
-            CityVM c = allCities.Where(all => all.CityName == mission.MissionCity).First();
-            cityVM.Add(c);
-
-            CountryVM co = allCountries.Where(all => all.CountryName == mission.MissionCountry).First();
-            countryVM.Add(co);
-        });
     }
 }

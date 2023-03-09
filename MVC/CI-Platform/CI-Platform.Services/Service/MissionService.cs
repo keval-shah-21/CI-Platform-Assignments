@@ -44,11 +44,14 @@ public class MissionService : IMissionService
         return obj.Select(mission =>
             new MissionVM(){
                 MissionId = mission.MissionId,
+                MissionCityId = mission.MissionCity,
                 MissionCity = mission.MissionCityNavigation.CityName,
+                MissionCountryId = mission.MissionCountry,
                 MissionCountry = mission.MissionCountryNavigation.CountryName,
                 Title = mission.Title,
                 ShortDescription = mission.ShortDescription,
-                MissionThemeName = mission.MissionTheme?.MissionThemeName,
+                MissionThemeId = mission.MissionThemeId,
+                MissionThemeName = mission.MissionTheme.MissionThemeName!,
                 OrganizationName = mission.OrganizationName,
                 StartDate = mission.StartDate,
                 EndDate = mission.EndDate,
@@ -112,5 +115,75 @@ public class MissionService : IMissionService
                 MissionSkillId = ms.MissionSkillId,
                 SkillId = ms.SkillId
             }).ToList() : null!;
+    }
+    public IndexMissionVM FilterData(int? country, int[]? city, int[]? theme, int[]? skill, string? search, string? sort){
+        List<MissionVM> missionVM = GetAllIndexMission();
+        List<CityVM> cityVM = GetCitiesByMission(missionVM);
+        List<CountryVM> countryVM = GetCountriesByMission(missionVM);
+        List<MissionThemeVM> missionThemeVM = new MissionThemeService(_unitOfWork).GetAll();
+        List<MissionSkillVM> missionSkillVM = new MissionSkillService(_unitOfWork).GetAll();
+        List<SkillVM> skillVM = new SkillService(_unitOfWork).GetAll();
+
+        if(!string.IsNullOrEmpty(search) ){
+            missionVM = missionVM.Where(mission => mission.Title.ToLower().Contains(search.ToLower())).ToList();
+        }
+
+        if(country != 0){
+            missionVM = missionVM.Where(mission => mission.MissionCountryId == country).ToList();
+        }
+
+        if(city?.Count() > 0){
+            foreach (var item in city)
+            {
+                missionVM = missionVM.Where(mission => mission.MissionCityId == item).ToList();
+            }
+        }
+
+        if(theme?.Count() > 0){
+            foreach (var item in theme)
+            {
+                missionVM = missionVM.Where(mission => mission.MissionThemeId == item).ToList();
+            }
+        }
+
+        if(skill?.Count() > 0){
+
+            foreach (var item in skill)
+            {
+                missionVM = missionVM.Where(mission => 
+                    mission.MissionSkillVM.Any(ms => ms.SkillId == item)
+                ).ToList();
+            }
+        }    
+
+        return new IndexMissionVM(){
+            missionVM = missionVM,
+            missionThemeVM = missionThemeVM,
+            skillVM = skillVM,
+            cityVM = cityVM,
+            countryVM = countryVM
+        };
+    }
+
+    public List<CountryVM> GetCountriesByMission(List<MissionVM> missionVM){
+        List<CountryVM> allCountries = new CountryService(_unitOfWork).GetAll();
+        List<CountryVM> countryVM = new();
+        missionVM.ForEach(mission => {
+            CountryVM co = allCountries.Where(all => all.CountryName == mission.MissionCountry).First();
+            if(!countryVM.Contains(co))
+                countryVM.Add(co);
+        });
+        return countryVM;
+    }
+
+    public List<CityVM> GetCitiesByMission(List<MissionVM> missionVM){
+        List<CityVM> allCities = new CityService(_unitOfWork).GetAll();
+        List<CityVM> cityVM = new();
+        missionVM.ForEach(mission => {
+            CityVM co = allCities.Where(all => all.CityName == mission.MissionCity).First();
+            if(!cityVM.Contains(co))
+                cityVM.Add(co);
+        });
+        return cityVM;
     }
 }
