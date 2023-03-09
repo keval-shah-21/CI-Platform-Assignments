@@ -5,80 +5,9 @@
 <div class="index-body d-grid min-vh-100">
     <header class="border-bottom border-2 bg-white">
         <partial name="_Navbar"></partial>
-        <section class="container d-flex flex-column flex-md-row justify-content-md-between">
-            <div class="d-flex justify-content-between index-header-section bg-white py-2">
-                <div class="d-flex">
-                    <img src="~/images/static/search.png" alt="search" class="h-50 my-auto me-2">
-                    <input type="search" id="Search" placeholder="Search missions..." class="form-control">
-                </div>
-
-                <img src="~/images/static/filter.png" alt="filter"
-                    class="h-50 my-auto d-md-none cursor-pointer filter-toggle-btn">
-            </div>
-            <div
-                class="filter-menu d-flex flex-column mb-3 mb-md-0 w-100 align-items-center flex-sm-row justify-content-end">
-                <div class="filter-item border p-1 p-md-0 py-md-2 w-100">
-                    <div class="dropdown">
-                        <button
-                            class="fw-light w-100 d-flex justify-content-between align-items-center btn dropdown-toggle color-darkgray"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Country
-                            <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline">
-                        </button>
-                        <ul class="dropdown-menu" id="countryDropdown">
-                        @foreach(CountryVM country in Model.countryVM){
-                            <li class="dropdown-item">@country.CountryName</li>
-                        }
-                        </ul>
-                    </div>
-                </div>
-                <div class="filter-item border p-1 p-md-0 py-md-2 w-100">
-                    <div class="dropdown">
-                        <button
-                            class="fw-light w-100 d-flex justify-content-between align-items-center btn dropdown-toggle color-darkgray"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            City
-                            <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline">
-                        </button>
-                        <ul class="dropdown-menu" id="cityDropdown">
-                        @foreach(CityVM city in Model.cityVM){
-                            <li class="dropdown-item">@city.CityName</li>
-                        }
-                        </ul>
-                    </div>
-                </div>
-                <div class="filter-item border p-1 p-md-0 py-md-2 w-100">
-                    <div class="dropdown">
-                        <button
-                            class="fw-light w-100 d-flex justify-content-between align-items-center btn dropdown-toggle color-darkgray"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Theme
-                            <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline">
-                        </button>
-                        <ul class="dropdown-menu" id="themeDropdown">
-                        @foreach(MissionThemeVM theme in Model.missionThemeVM){
-                            <li class="dropdown-item">@theme.MissionThemeName</li>
-                        }
-                        </ul>
-                    </div>
-                </div>
-                <div class="filter-item border p-1 p-md-0 py-md-2 w-100">
-                    <div class="dropdown">
-                        <button
-                            class="fw-light w-100 d-flex justify-content-between align-items-center btn dropdown-toggle color-darkgray"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Skill
-                            <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline">
-                        </button>
-                        <ul class="dropdown-menu" id="skillDropdown">
-                        @foreach(SkillVM skill in Model.skillVM){
-                            <li class="dropdown-item">@skill.SkillName</li>
-                        }
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="headerFilterSectionContainer">
+            <partial name="_HeaderFilterSection"></partial>
+        </div>
     </header>
     <main class="container py-4">
         <div class="on-filter-list d-flex flex-wrap gap-1 mb-4"></div>

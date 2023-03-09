@@ -34,24 +34,27 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         missionVM = _unitOfService.Mission.GetAllIndexMission();
-        filteredVM = missionVM;
+        filteredVM.AddRange(missionVM);
+
         GetAllCountryCityByMission(missionVM);
         skillVM = _unitOfService.Skill.GetAll();
         missionThemeVM = _unitOfService.MissionTheme.GetAll();
-        indexMissionVM = new IndexMissionVM(){
-            missionVM = this.missionVM,
-            cityVM = this.cityVM,
-            countryVM = this.countryVM,
-            skillVM = this.skillVM,
-            missionThemeVM = this.missionThemeVM
-        };
+
+        indexMissionVM.missionVM = this.missionVM;
+        indexMissionVM.cityVM = this.cityVM;
+        indexMissionVM.countryVM = this.countryVM;
+        indexMissionVM.missionThemeVM = this.missionThemeVM;
+        indexMissionVM.skillVM = this.skillVM;
         return View(indexMissionVM);
     }
 
     [Route("search")]
     public IActionResult Search(string? query){
+        Console.WriteLine("query... : "+query);
         if(query != "" && query != null){
+            Console.WriteLine(missionVM.Count);
             filteredVM = filteredVM.Where(x => x.Title.Contains(query)).ToList();
+            Console.WriteLine(filteredVM.Count);
             indexMissionVM.missionVM = filteredVM;
         }
         return PartialView("_IndexMissions", indexMissionVM);
@@ -63,20 +66,28 @@ public class HomeController : Controller
     }
 
     [Route("filter-city")]
-    public IActionResult FilterCity(string city){
+    public IActionResult FilterCity(string city, long id){
         return View();
     }
     [Route("filter-country")]
-    public IActionResult FilterCountry(string country){
+    public IActionResult FilterCountry(string country, long id){
+        Console.WriteLine("-----------------------inside ctroler");
+        Console.WriteLine(indexMissionVM.cityVM.Count);
+        // List<CityVM> filteredCity = indexMissionVM.cityVM.Where();
         return View();
     }
     [Route("filter-theme")]
-    public IActionResult FilterTheme(string theme){
+    public IActionResult FilterTheme(string theme, long id){
         return View();
     }
     [Route("filter-skill")]
-    public IActionResult FilterSkill(string skill){
+    public IActionResult FilterSkill(string skill, long id){
         return View();
+    }
+
+    [Route("update-header")]
+    public IActionResult UpdateHeader(){
+        return PartialView("_IndexMissions", indexMissionVM);
     }
 
     [Route("privacy")]

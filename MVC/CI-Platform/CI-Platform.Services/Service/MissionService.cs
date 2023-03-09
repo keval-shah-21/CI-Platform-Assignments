@@ -72,7 +72,6 @@ public class MissionService : IMissionService
 
     internal List<FavouriteMissionVM> GetIndexMissionFavourite(Mission mission)
     {
-        Console.WriteLine(mission.FavouriteMissions.Count());
         return mission.FavouriteMissions.LongCount() > 0 ? mission.FavouriteMissions.Select(fm =>
             new FavouriteMissionVM()
             {

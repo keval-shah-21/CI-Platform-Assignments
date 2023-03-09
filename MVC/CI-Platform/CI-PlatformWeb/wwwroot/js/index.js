@@ -43,48 +43,84 @@ $(query).on('input', () => {
     })
 });
 
-$("#sortDropdown li").on("click", (e)=>{
+$("#sortDropdown li").on("click", (e) => {
     console.log(e.currentTarget.textContent);
 })
 
-$("#cityDropdown li").on("click", (e)=>{
-    addFilter("city", e.currentTarget.textContent)
+$("#cityDropdown li").on("click", (e) => {
+    const id = e.currentTarget.getAttribute('data-id');
+    addFilterHTML("city", e.currentTarget.textContent, id)
 })
-$("#countryDropdown li").on("click", (e)=>{
-    addFilter("country", e.currentTarget.textContent)
+$("#countryDropdown li").on("click", (e) => {
+    const id = e.currentTarget.getAttribute('data-id');
+    addFilterHTML("country", e.currentTarget.textContent, id)
+    $.ajax({
+        url: "/volunteer/home/filter-country",
+        type: "GET",
+        data: { query: $(query).val(), id:id },
+        success: (result) => {
+            $('#partialViewContainer').html(result);
+            if (result == "") {
+                $(".index-top").addClass("d-none");
+                $(".no-mission").removeClass("d-none");
+            } else {
+                $(".index-top").removeClass("d-none");
+                $(".no-mission").addClass("d-none");
+            }
+        }
+    })
 })
-$("#themeDropdown li").on("click", (e)=>{
-    addFilter("theme", e.currentTarget.textContent)
+$("#themeDropdown li").on("click", (e) => {
+    const id = e.currentTarget.getAttribute('data-id');
+    addFilterHTML("theme", e.currentTarget.textContent, id)
 })
-$("#skillDropdown li").on("click", (e)=>{
-    addFilter("skill", e.currentTarget.textContent)
+$("#skillDropdown li").on("click", (e) => {
+    const id = e.currentTarget.getAttribute('data-id');
+    addFilterHTML("skill", e.currentTarget.textContent, id)
 })
 
 let filters = new Set();
-const onFilterList =  document.querySelector(".on-filter-list");
-function addFilter(type, value){
+let isClearAllExist = false;
+const onFilterList = document.querySelector(".on-filter-list");
+function addFilterHTML(type, value, id) {
+
+    if(filters.has(value)) return;
     filters.add(value);
-    createFilterHTML();
-}
-function createFilterHTML(){
-    onFilterList.innerHTML = "";
-    Array.from(filters).forEach((f, index) => {
-        onFilterList.innerHTML += 
-        `<div
-            class="on-filter-item border rounded-pill d-flex align-items-center gap-2 py-1 px-2 color-darkgray fw-light text-14">
-            <span>${f}</span>
-            <img src="/images/static/cancel.png" alt="cancel" class="cancel-btn cursor-pointer">
-        </div>
+
+    if (!isClearAllExist) {
+        onFilterList.innerHTML = `
+            <div class="clear-all my-auto color-darkgray fw-light text-14 cursor-pointer">
+                Clear all
+            </div>
         `;
+        isClearAllExist = true;
+        $(".clear-all").click(() => {
+            onFilterList.innerHTML = "";
+            filters.clear();
+            isClearAllExist = false;
+        })
+    }
+    $(`<div
+        class="on-filter-item border rounded-pill d-flex align-items-center gap-2 py-1 px-2 color-darkgray fw-light text-14">
+        <span>${value}</span>
+        <img src="/images/static/cancel.png" data-id="${value}" alt="cancel" class="cursor-pointer">
+        </div>
+    `).insertBefore('.clear-all');
+    $(`[data-id = "${value}"]`).click((e) => {
+        filters.delete(e.currentTarget.previousElementSibling.textContent);
+        onFilterList.removeChild(e.currentTarget.parentElement)
+        if(filters.size == 0){
+            $(".clear-all").click();
+        }
     });
-    onFilterList.innerHTML += `
-    <div class="clear-all my-auto color-darkgray fw-light text-14 cursor-pointer">
-        Clear all
-    </div>
-    `;
-    $(".clear-all").on('click', ()=>{
-        onFilterList.innerHTML = "";
-        filters.clear();
-        isClearAllExist = false;
+}
+
+function updateHeader(){
+    $.ajax({
+        url: "/volunteer/home/update-header",
+        type: "GET",
+        success: (result) => {
+            $('#headerFilterSectionContainer').html(result);
+        }
     })
 }
