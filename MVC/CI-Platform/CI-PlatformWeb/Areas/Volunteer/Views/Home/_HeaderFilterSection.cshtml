@@ -36,7 +36,7 @@
                 </button>
                 <ul class="dropdown-menu" id="cityDropdown">
                 @foreach(CityVM city in Model.cityVM){
-                    <li class="dropdown-item">@city.CityName</li>
+                    <li class="dropdown-item" data-country="@city.CountryId" data-id="@city.CityId">@city.CityName</li>
                 }
                 </ul>
             </div>
@@ -51,7 +51,7 @@
                 </button>
                 <ul class="dropdown-menu" id="themeDropdown">
                 @foreach(MissionThemeVM theme in Model.missionThemeVM){
-                    <li class="dropdown-item">@theme.MissionThemeName</li>
+                    <li class="dropdown-item" data-id="@theme.MissionThemeId">@theme.MissionThemeName</li>
                 }
                 </ul>
             </div>
@@ -66,7 +66,7 @@
                 </button>
                 <ul class="dropdown-menu" id="skillDropdown">
                 @foreach(SkillVM skill in Model.skillVM){
-                    <li class="dropdown-item">@skill.SkillName</li>
+                    <li class="dropdown-item" data-id="@skill.SkillId">@skill.SkillName</li>
                 }
                 </ul>
             </div>

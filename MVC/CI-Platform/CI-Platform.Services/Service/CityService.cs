@@ -19,7 +19,8 @@ public class CityService : ICityService
         if(obj == null) return null!;
         return obj.Select(c => new CityVM(){
             CityId = c.CityId,
-            CityName = c.CityName
+            CityName = c.CityName,
+            CountryId = c.CountryId
         }
         ).ToList();
     }

@@ -33,7 +33,7 @@ public partial class Mission
 
     public DateTime? RegistrationDeadline { get; set; }
 
-    public byte? Availability { get; set; }
+    public byte Availability { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
@@ -55,7 +55,7 @@ public partial class Mission
 
     public virtual ICollection<MissionGoal> MissionGoals { get; } = new List<MissionGoal>();
 
-    public virtual ICollection<MissionMedia> MissionMedia { get; } = new List<MissionMedia>();
+    public virtual ICollection<MissionMedium> MissionMedia { get; } = new List<MissionMedium>();
 
     public virtual ICollection<MissionRating> MissionRatings { get; } = new List<MissionRating>();
 

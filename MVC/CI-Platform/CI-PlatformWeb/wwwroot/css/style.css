@@ -298,8 +298,12 @@ form input:focus {
 .active-page-btn {
   background-color: var(--light-orange);
   border-color: transparent !important;
+  color: white;
 }
-
+.page-btn:hover {
+    background-color: var(--light-orange);
+    color: white;
+}
 /* mission page */
 .mp-top>div {
   flex-basis: 100%;

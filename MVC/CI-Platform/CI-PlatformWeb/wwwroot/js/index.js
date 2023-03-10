@@ -24,109 +24,8 @@ listBtn.addEventListener('click', () => {
     listView.classList.add("d-grid");
 })
 
-// const query = document.querySelector("#Search");
-// $(query).on('input', () => {
-//     $.ajax({
-//         url: "/volunteer/home/search",
-//         type: "GET",
-//         data: { query: $(query).val() },
-//         success: (result) => {
-//             $('#partialViewContainer').html(result);
-//             if (result == "") {
-//                 $(".index-top").addClass("d-none");
-//                 $(".no-mission").removeClass("d-none");
-//             } else {
-//                 $(".index-top").removeClass("d-none");
-//                 $(".no-mission").addClass("d-none");
-//             }
-//         }
-//     })
-// });
-
-// $("#sortDropdown li").on("click", (e) => {
-//     console.log(e.currentTarget.textContent);
-// })
-
-// $("#cityDropdown li").on("click", (e) => {
-//     const id = e.currentTarget.getAttribute('data-id');
-//     addFilterHTML("city", e.currentTarget.textContent, id)
-// })
-// $("#countryDropdown li").on("click", (e) => {
-//     const id = e.currentTarget.getAttribute('data-id');
-//     addFilterHTML("country", e.currentTarget.textContent, id)
-//     $.ajax({
-//         url: "/volunteer/home/filter-country",
-//         type: "GET",
-//         data: { query: $(query).val(), id:id },
-//         success: (result) => {
-//             $('#partialViewContainer').html(result);
-//             if (result == "") {
-//                 $(".index-top").addClass("d-none");
-//                 $(".no-mission").removeClass("d-none");
-//             } else {
-//                 $(".index-top").removeClass("d-none");
-//                 $(".no-mission").addClass("d-none");
-//             }
-//         }
-//     })
-// })
-// $("#themeDropdown li").on("click", (e) => {
-//     const id = e.currentTarget.getAttribute('data-id');
-//     addFilterHTML("theme", e.currentTarget.textContent, id)
-// })
-// $("#skillDropdown li").on("click", (e) => {
-//     const id = e.currentTarget.getAttribute('data-id');
-//     addFilterHTML("skill", e.currentTarget.textContent, id)
-// })
-
-// let filters = new Set();
-// let isClearAllExist = false;
-// const onFilterList = document.querySelector(".on-filter-list");
-// function addFilterHTML(type, value, id) {
-
-//     if(filters.has(value)) return;
-//     filters.add(value);
-
-//     if (!isClearAllExist) {
-//         onFilterList.innerHTML = `
-//             <div class="clear-all my-auto color-darkgray fw-light text-14 cursor-pointer">
-//                 Clear all
-//             </div>
-//         `;
-//         isClearAllExist = true;
-//         $(".clear-all").click(() => {
-//             onFilterList.innerHTML = "";
-//             filters.clear();
-//             isClearAllExist = false;
-//         })
-//     }
-//     $(`<div
-//         class="on-filter-item border rounded-pill d-flex align-items-center gap-2 py-1 px-2 color-darkgray fw-light text-14">
-//         <span>${value}</span>
-//         <img src="/images/static/cancel.png" data-id="${value}" alt="cancel" class="cursor-pointer">
-//         </div>
-//     `).insertBefore('.clear-all');
-//     $(`[data-id = "${value}"]`).click((e) => {
-//         filters.delete(e.currentTarget.previousElementSibling.textContent);
-//         onFilterList.removeChild(e.currentTarget.parentElement)
-//         if(filters.size == 0){
-//             $(".clear-all").click();
-//         }
-//     });
-// }
-
-// function updateHeader(){
-//     $.ajax({
-//         url: "/volunteer/home/update-header",
-//         type: "GET",
-//         success: (result) => {
-//             $('#headerFilterSectionContainer').html(result);
-//         }
-//     })
-// }
-
-
-let city = [], country = 0, skill = [], theme = [], search = "", sort = "";
+const onFilterList = document.querySelector(".on-filter-list");
+let city = [], country = 0, skill = [], theme = [], search = "", sort = "", isClearAllExists = false;
 
 const query = document.querySelector("#Search");
 $(query).on('input', () => {
@@ -135,50 +34,134 @@ $(query).on('input', () => {
 })
 $("#themeDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
-    if(theme.includes(id)){
-        console.log("already there");
-        return;
-    }
-    theme.push(id);
+    if (theme.includes(id)) return;
+    theme.push(+id);
+    createFilterHTML("Theme", e.currentTarget.textContent, id);
     MakeAjaxCall();
 })
 $("#skillDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
-    if(skill.includes(id)){
-        console.log("already there");
-        return;
-    }
-    skill.push(id);
+    if (skill.includes(id)) return;
+    skill.push(+id);
+    createFilterHTML("Skill", e.currentTarget.textContent, id);
     MakeAjaxCall();
 })
 $("#countryDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
+    if (country == id) return;
     country = id;
+    document.querySelectorAll('#cityDropdown li').forEach((li) => {
+        if ($(li).data('country') != country)
+            $(li).addClass("d-none");
+    })
+    document.querySelectorAll('#countryDropdown li').forEach((li) => {
+        if ($(li).data('id') != id)
+            $(li).addClass("d-none")
+    })
+    createFilterHTML("Country", e.currentTarget.textContent, id);
     MakeAjaxCall();
 })
 $("#cityDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
-    if(city.includes(id)){
-        console.log("already there");
-        return;
+    if (city.includes(id)) return;
+    const countryId = e.currentTarget.getAttribute('data-country');
+    if (country == 0) {
+        document.querySelectorAll('#countryDropdown li').forEach((li) => {
+            if ($(li).data('id') != countryId)
+                $(li).addClass("d-none");
+        })
     }
-    city.push(id);
+    document.querySelectorAll('#cityDropdown li').forEach((li) => {
+        if ($(li).data('country') != countryId)
+            $(li).addClass("d-none")
+    })
+    city.push(+id);
+    createFilterHTML("City", e.currentTarget.textContent, id);
     MakeAjaxCall();
 })
+function createFilterHTML(type, value, id) {
+    if (!isClearAllExists) {
+        onFilterList.innerHTML = `
+            <div class="clear-all my-auto color-darkgray fw-light text-14 cursor-pointer">
+                Clear all
+            </div>
+        `;
+        isClearAllExists = true;
+        $(".clear-all").click(() => {
+            onFilterList.innerHTML = "";
+            document.querySelectorAll('#countryDropdown li').forEach((li) => {
+                $(li).removeClass("d-none");
+            })
+            document.querySelectorAll('#cityDropdown li').forEach((li) => {
+                $(li).removeClass("d-none");
+            })
+            city = [];
+            skill = [];
+            theme = [];
+            country = 0;
+            isClearAllExists = false;
+            MakeAjaxCall();
+        })
+    }
+    $(`<div
+         class="on-filter-item border rounded-pill d-flex align-items-center gap-2 py-1 px-2 color-darkgray fw-light text-14">
+         <span>${value}</span>
+         <img src="/images/static/cancel.png" data-id="${value}" data-type=${type} alt="cancel" class="cursor-pointer">
+         </div>
+     `).insertBefore('.clear-all');
 
-function MakeAjaxCall(){
+    $(`[data-id = "${value}"]`).click((e) => {
+
+        onFilterList.removeChild(e.currentTarget.parentElement)
+
+        if (e.currentTarget.getAttribute("data-type") == "City") {
+            city.splice(city.indexOf(+id), 1);
+        }
+        if (e.currentTarget.getAttribute("data-type") == "Country") {
+            country = 0;
+            city = []
+            document.querySelectorAll('#countryDropdown li').forEach((li) => {
+                $(li).removeClass("d-none");
+            })
+            document.querySelectorAll('#cityDropdown li').forEach((li) => {
+                $(li).removeClass("d-none");
+            })
+            document.querySelectorAll(`[data-type='${"City"}']`).forEach((li) => {
+                $(li).parent().remove();
+            })
+        }
+        if (e.currentTarget.getAttribute("data-type") == "Theme")
+            theme.splice(theme.indexOf(+id), 1);
+        if (e.currentTarget.getAttribute("data-type") == "Skill")
+            skill.splice(skill.indexOf(+id), 1);
+        if (city.length == 0 && skill.length == 0 && theme.length == 0 && country == 0) {
+            $(".clear-all").click();
+        }
+        MakeAjaxCall();
+    });
+}
+function MakeAjaxCall() {
     $.ajax({
         url: "volunteer/home/filter-data",
         type: "GET",
-        data: {country: country,
-            city: JSON.stringify(city),    
+        data: {
+            country: country,
+            city: JSON.stringify(city),
             theme: JSON.stringify(theme),
             skill: JSON.stringify(skill),
             search: search,
             sort: sort
-            },
+        },
         success: (result) => {
-            console.log(result);
+            $('#partialViewContainer').html(result);
+
+            if (result == "") {
+                $(".index-top").addClass("d-none");
+                $(".no-mission").removeClass("d-none");
+            } else {
+                $(".index-top").removeClass("d-none");
+                $(".no-mission").addClass("d-none");
+            }
         }
     })
 }

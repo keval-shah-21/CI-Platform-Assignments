@@ -69,7 +69,7 @@ public class MissionService : IMissionService
 
     internal string GetIndexMissionMedia(Mission mission)
     {
-        MissionMedia mm = mission.MissionMedia?.FirstOrDefault(mm => mm.Default == true)!;
+        MissionMedium mm = mission.MissionMedia?.FirstOrDefault(mm => mm.Default == true)!;
         return mm != null ? mm.MediaPath + mm.MediaName + mm.MediaType : "";
     }
 

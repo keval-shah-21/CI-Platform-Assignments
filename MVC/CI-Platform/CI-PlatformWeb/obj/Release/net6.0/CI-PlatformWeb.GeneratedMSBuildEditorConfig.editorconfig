@@ -35,6 +35,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Home/_HeaderFilterSection.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcX0hlYWRlckZpbHRlclNlY3Rpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Home/_IndexMissions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcX0luZGV4TWlzc2lvbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

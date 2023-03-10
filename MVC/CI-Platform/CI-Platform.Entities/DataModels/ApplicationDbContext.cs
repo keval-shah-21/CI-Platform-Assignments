@@ -35,7 +35,7 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<MissionGoal> MissionGoals { get; set; }
 
-    public virtual DbSet<MissionMedia> MissionMedia { get; set; }
+    public virtual DbSet<MissionMedium> MissionMedia { get; set; }
 
     public virtual DbSet<MissionRating> MissionRatings { get; set; }
 
@@ -53,15 +53,13 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<UserSkill> UserSkills { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.;Database=CI_Platform;Trusted_Connection=True;Encrypt=False;");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer("Name=ConnectionStrings:CI_Platform");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Admin>(entity =>
         {
-            entity.HasKey(e => e.AdminId).HasName("PK__admin__43AA4141ED4A941E");
+            entity.HasKey(e => e.AdminId).HasName("PK__admin__43AA4141AC680507");
 
             entity.ToTable("admin");
 
@@ -93,7 +91,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Banner>(entity =>
         {
-            entity.HasKey(e => e.BannerId).HasName("PK__banner__10373C3447B822CA");
+            entity.HasKey(e => e.BannerId).HasName("PK__banner__10373C347AEBEADE");
 
             entity.ToTable("banner");
 
@@ -120,7 +118,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<City>(entity =>
         {
-            entity.HasKey(e => e.CityId).HasName("PK__city__031491A82BB20BEB");
+            entity.HasKey(e => e.CityId).HasName("PK__city__031491A8ACEC5D14");
 
             entity.ToTable("city");
 
@@ -139,12 +137,12 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Country).WithMany(p => p.Cities)
                 .HasForeignKey(d => d.CountryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__city__country_id__2BFE89A6");
+                .HasConstraintName("FK__city__country_id__5441852A");
         });
 
         modelBuilder.Entity<CmsPage>(entity =>
         {
-            entity.HasKey(e => e.CmsPageId).HasName("PK__cms_page__B46D5B527714D802");
+            entity.HasKey(e => e.CmsPageId).HasName("PK__cms_page__B46D5B52B493D489");
 
             entity.ToTable("cms_page");
 
@@ -173,7 +171,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.CountryId).HasName("PK__country__7E8CD055261DCFC7");
+            entity.HasKey(e => e.CountryId).HasName("PK__country__7E8CD055B0076F2F");
 
             entity.ToTable("country");
 
@@ -195,7 +193,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<FavouriteMission>(entity =>
         {
-            entity.HasKey(e => e.FavouriteMissionId).HasName("PK__favourit__94E4D8CAEBB421F1");
+            entity.HasKey(e => e.FavouriteMissionId).HasName("PK__favourit__94E4D8CAD6533F37");
 
             entity.ToTable("favourite_mission");
 
@@ -211,17 +209,17 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Mission).WithMany(p => p.FavouriteMissions)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__favourite__missi__72910220");
+                .HasConstraintName("FK__favourite__missi__0E6E26BF");
 
             entity.HasOne(d => d.User).WithMany(p => p.FavouriteMissions)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__favourite__user___73852659");
+                .HasConstraintName("FK__favourite__user___0F624AF8");
         });
 
         modelBuilder.Entity<Mission>(entity =>
         {
-            entity.HasKey(e => e.MissionId).HasName("PK__mission__B5419AB29AE571FC");
+            entity.HasKey(e => e.MissionId).HasName("PK__mission__B5419AB25B78B82E");
 
             entity.ToTable("mission");
 
@@ -262,22 +260,22 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.MissionCityNavigation).WithMany(p => p.Missions)
                 .HasForeignKey(d => d.MissionCity)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission__mission__6CD828CA");
+                .HasConstraintName("FK__mission__mission__76969D2E");
 
             entity.HasOne(d => d.MissionCountryNavigation).WithMany(p => p.Missions)
                 .HasForeignKey(d => d.MissionCountry)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission__mission__6DCC4D03");
+                .HasConstraintName("FK__mission__mission__778AC167");
 
             entity.HasOne(d => d.MissionTheme).WithMany(p => p.Missions)
                 .HasForeignKey(d => d.MissionThemeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission__mission__6EC0713C");
+                .HasConstraintName("FK__mission__mission__787EE5A0");
         });
 
         modelBuilder.Entity<MissionApplication>(entity =>
         {
-            entity.HasKey(e => e.MissionApplicationId).HasName("PK__mission___DF92838A9A3AD349");
+            entity.HasKey(e => e.MissionApplicationId).HasName("PK__mission___DF92838A46DBD73A");
 
             entity.ToTable("mission_application");
 
@@ -295,17 +293,17 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Mission).WithMany(p => p.MissionApplications)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_a__missi__1C873BEC");
+                .HasConstraintName("FK__mission_a__missi__09A971A2");
 
             entity.HasOne(d => d.User).WithMany(p => p.MissionApplications)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_a__user___1D7B6025");
+                .HasConstraintName("FK__mission_a__user___0A9D95DB");
         });
 
         modelBuilder.Entity<MissionDocument>(entity =>
         {
-            entity.HasKey(e => e.MissionDocumentId).HasName("PK__mission___E80E0CC88C0580C2");
+            entity.HasKey(e => e.MissionDocumentId).HasName("PK__mission___E80E0CC8B8B1AAAA");
 
             entity.ToTable("mission_document");
 
@@ -323,7 +321,7 @@ public partial class ApplicationDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("document_path");
             entity.Property(e => e.DocumentType)
-                .HasMaxLength(4)
+                .HasMaxLength(5)
                 .IsUnicode(false)
                 .HasColumnName("document_type");
             entity.Property(e => e.MissionId).HasColumnName("mission_id");
@@ -332,12 +330,12 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Mission).WithMany(p => p.MissionDocuments)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_d__missi__0E391C95");
+                .HasConstraintName("FK__mission_d__missi__05D8E0BE");
         });
 
         modelBuilder.Entity<MissionGoal>(entity =>
         {
-            entity.HasKey(e => e.MissionGoalId).HasName("PK__mission___88382F93BE029D44");
+            entity.HasKey(e => e.MissionGoalId).HasName("PK__mission___88382F93E9F34DCB");
 
             entity.ToTable("mission_goal");
 
@@ -357,12 +355,12 @@ public partial class ApplicationDbContext : DbContext
 
             entity.HasOne(d => d.Mission).WithMany(p => p.MissionGoals)
                 .HasForeignKey(d => d.MissionId)
-                .HasConstraintName("FK__mission_g__missi__2610A626");
+                .HasConstraintName("FK__mission_g__missi__17F790F9");
         });
 
-        modelBuilder.Entity<MissionMedia>(entity =>
+        modelBuilder.Entity<MissionMedium>(entity =>
         {
-            entity.HasKey(e => e.MissionMediaId).HasName("PK__mission___848A78E8C864BB73");
+            entity.HasKey(e => e.MissionMediaId).HasName("PK__mission___848A78E8BE3A41A5");
 
             entity.ToTable("mission_media");
 
@@ -383,7 +381,7 @@ public partial class ApplicationDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("media_path");
             entity.Property(e => e.MediaType)
-                .HasMaxLength(4)
+                .HasMaxLength(5)
                 .IsUnicode(false)
                 .HasColumnName("media_type");
             entity.Property(e => e.MissionId).HasColumnName("mission_id");
@@ -392,12 +390,12 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Mission).WithMany(p => p.MissionMedia)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_m__missi__0A688BB1");
+                .HasConstraintName("FK__mission_m__missi__02084FDA");
         });
 
         modelBuilder.Entity<MissionRating>(entity =>
         {
-            entity.HasKey(e => e.MissionRatingId).HasName("PK__mission___320E5172E727F543");
+            entity.HasKey(e => e.MissionRatingId).HasName("PK__mission___320E51724D1C9EB8");
 
             entity.ToTable("mission_rating");
 
@@ -414,17 +412,17 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Mission).WithMany(p => p.MissionRatings)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_r__missi__214BF109");
+                .HasConstraintName("FK__mission_r__missi__1332DBDC");
 
             entity.HasOne(d => d.User).WithMany(p => p.MissionRatings)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_r__user___22401542");
+                .HasConstraintName("FK__mission_r__user___14270015");
         });
 
         modelBuilder.Entity<MissionSkill>(entity =>
         {
-            entity.HasKey(e => e.MissionSkillId).HasName("PK__mission___82712008A3859497");
+            entity.HasKey(e => e.MissionSkillId).HasName("PK__mission___82712008FEC5420D");
 
             entity.ToTable("mission_skill");
 
@@ -440,21 +438,21 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Mission).WithMany(p => p.MissionSkills)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_s__missi__7C1A6C5A");
+                .HasConstraintName("FK__mission_s__missi__7C4F7684");
 
             entity.HasOne(d => d.Skill).WithMany(p => p.MissionSkills)
                 .HasForeignKey(d => d.SkillId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_s__skill__7D0E9093");
+                .HasConstraintName("FK__mission_s__skill__7D439ABD");
         });
 
         modelBuilder.Entity<MissionTheme>(entity =>
         {
-            entity.HasKey(e => e.MissionThemeId).HasName("PK__mission___4925C5ACD6D1CA54");
+            entity.HasKey(e => e.MissionThemeId).HasName("PK__mission___4925C5AC54FF7DB0");
 
             entity.ToTable("mission_theme");
 
-            entity.HasIndex(e => e.MissionThemeName, "UQ__mission___A8CFF958A8E88772").IsUnique();
+            entity.HasIndex(e => e.MissionThemeName, "UQ__mission___A8CFF958E1CF7C5E").IsUnique();
 
             entity.Property(e => e.MissionThemeId).HasColumnName("mission_theme_id");
             entity.Property(e => e.CreatedAt)
@@ -474,7 +472,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<ResetPassword>(entity =>
         {
-            entity.HasKey(e => e.Email).HasName("PK__reset_pa__AB6E6165BC21CA8C");
+            entity.HasKey(e => e.Email).HasName("PK__reset_pa__AB6E6165603C829F");
 
             entity.ToTable("reset_password");
 
@@ -493,11 +491,11 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Skill>(entity =>
         {
-            entity.HasKey(e => e.SkillId).HasName("PK__skill__FBBA8379B987BB58");
+            entity.HasKey(e => e.SkillId).HasName("PK__skill__FBBA8379B0B1E806");
 
             entity.ToTable("skill");
 
-            entity.HasIndex(e => e.SkillName, "UQ__skill__73C038ADD606E8F2").IsUnique();
+            entity.HasIndex(e => e.SkillName, "UQ__skill__73C038AD7A315B78").IsUnique();
 
             entity.Property(e => e.SkillId).HasColumnName("skill_id");
             entity.Property(e => e.CreatedAt)
@@ -517,7 +515,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Story>(entity =>
         {
-            entity.HasKey(e => e.StoryId).HasName("PK__story__66339C56F19C79E4");
+            entity.HasKey(e => e.StoryId).HasName("PK__story__66339C56EFEF4ECB");
 
             entity.ToTable("story");
 
@@ -541,17 +539,17 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Mission).WithMany(p => p.Stories)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__story__mission_i__7755B73D");
+                .HasConstraintName("FK__story__mission_i__1BC821DD");
 
             entity.HasOne(d => d.User).WithMany(p => p.Stories)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__story__user_id__7849DB76");
+                .HasConstraintName("FK__story__user_id__1CBC4616");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__user__B9BE370F59AC672E");
+            entity.HasKey(e => e.UserId).HasName("PK__user__B9BE370FDADB8165");
 
             entity.ToTable("user");
 
@@ -615,16 +613,16 @@ public partial class ApplicationDbContext : DbContext
 
             entity.HasOne(d => d.City).WithMany(p => p.Users)
                 .HasForeignKey(d => d.CityId)
-                .HasConstraintName("FK__user__city_id__30C33EC3");
+                .HasConstraintName("FK__user__city_id__59063A47");
 
             entity.HasOne(d => d.Country).WithMany(p => p.Users)
                 .HasForeignKey(d => d.CountryId)
-                .HasConstraintName("FK__user__country_id__31B762FC");
+                .HasConstraintName("FK__user__country_id__59FA5E80");
         });
 
         modelBuilder.Entity<UserSkill>(entity =>
         {
-            entity.HasKey(e => e.UserSkillId).HasName("PK__user_ski__FD3B576B2F568BB3");
+            entity.HasKey(e => e.UserSkillId).HasName("PK__user_ski__FD3B576BF3D9AF10");
 
             entity.ToTable("user_skill");
 
@@ -640,7 +638,7 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.UserSkills)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__user_skil__delet__607251E5");
+                .HasConstraintName("FK__user_skil__delet__6E01572D");
         });
 
         OnModelCreatingPartial(modelBuilder);
