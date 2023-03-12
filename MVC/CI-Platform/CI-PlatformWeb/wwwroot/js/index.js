@@ -3,33 +3,44 @@ const filterMenu = document.querySelector(".filter-menu");
 filterToggleBtn.addEventListener('click', () => {
     filterMenu.classList.toggle("show-filter-menu");
 })
-const gridBtn = document.querySelector(".grid-btn");
-const listBtn = document.querySelector(".list-btn");
-const gridView = document.querySelector(".index-grid-view");
-const listView = document.querySelector(".index-list-view");
-gridBtn.addEventListener('click', () => {
-    listView.classList.remove("d-grid");
-    listView.classList.add("d-none");
-    gridBtn.classList.add("active-index-view");
-    listBtn.classList.remove("active-index-view");
-    gridView.classList.remove("d-none");
-    gridView.classList.add("d-flex");
+$('.grid-btn').on('click', () => {
+    $(".index-list-view").removeClass("d-grid");
+    $(".index-list-view").addClass("d-none");
+    $('.grid-btn').addClass("active-index-view");
+    $('.list-btn').removeClass("active-index-view");
+    $(".index-grid-view").removeClass("d-none");
+    $(".index-grid-view").addClass("d-flex");
 })
-listBtn.addEventListener('click', () => {
-    gridView.classList.remove("d-flex");
-    gridView.classList.add("d-none");
-    listBtn.classList.add("active-index-view");
-    gridBtn.classList.remove("active-index-view");
-    listView.classList.remove("d-none");
-    listView.classList.add("d-grid");
+$('.list-btn').on('click', () => {
+    $(".index-grid-view").removeClass("d-flex");
+    $(".index-grid-view").addClass("d-none");
+    $('.list-btn').addClass("active-index-view");
+    $('.grid-btn').removeClass("active-index-view");
+    $(".index-list-view").removeClass("d-none");
+    $(".index-list-view").addClass("d-grid");
 })
 
 const onFilterList = document.querySelector(".on-filter-list");
-let city = [], country = 0, skill = [], theme = [], search = "", sort = "", isClearAllExists = false;
+let city = [], country = 0, skill = [], theme = [], search = "", sort = 0;
+let isClearAllExists = false;
+const pagination = document.querySelector("#pagination");
+let page = 1, totalPages = 0, pageSet = 1;
+
+$(document).ready(()=>{
+    createPaginationHTML();
+});
 
 const query = document.querySelector("#Search");
 $(query).on('input', () => {
     search = $(query).val();
+    page = 1;
+    MakeAjaxCall();
+})
+$("#sortDropdown li").on("click", (e) => {
+    const id = e.currentTarget.getAttribute('data-id');
+    if(sort == id) return;
+    sort = id;
+    page = 1;
     MakeAjaxCall();
 })
 $("#themeDropdown li").on("click", (e) => {
@@ -37,6 +48,7 @@ $("#themeDropdown li").on("click", (e) => {
     if (theme.includes(id)) return;
     theme.push(+id);
     createFilterHTML("Theme", e.currentTarget.textContent, id);
+    page = 1;
     MakeAjaxCall();
 })
 $("#skillDropdown li").on("click", (e) => {
@@ -44,6 +56,7 @@ $("#skillDropdown li").on("click", (e) => {
     if (skill.includes(id)) return;
     skill.push(+id);
     createFilterHTML("Skill", e.currentTarget.textContent, id);
+    page = 1;
     MakeAjaxCall();
 })
 $("#countryDropdown li").on("click", (e) => {
@@ -59,6 +72,7 @@ $("#countryDropdown li").on("click", (e) => {
             $(li).addClass("d-none")
     })
     createFilterHTML("Country", e.currentTarget.textContent, id);
+    page = 1;
     MakeAjaxCall();
 })
 $("#cityDropdown li").on("click", (e) => {
@@ -77,18 +91,21 @@ $("#cityDropdown li").on("click", (e) => {
     })
     city.push(+id);
     createFilterHTML("City", e.currentTarget.textContent, id);
+    page = 1;
     MakeAjaxCall();
 })
 function createFilterHTML(type, value, id) {
     if (!isClearAllExists) {
+        onFilterList.classList.add("mb-4");
         onFilterList.innerHTML = `
             <div class="clear-all my-auto color-darkgray fw-light text-14 cursor-pointer">
                 Clear all
-            </div>
-        `;
+                </div>
+                `;
         isClearAllExists = true;
         $(".clear-all").click(() => {
             onFilterList.innerHTML = "";
+            onFilterList.classList.remove("mb-4");
             document.querySelectorAll('#countryDropdown li').forEach((li) => {
                 $(li).removeClass("d-none");
             })
@@ -104,16 +121,16 @@ function createFilterHTML(type, value, id) {
         })
     }
     $(`<div
-         class="on-filter-item border rounded-pill d-flex align-items-center gap-2 py-1 px-2 color-darkgray fw-light text-14">
-         <span>${value}</span>
-         <img src="/images/static/cancel.png" data-id="${value}" data-type=${type} alt="cancel" class="cursor-pointer">
+    class="on-filter-item border rounded-pill d-flex align-items-center gap-2 py-1 px-2 color-darkgray fw-light text-14">
+    <span>${value}</span>
+    <img src="/images/static/cancel.png" data-id="${value}" data-type=${type} alt="cancel" class="cursor-pointer">
          </div>
-     `).insertBefore('.clear-all');
-
-    $(`[data-id = "${value}"]`).click((e) => {
-
+         `).insertBefore('.clear-all');
+         
+         $(`[data-id = "${value}"]`).click((e) => {
+             
         onFilterList.removeChild(e.currentTarget.parentElement)
-
+        
         if (e.currentTarget.getAttribute("data-type") == "City") {
             city.splice(city.indexOf(+id), 1);
         }
@@ -131,7 +148,7 @@ function createFilterHTML(type, value, id) {
             })
         }
         if (e.currentTarget.getAttribute("data-type") == "Theme")
-            theme.splice(theme.indexOf(+id), 1);
+        theme.splice(theme.indexOf(+id), 1);
         if (e.currentTarget.getAttribute("data-type") == "Skill")
             skill.splice(skill.indexOf(+id), 1);
         if (city.length == 0 && skill.length == 0 && theme.length == 0 && country == 0) {
@@ -150,12 +167,37 @@ function MakeAjaxCall() {
             theme: JSON.stringify(theme),
             skill: JSON.stringify(skill),
             search: search,
-            sort: sort
+            sort: sort,
+            page: page
         },
         success: (result) => {
             $('#partialViewContainer').html(result);
-
-            if (result == "") {
+            $('.grid-btn').on('click', () => {
+                $(".index-list-view").removeClass("d-grid");
+                $(".index-list-view").addClass("d-none");
+                $('.grid-btn').addClass("active-index-view");
+                $('.list-btn').removeClass("active-index-view");
+                $(".index-grid-view").removeClass("d-none");
+                $(".index-grid-view").addClass("d-flex");
+            })
+            $('.list-btn').on('click', () => {
+                $(".index-grid-view").removeClass("d-flex");
+                $(".index-grid-view").addClass("d-none");
+                $('.list-btn').addClass("active-index-view");
+                $('.grid-btn').removeClass("active-index-view");
+                $(".index-list-view").removeClass("d-none");
+                $(".index-list-view").addClass("d-grid");
+            })
+            $("#sortDropdown li").on("click", (e) => {
+                const id = e.currentTarget.getAttribute('data-id');
+                if(sort == id) return;
+                sort = id;
+                page = 1;
+                MakeAjaxCall();
+            })
+            window.scrollTo(0, 0);
+            createPaginationHTML();
+            if($('#totalMissions').val() == 0){
                 $(".index-top").addClass("d-none");
                 $(".no-mission").removeClass("d-none");
             } else {
@@ -164,4 +206,86 @@ function MakeAjaxCall() {
             }
         }
     })
+}
+function createPaginationHTML(){
+    pagination.innerHTML = "";
+    let totalMissions = $('#totalMissions').val();
+    totalPages = Math.ceil(totalMissions/9);
+    if(totalPages > 5){
+        pagination.innerHTML = `<button data-page="previous" class="btn rounded border border-2">
+        <img src="/images/static/previous.png" alt="previous">
+        </button>`;
+    }
+    if(totalPages > 1){
+        pagination.innerHTML += `<button data-page="left" class="btn rounded border border-2">
+        <img src="/images/static/left.png" alt="left"></button>`;
+        for(let i = 1; i <= totalPages; i++){
+            pagination.innerHTML += `<button data-page="${i}"
+             class="btn rounded border border-2 shadow-sm color-darkgray fw-light">${i}</button>`;
+        }
+        pagination.innerHTML += `<button data-page="right" class="btn rounded border border-2">
+        <img src="/images/static/right-arrow1.png" alt="right"></button>`;
+    }
+    if(totalPages > 5){
+        pagination.innerHTML += `<button data-page="next" class="btn rounded border border-2">
+        <img src="/images/static/next.png" alt="next">
+        </button>`;
+    }
+    //event listner
+    document.querySelectorAll('[data-page]').forEach((btn) => {
+        $(btn).click(() => handlePagination($(btn).data('page')));
+
+        if($(btn).data('page') <= 5*(pageSet-1) || $(btn).data('page') > pageSet*5)
+        $(btn).addClass("d-none")
+    });
+
+    // css to current page
+    $(`[data-page=${page}]`).addClass('active-page');
+}
+function scrollPageSet(){
+    document.querySelectorAll('[data-page]').forEach((btn) => {
+        if($(btn).data('page') <= 5*(pageSet-1) || $(btn).data('page') > pageSet*5)
+            $(btn).addClass("d-none")
+        else
+            $(btn).removeClass("d-none");
+    });
+}
+function handlePagination(value){
+    if(value == 'next'){
+        if(pageSet*5 > totalPages) return;
+        pageSet += 1;
+        scrollPageSet();
+        return;
+    }
+    else if(value == 'previous'){
+        if(pageSet == 1) return;
+        pageSet -= 1;
+        scrollPageSet();
+        return;
+    }
+    else if(value == 'left'){
+        if(page == 1) return;
+        page = page - 1;
+        if(page <= (pageSet-1)*5){
+            pageSet -= 1;
+            scrollPageSet();
+        }
+    }
+    else if(value == 'right'){
+        if(page == totalPages) return;
+        page = page + 1;
+        if(page > pageSet*5){
+            pageSet += 1;
+            scrollPageSet();
+        }
+    }
+    else{
+        if(page == value) {
+            window.scrollTo(0, 0);
+            return;
+        }
+        $(`[data-page=${page}]`).removeClass('active-page');
+        page = value;
+    }
+    MakeAjaxCall();
 }

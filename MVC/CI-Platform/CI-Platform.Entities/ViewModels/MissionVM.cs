@@ -26,6 +26,8 @@ public class MissionVM{
 
     public short? TotalSeats { get; set; }
 
+    public short? SeatsLeft {get; set;}
+
     public DateTime? RegistrationDeadline { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }

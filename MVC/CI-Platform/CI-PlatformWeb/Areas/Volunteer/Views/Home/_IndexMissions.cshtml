@@ -1,4 +1,39 @@
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
 @model IndexMissionVM
+<input hidden value="@ViewBag.TotalMissions" id="totalMissions">
+<section class="index-top d-flex justify-content-between align-items-center mb-4">
+    <div class="index-top-title color-darkgray">
+        <span class="fw-light">Explore </span><span class="total-missions">@ViewBag.TotalMissions</span> missions
+    </div>
+    <div class="d-flex gap-1 align-items-center">
+        <div class="dropdown border rounded me-3">
+            <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >
+                Sort by
+                <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-md-5">
+            </button>
+            <ul class="dropdown-menu" id="sortDropdown">
+                <li class="dropdown-item" data-id="1">Newest</li>
+                <li class="dropdown-item" data-id="2">Oldest</li>
+                <li class="dropdown-item" data-id="3">Highest available seats</li>
+                <li class="dropdown-item" data-id="4">Lowest available seats</li>
+                @if(@HttpContextAccessor.HttpContext!.Session.GetString("Email") != null){
+                    <li class="dropdown-item" data-id="5">My favourites</li>
+                }
+                <li class="dropdown-item" data-id="6">Registration deadline</li>
+            </ul>
+        </div>
+        <div class="p-1 rounded-circle d-none d-md-block active-index-view cursor-pointer grid-btn">
+            <img src="~/images/static/grid.png" alt="grid-view">
+        </div>
+        <div class="p-1 rounded-circle d-none d-md-block cursor-pointer list-btn">
+            <img src="~/images/static/list.png" alt="list-view">
+        </div>
+    </div>
+</section>
 <section class="index-grid-view row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
     @foreach(MissionVM mission in Model.missionVM){
     <div class="col -z-index-1">
@@ -32,48 +67,73 @@
                 <div class="d-flex justify-content-between mb-2">
                     <span class="fw-light">@mission.OrganizationName</span>
                     <div class="d-flex align-items-center">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/star.png" alt="star">
-                        <img src="~/images/static/star.png" alt="star">
+                        @for(byte i = 0; i < mission.MissionRating; i++){
+                            <img src="~/images/static/selected-star.png" alt="selected-star">
+                        }
+                        @for(byte i = 0; i < 5 - mission.MissionRating; i++){
+                            <img src="~/images/static/star.png" alt="star">
+                        }
                     </div>
                 </div>
                 <div
                     class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                    From 10/01/2019 untill 25/01/2019
+                    @if(mission.StartDate != null && mission.EndDate != null){
+                        <span>
+                            From @mission.StartDate?.ToString("d") untill @mission.EndDate?.ToString("d")
+                        </span>
+                    }
+                    else if(mission.MissionType == true){
+                        <span>@mission.MissionGoalVM.GoalObjective</span>
+                    }
+                    else{
+                        <span>Ongoing Opportunity</span>
+                    }
                 </div>
                 <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4">
-                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                        <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                        <div>
-                            <div>10</div>
-                            <div class="fw-light text-14">Seats left</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                        <img src="~/images/static/deadline.png" alt="deadline">
-                        <div>
-                            <div>09/01/2019</div>
-                            <div class="fw-light text-14">Deadline</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-grow-1 d-none">
-                        <img src="~/images/static/achieved.png" alt="achieved">
-                        <div class="w-100">
-                            <div class="progress" role="progressbar" aria-label="Basic example"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                style="height:0.5rem; width: 100%;">
-                                <div class="progress-bar bg-light-orange" style="width: 70%"></div>
+                    @if(mission.TotalSeats != null){
+                        <div class="d-flex align-items-center gap-3 flex-shrink-0">
+                            <img src="~/images/static/Seats-left.png" alt="Seats-left">
+                            <div>
+                                <div>@mission.SeatsLeft</div>
+                                <div class="fw-light text-14">Seats left</div>
                             </div>
-                            <div class="fw-light text-14">8000 Achieved</div>
                         </div>
-                    </div>
+                    }
+                    @if(mission.RegistrationDeadline != null && mission.RegistrationDeadline <= DateTime.Now){
+                        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                            <img src="~/images/static/deadline.png" alt="deadline">
+                            <div>
+                                <div>@mission.RegistrationDeadline?.ToString("d")</div>
+                                <div class="fw-light text-14">Deadline</div>
+                            </div>
+                        </div>
+                    }
+                    @if(mission.MissionType == true ){
+                        var value = mission.MissionGoalVM.GoalValue;
+                        var achieved = mission.MissionGoalVM.GoalAchieved != null ? mission.MissionGoalVM.GoalAchieved : 1;
+                        var percentage = achieved * 100 / value;
+                        <div class="d-flex align-items-center gap-2 flex-grow-1">
+                            <img src="~/images/static/achieved.png" alt="achieved">
+                            <div class="w-100">
+                                <div class="progress" role="progressbar" aria-label="Basic example"
+                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                    style="height:0.5rem; width: 100%;">
+                                    <div class="progress-bar bg-light-orange" style="width: @percentage%"></div>
+                                </div>
+                                <div class="fw-light text-14">@mission.MissionGoalVM.GoalAchieved</div>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <hr class="m-0 bg-secondary">
                 <a href="#"
                     class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    Apply
+                    @if(mission.StartDate >= DateTime.Now){
+                        <span>View Details</span>
+                    }else{
+                        <span>Apply</span>
+                    }
+
                     <img src="~/images/static/right-arrow.png" alt="rigth arrow">
                 </a>
             </div>

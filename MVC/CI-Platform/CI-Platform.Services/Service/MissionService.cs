@@ -39,10 +39,11 @@ public class MissionService : IMissionService
 
     public List<MissionVM> GetAllIndexMission()
     {
-        IEnumerable<Mission> obj = _unitOfWork.Mission.GetAllMission();
+        IEnumerable<Mission> obj = _unitOfWork.Mission.GetAllMissions();
         if (obj == null) return null!;
-        return obj.Select(mission =>
-            new MissionVM(){
+        List<MissionVM> missionVMs = obj.Select(mission =>{
+            List<MissionApplicationVM> maVM = GetIndexMissionApplication(mission);
+            return new MissionVM(){
                 MissionId = mission.MissionId,
                 MissionCityId = mission.MissionCity,
                 MissionCity = mission.MissionCityNavigation.CityName,
@@ -56,6 +57,7 @@ public class MissionService : IMissionService
                 StartDate = mission.StartDate,
                 EndDate = mission.EndDate,
                 TotalSeats = mission.TotalSeats,
+                SeatsLeft = (short?)(mission.TotalSeats - (maVM == null ? 0 : maVM.Where(ma => ma.ApprovalStatus == 1).LongCount())),
                 MissionType = mission.MissionType,
                 MissionRating = mission.MissionRating,
                 RegistrationDeadline = mission.RegistrationDeadline,
@@ -64,7 +66,9 @@ public class MissionService : IMissionService
                 MissionApplicationVM = GetIndexMissionApplication(mission),
                 MissionGoalVM = GetIndexMissionGoal(mission),
                 MissionSkillVM = GetIndexMissionSkill(mission)
-            }).ToList();
+            };
+        }).ToList();
+        return missionVMs;
     }
 
     internal string GetIndexMissionMedia(Mission mission)
@@ -116,7 +120,8 @@ public class MissionService : IMissionService
                 SkillId = ms.SkillId
             }).ToList() : null!;
     }
-    public IndexMissionVM FilterData(int? country, int[]? city, int[]? theme, int[]? skill, string? search, string? sort){
+
+    public IndexMissionVM FilterData(int? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId){
         List<MissionVM> missionVM = GetAllIndexMission();
         List<CityVM> cityVM = GetCitiesByMission(missionVM);
         List<CountryVM> countryVM = GetCountriesByMission(missionVM);
@@ -155,6 +160,27 @@ public class MissionService : IMissionService
                 ).ToList();
             }
         }    
+
+        if(sort == 1){
+            missionVM = missionVM.OrderBy(mission => mission.StartDate).ToList();
+        }
+        else if(sort == 2){
+            missionVM = missionVM.OrderByDescending(mission => mission.StartDate).ToList();
+        }
+        else if(sort == 3){
+            missionVM = missionVM.OrderByDescending(mission => mission.SeatsLeft).ToList();
+        }
+        else if(sort == 4){
+            missionVM = missionVM.OrderBy(mission => mission.SeatsLeft).ToList();
+        }
+        else if(sort == 5){
+            missionVM = missionVM.Where(mission => 
+                mission.FavouriteMissionVM.Any(fm => fm.UserId == userId)
+            ).ToList();
+        }
+        else if(sort == 6){
+            missionVM = missionVM.OrderBy(mission => mission.RegistrationDeadline).ToList();
+        }
 
         return new IndexMissionVM(){
             missionVM = missionVM,

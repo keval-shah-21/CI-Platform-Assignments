@@ -4,5 +4,5 @@ namespace CI_Platform.DataAccess.Repository.Interface;
 
 public interface IMissionRepository: IRepository<Mission>
 {
-    List<Mission> GetAllMission();
+    IEnumerable<Mission> GetAllMissions();
 }

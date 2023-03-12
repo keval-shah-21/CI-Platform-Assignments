@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap");
-
+html{
+  scroll-behavior: smooth;
+}
 body {
   font-family: "Noto Sans", sans-serif;
 }
@@ -183,7 +185,7 @@ form input:focus {
 }
 
 /* index page */
-.grid-body {
+.index-body {
   grid-template-rows: auto 1fr auto;
 }
 
@@ -295,12 +297,12 @@ form input:focus {
   }
 }
 
-.active-page-btn {
+.active-page {
   background-color: var(--light-orange);
   border-color: transparent !important;
   color: white;
 }
-.page-btn:hover {
+[data-page]:hover {
     background-color: var(--light-orange);
     color: white;
 }
