@@ -24,7 +24,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         List<MissionVM> missionVM = _unitOfService.Mission.GetAllIndexMission();
-        @ViewBag.TotalMissions = missionVM?.Count();
+        ViewBag.TotalMissions = missionVM?.Count();
         return View(new IndexMissionVM()
         {
             missionVM = missionVM.Take(9).ToList(),
@@ -35,15 +35,16 @@ public class HomeController : Controller
         });
     }
 
+    [HttpPost]
     [Route("filter-data")]
-    public IActionResult FilterData(int? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, int page)
+    public IActionResult FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, int page)
     {
         long? userId = 0;
         if(HttpContext.Session.GetString("UserId") != null){
             userId = long.Parse(HttpContext.Session.GetString("UserId"));
         }
         IndexMissionVM indexMissionVM = _unitOfService.Mission.FilterData(country, city, theme, skill, search, sort, userId);
-        @ViewBag.TotalMissions = indexMissionVM.missionVM?.Count();
+        ViewBag.TotalMissions = indexMissionVM.missionVM?.Count();
         indexMissionVM.missionVM = indexMissionVM.missionVM.Skip( (page - 1) * 9 ).Take(9).ToList();
         return PartialView("_IndexMissions", indexMissionVM);
     }

@@ -10,17 +10,18 @@
     <div class="d-flex gap-1 align-items-center">
         <div class="dropdown border rounded me-3">
             <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false"
-                >
+                    aria-expanded="false">
                 Sort by
                 <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-md-5">
             </button>
             <ul class="dropdown-menu" id="sortDropdown">
+                <li class="dropdown-item" data-id="0">Relevant</li>
                 <li class="dropdown-item" data-id="1">Newest</li>
                 <li class="dropdown-item" data-id="2">Oldest</li>
                 <li class="dropdown-item" data-id="3">Highest available seats</li>
                 <li class="dropdown-item" data-id="4">Lowest available seats</li>
-                @if(@HttpContextAccessor.HttpContext!.Session.GetString("Email") != null){
+                @if (@HttpContextAccessor.HttpContext!.Session.GetString("Email") != null)
+                {
                     <li class="dropdown-item" data-id="5">My favourites</li>
                 }
                 <li class="dropdown-item" data-id="6">Registration deadline</li>
@@ -35,760 +36,775 @@
     </div>
 </section>
 <section class="index-grid-view row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-    @foreach(MissionVM mission in Model.missionVM){
-    <div class="col -z-index-1">
-        <div class="card shadow-sm h-100">
-            <div class="position-relative card-top">
-                <a href="#">
-                    <img src="@mission.MissionMedia"
-                    class="card-img-top h-100 object-fit-cover" alt="mission image">
-                </a>
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">@mission.MissionCountry</span>
-                </div>
-                <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                    <img src="~/images/static/heart.png" alt="heart">
-                </a>
-                <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                    <img src="~/images/static/user.png" alt="user">
-                </a>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    @mission.MissionThemeName
-                </div>
-            </div>
-            <div class="card-body color-darkgray">
-                <a href="#" class="color-darkgray">
-                    <h4 class="card-title">@mission.Title</h4>
-                </a>
-                <p class="card-text fw-light ellipsis-2 text-black-50 text-15">@mission.ShortDescription</p>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">@mission.OrganizationName</span>
-                    <div class="d-flex align-items-center">
-                        @for(byte i = 0; i < mission.MissionRating; i++){
-                            <img src="~/images/static/selected-star.png" alt="selected-star">
-                        }
-                        @for(byte i = 0; i < 5 - mission.MissionRating; i++){
-                            <img src="~/images/static/star.png" alt="star">
-                        }
+    @foreach (MissionVM mission in Model.missionVM)
+    {
+        <div class="col -z-index-1">
+            <div class="card shadow-sm h-100">
+                <div class="position-relative card-top">
+                    <a href="#">
+                        <img src="@mission.MissionMedia"
+                         class="card-img-top h-100 object-fit-cover" alt="mission image">
+                    </a>
+                    <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                        <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">@mission.MissionCountry</span>
                     </div>
-                </div>
-                <div
-                    class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                    @if(mission.StartDate != null && mission.EndDate != null){
-                        <span>
-                            From @mission.StartDate?.ToString("d") untill @mission.EndDate?.ToString("d")
+                    <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+                        <img src="~/images/static/heart.png" alt="heart">
+                    </a>
+                    <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+                        <img src="~/images/static/user.png" alt="user">
+                    </a>
+                    @if(@HttpContextAccessor.HttpContext!.Session.GetString("UserId") != null && mission?.MissionApplicationVM?.LongCount() > 0 &&
+                    mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(@HttpContextAccessor.HttpContext!.Session.GetString("UserId"))))
+                    {
+                        <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+                            APPLIED
                         </span>
                     }
-                    else if(mission.MissionType == true){
-                        <span>@mission.MissionGoalVM.GoalObjective</span>
-                    }
-                    else{
-                        <span>Ongoing Opportunity</span>
-                    }
+                    <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
+                        @mission.MissionThemeName
+                    </div>
                 </div>
-                <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4">
-                    @if(mission.TotalSeats != null){
-                        <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                            <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                            <div>
-                                <div>@mission.SeatsLeft</div>
-                                <div class="fw-light text-14">Seats left</div>
-                            </div>
+                <div class="card-body color-darkgray">
+                    <a href="#" class="color-darkgray">
+                        <h4 class="card-title">@mission.Title</h4>
+                    </a>
+                    <p class="card-text fw-light ellipsis-2 text-black-50 text-15">@mission.ShortDescription</p>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="fw-light">@mission.OrganizationName</span>
+                        <div class="d-flex align-items-center">
+                            @for (byte i = 0; i < mission.MissionRating; i++)
+                            {
+                                <img src="~/images/static/selected-star.png" alt="selected-star">
+                            }
+                            @for (byte i = 0; i < 5 - mission.MissionRating; i++)
+                            {
+                                <img src="~/images/static/star.png" alt="star">
+                            }
                         </div>
-                    }
-                    @if(mission.RegistrationDeadline != null && mission.RegistrationDeadline <= DateTime.Now){
-                        <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                            <img src="~/images/static/deadline.png" alt="deadline">
-                            <div>
-                                <div>@mission.RegistrationDeadline?.ToString("d")</div>
-                                <div class="fw-light text-14">Deadline</div>
-                            </div>
-                        </div>
-                    }
-                    @if(mission.MissionType == true ){
-                        var value = mission.MissionGoalVM.GoalValue;
-                        var achieved = mission.MissionGoalVM.GoalAchieved != null ? mission.MissionGoalVM.GoalAchieved : 1;
-                        var percentage = achieved * 100 / value;
-                        <div class="d-flex align-items-center gap-2 flex-grow-1">
-                            <img src="~/images/static/achieved.png" alt="achieved">
-                            <div class="w-100">
-                                <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
-                                    <div class="progress-bar bg-light-orange" style="width: @percentage%"></div>
+                    </div>
+                    <div class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
+                        @if (mission.StartDate != null && mission.EndDate != null)
+                        {
+                            <span>
+                                From @mission.StartDate?.ToString("d") untill @mission.EndDate?.ToString("d")
+                            </span>
+                        }
+                        else if (mission.MissionType == true)
+                        {
+                            <span>@mission.MissionGoalVM.GoalObjective</span>
+                        }
+                        else
+                        {
+                            <span>Ongoing Opportunity</span>
+                        }
+                    </div>
+                    <div class="d-flex justify-content-around gap-xl-1 color-darkgray border-top py-2 pt-4">
+                        @if (mission.TotalSeats != null)
+                        {
+                            <div class="d-flex align-items-center gap-3 flex-shrink-0">
+                                <img src="~/images/static/Seats-left.png" alt="Seats-left">
+                                <div>
+                                    <div>@mission.SeatsLeft</div>
+                                    <div class="fw-light text-14">Seats left</div>
                                 </div>
-                                <div class="fw-light text-14">@mission.MissionGoalVM.GoalAchieved</div>
                             </div>
-                        </div>
-                    }
-                </div>
-                <hr class="m-0 bg-secondary">
-                <a href="#"
-                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    @if(mission.StartDate >= DateTime.Now){
-                        <span>View Details</span>
-                    }else{
-                        <span>Apply</span>
-                    }
+                        }
+                        @if (mission.RegistrationDeadline != null && mission.RegistrationDeadline >= DateTime.Now)
+                        {
+                            <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                                <img src="~/images/static/deadline.png" alt="deadline">
+                                <div>
+                                    <div>@mission.RegistrationDeadline?.ToString("d")</div>
+                                    <div class="fw-light text-14">Deadline</div>
+                                </div>
+                            </div>
+                        }
+                        @if (mission.MissionType == true)
+                        {
+                            var value = mission.MissionGoalVM.GoalValue;
+                            var achieved = mission.MissionGoalVM.GoalAchieved != null ? mission.MissionGoalVM.GoalAchieved : 1;
+                            var percentage = achieved * 100 / value;
+                            <div class="d-flex align-items-center gap-2 flex-grow-1">
+                                <img src="~/images/static/achieved.png" alt="achieved">
+                                <div class="w-100">
+                                    <div class="progress" role="progressbar" aria-label="Basic example"
+                                 aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                 style="height:0.5rem; width: 100%;">
+                                        <div class="progress-bar bg-light-orange" style="width: @percentage%"></div>
+                                    </div>
+                                    <div class="fw-light text-14">@mission.MissionGoalVM.GoalAchieved Achieved</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <hr class="m-0 bg-secondary">
+                    <a href="#"
+                   class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+                        @if (mission.StartDate >= DateTime.Now)
+                        {
+                            <span>View Details</span>
+                        }
+                        else
+                        {
+                            <span>Apply</span>
+                        }
 
-                    <img src="~/images/static/right-arrow.png" alt="rigth arrow">
-                </a>
+                        <img src="~/images/static/right-arrow.png" alt="rigth arrow">
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
     }
     @* <div class="col">
         <div class="card shadow-sm h-100">
-            <div class="card-top position-relative">
-                <img src="~/images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
-                    class="card-img-top h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
-                </div>
-                <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                    <img src="~/images/static/heart.png" alt="heart">
-                </a>
-                <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                    <img src="~/images/static/user.png" alt="user">
-                </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
-                    APPLIED
-                </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    Environment
-                </div>
-            </div>
-            <div class="card-body color-darkgray">
-                <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
-                    example text to
-                    build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                    sit
-                    amet
-                    consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                    dolore.
-                    Deserunt, veritatis tempora.</p>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">Tree Canada</span>
-                    <div class="d-flex align-items-center">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/star.png" alt="star">
-                        <img src="~/images/static/star.png" alt="star">
-                    </div>
-                </div>
-                <div
-                    class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                    From 10/01/2019 untill 25/01/2019
-                </div>
-                <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 gap-3">
-                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                        <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                        <div>
-                            <div>10</div>
-                            <div class="fw-light text-14">Seats left</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
-                        <img src="~/images/static/deadline.png" alt="deadline">
-                        <div>
-                            <div>09/01/2019</div>
-                            <div class="fw-light text-14">Deadline</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-grow-1">
-                        <img src="~/images/static/achieved.png" alt="achieved">
-                        <div class="w-100">
-                            <div class="progress" role="progressbar" aria-label="Basic example"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                style="height:0.5rem; width: 100%;">
-                                <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                            </div>
-                            <div class="fw-light text-14">8000 Achieved</div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="m-0 bg-secondary">
-                <a href="#"
-                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    View details
-                    <img src="~/images/static/right-arrow.png" alt="rigth arrow">
-                </a>
-            </div>
+        <div class="card-top position-relative">
+        <img src="~/images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
+        class="card-img-top h-100" alt="mission image">
+        <div
+        class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+        <img src="~/images/static/pin.png" alt="pin"><span
+        class="text-light fw-light text-14">Toronto</span>
         </div>
-    </div>
-    <div class="col">
+        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+        <img src="~/images/static/heart.png" alt="heart">
+        </a>
+        <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+        <img src="~/images/static/user.png" alt="user">
+        </a>
+        <span
+        class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+        APPLIED
+        </span>
+        <div
+        class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
+        Environment
+        </div>
+        </div>
+        <div class="card-body color-darkgray">
+        <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
+        <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
+        example text to
+        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
+        sit
+        amet
+        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
+        dolore.
+        Deserunt, veritatis tempora.</p>
+        <div class="d-flex justify-content-between mb-2">
+        <span class="fw-light">Tree Canada</span>
+        <div class="d-flex align-items-center">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/star.png" alt="star">
+        <img src="~/images/static/star.png" alt="star">
+        </div>
+        </div>
+        <div
+        class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
+        From 10/01/2019 untill 25/01/2019
+        </div>
+        <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 gap-3">
+        <div class="d-flex align-items-center gap-3 flex-shrink-0">
+        <img src="~/images/static/Seats-left.png" alt="Seats-left">
+        <div>
+        <div>10</div>
+        <div class="fw-light text-14">Seats left</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
+        <img src="~/images/static/deadline.png" alt="deadline">
+        <div>
+        <div>09/01/2019</div>
+        <div class="fw-light text-14">Deadline</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-grow-1">
+        <img src="~/images/static/achieved.png" alt="achieved">
+        <div class="w-100">
+        <div class="progress" role="progressbar" aria-label="Basic example"
+        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+        style="height:0.5rem; width: 100%;">
+        <div class="progress-bar bg-light-orange" style="width: 70%"></div>
+        </div>
+        <div class="fw-light text-14">8000 Achieved</div>
+        </div>
+        </div>
+        </div>
+        <hr class="m-0 bg-secondary">
+        <a href="#"
+        class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+        View details
+        <img src="~/images/static/right-arrow.png" alt="rigth arrow">
+        </a>
+        </div>
+        </div>
+        </div>
+        <div class="col">
         <div class="card shadow-sm h-100">
-            <div class="card-top position-relative">
-                <img src="~/images/static/Nourish-the-Children-in--African-country-1.png" class="card-img-top h-100"
-                    alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
-                </div>
-                <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
-                    <img src="~/images/static/heart.png" alt="heart">
-                </a>
-                <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                    <img src="~/images/static/user.png" alt="user">
-                </a>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    Environment
-                </div>
-            </div>
-            <div class="card-body color-darkgray">
-                <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 ellipsis-7">Some quick example text to
-                    build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                    sit
-                    amet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, pariatur.
-                    consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                    dolore.
-                    Deserunt, veritatis tempora.</p>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">Tree Canada</span>
-                    <div class="d-flex align-items-center">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/star.png" alt="star">
-                        <img src="~/images/static/star.png" alt="star">
-                    </div>
-                </div>
-                <div
-                    class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light d-none">
-                    From 10/01/2019 untill 25/01/2019
-                </div>
-                <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 d-none">
-                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                        <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                        <div>
-                            <div>10</div>
-                            <div class="fw-light text-14">Seats left</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
-                        <img src="~/images/static/deadline.png" alt="deadline">
-                        <div>
-                            <div>09/01/2019</div>
-                            <div class="fw-light text-14">Deadline</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-grow-1">
-                        <img src="~/images/static/achieved.png" alt="achieved">
-                        <div class="w-100">
-                            <div class="progress" role="progressbar" aria-label="Basic example"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                style="height:0.5rem; width: 100%;">
-                                <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                            </div>
-                            <div class="fw-light text-14">8000 Achieved</div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="m-0 bg-secondary">
-                <a href="#"
-                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    View details
-                    <img src="~/images/static/right-arrow.png" alt="rigth arrow">
-                </a>
-            </div>
+        <div class="card-top position-relative">
+        <img src="~/images/static/Nourish-the-Children-in--African-country-1.png" class="card-img-top h-100"
+        alt="mission image">
+        <div
+        class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+        <img src="~/images/static/pin.png" alt="pin"><span
+        class="text-light fw-light text-14">Toronto</span>
         </div>
-    </div>
-    <div class="col">
+        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
+        <img src="~/images/static/heart.png" alt="heart">
+        </a>
+        <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+        <img src="~/images/static/user.png" alt="user">
+        </a>
+        <div
+        class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
+        Environment
+        </div>
+        </div>
+        <div class="card-body color-darkgray">
+        <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
+        <p class="card-text fw-light text-black-50 text-15 ellipsis-7">Some quick example text to
+        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
+        sit
+        amet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, pariatur.
+        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
+        dolore.
+        Deserunt, veritatis tempora.</p>
+        <div class="d-flex justify-content-between mb-2">
+        <span class="fw-light">Tree Canada</span>
+        <div class="d-flex align-items-center">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/star.png" alt="star">
+        <img src="~/images/static/star.png" alt="star">
+        </div>
+        </div>
+        <div
+        class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light d-none">
+        From 10/01/2019 untill 25/01/2019
+        </div>
+        <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 d-none">
+        <div class="d-flex align-items-center gap-3 flex-shrink-0">
+        <img src="~/images/static/Seats-left.png" alt="Seats-left">
+        <div>
+        <div>10</div>
+        <div class="fw-light text-14">Seats left</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
+        <img src="~/images/static/deadline.png" alt="deadline">
+        <div>
+        <div>09/01/2019</div>
+        <div class="fw-light text-14">Deadline</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-grow-1">
+        <img src="~/images/static/achieved.png" alt="achieved">
+        <div class="w-100">
+        <div class="progress" role="progressbar" aria-label="Basic example"
+        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+        style="height:0.5rem; width: 100%;">
+        <div class="progress-bar bg-light-orange" style="width: 70%"></div>
+        </div>
+        <div class="fw-light text-14">8000 Achieved</div>
+        </div>
+        </div>
+        </div>
+        <hr class="m-0 bg-secondary">
+        <a href="#"
+        class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+        View details
+        <img src="~/images/static/right-arrow.png" alt="rigth arrow">
+        </a>
+        </div>
+        </div>
+        </div>
+        <div class="col">
         <div class="card shadow-sm h-100">
-            <div class="position-relative card-top">
-                <img src="~/images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png"
-                    class="card-img-top h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
-                </div>
-                <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                    <img src="~/images/static/heart.png" alt="heart">
-                </a>
-                <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                    <img src="~/images/static/user.png" alt="user">
-                </a>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    Environment
-                </div>
-            </div>
-            <div class="card-body color-darkgray">
-                <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
-                    example text to
-                    build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                    sit
-                    amet
-                    consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                    dolore.
-                    Deserunt, veritatis tempora.</p>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">Tree Canada</span>
-                    <div class="d-flex align-items-center">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/star.png" alt="star">
-                        <img src="~/images/static/star.png" alt="star">
-                    </div>
-                </div>
-                <div
-                    class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                    From 10/01/2019 untill 25/01/2019
-                </div>
-                <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4">
-                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                        <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                        <div>
-                            <div>10</div>
-                            <div class="fw-light text-14">Seats left</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                        <img src="~/images/static/deadline.png" alt="deadline">
-                        <div>
-                            <div>09/01/2019</div>
-                            <div class="fw-light text-14">Deadline</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-grow-1 d-none">
-                        <img src="~/images/static/achieved.png" alt="achieved">
-                        <div class="w-100">
-                            <div class="progress" role="progressbar" aria-label="Basic example"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                style="height:0.5rem; width: 100%;">
-                                <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                            </div>
-                            <div class="fw-light text-14">8000 Achieved</div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="m-0 bg-secondary">
-                <a href="#"
-                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    Apply
-                    <img src="~/images/static/right-arrow.png" alt="rigth arrow">
-                </a>
-            </div>
+        <div class="position-relative card-top">
+        <img src="~/images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png"
+        class="card-img-top h-100" alt="mission image">
+        <div
+        class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+        <img src="~/images/static/pin.png" alt="pin"><span
+        class="text-light fw-light text-14">Toronto</span>
         </div>
-    </div>
-    <div class="col">
+        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+        <img src="~/images/static/heart.png" alt="heart">
+        </a>
+        <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+        <img src="~/images/static/user.png" alt="user">
+        </a>
+        <div
+        class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
+        Environment
+        </div>
+        </div>
+        <div class="card-body color-darkgray">
+        <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
+        <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
+        example text to
+        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
+        sit
+        amet
+        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
+        dolore.
+        Deserunt, veritatis tempora.</p>
+        <div class="d-flex justify-content-between mb-2">
+        <span class="fw-light">Tree Canada</span>
+        <div class="d-flex align-items-center">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/star.png" alt="star">
+        <img src="~/images/static/star.png" alt="star">
+        </div>
+        </div>
+        <div
+        class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
+        From 10/01/2019 untill 25/01/2019
+        </div>
+        <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4">
+        <div class="d-flex align-items-center gap-3 flex-shrink-0">
+        <img src="~/images/static/Seats-left.png" alt="Seats-left">
+        <div>
+        <div>10</div>
+        <div class="fw-light text-14">Seats left</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+        <img src="~/images/static/deadline.png" alt="deadline">
+        <div>
+        <div>09/01/2019</div>
+        <div class="fw-light text-14">Deadline</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-grow-1 d-none">
+        <img src="~/images/static/achieved.png" alt="achieved">
+        <div class="w-100">
+        <div class="progress" role="progressbar" aria-label="Basic example"
+        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+        style="height:0.5rem; width: 100%;">
+        <div class="progress-bar bg-light-orange" style="width: 70%"></div>
+        </div>
+        <div class="fw-light text-14">8000 Achieved</div>
+        </div>
+        </div>
+        </div>
+        <hr class="m-0 bg-secondary">
+        <a href="#"
+        class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+        Apply
+        <img src="~/images/static/right-arrow.png" alt="rigth arrow">
+        </a>
+        </div>
+        </div>
+        </div>
+        <div class="col">
         <div class="card shadow-sm h-100">
-            <div class="card-top position-relative">
-                <img src="~/images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
-                    class="card-img-top h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
-                </div>
-                <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                    <img src="~/images/static/heart.png" alt="heart">
-                </a>
-                <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                    <img src="~/images/static/user.png" alt="user">
-                </a>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    Environment
-                </div>
-            </div>
-            <div class="card-body color-darkgray">
-                <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
-                    example text to
-                    build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                    sit
-                    amet
-                    consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                    dolore.
-                    Deserunt, veritatis tempora.</p>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">Tree Canada</span>
-                    <div class="d-flex align-items-center">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/star.png" alt="star">
-                        <img src="~/images/static/star.png" alt="star">
-                    </div>
-                </div>
-                <div
-                    class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                    From 10/01/2019 untill 25/01/2019
-                </div>
-                <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 gap-3">
-                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                        <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                        <div>
-                            <div>10</div>
-                            <div class="fw-light text-14">Seats left</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
-                        <img src="~/images/static/deadline.png" alt="deadline">
-                        <div>
-                            <div>09/01/2019</div>
-                            <div class="fw-light text-14">Deadline</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-grow-1">
-                        <img src="~/images/static/achieved.png" alt="achieved">
-                        <div class="w-100">
-                            <div class="progress" role="progressbar" aria-label="Basic example"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                style="height:0.5rem; width: 100%;">
-                                <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                            </div>
-                            <div class="fw-light text-14">8000 Achieved</div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="m-0 bg-secondary">
-                <a href="#"
-                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    Apply
-                    <img src="~/images/static/right-arrow.png" alt="rigth arrow">
-                </a>
-            </div>
+        <div class="card-top position-relative">
+        <img src="~/images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
+        class="card-img-top h-100" alt="mission image">
+        <div
+        class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+        <img src="~/images/static/pin.png" alt="pin"><span
+        class="text-light fw-light text-14">Toronto</span>
         </div>
-    </div>
-    <div class="col">
+        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+        <img src="~/images/static/heart.png" alt="heart">
+        </a>
+        <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+        <img src="~/images/static/user.png" alt="user">
+        </a>
+        <div
+        class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
+        Environment
+        </div>
+        </div>
+        <div class="card-body color-darkgray">
+        <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
+        <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
+        example text to
+        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
+        sit
+        amet
+        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
+        dolore.
+        Deserunt, veritatis tempora.</p>
+        <div class="d-flex justify-content-between mb-2">
+        <span class="fw-light">Tree Canada</span>
+        <div class="d-flex align-items-center">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/star.png" alt="star">
+        <img src="~/images/static/star.png" alt="star">
+        </div>
+        </div>
+        <div
+        class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
+        From 10/01/2019 untill 25/01/2019
+        </div>
+        <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 gap-3">
+        <div class="d-flex align-items-center gap-3 flex-shrink-0">
+        <img src="~/images/static/Seats-left.png" alt="Seats-left">
+        <div>
+        <div>10</div>
+        <div class="fw-light text-14">Seats left</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
+        <img src="~/images/static/deadline.png" alt="deadline">
+        <div>
+        <div>09/01/2019</div>
+        <div class="fw-light text-14">Deadline</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-grow-1">
+        <img src="~/images/static/achieved.png" alt="achieved">
+        <div class="w-100">
+        <div class="progress" role="progressbar" aria-label="Basic example"
+        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+        style="height:0.5rem; width: 100%;">
+        <div class="progress-bar bg-light-orange" style="width: 70%"></div>
+        </div>
+        <div class="fw-light text-14">8000 Achieved</div>
+        </div>
+        </div>
+        </div>
+        <hr class="m-0 bg-secondary">
+        <a href="#"
+        class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+        Apply
+        <img src="~/images/static/right-arrow.png" alt="rigth arrow">
+        </a>
+        </div>
+        </div>
+        </div>
+        <div class="col">
         <div class="card shadow-sm h-100">
-            <div class="card-top position-relative">
-                <img src="~/images/static/Nourish-the-Children-in--African-country-1.png" class="card-img-top h-100"
-                    alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
-                </div>
-                <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                    <img src="~/images/static/heart.png" alt="heart">
-                </a>
-                <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                    <img src="~/images/static/user.png" alt="user">
-                </a>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    Environment
-                </div>
-            </div>
-            <div class="card-body color-darkgray">
-                <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 ellipsis-7">Some quick example text to
-                    build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                    sit
-                    amet
-                    consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                    dolore.
-                    Deserunt, veritatis tempora.</p>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">Tree Canada</span>
-                    <div class="d-flex align-items-center">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/star.png" alt="star">
-                        <img src="~/images/static/star.png" alt="star">
-                    </div>
-                </div>
-                <div
-                    class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light d-none">
-                    From 10/01/2019 untill 25/01/2019
-                </div>
-                <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 d-none">
-                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                        <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                        <div>
-                            <div>10</div>
-                            <div class="fw-light text-14">Seats left</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
-                        <img src="~/images/static/deadline.png" alt="deadline">
-                        <div>
-                            <div>09/01/2019</div>
-                            <div class="fw-light text-14">Deadline</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-grow-1">
-                        <img src="~/images/static/achieved.png" alt="achieved">
-                        <div class="w-100">
-                            <div class="progress" role="progressbar" aria-label="Basic example"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                style="height:0.5rem; width: 100%;">
-                                <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                            </div>
-                            <div class="fw-light text-14">8000 Achieved</div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="m-0 bg-secondary">
-                <a href="#"
-                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    View details
-                    <img src="~/images/static/right-arrow.png" alt="rigth arrow">
-                </a>
-            </div>
+        <div class="card-top position-relative">
+        <img src="~/images/static/Nourish-the-Children-in--African-country-1.png" class="card-img-top h-100"
+        alt="mission image">
+        <div
+        class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+        <img src="~/images/static/pin.png" alt="pin"><span
+        class="text-light fw-light text-14">Toronto</span>
         </div>
-    </div>
-    <div class="col">
+        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+        <img src="~/images/static/heart.png" alt="heart">
+        </a>
+        <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+        <img src="~/images/static/user.png" alt="user">
+        </a>
+        <div
+        class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
+        Environment
+        </div>
+        </div>
+        <div class="card-body color-darkgray">
+        <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
+        <p class="card-text fw-light text-black-50 text-15 ellipsis-7">Some quick example text to
+        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
+        sit
+        amet
+        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
+        dolore.
+        Deserunt, veritatis tempora.</p>
+        <div class="d-flex justify-content-between mb-2">
+        <span class="fw-light">Tree Canada</span>
+        <div class="d-flex align-items-center">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/star.png" alt="star">
+        <img src="~/images/static/star.png" alt="star">
+        </div>
+        </div>
+        <div
+        class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light d-none">
+        From 10/01/2019 untill 25/01/2019
+        </div>
+        <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 d-none">
+        <div class="d-flex align-items-center gap-3 flex-shrink-0">
+        <img src="~/images/static/Seats-left.png" alt="Seats-left">
+        <div>
+        <div>10</div>
+        <div class="fw-light text-14">Seats left</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
+        <img src="~/images/static/deadline.png" alt="deadline">
+        <div>
+        <div>09/01/2019</div>
+        <div class="fw-light text-14">Deadline</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-grow-1">
+        <img src="~/images/static/achieved.png" alt="achieved">
+        <div class="w-100">
+        <div class="progress" role="progressbar" aria-label="Basic example"
+        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+        style="height:0.5rem; width: 100%;">
+        <div class="progress-bar bg-light-orange" style="width: 70%"></div>
+        </div>
+        <div class="fw-light text-14">8000 Achieved</div>
+        </div>
+        </div>
+        </div>
+        <hr class="m-0 bg-secondary">
+        <a href="#"
+        class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+        View details
+        <img src="~/images/static/right-arrow.png" alt="rigth arrow">
+        </a>
+        </div>
+        </div>
+        </div>
+        <div class="col">
         <div class="card shadow-sm h-100">
-            <div class="position-relative card-top">
-                <img src="~/images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png"
-                    class="card-img-top h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
-                </div>
-                <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                    <img src="~/images/static/heart.png" alt="heart">
-                </a>
-                <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                    <img src="~/images/static/user.png" alt="user">
-                </a>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    Environment
-                </div>
-            </div>
-            <div class="card-body color-darkgray">
-                <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
-                    example text to
-                    build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                    sit
-                    amet
-                    consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                    dolore.
-                    Deserunt, veritatis tempora.</p>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">Tree Canada</span>
-                    <div class="d-flex align-items-center">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/star.png" alt="star">
-                        <img src="~/images/static/star.png" alt="star">
-                    </div>
-                </div>
-                <div
-                    class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                    From 10/01/2019 untill 25/01/2019
-                </div>
-                <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4">
-                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                        <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                        <div>
-                            <div>10</div>
-                            <div class="fw-light text-14">Seats left</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                        <img src="~/images/static/deadline.png" alt="deadline">
-                        <div>
-                            <div>09/01/2019</div>
-                            <div class="fw-light text-14">Deadline</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-grow-1 d-none">
-                        <img src="~/images/static/achieved.png" alt="achieved">
-                        <div class="w-100">
-                            <div class="progress" role="progressbar" aria-label="Basic example"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                style="height:0.5rem; width: 100%;">
-                                <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                            </div>
-                            <div class="fw-light text-14">8000 Achieved</div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="m-0 bg-secondary">
-                <a href="#"
-                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    Apply
-                    <img src="~/images/static/right-arrow.png" alt="rigth arrow">
-                </a>
-            </div>
+        <div class="position-relative card-top">
+        <img src="~/images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png"
+        class="card-img-top h-100" alt="mission image">
+        <div
+        class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+        <img src="~/images/static/pin.png" alt="pin"><span
+        class="text-light fw-light text-14">Toronto</span>
         </div>
-    </div>
-    <div class="col">
+        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+        <img src="~/images/static/heart.png" alt="heart">
+        </a>
+        <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+        <img src="~/images/static/user.png" alt="user">
+        </a>
+        <div
+        class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
+        Environment
+        </div>
+        </div>
+        <div class="card-body color-darkgray">
+        <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
+        <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
+        example text to
+        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
+        sit
+        amet
+        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
+        dolore.
+        Deserunt, veritatis tempora.</p>
+        <div class="d-flex justify-content-between mb-2">
+        <span class="fw-light">Tree Canada</span>
+        <div class="d-flex align-items-center">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/star.png" alt="star">
+        <img src="~/images/static/star.png" alt="star">
+        </div>
+        </div>
+        <div
+        class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
+        From 10/01/2019 untill 25/01/2019
+        </div>
+        <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4">
+        <div class="d-flex align-items-center gap-3 flex-shrink-0">
+        <img src="~/images/static/Seats-left.png" alt="Seats-left">
+        <div>
+        <div>10</div>
+        <div class="fw-light text-14">Seats left</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+        <img src="~/images/static/deadline.png" alt="deadline">
+        <div>
+        <div>09/01/2019</div>
+        <div class="fw-light text-14">Deadline</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-grow-1 d-none">
+        <img src="~/images/static/achieved.png" alt="achieved">
+        <div class="w-100">
+        <div class="progress" role="progressbar" aria-label="Basic example"
+        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+        style="height:0.5rem; width: 100%;">
+        <div class="progress-bar bg-light-orange" style="width: 70%"></div>
+        </div>
+        <div class="fw-light text-14">8000 Achieved</div>
+        </div>
+        </div>
+        </div>
+        <hr class="m-0 bg-secondary">
+        <a href="#"
+        class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+        Apply
+        <img src="~/images/static/right-arrow.png" alt="rigth arrow">
+        </a>
+        </div>
+        </div>
+        </div>
+        <div class="col">
         <div class="card shadow-sm h-100">
-            <div class="card-top position-relative">
-                <img src="~/images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
-                    class="card-img-top h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
-                </div>
-                <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                    <img src="~/images/static/heart.png" alt="heart">
-                </a>
-                <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                    <img src="~/images/static/user.png" alt="user">
-                </a>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    Environment
-                </div>
-            </div>
-            <div class="card-body color-darkgray">
-                <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
-                    example text to
-                    build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                    sit
-                    amet
-                    consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                    dolore.
-                    Deserunt, veritatis tempora.</p>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">Tree Canada</span>
-                    <div class="d-flex align-items-center">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/star.png" alt="star">
-                        <img src="~/images/static/star.png" alt="star">
-                    </div>
-                </div>
-                <div
-                    class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                    From 10/01/2019 untill 25/01/2019
-                </div>
-                <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 gap-3">
-                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                        <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                        <div>
-                            <div>10</div>
-                            <div class="fw-light text-14">Seats left</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
-                        <img src="~/images/static/deadline.png" alt="deadline">
-                        <div>
-                            <div>09/01/2019</div>
-                            <div class="fw-light text-14">Deadline</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-grow-1">
-                        <img src="~/images/static/achieved.png" alt="achieved">
-                        <div class="w-100">
-                            <div class="progress" role="progressbar" aria-label="Basic example"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                style="height:0.5rem; width: 100%;">
-                                <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                            </div>
-                            <div class="fw-light text-14">8000 Achieved</div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="m-0 bg-secondary">
-                <a href="#"
-                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    Apply
-                    <img src="~/images/static/right-arrow.png" alt="rigth arrow">
-                </a>
-            </div>
+        <div class="card-top position-relative">
+        <img src="~/images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
+        class="card-img-top h-100" alt="mission image">
+        <div
+        class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+        <img src="~/images/static/pin.png" alt="pin"><span
+        class="text-light fw-light text-14">Toronto</span>
         </div>
-    </div>
-    <div class="col">
+        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+        <img src="~/images/static/heart.png" alt="heart">
+        </a>
+        <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+        <img src="~/images/static/user.png" alt="user">
+        </a>
+        <div
+        class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
+        Environment
+        </div>
+        </div>
+        <div class="card-body color-darkgray">
+        <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
+        <p class="card-text fw-light ellipsis-2 text-black-50 text-15">Some quick
+        example text to
+        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
+        sit
+        amet
+        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
+        dolore.
+        Deserunt, veritatis tempora.</p>
+        <div class="d-flex justify-content-between mb-2">
+        <span class="fw-light">Tree Canada</span>
+        <div class="d-flex align-items-center">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/star.png" alt="star">
+        <img src="~/images/static/star.png" alt="star">
+        </div>
+        </div>
+        <div
+        class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
+        From 10/01/2019 untill 25/01/2019
+        </div>
+        <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 gap-3">
+        <div class="d-flex align-items-center gap-3 flex-shrink-0">
+        <img src="~/images/static/Seats-left.png" alt="Seats-left">
+        <div>
+        <div>10</div>
+        <div class="fw-light text-14">Seats left</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
+        <img src="~/images/static/deadline.png" alt="deadline">
+        <div>
+        <div>09/01/2019</div>
+        <div class="fw-light text-14">Deadline</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-grow-1">
+        <img src="~/images/static/achieved.png" alt="achieved">
+        <div class="w-100">
+        <div class="progress" role="progressbar" aria-label="Basic example"
+        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+        style="height:0.5rem; width: 100%;">
+        <div class="progress-bar bg-light-orange" style="width: 70%"></div>
+        </div>
+        <div class="fw-light text-14">8000 Achieved</div>
+        </div>
+        </div>
+        </div>
+        <hr class="m-0 bg-secondary">
+        <a href="#"
+        class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+        Apply
+        <img src="~/images/static/right-arrow.png" alt="rigth arrow">
+        </a>
+        </div>
+        </div>
+        </div>
+        <div class="col">
         <div class="card shadow-sm h-100">
-            <div class="card-top position-relative">
-                <img src="~/images/static/Nourish-the-Children-in--African-country-1.png" class="card-img-top h-100"
-                    alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
-                </div>
-                <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                    <img src="~/images/static/heart.png" alt="heart">
-                </a>
-                <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                    <img src="~/images/static/user.png" alt="user">
-                </a>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                    Environment
-                </div>
-            </div>
-            <div class="card-body color-darkgray">
-                <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 ellipsis-7">Some quick example text to
-                    build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                    sit
-                    amet
-                    consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                    dolore.
-                    Deserunt, veritatis tempora.</p>
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="fw-light">Tree Canada</span>
-                    <div class="d-flex align-items-center">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/selected-star.png" alt="selected-star">
-                        <img src="~/images/static/star.png" alt="star">
-                        <img src="~/images/static/star.png" alt="star">
-                    </div>
-                </div>
-                <div
-                    class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light d-none">
-                    From 10/01/2019 untill 25/01/2019
-                </div>
-                <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 d-none">
-                    <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                        <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                        <div>
-                            <div>10</div>
-                            <div class="fw-light text-14">Seats left</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
-                        <img src="~/images/static/deadline.png" alt="deadline">
-                        <div>
-                            <div>09/01/2019</div>
-                            <div class="fw-light text-14">Deadline</div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-grow-1">
-                        <img src="~/images/static/achieved.png" alt="achieved">
-                        <div class="w-100">
-                            <div class="progress" role="progressbar" aria-label="Basic example"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                style="height:0.5rem; width: 100%;">
-                                <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                            </div>
-                            <div class="fw-light text-14">8000 Achieved</div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="m-0 bg-secondary">
-                <a href="#"
-                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                    View details
-                    <img src="~/images/static/right-arrow.png" alt="rigth arrow">
-                </a>
-            </div>
+        <div class="card-top position-relative">
+        <img src="~/images/static/Nourish-the-Children-in--African-country-1.png" class="card-img-top h-100"
+        alt="mission image">
+        <div
+        class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+        <img src="~/images/static/pin.png" alt="pin"><span
+        class="text-light fw-light text-14">Toronto</span>
         </div>
-    </div> *@
+        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+        <img src="~/images/static/heart.png" alt="heart">
+        </a>
+        <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+        <img src="~/images/static/user.png" alt="user">
+        </a>
+        <div
+        class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
+        Environment
+        </div>
+        </div>
+        <div class="card-body color-darkgray">
+        <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
+        <p class="card-text fw-light text-black-50 text-15 ellipsis-7">Some quick example text to
+        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
+        sit
+        amet
+        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
+        dolore.
+        Deserunt, veritatis tempora.</p>
+        <div class="d-flex justify-content-between mb-2">
+        <span class="fw-light">Tree Canada</span>
+        <div class="d-flex align-items-center">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/selected-star.png" alt="selected-star">
+        <img src="~/images/static/star.png" alt="star">
+        <img src="~/images/static/star.png" alt="star">
+        </div>
+        </div>
+        <div
+        class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light d-none">
+        From 10/01/2019 untill 25/01/2019
+        </div>
+        <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 d-none">
+        <div class="d-flex align-items-center gap-3 flex-shrink-0">
+        <img src="~/images/static/Seats-left.png" alt="Seats-left">
+        <div>
+        <div>10</div>
+        <div class="fw-light text-14">Seats left</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
+        <img src="~/images/static/deadline.png" alt="deadline">
+        <div>
+        <div>09/01/2019</div>
+        <div class="fw-light text-14">Deadline</div>
+        </div>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-grow-1">
+        <img src="~/images/static/achieved.png" alt="achieved">
+        <div class="w-100">
+        <div class="progress" role="progressbar" aria-label="Basic example"
+        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+        style="height:0.5rem; width: 100%;">
+        <div class="progress-bar bg-light-orange" style="width: 70%"></div>
+        </div>
+        <div class="fw-light text-14">8000 Achieved</div>
+        </div>
+        </div>
+        </div>
+        <hr class="m-0 bg-secondary">
+        <a href="#"
+        class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+        View details
+        <img src="~/images/static/right-arrow.png" alt="rigth arrow">
+        </a>
+        </div>
+        </div>
+        </div> *@
 </section>
 
 <section class="index-list-view gap-3 d-none">
@@ -796,11 +812,9 @@
         <div class="row g-0">
             <div class="card-left position-relative col-4 col-lg-3">
                 <img src="~/images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png"
-                    class="img-fluid rounded-start h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                     class="img-fluid rounded-start h-100" alt="mission image">
+                <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                    <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -808,12 +822,10 @@
                 <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                     <img src="~/images/static/user.png" alt="user">
                 </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+                <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
                     APPLIED
                 </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
+                <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
                     Environment
                 </div>
             </div>
@@ -837,15 +849,19 @@
                         <img src="~/images/static/star.png" alt="star">
                     </div>
                 </div>
-                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">Grow Trees On the path to environment
-                    sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 text-truncate">Some quick example text to
+                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    Grow Trees On the path to environment
+                    sustainability
+                </h4>
+                <p class="card-text fw-light text-black-50 text-15 text-truncate">
+                    Some quick example text to
                     build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
                     sit
                     amet
                     consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
                     dolore.
-                    Deserunt, veritatis tempora.</p>
+                    Deserunt, veritatis tempora.
+                </p>
                 <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                     <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap">
                         <div class="d-flex align-items-center gap-1">
@@ -866,8 +882,8 @@
                             <img src="~/images/static/achieved.png" alt="achieved">
                             <div class="w-100">
                                 <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="height:0.5rem; width: 100%;">
                                     <div class="progress-bar bg-light-orange" style="width: 70%"></div>
                                 </div>
                                 <div class="fw-light text-14">8000 Achieved</div>
@@ -894,11 +910,9 @@
         <div class="row g-0">
             <div class="card-left position-relative col-4 col-lg-3">
                 <img src="~/images/static/Plantation-and-Afforestation-programme-1.png"
-                    class="img-fluid rounded-start h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                     class="img-fluid rounded-start h-100" alt="mission image">
+                <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                    <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -906,12 +920,10 @@
                 <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                     <img src="~/images/static/user.png" alt="user">
                 </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
+                <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
                     APPLIED
                 </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
+                <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
                     Environment
                 </div>
             </div>
@@ -935,15 +947,19 @@
                         <img src="~/images/static/star.png" alt="star">
                     </div>
                 </div>
-                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">Grow Trees On the path to environment
-                    sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 text-truncate">Some quick example text to
+                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    Grow Trees On the path to environment
+                    sustainability
+                </h4>
+                <p class="card-text fw-light text-black-50 text-15 text-truncate">
+                    Some quick example text to
                     build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
                     sit
                     amet
                     consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
                     dolore.
-                    Deserunt, veritatis tempora.</p>
+                    Deserunt, veritatis tempora.
+                </p>
                 <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                     <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap">
                         <div class="d-flex align-items-center gap-1">
@@ -964,8 +980,8 @@
                             <img src="~/images/static/achieved.png" alt="achieved">
                             <div class="w-100">
                                 <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="height:0.5rem; width: 100%;">
                                     <div class="progress-bar bg-light-orange" style="width: 70%"></div>
                                 </div>
                                 <div class="fw-light text-14">8000 Achieved</div>
@@ -992,11 +1008,9 @@
         <div class="row g-0">
             <div class="card-left position-relative col-4 col-lg-3">
                 <img src="~/images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png"
-                    class="img-fluid rounded-start h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                     class="img-fluid rounded-start h-100" alt="mission image">
+                <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                    <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -1004,12 +1018,10 @@
                 <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                     <img src="~/images/static/user.png" alt="user">
                 </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
+                <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
                     APPLIED
                 </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
+                <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
                     Environment
                 </div>
             </div>
@@ -1033,15 +1045,19 @@
                         <img src="~/images/static/star.png" alt="star">
                     </div>
                 </div>
-                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">Grow Trees On the path to environment
-                    sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 ellipsis-2">Some quick example text to
+                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    Grow Trees On the path to environment
+                    sustainability
+                </h4>
+                <p class="card-text fw-light text-black-50 text-15 ellipsis-2">
+                    Some quick example text to
                     build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
                     sit
                     amet
                     consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
                     dolore.
-                    Deserunt, veritatis tempora.</p>
+                    Deserunt, veritatis tempora.
+                </p>
                 <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                     <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap d-none">
                         <div class="d-flex align-items-center gap-1">
@@ -1062,8 +1078,8 @@
                             <img src="~/images/static/achieved.png" alt="achieved">
                             <div class="w-100">
                                 <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="height:0.5rem; width: 100%;">
                                     <div class="progress-bar bg-light-orange" style="width: 70%"></div>
                                 </div>
                                 <div class="fw-light text-14">8000 Achieved</div>
@@ -1090,11 +1106,9 @@
         <div class="row g-0">
             <div class="card-left position-relative col-4 col-lg-3">
                 <img src="~/images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png"
-                    class="img-fluid rounded-start h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                     class="img-fluid rounded-start h-100" alt="mission image">
+                <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                    <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -1102,12 +1116,10 @@
                 <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                     <img src="~/images/static/user.png" alt="user">
                 </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+                <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
                     APPLIED
                 </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
+                <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
                     Environment
                 </div>
             </div>
@@ -1131,15 +1143,19 @@
                         <img src="~/images/static/star.png" alt="star">
                     </div>
                 </div>
-                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">Grow Trees On the path to environment
-                    sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 text-truncate">Some quick example text to
+                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    Grow Trees On the path to environment
+                    sustainability
+                </h4>
+                <p class="card-text fw-light text-black-50 text-15 text-truncate">
+                    Some quick example text to
                     build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
                     sit
                     amet
                     consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
                     dolore.
-                    Deserunt, veritatis tempora.</p>
+                    Deserunt, veritatis tempora.
+                </p>
                 <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                     <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap">
                         <div class="d-flex align-items-center gap-1">
@@ -1160,8 +1176,8 @@
                             <img src="~/images/static/achieved.png" alt="achieved">
                             <div class="w-100">
                                 <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="height:0.5rem; width: 100%;">
                                     <div class="progress-bar bg-light-orange" style="width: 70%"></div>
                                 </div>
                                 <div class="fw-light text-14">8000 Achieved</div>
@@ -1188,11 +1204,9 @@
         <div class="row g-0">
             <div class="card-left position-relative col-4 col-lg-3">
                 <img src="~/images/static/Plantation-and-Afforestation-programme-1.png"
-                    class="img-fluid rounded-start h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                     class="img-fluid rounded-start h-100" alt="mission image">
+                <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                    <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -1200,12 +1214,10 @@
                 <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                     <img src="~/images/static/user.png" alt="user">
                 </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
+                <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
                     APPLIED
                 </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
+                <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
                     Environment
                 </div>
             </div>
@@ -1229,15 +1241,19 @@
                         <img src="~/images/static/star.png" alt="star">
                     </div>
                 </div>
-                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">Grow Trees On the path to environment
-                    sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 text-truncate">Some quick example text to
+                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    Grow Trees On the path to environment
+                    sustainability
+                </h4>
+                <p class="card-text fw-light text-black-50 text-15 text-truncate">
+                    Some quick example text to
                     build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
                     sit
                     amet
                     consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
                     dolore.
-                    Deserunt, veritatis tempora.</p>
+                    Deserunt, veritatis tempora.
+                </p>
                 <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                     <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap">
                         <div class="d-flex align-items-center gap-1">
@@ -1258,8 +1274,8 @@
                             <img src="~/images/static/achieved.png" alt="achieved">
                             <div class="w-100">
                                 <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="height:0.5rem; width: 100%;">
                                     <div class="progress-bar bg-light-orange" style="width: 70%"></div>
                                 </div>
                                 <div class="fw-light text-14">8000 Achieved</div>
@@ -1286,11 +1302,9 @@
         <div class="row g-0">
             <div class="card-left position-relative col-4 col-lg-3">
                 <img src="~/images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png"
-                    class="img-fluid rounded-start h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                     class="img-fluid rounded-start h-100" alt="mission image">
+                <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                    <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -1298,12 +1312,10 @@
                 <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                     <img src="~/images/static/user.png" alt="user">
                 </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
+                <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
                     APPLIED
                 </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
+                <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
                     Environment
                 </div>
             </div>
@@ -1327,15 +1339,19 @@
                         <img src="~/images/static/star.png" alt="star">
                     </div>
                 </div>
-                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">Grow Trees On the path to environment
-                    sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 ellipsis-2">Some quick example text to
+                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    Grow Trees On the path to environment
+                    sustainability
+                </h4>
+                <p class="card-text fw-light text-black-50 text-15 ellipsis-2">
+                    Some quick example text to
                     build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
                     sit
                     amet
                     consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
                     dolore.
-                    Deserunt, veritatis tempora.</p>
+                    Deserunt, veritatis tempora.
+                </p>
                 <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                     <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap d-none">
                         <div class="d-flex align-items-center gap-1">
@@ -1356,8 +1372,8 @@
                             <img src="~/images/static/achieved.png" alt="achieved">
                             <div class="w-100">
                                 <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="height:0.5rem; width: 100%;">
                                     <div class="progress-bar bg-light-orange" style="width: 70%"></div>
                                 </div>
                                 <div class="fw-light text-14">8000 Achieved</div>
@@ -1384,11 +1400,9 @@
         <div class="row g-0">
             <div class="card-left position-relative col-4 col-lg-3">
                 <img src="~/images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png"
-                    class="img-fluid rounded-start h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                     class="img-fluid rounded-start h-100" alt="mission image">
+                <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                    <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -1396,12 +1410,10 @@
                 <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                     <img src="~/images/static/user.png" alt="user">
                 </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+                <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
                     APPLIED
                 </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
+                <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
                     Environment
                 </div>
             </div>
@@ -1425,15 +1437,19 @@
                         <img src="~/images/static/star.png" alt="star">
                     </div>
                 </div>
-                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">Grow Trees On the path to environment
-                    sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 text-truncate">Some quick example text to
+                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    Grow Trees On the path to environment
+                    sustainability
+                </h4>
+                <p class="card-text fw-light text-black-50 text-15 text-truncate">
+                    Some quick example text to
                     build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
                     sit
                     amet
                     consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
                     dolore.
-                    Deserunt, veritatis tempora.</p>
+                    Deserunt, veritatis tempora.
+                </p>
                 <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                     <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap">
                         <div class="d-flex align-items-center gap-1">
@@ -1454,8 +1470,8 @@
                             <img src="~/images/static/achieved.png" alt="achieved">
                             <div class="w-100">
                                 <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="height:0.5rem; width: 100%;">
                                     <div class="progress-bar bg-light-orange" style="width: 70%"></div>
                                 </div>
                                 <div class="fw-light text-14">8000 Achieved</div>
@@ -1482,11 +1498,9 @@
         <div class="row g-0">
             <div class="card-left position-relative col-4 col-lg-3">
                 <img src="~/images/static/Plantation-and-Afforestation-programme-1.png"
-                    class="img-fluid rounded-start h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                     class="img-fluid rounded-start h-100" alt="mission image">
+                <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                    <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -1494,12 +1508,10 @@
                 <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                     <img src="~/images/static/user.png" alt="user">
                 </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
+                <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
                     APPLIED
                 </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
+                <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
                     Environment
                 </div>
             </div>
@@ -1523,15 +1535,19 @@
                         <img src="~/images/static/star.png" alt="star">
                     </div>
                 </div>
-                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">Grow Trees On the path to environment
-                    sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 text-truncate">Some quick example text to
+                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    Grow Trees On the path to environment
+                    sustainability
+                </h4>
+                <p class="card-text fw-light text-black-50 text-15 text-truncate">
+                    Some quick example text to
                     build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
                     sit
                     amet
                     consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
                     dolore.
-                    Deserunt, veritatis tempora.</p>
+                    Deserunt, veritatis tempora.
+                </p>
                 <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                     <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap">
                         <div class="d-flex align-items-center gap-1">
@@ -1552,8 +1568,8 @@
                             <img src="~/images/static/achieved.png" alt="achieved">
                             <div class="w-100">
                                 <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="height:0.5rem; width: 100%;">
                                     <div class="progress-bar bg-light-orange" style="width: 70%"></div>
                                 </div>
                                 <div class="fw-light text-14">8000 Achieved</div>
@@ -1580,11 +1596,9 @@
         <div class="row g-0">
             <div class="card-left position-relative col-4 col-lg-3">
                 <img src="~/images/static/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png"
-                    class="img-fluid rounded-start h-100" alt="mission image">
-                <div
-                    class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                    <img src="~/images/static/pin.png" alt="pin"><span
-                        class="text-light fw-light text-14">Toronto</span>
+                     class="img-fluid rounded-start h-100" alt="mission image">
+                <div class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
+                    <img src="~/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
                 </div>
                 <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
                     <img src="~/images/static/heart.png" alt="heart">
@@ -1592,12 +1606,10 @@
                 <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                     <img src="~/images/static/user.png" alt="user">
                 </a>
-                <span
-                    class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
+                <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14 d-none">
                     APPLIED
                 </span>
-                <div
-                    class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
+                <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light">
                     Environment
                 </div>
             </div>
@@ -1621,15 +1633,19 @@
                         <img src="~/images/static/star.png" alt="star">
                     </div>
                 </div>
-                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">Grow Trees On the path to environment
-                    sustainability</h4>
-                <p class="card-text fw-light text-black-50 text-15 ellipsis-2">Some quick example text to
+                <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    Grow Trees On the path to environment
+                    sustainability
+                </h4>
+                <p class="card-text fw-light text-black-50 text-15 ellipsis-2">
+                    Some quick example text to
                     build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
                     sit
                     amet
                     consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
                     dolore.
-                    Deserunt, veritatis tempora.</p>
+                    Deserunt, veritatis tempora.
+                </p>
                 <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                     <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap d-none">
                         <div class="d-flex align-items-center gap-1">
@@ -1650,8 +1666,8 @@
                             <img src="~/images/static/achieved.png" alt="achieved">
                             <div class="w-100">
                                 <div class="progress" role="progressbar" aria-label="Basic example"
-                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                    style="height:0.5rem; width: 100%;">
+                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                     style="height:0.5rem; width: 100%;">
                                     <div class="progress-bar bg-light-orange" style="width: 70%"></div>
                                 </div>
                                 <div class="fw-light text-14">8000 Achieved</div>

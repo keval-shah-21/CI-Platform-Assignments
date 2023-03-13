@@ -83,7 +83,7 @@
     <main class="container py-4">
         <div class="on-filter-list d-flex flex-wrap gap-1"></div>
         <section class="no-mission h3 text-center color-darkgray d-none">No mission found</section>
-        <div id="partialViewContainer" data-model="@Html.Raw(Json.Serialize(Model.missionVM.Count()))">
+        <div id="partialViewContainer">
             <partial name="_IndexMissions"></partial>
         </div>
         <div id="pagination" class="d-flex justify-content-center gap-1 mt-5"></div>

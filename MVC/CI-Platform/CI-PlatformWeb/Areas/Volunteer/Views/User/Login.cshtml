@@ -9,7 +9,7 @@
         <form method="post" asp-route="LoginPost" class="login-form d-grid gap-4">
             <div>
                 <label asp-for="Email" class="fw-light"></label>
-                <input type="email" asp-for="Email" class="form-control" placeholder="Enter your email address">
+                <input type="email" asp-for="Email" class="form-control" placeholder="Enter your email address" autofocus>
                 <span asp-validation-for="Email" class="text-14 text-danger"></span>
             </div>
             <div>

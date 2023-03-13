@@ -12,5 +12,5 @@ public interface IMissionService
 
     List<CityVM> GetCitiesByMission(List<MissionVM> missionVM);
 
-    IndexMissionVM FilterData(int? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId);
+    IndexMissionVM FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId);
 }

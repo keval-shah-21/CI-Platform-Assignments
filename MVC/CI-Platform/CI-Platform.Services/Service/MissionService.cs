@@ -121,7 +121,7 @@ public class MissionService : IMissionService
             }).ToList() : null!;
     }
 
-    public IndexMissionVM FilterData(int? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId){
+    public IndexMissionVM FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId){
         List<MissionVM> missionVM = GetAllIndexMission();
         List<CityVM> cityVM = GetCitiesByMission(missionVM);
         List<CountryVM> countryVM = GetCountriesByMission(missionVM);
@@ -133,32 +133,22 @@ public class MissionService : IMissionService
             missionVM = missionVM.Where(mission => mission.Title.ToLower().Contains(search.ToLower())).ToList();
         }
 
-        if(country != 0){
-            missionVM = missionVM.Where(mission => mission.MissionCountryId == country).ToList();
+        if(country?.Count() > 0){
+            missionVM = missionVM.Where(mission => country.Any(c => c == mission.MissionCountryId)).ToList();
         }
-
-        if(city?.Count() > 0){
-            foreach (var item in city)
-            {
-                missionVM = missionVM.Where(mission => mission.MissionCityId == item).ToList();
-            }
+        if (city?.Count() > 0)
+        {
+            missionVM = missionVM.Where(mission =>city.Any(c => c == mission.MissionCityId)).ToList();
         }
 
         if(theme?.Count() > 0){
-            foreach (var item in theme)
-            {
-                missionVM = missionVM.Where(mission => mission.MissionThemeId == item).ToList();
-            }
+            missionVM = missionVM.Where(mission => theme.Any(t => t == mission.MissionThemeId)).ToList();
         }
 
         if(skill?.Count() > 0){
-
-            foreach (var item in skill)
-            {
-                missionVM = missionVM.Where(mission => 
-                    mission.MissionSkillVM.Any(ms => ms.SkillId == item)
-                ).ToList();
-            }
+            missionVM = missionVM.Where(mission => skill.Any(s => 
+            mission.MissionSkillVM.Any(ms => ms.SkillId == s)
+            )).ToList();
         }    
 
         if(sort == 1){
@@ -174,9 +164,12 @@ public class MissionService : IMissionService
             missionVM = missionVM.OrderBy(mission => mission.SeatsLeft).ToList();
         }
         else if(sort == 5){
-            missionVM = missionVM.Where(mission => 
-                mission.FavouriteMissionVM.Any(fm => fm.UserId == userId)
-            ).ToList();
+            missionVM = missionVM.Where(mission => {
+                if (mission?.FavouriteMissionVM?.LongCount() > 0)
+                    return mission.FavouriteMissionVM.Any(fm => fm.UserId == userId);
+                else
+                    return false;
+            }).ToList();
         }
         else if(sort == 6){
             missionVM = missionVM.OrderBy(mission => mission.RegistrationDeadline).ToList();
