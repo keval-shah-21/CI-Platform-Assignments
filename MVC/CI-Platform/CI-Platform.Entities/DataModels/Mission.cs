@@ -43,6 +43,8 @@ public partial class Mission
 
     public byte? MissionRating { get; set; }
 
+    public bool? Status { get; set; }
+
     public virtual ICollection<FavouriteMission> FavouriteMissions { get; } = new List<FavouriteMission>();
 
     public virtual ICollection<MissionApplication> MissionApplications { get; } = new List<MissionApplication>();

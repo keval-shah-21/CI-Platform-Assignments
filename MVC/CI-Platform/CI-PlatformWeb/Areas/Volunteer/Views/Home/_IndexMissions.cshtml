@@ -1,42 +1,11 @@
-@using Microsoft.AspNetCore.Http;
-@inject IHttpContextAccessor HttpContextAccessor
-
-@model IndexMissionVM
+@using CI_Platform.Entities.Constants
+@{
+    var userId = Context.Session.GetString("UserId");
+}
+@model List<MissionVM>
 <input hidden value="@ViewBag.TotalMissions" id="totalMissions">
-<section class="index-top d-flex justify-content-between align-items-center mb-4">
-    <div class="index-top-title color-darkgray">
-        <span class="fw-light">Explore </span><span class="total-missions">@ViewBag.TotalMissions</span> missions
-    </div>
-    <div class="d-flex gap-1 align-items-center">
-        <div class="dropdown border rounded me-3">
-            <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                Sort by
-                <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-md-5">
-            </button>
-            <ul class="dropdown-menu" id="sortDropdown">
-                <li class="dropdown-item" data-id="0">Relevant</li>
-                <li class="dropdown-item" data-id="1">Newest</li>
-                <li class="dropdown-item" data-id="2">Oldest</li>
-                <li class="dropdown-item" data-id="3">Highest available seats</li>
-                <li class="dropdown-item" data-id="4">Lowest available seats</li>
-                @if (@HttpContextAccessor.HttpContext!.Session.GetString("Email") != null)
-                {
-                    <li class="dropdown-item" data-id="5">My favourites</li>
-                }
-                <li class="dropdown-item" data-id="6">Registration deadline</li>
-            </ul>
-        </div>
-        <div class="p-1 rounded-circle d-none d-md-block active-index-view cursor-pointer grid-btn">
-            <img src="~/images/static/grid.png" alt="grid-view">
-        </div>
-        <div class="p-1 rounded-circle d-none d-md-block cursor-pointer list-btn">
-            <img src="~/images/static/list.png" alt="list-view">
-        </div>
-    </div>
-</section>
 <section class="index-grid-view row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-    @foreach (MissionVM mission in Model.missionVM)
+    @foreach (MissionVM mission in Model)
     {
         <div class="col -z-index-1">
             <div class="card shadow-sm h-100">
@@ -54,8 +23,14 @@
                     <a href="#" class="position-absolute p-2 rounded-circle index-invite">
                         <img src="~/images/static/user.png" alt="user">
                     </a>
-                    @if(@HttpContextAccessor.HttpContext!.Session.GetString("UserId") != null && mission?.MissionApplicationVM?.LongCount() > 0 &&
-                    mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(@HttpContextAccessor.HttpContext!.Session.GetString("UserId"))))
+                    @if (mission.Status == MissionStatus.FINISHED)
+                    {
+                        <span class="bg-warning px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+                            CLOSED
+                        </span>
+                    }
+                    else if (!string.IsNullOrEmpty(userId) && mission?.MissionApplicationVM?.LongCount() > 0 &&
+                    mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId)))
                     {
                         <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
                             APPLIED
@@ -69,7 +44,14 @@
                     <a href="#" class="color-darkgray">
                         <h4 class="card-title">@mission.Title</h4>
                     </a>
-                    <p class="card-text fw-light ellipsis-2 text-black-50 text-15">@mission.ShortDescription</p>
+                    @if (mission.Status == MissionStatus.FINISHED)
+                    {
+                        <p class="card-text fw-light ellipsis-7 text-black-50 text-15">@mission.Description</p>
+                    }
+                    else
+                    {
+                        <p class="card-text fw-light ellipsis-2 text-black-50 text-15">@mission.ShortDescription</p>
+                    }
                     <div class="d-flex justify-content-between mb-2">
                         <span class="fw-light">@mission.OrganizationName</span>
                         <div class="d-flex align-items-center">
@@ -83,65 +65,82 @@
                             }
                         </div>
                     </div>
-                    <div class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                        @if (mission.StartDate != null && mission.EndDate != null)
-                        {
-                            <span>
-                                From @mission.StartDate?.ToString("d") untill @mission.EndDate?.ToString("d")
-                            </span>
-                        }
-                        else if (mission.MissionType == true)
-                        {
-                            <span>@mission.MissionGoalVM.GoalObjective</span>
-                        }
-                        else
-                        {
-                            <span>Ongoing Opportunity</span>
-                        }
-                    </div>
-                    <div class="d-flex justify-content-around gap-xl-1 color-darkgray border-top py-2 pt-4">
-                        @if (mission.TotalSeats != null)
-                        {
-                            <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                                <img src="~/images/static/Seats-left.png" alt="Seats-left">
-                                <div>
-                                    <div>@mission.SeatsLeft</div>
-                                    <div class="fw-light text-14">Seats left</div>
+                    @if (mission.Status == MissionStatus.ONGOING)
+                    {
+                        <div class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
+                            @if (mission.StartDate != null && mission.EndDate != null)
+                            {
+                                <span>
+                                    From @mission.StartDate?.ToString("d") untill @mission.EndDate?.ToString("d")
+                                </span>
+                            }
+                            else if (mission.MissionType == MissionType.GOAL)
+                            {
+                                <span>@mission.MissionGoalVM.GoalObjective</span>
+                            }
+                            else
+                            {
+                                <span>Ongoing Opportunity</span>
+                            }
+                        </div>
+                        <div class="d-flex justify-content-around gap-xl-1 border-top color-darkgray py-2 pt-4">
+                            @if (mission.TotalSeats != null)
+                            {
+                                <div class="d-flex align-items-center gap-3 flex-shrink-0">
+                                    <img src="~/images/static/Seats-left.png" alt="Seats-left">
+                                    <div>
+                                        <div>@mission.SeatsLeft</div>
+                                        <div class="fw-light text-14">Seats left</div>
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                        @if (mission.RegistrationDeadline != null && mission.RegistrationDeadline >= DateTime.Now)
-                        {
-                            <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                                <img src="~/images/static/deadline.png" alt="deadline">
-                                <div>
-                                    <div>@mission.RegistrationDeadline?.ToString("d")</div>
-                                    <div class="fw-light text-14">Deadline</div>
+                            }
+                            else if (mission.MissionApplicationVM != null)
+                            {
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="~/images/static/Already-volunteered.png" alt="Seats-left">
+                                    <div>
+                                        <div>@mission.MissionApplicationVM.LongCount()</div>
+                                        <div class="fw-light text-14">Already volunteered</div>
+                                    </div>
                                 </div>
-                            </div>
-                        }
-                        @if (mission.MissionType == true)
-                        {
-                            var value = mission.MissionGoalVM.GoalValue;
-                            var achieved = mission.MissionGoalVM.GoalAchieved != null ? mission.MissionGoalVM.GoalAchieved : 1;
-                            var percentage = achieved * 100 / value;
-                            <div class="d-flex align-items-center gap-2 flex-grow-1">
-                                <img src="~/images/static/achieved.png" alt="achieved">
-                                <div class="w-100">
-                                    <div class="progress" role="progressbar" aria-label="Basic example"
+                            }
+                            @if (mission.RegistrationDeadline != null && mission.RegistrationDeadline >= DateTime.Now)
+                            {
+                                <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                                    <img src="~/images/static/deadline.png" alt="deadline">
+                                    <div>
+                                        <div>@mission.RegistrationDeadline?.ToString("d")</div>
+                                        <div class="fw-light text-14">Deadline</div>
+                                    </div>
+                                </div>
+                            }
+                            @if (mission.MissionType == MissionType.GOAL)
+                            {
+                                var value = mission.MissionGoalVM.GoalValue;
+                                var achieved = mission.MissionGoalVM.GoalAchieved != null ? mission.MissionGoalVM.GoalAchieved : 1;
+                                var percentage = achieved * 100 / value;
+                                <div class="d-flex align-items-center gap-2 flex-grow-1">
+                                    <img src="~/images/static/achieved.png" alt="achieved">
+                                    <div class="w-100">
+                                        <div class="progress" role="progressbar" aria-label="Basic example"
                                  aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
                                  style="height:0.5rem; width: 100%;">
-                                        <div class="progress-bar bg-light-orange" style="width: @percentage%"></div>
+                                            <div class="progress-bar bg-light-orange" style="width: @percentage%"></div>
+                                        </div>
+                                        <div class="fw-light text-14">@mission.MissionGoalVM.GoalAchieved Achieved</div>
                                     </div>
-                                    <div class="fw-light text-14">@mission.MissionGoalVM.GoalAchieved Achieved</div>
                                 </div>
-                            </div>
-                        }
-                    </div>
+                            }
+                        </div>
+                    }
                     <hr class="m-0 bg-secondary">
                     <a href="#"
                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                        @if (mission.StartDate >= DateTime.Now)
+                        @if ((!string.IsNullOrEmpty(userId) && mission?.MissionApplicationVM?.LongCount() > 0 &&
+                       mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId)))
+                       || mission.Status == MissionStatus.FINISHED
+                       || mission?.SeatsLeft == 0
+                       || mission?.RegistrationDeadline < DateTime.Now)
                         {
                             <span>View Details</span>
                         }

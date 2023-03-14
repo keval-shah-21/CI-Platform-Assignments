@@ -24,12 +24,10 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         List<MissionVM> missionVM = _unitOfService.Mission.GetAllIndexMission();
-        ViewBag.TotalMissions = missionVM?.Count();
-        return View(new IndexMissionVM()
+        return View(new IndexHeaderVM()
         {
-            missionVM = missionVM.Take(9).ToList(),
-            cityVM = _unitOfService.Mission.GetCitiesByMission(missionVM),
-            countryVM = _unitOfService.Mission.GetCountriesByMission(missionVM),
+            cityVM = _unitOfService.Mission.GetCitiesByMissions(missionVM),
+            countryVM = _unitOfService.Mission.GetCountriesByMissions(missionVM),
             skillVM = _unitOfService.Skill.GetAll(),
             missionThemeVM = _unitOfService.MissionTheme.GetAll()
         });
@@ -43,10 +41,10 @@ public class HomeController : Controller
         if(HttpContext.Session.GetString("UserId") != null){
             userId = long.Parse(HttpContext.Session.GetString("UserId"));
         }
-        IndexMissionVM indexMissionVM = _unitOfService.Mission.FilterData(country, city, theme, skill, search, sort, userId);
-        ViewBag.TotalMissions = indexMissionVM.missionVM?.Count();
-        indexMissionVM.missionVM = indexMissionVM.missionVM.Skip( (page - 1) * 9 ).Take(9).ToList();
-        return PartialView("_IndexMissions", indexMissionVM);
+        List<MissionVM> missionVMs = _unitOfService.Mission.FilterData(country, city, theme, skill, search, sort, userId);
+        ViewBag.TotalMissions = missionVMs.LongCount();
+        missionVMs = missionVMs.Skip((page - 1) * 9).Take(9).ToList();
+        return PartialView("_IndexMissions", missionVMs);
     }
 
     [Route("privacy")]

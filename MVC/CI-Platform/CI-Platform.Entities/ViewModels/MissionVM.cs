@@ -1,3 +1,5 @@
+using CI_Platform.Entities.Constants;
+
 namespace CI_Platform.Entities.ViewModels;
 
 public class MissionVM{
@@ -16,17 +18,21 @@ public class MissionVM{
 
     public string? ShortDescription { get; set; }
 
+    public string? Description { get; set; }
+
     public string OrganizationName { get; set; } = null!;
 
     public DateTime? StartDate { get; set; }
 
     public DateTime? EndDate { get; set; }
 
-    public bool MissionType { get; set; }
+    public MissionType MissionType { get; set; }
 
     public short? TotalSeats { get; set; }
 
     public short? SeatsLeft {get; set;}
+
+    public MissionStatus Status { get; set; }
 
     public DateTime? RegistrationDeadline { get; set; }
 

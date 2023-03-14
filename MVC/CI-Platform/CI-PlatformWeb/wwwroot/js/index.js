@@ -27,7 +27,16 @@ const pagination = document.querySelector("#pagination");
 let page = 1, totalPages = 0, pageSet = 1;
 
 $(document).ready(() => {
-    createPaginationHTML();
+    $.ajax({
+        url: `/volunteer/home/filter-data`,
+        type: "POST",
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        success: (result) => {
+            $('#partialViewContainer').html(result);
+            $('.total-missions').text($('#totalMissions').val());
+            createPaginationHTML();
+        }
+    })
 });
 
 const query = document.querySelector("#Search");
@@ -65,7 +74,6 @@ $("#countryDropdown li").on("click", (e) => {
     country.push(id);
     document.querySelectorAll('#cityDropdown li').forEach((li) => {
         if (!country.includes(li.getAttribute('data-country'))) {
-            console.log(country)
             $(li).addClass("d-none");
         }
         else {
@@ -85,11 +93,11 @@ $("#cityDropdown li").on("click", (e) => {
             if ($(li).data('id') != countryId)
                 $(li).addClass("d-none");
         })
+        document.querySelectorAll('#cityDropdown li').forEach((li) => {
+            if ($(li).data('country') != countryId)
+                $(li).addClass("d-none")
+        })
     }
-    document.querySelectorAll('#cityDropdown li').forEach((li) => {
-        if ($(li).data('country') != countryId)
-            $(li).addClass("d-none")
-    })
     city.push(+id);
     createFilterHTML("City", e.currentTarget.textContent, id);
     page = 1;
@@ -124,11 +132,11 @@ function createFilterHTML(type, value, id) {
     $(`<div
         class="on-filter-item border rounded-pill d-flex align-items-center gap-2 py-1 px-2 color-darkgray fw-light text-14">
         <span>${value}</span>
-        <img src="/images/static/cancel.png" data-id="${value}" data-type=${type} alt="cancel" class="cursor-pointer">
+        <img src="/images/static/cancel.png" data-value="${value}" data-type=${type} alt="cancel" class="cursor-pointer">
         </div>
     `).insertBefore('.clear-all');
 
-    $(`[data-id = "${value}"]`).click((e) => {
+    $(`[data-value = "${value}"]`).click((e) => {
 
         onFilterList.removeChild(e.currentTarget.parentElement)
 
@@ -136,13 +144,22 @@ function createFilterHTML(type, value, id) {
             city.splice(city.indexOf(+id), 1);
         }
         if (e.currentTarget.getAttribute("data-type") == "Country") {
-            country.splice(country.indexOf(+id), 1);
-            
+
+            country.splice(country.indexOf(id), 1);
+
             document.querySelectorAll('#cityDropdown li').forEach((li) => {
-                $(li).removeClass("d-none");
-            })
-            document.querySelectorAll(`[data-type='${"City"}']`).forEach((li) => {
-                $(li).parent().remove();
+                if (country.includes(li.getAttribute('data-country')))
+                    $(li).removeClass("d-none");
+                else {
+                    $(li).addClass("d-none");
+                    document.querySelectorAll(`[data-type='${"City"}']`).forEach((onFilter) => {
+                        const c = $(onFilter).data("value");
+                        if (c == $(li).text()) {
+                            $(onFilter).parent().remove();
+                            city.splice(city.indexOf($(li).data("id")), 1);
+                        }
+                    })
+                }
             })
         }
         if (e.currentTarget.getAttribute("data-type") == "Theme")
@@ -172,29 +189,7 @@ function MakeAjaxCall() {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: (result) => {
             $('#partialViewContainer').html(result);
-            $('.grid-btn').on('click', () => {
-                $(".index-list-view").removeClass("d-grid");
-                $(".index-list-view").addClass("d-none");
-                $('.grid-btn').addClass("active-index-view");
-                $('.list-btn').removeClass("active-index-view");
-                $(".index-grid-view").removeClass("d-none");
-                $(".index-grid-view").addClass("d-flex");
-            })
-            $('.list-btn').on('click', () => {
-                $(".index-grid-view").removeClass("d-flex");
-                $(".index-grid-view").addClass("d-none");
-                $('.list-btn').addClass("active-index-view");
-                $('.grid-btn').removeClass("active-index-view");
-                $(".index-list-view").removeClass("d-none");
-                $(".index-list-view").addClass("d-grid");
-            })
-            $("#sortDropdown li").on("click", (e) => {
-                const id = e.currentTarget.getAttribute('data-id');
-                if (sort == id) return;
-                sort = id;
-                page = 1;
-                MakeAjaxCall();
-            })
+            $('.total-missions').text($('#totalMissions').val());
             window.scrollTo(0, 0);
             createPaginationHTML();
             if ($('#totalMissions').val() == 0) {
@@ -207,6 +202,7 @@ function MakeAjaxCall() {
         }
     })
 }
+
 function createPaginationHTML() {
     pagination.innerHTML = "";
     let totalMissions = $('#totalMissions').val();

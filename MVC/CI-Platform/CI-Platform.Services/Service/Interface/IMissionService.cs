@@ -4,13 +4,11 @@ namespace CI_Platform.Services.Service.Interface;
 
 public interface IMissionService
 {
-    List<MissionVM> GetAll();
-
     List<MissionVM> GetAllIndexMission();
 
-    List<CountryVM> GetCountriesByMission(List<MissionVM> missionVM);
+    List<CountryVM> GetCountriesByMissions(List<MissionVM> missionVM);
 
-    List<CityVM> GetCitiesByMission(List<MissionVM> missionVM);
+    List<CityVM> GetCitiesByMissions(List<MissionVM> missionVM);
 
-    IndexMissionVM FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId);
+    List<MissionVM> FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId);
 }
