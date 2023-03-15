@@ -1,9 +1,11 @@
+let currentView = "grid";
 const filterToggleBtn = document.querySelector(".filter-toggle-btn");
 const filterMenu = document.querySelector(".filter-menu");
 filterToggleBtn.addEventListener('click', () => {
     filterMenu.classList.toggle("show-filter-menu");
 })
 $('.grid-btn').on('click', () => {
+    currentView = "grid";
     $(".index-list-view").removeClass("d-grid");
     $(".index-list-view").addClass("d-none");
     $('.grid-btn').addClass("active-index-view");
@@ -12,6 +14,7 @@ $('.grid-btn').on('click', () => {
     $(".index-grid-view").addClass("d-flex");
 })
 $('.list-btn').on('click', () => {
+    currentView = "list";
     $(".index-grid-view").removeClass("d-flex");
     $(".index-grid-view").addClass("d-none");
     $('.list-btn').addClass("active-index-view");
@@ -28,13 +31,15 @@ let page = 1, totalPages = 0, pageSet = 1;
 
 $(document).ready(() => {
     $.ajax({
-        url: `/volunteer/home/filter-data`,
+        url: `/Volunteer/Home/FilterData`,
         type: "POST",
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: (result) => {
             $('#partialViewContainer').html(result);
-            $('.total-missions').text($('#totalMissions').val());
-            createPaginationHTML();
+            $('.index-list-view').addClass("d-none");
+            const totalMissions = $('#totalMissions').val();
+            $('.total-missions').text(totalMissions);
+            createPaginationHTML(totalMissions);
         }
     })
 });
@@ -121,6 +126,7 @@ function createFilterHTML(type, value, id) {
             document.querySelectorAll('#cityDropdown li').forEach((li) => {
                 $(li).removeClass("d-none");
             })
+            page = 1;
             city = [];
             skill = [];
             theme = [];
@@ -168,6 +174,7 @@ function createFilterHTML(type, value, id) {
             skill.splice(skill.indexOf(+id), 1);
         if (city.length == 0 && skill.length == 0 && theme.length == 0 && country.length == 0) {
             $(".clear-all").click();
+            return;
         }
         MakeAjaxCall();
     });
@@ -183,16 +190,24 @@ function MakeAjaxCall() {
         page: page
     };
     $.ajax({
-        url: `/volunteer/home/filter-data`,
+        url: `/Volunteer/Home/FilterData`,
         type: "POST",
         data: obj,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: (result) => {
             $('#partialViewContainer').html(result);
-            $('.total-missions').text($('#totalMissions').val());
+            if (currentView == "grid") {
+                $(".index-list-view").addClass("d-none");
+                $(".index-grid-view").removeClass("d-none");
+            } else {
+                $(".index-list-view").removeClass("d-none");
+                $(".index-grid-view").addClass("d-none");
+            }
+            const totalMissions = $('#totalMissions').val();
+            $('.total-missions').text(totalMissions);
             window.scrollTo(0, 0);
-            createPaginationHTML();
-            if ($('#totalMissions').val() == 0) {
+            createPaginationHTML(totalMissions);
+            if (totalMissions == 0) {
                 $(".index-top").addClass("d-none");
                 $(".no-mission").removeClass("d-none");
             } else {
@@ -203,9 +218,8 @@ function MakeAjaxCall() {
     })
 }
 
-function createPaginationHTML() {
+function createPaginationHTML(totalMissions) {
     pagination.innerHTML = "";
-    let totalMissions = $('#totalMissions').val();
     totalPages = Math.ceil(totalMissions / 9);
     if (totalPages > 5) {
         pagination.innerHTML = `<button data-page="previous" class="btn rounded border border-2">

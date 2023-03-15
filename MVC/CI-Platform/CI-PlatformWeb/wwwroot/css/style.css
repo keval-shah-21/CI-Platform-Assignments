@@ -260,8 +260,8 @@ form input:focus {
   height: 220px;
 }
 
-.card-left {
-  min-height: 160px;
+.card > .row{
+    height: 200px;
 }
 
 .index-grid-view .col {

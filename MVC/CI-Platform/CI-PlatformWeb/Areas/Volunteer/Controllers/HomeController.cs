@@ -7,7 +7,6 @@ using CI_Platform.Entities.ViewModels;
 namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
 
 [Area("Volunteer")]
-[Route("/volunteer/home/")]
 public class HomeController : Controller
 {
     private readonly IUnitOfService _unitOfService;
@@ -19,8 +18,6 @@ public class HomeController : Controller
         _unitOfService = unitOfService;
     }
 
-    [Route("/", Name = "Default")]
-    [Route("index")]
     public IActionResult Index()
     {
         List<MissionVM> missionVM = _unitOfService.Mission.GetAllIndexMission();
@@ -34,7 +31,6 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    [Route("filter-data")]
     public IActionResult FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, int page)
     {
         long? userId = 0;
@@ -47,7 +43,6 @@ public class HomeController : Controller
         return PartialView("_IndexMissions", missionVMs);
     }
 
-    [Route("privacy")]
     public IActionResult Privacy()
     {
         return View();

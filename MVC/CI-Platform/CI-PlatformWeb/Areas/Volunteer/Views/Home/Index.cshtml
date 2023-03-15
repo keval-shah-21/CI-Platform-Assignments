@@ -84,37 +84,50 @@
         <div class="on-filter-list d-flex flex-wrap gap-1"></div>
         <section class="no-mission h3 text-center color-darkgray d-none">No mission found</section>
         <section class="index-top d-flex justify-content-between align-items-center mb-4">
-    <div class="index-top-title color-darkgray">
-        <span class="fw-light">Explore </span><span class="total-missions"></span> missions
-    </div>
-    <div class="d-flex gap-1 align-items-center">
-        <div class="dropdown border rounded me-3">
-            <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                Sort by
-                <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-md-5">
-            </button>
-            <ul class="dropdown-menu" id="sortDropdown">
-                <li class="dropdown-item" data-id="0">Relevant</li>
-                <li class="dropdown-item" data-id="1">Newest</li>
-                <li class="dropdown-item" data-id="2">Oldest</li>
-                <li class="dropdown-item" data-id="3">Highest available seats</li>
-                <li class="dropdown-item" data-id="4">Lowest available seats</li>
-                @if (!string.IsNullOrEmpty(userId))
-                {
-                    <li class="dropdown-item" data-id="5">My favourites</li>
-                }
-                <li class="dropdown-item" data-id="6">Registration deadline</li>
-            </ul>
-        </div>
-        <div class="p-1 rounded-circle d-none d-md-block active-index-view cursor-pointer grid-btn">
-            <img src="~/images/static/grid.png" alt="grid-view">
-        </div>
-        <div class="p-1 rounded-circle d-none d-md-block cursor-pointer list-btn">
-            <img src="~/images/static/list.png" alt="list-view">
-        </div>
-    </div>
-</section>
+            <div class="index-top-title color-darkgray">
+                <span class="fw-light">Explore </span><span class="total-missions"></span> missions
+            </div>
+            <div class="d-flex gap-1 align-items-center">
+                <div class="dropdown border rounded me-3">
+                    <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Sort by
+                        <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-md-5">
+                    </button>
+                    <ul class="dropdown-menu" id="sortDropdown">
+                        <li class="dropdown-item" data-id="0">Relevant</li>
+                        <li class="dropdown-item" data-id="1">Newest</li>
+                        <li class="dropdown-item" data-id="2">Oldest</li>
+                        <li class="dropdown-item" data-id="3">Highest available seats</li>
+                        <li class="dropdown-item" data-id="4">Lowest available seats</li>
+                        @if (!string.IsNullOrEmpty(userId))
+                        {
+                            <li class="dropdown-item" data-id="5">My favourites</li>
+                        }
+                        <li class="dropdown-item" data-id="6">Registration deadline</li>
+                    </ul>
+                </div>
+                @*<select class="form-control" id="sortDropdown">
+                    <option selected disabled>Sort by</option>
+                    <option value="0">Relevant</option>
+                    <option value="1">Newest</option>
+                    <option value="2">Oldest</option>
+                    <option value="3">Highest available seats</option>
+                    <option value="4">Lowest available seats</option>
+                    @if (!string.IsNullOrEmpty(userId))
+                    {
+                    <option value="5">My favourites</option>
+                    }
+                    <option value="6">Registration deadline</option>
+                    </select>*@
+                <div class="p-1 rounded-circle d-none d-md-block active-index-view cursor-pointer grid-btn">
+                    <img src="~/images/static/grid.png" alt="grid-view">
+                </div>
+                <div class="p-1 rounded-circle d-none d-md-block cursor-pointer list-btn">
+                    <img src="~/images/static/list.png" alt="list-view">
+                </div>
+            </div>
+        </section>
         <div id="partialViewContainer"></div>
         <div id="pagination" class="d-flex justify-content-center gap-1 mt-5"></div>
     </main>
@@ -122,5 +135,5 @@
 </div>
 
 @section Scripts{
-    <script type="module" src="~/js/index.js"></script>
+<script type="module" src="~/js/index.js"></script>
 }

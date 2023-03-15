@@ -130,19 +130,19 @@ public class MissionService : IMissionService
             missionVM = missionVM.Where(mission => skill.Any(s => 
             mission.MissionSkillVM.Any(ms => ms.SkillId == s)
             )).ToList();
-        }    
+        }
 
         if(sort == 1){
-            missionVM = missionVM.OrderBy(mission => mission.StartDate).ToList();
+            missionVM = missionVM.OrderBy(m => m.SeatsLeft == null).ThenByDescending(mission => mission.StartDate).ToList();
         }
         else if(sort == 2){
-            missionVM = missionVM.OrderByDescending(mission => mission.StartDate).ToList();
+            missionVM = missionVM.OrderBy(m => m.SeatsLeft == null).ThenBy(mission => mission.StartDate).ToList();
         }
         else if(sort == 3){
-            missionVM = missionVM.OrderByDescending(mission => mission.SeatsLeft).ToList();
+            missionVM = missionVM.OrderBy(m => m.SeatsLeft == null).ThenByDescending(mission => mission.SeatsLeft).ToList();
         }
         else if(sort == 4){
-            missionVM = missionVM.OrderBy(mission => mission.SeatsLeft).ToList();
+            missionVM = missionVM.OrderBy(m => m.SeatsLeft == null).ThenBy(mission => mission.SeatsLeft).ToList();
         }
         else if(sort == 5){
             missionVM = missionVM.Where(mission => {
@@ -153,7 +153,7 @@ public class MissionService : IMissionService
             }).ToList();
         }
         else if(sort == 6){
-            missionVM = missionVM.OrderBy(mission => mission.RegistrationDeadline).ToList();
+            missionVM = missionVM.OrderBy(m => m.SeatsLeft == null).ThenByDescending(mission => mission.RegistrationDeadline).ToList();
         }
         return missionVM;
     }
