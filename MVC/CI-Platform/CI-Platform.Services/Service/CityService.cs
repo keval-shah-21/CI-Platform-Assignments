@@ -17,11 +17,16 @@ public class CityService : ICityService
     {
         IEnumerable<City> obj = _unitOfWork.City.GetAll();
         if(obj == null) return null!;
-        return obj.Select(c => new CityVM(){
-            CityId = c.CityId,
-            CityName = c.CityName,
-            CountryId = c.CountryId
-        }
-        ).ToList();
+        return obj.Select(c => ConvertCityToVM(c)).ToList();
+    }
+
+    public static CityVM ConvertCityToVM(City city)
+    {
+        return new CityVM()
+        {
+            CityId = city.CityId,
+            CityName = city.CityName,
+            CountryId = city.CountryId
+        };
     }
 }

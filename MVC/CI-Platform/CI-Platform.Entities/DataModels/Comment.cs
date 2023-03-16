@@ -3,19 +3,15 @@ using System.Collections.Generic;
 
 namespace CI_Platform.Entities.DataModels;
 
-public partial class MissionMedia
+public partial class Comment
 {
-    public long MissionMediaId { get; set; }
+    public long CommentId { get; set; }
 
     public long MissionId { get; set; }
 
-    public string? MediaName { get; set; }
+    public long UserId { get; set; }
 
-    public string? MediaType { get; set; }
-
-    public string? MediaPath { get; set; }
-
-    public bool? Default { get; set; }
+    public byte ApprovalStatus { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 
@@ -24,4 +20,6 @@ public partial class MissionMedia
     public DateTimeOffset? DeletedAt { get; set; }
 
     public virtual Mission Mission { get; set; } = null!;
+
+    public virtual User User { get; set; } = null!;
 }

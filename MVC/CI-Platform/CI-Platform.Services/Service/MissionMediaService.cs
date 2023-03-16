@@ -15,16 +15,22 @@ public class MissionMediaService: IMissionMediaService
     }
     public List<MissionMediaVM> GetAll()
     {
-        IEnumerable<MissionMedia> obj = _unitOfWork.MissionMedia.GetAll();
+        IEnumerable<MissionMedium> obj = _unitOfWork.MissionMedia.GetAll();
         if(obj == null) return null!;
-        return obj.Select(mm => new MissionMediaVM(){
+        return obj.Select(mm => ConvertMissionMediaToVM(mm)
+        ).ToList();
+    }
+
+    public static MissionMediaVM ConvertMissionMediaToVM(MissionMedium mm)
+    {
+        return new MissionMediaVM()
+        {
             Default = mm.Default,
             MediaName = mm.MediaName,
             MediaPath = mm.MediaPath,
             MediaType = mm.MediaType,
             MissionId = mm.MissionId,
             MissionMediaId = mm.MissionMediaId
-        }
-        ).ToList();
+        };
     }
 }

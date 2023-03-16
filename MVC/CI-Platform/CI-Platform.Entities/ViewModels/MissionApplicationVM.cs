@@ -1,3 +1,5 @@
+using CI_Platform.Entities.Constants;
+
 namespace CI_Platform.Entities.ViewModels;
 
 public class MissionApplicationVM
@@ -10,5 +12,5 @@ public class MissionApplicationVM
 
     public DateTime AppliedAt { get; set; }
 
-    public byte ApprovalStatus { get; set; }
+    public ApprovalStatus ApprovalStatus { get; set; }
 }

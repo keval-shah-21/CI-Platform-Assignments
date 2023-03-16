@@ -3,7 +3,7 @@ using CI_Platform.Entities.DataModels;
 
 namespace CI_Platform.DataAccess.Repository;
 
-public class MissionMediaRepository : Repository<MissionMedia>, IMissionMediaRepository
+public class MissionMediaRepository : Repository<MissionMedium>, IMissionMediaRepository
 {
     public MissionMediaRepository(ApplicationDbContext context) : base(context)
     {

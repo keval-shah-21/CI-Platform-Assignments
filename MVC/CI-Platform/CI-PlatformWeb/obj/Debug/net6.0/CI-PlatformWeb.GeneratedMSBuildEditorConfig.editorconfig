@@ -27,10 +27,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Home/MissionDetails.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcTWlzc2lvbkRldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

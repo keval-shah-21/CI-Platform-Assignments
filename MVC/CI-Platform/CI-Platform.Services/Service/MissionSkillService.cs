@@ -17,11 +17,17 @@ public class MissionSkillService: IMissionSkillService
     {
         IEnumerable<MissionSkill> obj = _unitOfWork.MissionSkill.GetAll();
         if(obj == null) return null!;
-        return obj.Select(ms => new MissionSkillVM(){
+        return obj.Select(ms => ConvertMissionSkillToVM(ms)
+        ).ToList();
+    }
+
+    public static MissionSkillVM ConvertMissionSkillToVM(MissionSkill ms)
+    {
+        return new MissionSkillVM()
+        {
             MissionId = ms.MissionId,
             MissionSkillId = ms.MissionSkillId,
             SkillId = ms.SkillId
-        }
-        ).ToList();
+        };
     }
 }

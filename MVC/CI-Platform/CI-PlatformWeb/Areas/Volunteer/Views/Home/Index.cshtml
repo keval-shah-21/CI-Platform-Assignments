@@ -107,19 +107,6 @@
                         <li class="dropdown-item" data-id="6">Registration deadline</li>
                     </ul>
                 </div>
-                @*<select class="form-control" id="sortDropdown">
-                    <option selected disabled>Sort by</option>
-                    <option value="0">Relevant</option>
-                    <option value="1">Newest</option>
-                    <option value="2">Oldest</option>
-                    <option value="3">Highest available seats</option>
-                    <option value="4">Lowest available seats</option>
-                    @if (!string.IsNullOrEmpty(userId))
-                    {
-                    <option value="5">My favourites</option>
-                    }
-                    <option value="6">Registration deadline</option>
-                    </select>*@
                 <div class="p-1 rounded-circle d-none d-md-block active-index-view cursor-pointer grid-btn">
                     <img src="~/images/static/grid.png" alt="grid-view">
                 </div>
@@ -135,5 +122,5 @@
 </div>
 
 @section Scripts{
-<script type="module" src="~/js/index.js"></script>
+    <script type="module" src="~/js/index.js"></script>
 }

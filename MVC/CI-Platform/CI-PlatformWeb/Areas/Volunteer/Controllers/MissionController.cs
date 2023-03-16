@@ -1,18 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CI_Platform.Services.Service.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
 
 [Area("Volunteer")]
 public class MissionController : Controller
 {
+    private readonly IUnitOfService _unitOfService;
+
+    public MissionController(IUnitOfService unitOfService)
+    {
+            _unitOfService = unitOfService;
+    }
+
     public IActionResult Index()
     {
         return View();
     }
 
-    public IActionResult MissionDetails()
+    public IActionResult MissionDetails(long? id)
     {
-        //if (id == 0) return NotFound();
+        if (id == 0) return NotFound();
         return View();
     }
 }

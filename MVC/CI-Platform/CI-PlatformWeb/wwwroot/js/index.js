@@ -35,6 +35,7 @@ $(document).ready(() => {
         type: "POST",
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: (result) => {
+            $('#partialViewContainer').html('');
             $('#partialViewContainer').html(result);
             $('.index-list-view').addClass("d-none");
             const totalMissions = $('#totalMissions').val();
@@ -142,42 +143,44 @@ function createFilterHTML(type, value, id) {
         </div>
     `).insertBefore('.clear-all');
 
-    $(`[data-value = "${value}"]`).click((e) => {
-
-        onFilterList.removeChild(e.currentTarget.parentElement)
-
-        if (e.currentTarget.getAttribute("data-type") == "City") {
-            city.splice(city.indexOf(+id), 1);
-        }
-        if (e.currentTarget.getAttribute("data-type") == "Country") {
-
-            country.splice(country.indexOf(id), 1);
-
-            document.querySelectorAll('#cityDropdown li').forEach((li) => {
-                if (country.includes(li.getAttribute('data-country')))
-                    $(li).removeClass("d-none");
-                else {
-                    $(li).addClass("d-none");
-                    document.querySelectorAll(`[data-type='${"City"}']`).forEach((onFilter) => {
-                        const c = $(onFilter).data("value");
-                        if (c == $(li).text()) {
-                            $(onFilter).parent().remove();
-                            city.splice(city.indexOf($(li).data("id")), 1);
-                        }
-                    })
-                }
-            })
-        }
-        if (e.currentTarget.getAttribute("data-type") == "Theme")
-            theme.splice(theme.indexOf(+id), 1);
-        if (e.currentTarget.getAttribute("data-type") == "Skill")
-            skill.splice(skill.indexOf(+id), 1);
-        if (city.length == 0 && skill.length == 0 && theme.length == 0 && country.length == 0) {
-            $(".clear-all").click();
-            return;
-        }
-        MakeAjaxCall();
+    $(`[data-value = "${value}"]`).click((event) => {
+        HandleFilterRemove(event, event.currentTarget.getAttribute("data-type"), id);
     });
+}
+function HandleFilterRemove(event, type, id) {
+    onFilterList.removeChild(event.currentTarget.parentElement)
+
+    if (type == "City") {
+        city.splice(city.indexOf(+id), 1);
+    }
+    if (type == "Country") {
+
+        country.splice(country.indexOf(id), 1);
+
+        document.querySelectorAll('#cityDropdown li').forEach((li) => {
+            if (country.includes(li.getAttribute('data-country')))
+                $(li).removeClass("d-none");
+            else {
+                $(li).addClass("d-none");
+                document.querySelectorAll(`[data-type='${"City"}']`).forEach((onFilter) => {
+                    const c = $(onFilter).data("value");
+                    if (c == $(li).text()) {
+                        $(onFilter).parent().remove();
+                        city.splice(city.indexOf($(li).data("id")), 1);
+                    }
+                })
+            }
+        })
+    }
+    if (type == "Theme")
+        theme.splice(theme.indexOf(+id), 1);
+    if (type == "Skill")
+        skill.splice(skill.indexOf(+id), 1);
+    if (city.length == 0 && skill.length == 0 && theme.length == 0 && country.length == 0) {
+        $(".clear-all").click();
+        return;
+    }
+    MakeAjaxCall();
 }
 function MakeAjaxCall() {
     var obj = {
@@ -195,6 +198,7 @@ function MakeAjaxCall() {
         data: obj,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: (result) => {
+            $('#partialViewContainer').html('');
             $('#partialViewContainer').html(result);
             if (currentView == "grid") {
                 $(".index-list-view").addClass("d-none");
@@ -219,6 +223,7 @@ function MakeAjaxCall() {
 }
 
 function createPaginationHTML(totalMissions) {
+    if (totalPages == Math.ceil(totalMissions / 9)) return;
     pagination.innerHTML = "";
     totalPages = Math.ceil(totalMissions / 9);
     if (totalPages > 5) {
@@ -275,7 +280,9 @@ function handlePagination(value) {
     }
     else if (value == 'left') {
         if (page == 1) return;
+        $(`[data-page=${page}]`).removeClass('active-page');
         page = page - 1;
+        $(`[data-page=${page}]`).addClass('active-page');
         if (page <= (pageSet - 1) * 5) {
             pageSet -= 1;
             scrollPageSet();
@@ -283,7 +290,9 @@ function handlePagination(value) {
     }
     else if (value == 'right') {
         if (page == totalPages) return;
+        $(`[data-page=${page}]`).removeClass('active-page');
         page = page + 1;
+        $(`[data-page=${page}]`).addClass('active-page');
         if (page > pageSet * 5) {
             pageSet += 1;
             scrollPageSet();
@@ -296,6 +305,7 @@ function handlePagination(value) {
         }
         $(`[data-page=${page}]`).removeClass('active-page');
         page = value;
+        $(`[data-page=${page}]`).addClass('active-page');
     }
     MakeAjaxCall();
 }

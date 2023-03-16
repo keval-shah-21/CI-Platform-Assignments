@@ -17,10 +17,14 @@ public class MissionThemeService: IMissionThemeService
     {
         IEnumerable<MissionTheme> obj = _unitOfWork.MissionTheme.GetAll();
         if(obj == null) return null!;
-        return obj.Select(mt => new MissionThemeVM(){
-            MissionThemeId = mt.MissionThemeId,
-            MissionThemeName = mt.MissionThemeName
-        }
-        ).ToList();
+        return obj.Select(mt => ConvertMissionThemeToVM(mt)).ToList();
+    }
+
+    public static MissionThemeVM ConvertMissionThemeToVM(MissionTheme missionTheme)
+    {
+        return new MissionThemeVM() { 
+            MissionThemeId = missionTheme.MissionThemeId,
+            MissionThemeName = missionTheme.MissionThemeName
+        };
     }
 }

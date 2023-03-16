@@ -13,7 +13,7 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
     }
 
     public IEnumerable<Mission> GetAllMissions()
-    {   
+    {
         return _context.Missions
         .Include(m => m.MissionMedia)
         .Include(m => m.MissionApplications)
@@ -22,6 +22,8 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
         .Include(m => m.MissionTheme)
         .Include(m => m.FavouriteMissions)
         .Include(m => m.MissionCityNavigation)
-        .Include(m => m.MissionCountryNavigation);
+        .Include(m => m.MissionCountryNavigation)
+        .Include(m => m.Comments)
+        .Include(m => m.MissionRatings);
     }
 }

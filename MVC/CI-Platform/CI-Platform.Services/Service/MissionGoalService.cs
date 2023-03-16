@@ -17,13 +17,19 @@ public class MissionGoalService : IMissionGoalService
     {
         IEnumerable<MissionGoal> obj = _unitOfWork.MissionGoal.GetAll();
         if(obj == null) return null!;
-        return obj.Select(mg => new MissionGoalVM(){
+        return obj.Select(mg => ConvertMissionGoalToVM(mg)
+        ).ToList();
+    }
+
+    public static MissionGoalVM ConvertMissionGoalToVM(MissionGoal mg)
+    {
+        return new MissionGoalVM()
+        {
             GoalAchieved = mg.GoalAchieved,
             GoalObjective = mg.GoalObjective,
             GoalValue = mg.GoalValue,
             MissionGoalId = mg.MissionGoalId,
             MissionId = mg.MissionId
-        }
-        ).ToList();
+        };
     }
 }

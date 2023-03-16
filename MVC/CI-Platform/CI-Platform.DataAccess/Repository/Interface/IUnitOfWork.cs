@@ -26,5 +26,7 @@ public interface IUnitOfWork{
     IMissionRepository Mission {get;}
 
     ISkillRepository Skill {get;}
+
+    ICommentRepository Comment { get; }
     void Save();
 }

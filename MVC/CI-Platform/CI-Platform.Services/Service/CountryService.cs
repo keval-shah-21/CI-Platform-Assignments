@@ -17,10 +17,14 @@ public class CountryService: ICountryService
     {
         IEnumerable<Country> obj = _unitOfWork.Country.GetAll();
         if(obj == null) return null!;
-        return obj.Select(c => new CountryVM(){
-            CountryId = c.CountryId,
-            CountryName = c.CountryName
-        }
-        ).ToList();
+        return obj.Select(c => ConvertCountryToVM(c)).ToList();
+    }
+
+    public static CountryVM ConvertCountryToVM(Country country)
+    {
+        return new CountryVM(){
+            CountryId=country.CountryId,
+            CountryName=country.CountryName
+        };
     }
 }

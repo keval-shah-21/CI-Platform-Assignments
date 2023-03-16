@@ -16,10 +16,16 @@ public class SkillService:ISkillService
     {
         IEnumerable<Skill> obj = _unitOfWork.Skill.GetAll();
         if(obj == null) return null!;
-        return obj.Select(s => new SkillVM(){
+        return obj.Select(s => ConvertSkillToVM(s)
+        ).ToList();
+    }
+
+    public static SkillVM ConvertSkillToVM(Skill s)
+    {
+        return new SkillVM()
+        {
             SkillId = s.SkillId,
             SkillName = s.SkillName
-        }
-        ).ToList();
+        };
     }
 }

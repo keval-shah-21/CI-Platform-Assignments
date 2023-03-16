@@ -28,5 +28,7 @@ public interface IUnitOfService
 
     ISkillService Skill{get;}
 
+    ICommentService Comment { get; }
+
     void Save();
 }

@@ -17,10 +17,16 @@ public class FavouriteMissionService : IFavouriteMissionService
     {
         IEnumerable<FavouriteMission> obj = _unitOfWork.FavouriteMission.GetAll();
         if(obj == null) return null!;
-        return obj.Select(fm => new FavouriteMissionVM(){
-            FavouriteMissionId = fm.FavouriteMissionId,
-            MissionId = fm.MissionId,
-            UserId = fm.UserId
-        }).ToList();
+        return obj.Select(fm => ConvertFavouriteMissionToVM(fm)).ToList();
+    }
+
+    public static FavouriteMissionVM ConvertFavouriteMissionToVM(FavouriteMission favouriteMission)
+    {
+        return new FavouriteMissionVM()
+        {
+            FavouriteMissionId = favouriteMission.FavouriteMissionId,
+            MissionId = favouriteMission.MissionId,
+            UserId = favouriteMission.UserId
+        };
     }
 }

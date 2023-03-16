@@ -23,6 +23,7 @@ public class UnitOfService : IUnitOfService
         MissionTheme = new MissionThemeService(_unitOfWork);
         MissionRating = new MissionRatingService(_unitOfWork);
         Skill = new SkillService(_unitOfWork);
+        Comment = new CommentService(_unitOfWork);
     }
 
     public IUserService User{get; private set;}
@@ -48,6 +49,8 @@ public class UnitOfService : IUnitOfService
     public IMissionThemeService MissionTheme{get; private set;}
 
     public ISkillService Skill {get; private set;}
+
+    public ICommentService Comment {get; private set;}  
 
     public void Save(){
         _unitOfWork.Save();

@@ -20,7 +20,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        List<MissionVM> missionVM = _unitOfService.Mission.GetAllIndexMission();
+        List<MissionVM> missionVM = _unitOfService.Mission.GetAllMissions();
         return View(new IndexHeaderVM()
         {
             cityVM = _unitOfService.Mission.GetCitiesByMissions(missionVM),

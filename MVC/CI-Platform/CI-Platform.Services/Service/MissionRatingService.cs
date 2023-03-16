@@ -17,12 +17,18 @@ public class MissionRatingService: IMissionRatingService
     {
         IEnumerable<MissionRating> obj = _unitOfWork.MissionRating.GetAll();
         if(obj == null) return null!;
-        return obj.Select(mr => new MissionRatingVM(){
+        return obj.Select(mr => ConvertMissionRatingToVM(mr)
+        ).ToList();
+    }
+
+    public static MissionRatingVM ConvertMissionRatingToVM(MissionRating mr)
+    {
+        return new MissionRatingVM()
+        {
             MissionId = mr.MissionId,
             MissionRatingId = mr.MissionRatingId,
             Rating = mr.Rating,
             UserId = mr.UserId
-        }
-        ).ToList();
+        };
     }
 }
