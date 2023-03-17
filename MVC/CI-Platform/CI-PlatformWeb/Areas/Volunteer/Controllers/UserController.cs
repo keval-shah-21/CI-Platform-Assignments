@@ -141,4 +141,19 @@ public class UserController: Controller
         }
         return View(resetPasswordDataVM);
     }
+
+    [HttpPost]
+    [Route("toggle-favourite-mission")]
+    public IActionResult ToggleFavouriteMission(long missionId, long userId, bool isFavourite)
+    {
+        if (isFavourite)
+        {
+            _unitOfService.FavouriteMission.RemoveFromFavourite(userId);
+        }
+        else
+        {
+            _unitOfService.FavouriteMission.AddToFavourite(missionId, userId);
+        }
+        return Ok();
+    }
 }

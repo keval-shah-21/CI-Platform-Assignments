@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3c96df78-1a6f-4980-900f-9b9a8af3ac32": {
+      "ProjectGuid": "3c96df78-1a6f-4980-900f-9b9a8af3ac32",
+      "DisplayName": "NTierDemo.Repositories",
+      "ColorIndex": 0
+    },
+    "cc52fbc0-6655-4228-a05f-a3410147faf0": {
+      "ProjectGuid": "cc52fbc0-6655-4228-a05f-a3410147faf0",
+      "DisplayName": "NTierDemoWeb",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

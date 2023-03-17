@@ -29,4 +29,29 @@ public class FavouriteMissionService : IFavouriteMissionService
             UserId = favouriteMission.UserId
         };
     }
+
+    public void AddToFavourite(long missionId, long userId)
+    {
+        FavouriteMission fmVM = new FavouriteMission()
+        {
+            MissionId = (long)missionId,
+            UserId = (long)userId,
+            CreatedAt = DateTime.UtcNow,
+        };
+        _unitOfWork.FavouriteMission.Add(fmVM);
+    }
+    public void RemoveFromFavourite(long userId)
+    {
+        FavouriteMission fmVM = _unitOfWork.FavouriteMission.GetFirstOrDefault(fm => fm.UserId == userId);
+        _unitOfWork.FavouriteMission.Remove(fmVM);
+    }
+    public void Add(FavouriteMission favouriteMission)
+    {
+        _unitOfWork.FavouriteMission.Add(favouriteMission);
+    }
+
+    public void Remove(FavouriteMission favouriteMission)
+    {
+        _unitOfWork.FavouriteMission.Remove(favouriteMission);
+    }
 }

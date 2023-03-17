@@ -22,6 +22,7 @@ public class UnitOfWork : IUnitOfWork
         MissionApplication = new MissionApplicationRepository(_context);
         Skill = new SkillRepository(_context);
         Comment = new CommentRepository(_context);
+        MissionDocument = new MissionDocumentRepository(_context);
     }
     public IUserRepository User{get; private set;}
 
@@ -51,6 +52,7 @@ public class UnitOfWork : IUnitOfWork
 
     public ICommentRepository Comment { get; private set; }
 
+    public IMissionDocumentRepository MissionDocument{get; private set;}
     public void Save()
     {
         _context.SaveChanges();

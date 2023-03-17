@@ -18,7 +18,6 @@ public class MissionService : IMissionService
     public MissionVM ConvertMissionToVM(Mission mission)
     {
         List<MissionApplicationVM> maVM = GetMissionApplication(mission);
-        List<string> sl = GetSkillByMission(mission);
         return new MissionVM()
         {
             MissionId = mission.MissionId,
@@ -38,27 +37,35 @@ public class MissionService : IMissionService
             TotalSeats = mission.TotalSeats,
             SeatsLeft = (short?)(mission.TotalSeats - (maVM == null ? 0 : maVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED).LongCount())),
             MissionType = mission.MissionType ? MissionType.GOAL : MissionType.TIME,
-            Status = (bool)mission.Status ? MissionStatus.ONGOING : MissionStatus.FINISHED,
+            Status = (bool)mission.Status! ? MissionStatus.ONGOING : MissionStatus.FINISHED,
             MissionRating = mission.MissionRating,
             RegistrationDeadline = mission.RegistrationDeadline,
             MissionThumbnail = GetMissionThumbnail(mission),
+            MissionMediaVM = GetOtherMissionMedia(mission),
+            MissionDocument = GetMissionDocumentByMission(mission),
             FavouriteMissionVM = GetFavouriteByMission(mission),
-            MissionApplicationVM = GetMissionApplication(mission),
+            MissionApplicationVM = maVM,
             MissionGoalVM = GetMissionGoal(mission),
             MissionSkillVM = GetMissionSkill(mission),
-            SkillList = sl,
+            SkillList = mission.MissionSkills.Select(ms => ms.Skill.SkillName).ToList(),
             MissionRatingVM = GetMissionRatingsByMission(mission),
             CommentVM = GetCommentsByMission(mission),
         };
     }
     public List<MissionVM> GetAllMissions()
     {
-        IEnumerable<Mission> obj = _unitOfWork.Mission.GetAllMissions();
+        List<Mission> obj = _unitOfWork.Mission.GetAll().ToList();
         if (obj == null) return null!;
         List<MissionVM> missionVMs = obj.Select(mission => {
             return ConvertMissionToVM(mission);
         }).ToList();
         return missionVMs;
+    }
+
+    public MissionVM GetMissionById(long? id)
+    {
+        Mission mission = _unitOfWork.Mission.GetFirstOrDefault(mission => mission.MissionId == id);
+        return ConvertMissionToVM(mission);
     }
 
     public List<MissionVM> FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId){
@@ -87,24 +94,6 @@ public class MissionService : IMissionService
         return cityVM;
     }
 
-    public MissionVM GetMissionById(long id)
-    {
-        Mission mission = _unitOfWork.Mission.GetFirstOrDefault(mission => mission.MissionId == id);
-        return ConvertMissionToVM(mission);
-    }
-    internal List<string> GetSkillByMission(Mission mission)
-    {
-        //List<SkillVM> skillVMs = new SkillService(_unitOfWork).GetAll();
-        //return (List<string>)skillVMs.Select(s =>
-        //{
-        //    if(mission.MissionSkills.Any(ms => ms.SkillId == s.SkillId))
-        //    {
-        //        return s.SkillName;
-        //    }
-        //    return "";
-        //});
-        return mission.MissionSkills.Select(ms => ms.Skill.SkillName).ToList();
-    }
     internal List<MissionRatingVM> GetMissionRatingsByMission(Mission mission)
     {
         return mission.MissionRatings.Select(r =>
@@ -130,6 +119,11 @@ public class MissionService : IMissionService
     internal MissionGoalVM GetMissionGoal(Mission mission){
         return mission.MissionGoals.LongCount() > 0 ? MissionGoalService.ConvertMissionGoalToVM(mission.MissionGoals.First()) : new();
     }
+    internal List<MissionDocumentVM> GetMissionDocumentByMission(Mission mission)
+    {
+        return mission.MissionDocuments.LongCount() > 0 ? mission.MissionDocuments.Select(md =>
+        MissionDocumentService.ConvertMissionDocumentToVM(md)).ToList() : null!;
+    }
     internal List<MissionApplicationVM> GetMissionApplication(Mission mission){
         return mission.MissionApplications.LongCount() > 0 ? mission.MissionApplications.Select(ma =>
             MissionApplicationService.ConvertMissionApplicationToVM(ma)
@@ -139,5 +133,9 @@ public class MissionService : IMissionService
         return mission.MissionSkills.LongCount() > 0 ? mission.MissionSkills.Select(ms =>
             MissionSkillService.ConvertMissionSkillToVM(ms)    
         ).ToList() : null!;
+    }
+    internal List<MissionMediaVM> GetOtherMissionMedia(Mission mission) {
+        return mission.MissionMedia.Select(mm => MissionMediaService.ConvertMissionMediaToVM(mm)).
+            Where(mm => mm.Default == false).ToList();
     }
 }

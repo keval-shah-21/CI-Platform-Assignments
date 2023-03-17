@@ -43,6 +43,7 @@ public class MissionVM {
 
     public string MissionThumbnail {get; set;} = string.Empty;
     public List<MissionMediaVM> MissionMediaVM { get; set; } = null!;
+    public List<MissionDocumentVM>? MissionDocument { get; set; }
 
     public List<FavouriteMissionVM>? FavouriteMissionVM {get; set;}
 

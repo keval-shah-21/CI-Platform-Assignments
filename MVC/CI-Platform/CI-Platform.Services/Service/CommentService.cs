@@ -28,6 +28,9 @@ namespace CI_Platform.Services.Service
                 ApprovalStatus = c.ApprovalStatus,
                 MissionId = c.MissionId,
                 UserId = c.UserId,
+                UserName = c.User.FirstName + " " + c.User.LastName,
+                Avatar = c.User.Avatar,
+                Text = c.Text
             };
         }
     }

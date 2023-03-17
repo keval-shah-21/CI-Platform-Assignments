@@ -19,13 +19,13 @@ public class Repository<T> : IRepository<T> where T : class
         dbSet.Add(entity);
     }
 
-    public IEnumerable<T> GetAll()
+    public virtual IEnumerable<T> GetAll()
     {
         IQueryable<T> query = dbSet;
         return query.ToList();
     }
 
-    public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
+    public virtual T GetFirstOrDefault(Expression<Func<T, bool>> filter)
     {
         IQueryable<T> query = dbSet.Where(filter);
         return query.FirstOrDefault()!;

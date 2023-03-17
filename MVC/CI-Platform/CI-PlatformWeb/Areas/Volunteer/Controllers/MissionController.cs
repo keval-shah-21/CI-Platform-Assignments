@@ -1,4 +1,6 @@
-﻿using CI_Platform.Services.Service.Interface;
+﻿using CI_Platform.Entities.ViewModels;
+using CI_Platform.Services.Service.Interface;
+using CI_PlatformWeb.Areas.Volunteer.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
@@ -21,6 +23,8 @@ public class MissionController : Controller
     public IActionResult MissionDetails(long? id)
     {
         if (id == 0) return NotFound();
-        return View();
+        MissionVM missionVM = _unitOfService.Mission.GetMissionById(id);
+        if (missionVM == null) return NotFound();
+        return View(missionVM);
     }
 }
