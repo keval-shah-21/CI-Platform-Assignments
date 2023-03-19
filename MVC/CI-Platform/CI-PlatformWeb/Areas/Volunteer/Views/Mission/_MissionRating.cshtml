@@ -1,18 +1,14 @@
-﻿@{
-    byte rating = @ViewBag.Rating;
-    int totalUserRating = @ViewBag.TotalUserRating;
-}
+﻿@model MissionVM
 <div class="d-flex gap-3 text-15 fw-light text-secondary pt-3">
     <span>Rating</span>
     <div class="d-flex align-items-center flex-wrap">
-        @for (byte i = 0; i < @rating; i++)
+        @for (byte i = 0; i < @Model.MissionRating; i++)
         {
             <img src="/images/static/selected-star.png" alt="selected-star">
         }
-        @for (byte i = 0; i < 5 - @rating; i++)
+        @for (byte i = 0; i < 5 - @Model.MissionRating; i++)
         {
             <img src="/images/static/star.png" alt="star">
         }
-        (by @totalUserRating volunteers)
-    </div>
+        (by @Model?.MissionRatingVM?.Count() volunteers)
 </div>

@@ -15,16 +15,27 @@ public class MissionController : Controller
             _unitOfService = unitOfService;
     }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
-
     public IActionResult MissionDetails(long? id)
     {
         if (id == 0) return NotFound();
         MissionVM missionVM = _unitOfService.Mission.GetMissionById(id);
         if (missionVM == null) return NotFound();
         return View(missionVM);
+    }
+
+    public IActionResult RelatedMissions(long id){
+        MissionVM missionVM = _unitOfService.Mission.GetRelatedMissions(id);
+        missionVM = missionVM.Take(3);
+        return PartialView("_IndexMissions", missionVM);
+    }
+
+    public void PostComment(long missionId, long userId, string comment){
+        _unitOfService.Comment.PostComment(missionId, userId, comment);
+    }
+
+    public IActionResult RateMission(long missionId, long userId, byte rate){ 
+        _unitOfService._MissionRating.RateMission(missionId, userId, rate);
+         MissionVM missionVM = _unitOfService.Mission.UpdateMissionRating(missionId);
+        return PartialView("_MissionRating", missionVM);
     }
 }

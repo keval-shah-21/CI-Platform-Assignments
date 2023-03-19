@@ -31,4 +31,25 @@ public class MissionRatingService: IMissionRatingService
             UserId = mr.UserId
         };
     }
+
+    public void RateMission(long missionId, long userId, byte rate){
+        MissionRating mr = _unitOfWork.MissionRating
+                .GetFirstOrDefault(mr => mr.UserId == userId && mr.MissionId == missionId);
+        if(mr == null)
+            AddMissionRating(missionId, userId, rate);
+        else
+            UpdateMissionRating(mr);
+    }
+
+    public void AddMissionRating(long missionId, long userId, byte rate){
+        _unitOfWork.MissionRating.Add(new MissionRating(){
+            MissionId = missionId,
+            Rating = rate,
+            UserId = userId
+        });
+    }
+    public void UpdateMissionRating(MissionRating mr, byte rate){
+        mr.Rating = rate;
+        _unitOfWork.MissionRating.Update(mr);
+    }
 }

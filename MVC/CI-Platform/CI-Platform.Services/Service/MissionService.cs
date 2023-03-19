@@ -68,8 +68,22 @@ public class MissionService : IMissionService
         return ConvertMissionToVM(mission);
     }
 
-    public List<MissionVM> FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId){
-        return new MissionFilterService().FilterData(country, city, theme, skill, search, sort, userId, _unitOfWork);
+    public List<MissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId){
+        return MissionFilterService.FilterMissions(country, city, theme, skill, search, sort, userId, _unitOfWork);
+    }
+
+    public List<MissionVM> GetRelatedMissions(long id){
+        missionVM missionVM = GetMissionById(id);
+        return GetAllMissions()
+        .Where(mission => mission.MissionTheme.MissionThemeName == missionVM.MissionTheme.MissionThemeName);
+    }
+
+    public MissionVM UpdateMissionRating(long id){
+        Mission mission = _unitOfWork.Mission.GetFirstOrDefault(mission => mission.MissionId == id);
+        byte average = (byte)Math.Ceiling(mission.MissionRatingVM.Average(mr => mr.Rating));
+        mission.MissionRating = average;
+        _unitOfWork.Mission.Update(mission);
+        return ConvertMissionToVM(mission);
     }
 
     public List<CountryVM> GetCountriesByMissions(List<MissionVM> missionVM){
@@ -102,8 +116,8 @@ public class MissionService : IMissionService
     }
     internal List<CommentVM> GetCommentsByMission(Mission mission)
     {
-        return mission.Comments.Select(c => 
-        CommentService.ConvertCommentToVM(c)).ToList();
+        return mission.Comments.Where(c => c.ApprovalStatus == ApprovalStatus.APPROVED).Select(c => 
+        CommentService.ConvertCommentToVM(c)).OrderBy(c => c.CreatedAt).ToList();
     }
     internal string GetMissionThumbnail(Mission mission)
     {

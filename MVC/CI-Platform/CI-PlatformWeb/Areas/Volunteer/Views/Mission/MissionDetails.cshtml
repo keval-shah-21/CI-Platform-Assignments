@@ -4,20 +4,24 @@
     ViewData["Title"] = "Mission Details";
     var userId = Context.Session.GetString("UserId");
     var isFavourite = "false";
-    @if (userId != null && Model?.MissionApplicationVM?.LongCount() > 0 && Model.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId)) )
+    @if (userId != null && Model?.FavouriteMissionVM?.LongCount() > 0
+     && Model.FavouriteMissionVM.Any(fm => fm.UserId == long.Parse(userId)) )
     {
         isFavourite = "true";
     }
+    var hasApplied = userId != null && Model?.MissionApplicationVM != null && Model.MissionApplicationVM.
+                Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED);
 }
+<input hidden value="@hasApplied ? 'true' : 'false'" id="hasApplied">
 <input hidden value="@userId" id='userId'/>
 <input hidden value="@Model.MissionId" id='missionId' />
 
 <partial name="_Navbar"></partial>
 <section class="container mp-top d-flex flex-column flex-lg-row py-4 gap-4 align-items-center">
-    <div>
+    <div class="position-relative">
         <img src="@Model.MissionThumbnail" alt="mission image" class="h-100 w-100">
-        <input hidden value="@Model.MissionMediaVM.Count()" id="missionMedia"/>
-        @if (@Model.MissionMediaVM.Count() > 0)
+        <input hidden value="@Model?.MissionMediaVM?.Count()" id="missionMedia"/>
+        @if (@Model?.MissionMediaVM?.Count() > 0)
         {
             <div class="position-relative">
                 <div class="d-flex mp-small-images overflow-scroll">
@@ -34,6 +38,18 @@
                 </div>
             </div>
         }
+        @if (mission.Status == MissionStatus.FINISHED)
+                    {
+                        <span class="bg-warning px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+                            CLOSED
+                        </span>
+                    }
+                    else if (hasApplied)
+                    {
+                        <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+                            APPLIED
+                        </span>
+                    }
     </div>
     <div class="color-darkgray">
         <h4 class="fw-light">@Model.Title</h4>
@@ -72,6 +88,7 @@
                             {
                                 <div>@Model.MissionApplicationVM.LongCount()</div>
                             }
+                            <div class="fw-light text-14">Already volunteered</div>
                         </div>
                     </div>
                 }
@@ -98,6 +115,7 @@
                             {
                                 <div>@Model.MissionApplicationVM.LongCount()</div>
                             }
+                            <div class="fw-light text-14">Already volunteered</div>
                         </div>
                     </div>
                 }
@@ -139,7 +157,7 @@
                 </button>
                 <button
                 id="removeFavourite"
-               class="btn rounded-pill d-flex align-items-center gap-2 border border-dark w-100 justify-content-center fw-light text-15 color-darkgray">
+               class="btn rounded-pill d-flex align-items-center gap-2 border border-danger border w-100 justify-content-center fw-light text-15 color-darkgray">
                     <img src="/images/static/heart1.png" alt="heart">
                     Remove from Favourite
                 </button>
@@ -151,8 +169,7 @@
             </div>
         }
         <hr class="m-0 bg-secondary mt-4">
-        @*@if ((!string.IsNullOrEmpty(userId) && @Model?.MissionApplicationVM?.LongCount() > 0 &&
-            @Model.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED)))
+        @*@if(hasApplied)
             {*@
 
         <div class="d-flex align-items-center translate-middle-y bg-white width-max-conatent mx-auto">
@@ -282,21 +299,21 @@
                 </p>
             </div>
             <div class="mp-comments d-none">
-                @if (userId != null && Model?.MissionApplicationVM != null && Model.MissionApplicationVM.
-                Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED))
+                @if (hasApplied)
                 {
                     <textarea id="comment" class="form-control" placeholder="Enter your comments..."></textarea>
-                    <a href="#" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+                    <span class="commentError bg-danger text-14"></span>
+                    <button class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-content" id="postComment">
                         Post comment
-                    </a>
+                    </button>
                 }
-                <div class="mp-comments-section bg-light p-3 rounded mt-3 overflow-auto d-grid row-gap-1">
-                    @if (Model.CommentVM == null)
+                    @if (Model?.CommentVM?.LongCount() == 0)
                     {
-                        <span>No comments so far.</span>
+                        <span class="mx-auto">No comments so far.</span>
                     }
                     else
                     {
+                <div class="mp-comments-section bg-light p-3 rounded mt-3 overflow-auto d-grid row-gap-1">
                         <div class="d-flex gap-2 bg-white p-2 rounded">
                             @foreach (CommentVM c in Model.CommentVM)
                             {
@@ -304,15 +321,15 @@
                              width="60px">
                                 <div class="color-darkgray">
                                     <div>@c.UserName</div>
-                                    <div class="fw-light text-13 text-secondary">Monday, October 12, 2019, 4:34 PM</div>
+                                    <div class="fw-light text-13 text-secondary">@c.CreatedAt?.ToString("dddd, MMMM dd, yyyy, H:mm tt")</div>
                                     <div class="text-14 ellipsis-2 fw-light mt-2">
                                         @c.Text
                                     </div>
                                 </div>
                             }
                         </div>
-                    }
                 </div>
+                    }
 
             </div>
         </div>
@@ -349,333 +366,47 @@
                         <div>Weekly</div>
                     }
                 </div>
-                <div id="MissionRatingContainer"></div>
-                <div class="d-flex gap-3 text-15 fw-light text-secondary pt-3">
-                    <span>Rating</span>
-                    <div class="d-flex align-items-center flex-wrap">
-                        @for (byte i = 0; i < @Model.MissionRating; i++)
-                        {
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                        }
-                        @for (byte i = 0; i < 5 - @Model.MissionRating; i++)
-                        {
-                            <img src="/images/static/star.png" alt="star">
-                        }
-                        (by @Model?.MissionRatingVM?.Count() volunteers)
-                    </div>
+                <div id="MissionRatingContainer">
+                    <partial name="_MissionRating"></partial>
                 </div>
             </div>
+                <input hidden value="@Model?.MissionApplicationVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED).Count()" id="totalVolunteers"/>
+                    @if(Model?.MissionApplicationVM?.LongCount() > 0){
             <div class="border mt-4 p-3">
                 <div class="border-bottom mb-3">
                     <h5 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Recent Volunteers</h5>
                 </div>
                 <div class="d-grid grid-cols-3 text-13 fw-light text-center row-gap-1">
-                    <div>
-                        <img src="/images/static/volunteer1.png" alt="volunteer" class="rounded-circle mx-auto"
+                    @{int i = 0;}
+                    @foreach(var ma in Model.MissionApplicationVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED)){
+                    <div data-recent="i">
+                        i++;
+                        <img src="@ma.Avatar" alt="volunteer" class="rounded-circle mx-auto"
                              width="70px" height="70px">
-                        <span>Andrew Johonson</span>
+                        <span>@ma.UserName</span>
                     </div>
-                    <div>
-                        <img src="/images/static/volunteer2.png" alt="volunteer" class="rounded-circle mx-auto"
-                             width="70px" height="70px">
-                        <span>Andrew Johonson</span>
-                    </div>
-                    <div>
-                        <img src="/images/static/volunteer3.png" alt="volunteer" class="rounded-circle mx-auto"
-                             width="70px" height="70px">
-                        <span>Andrew Johonson</span>
-                    </div>
-                    <div>
-                        <img src="/images/static/volunteer4.png" alt="volunteer" class="rounded-circle mx-auto"
-                             width="70px" height="70px">
-                        <span>Andrew Johonson</span>
-                    </div>
-                    <div>
-                        <img src="/images/static/volunteer5.png" alt="volunteer" class="rounded-circle mx-auto"
-                             width="70px" height="70px">
-                        <span>Andrew Johonson</span>
-                    </div>
-                    <div>
-                        <img src="/images/static/volunteer6.png" alt="volunteer" class="rounded-circle mx-auto"
-                             width="70px" height="70px">
-                        <span>Andrew Johonson</span>
-                    </div>
-                    <div>
-                        <img src="/images/static/volunteer7.png" alt="volunteer" class="rounded-circle mx-auto"
-                             width="70px" height="70px">
-                        <span>Andrew Johonson</span>
-                    </div>
-                    <div>
-                        <img src="/images/static/volunteer8.png" alt="volunteer" class="rounded-circle mx-auto"
-                             width="70px" height="70px">
-                        <span>Andrew Johonson</span>
-                    </div>
-                    <div>
-                        <img src="/images/static/volunteer9.png" alt="volunteer" class="rounded-circle mx-auto"
-                             width="70px" height="70px">
-                        <span>Andrew Johonson</span>
-                    </div>
+                    }
                 </div>
             </div>
             <div class="d-flex border">
-                <button class="btn rounded border border-2 p-3"><img src="/images/static/left.png" alt="left"></button>
-                <div class="text-center fw-light text-15 flex-grow-1 my-auto">1 - 9 of recent volunteers</div>
-                <button class="btn rounded border border-2 p-3">
+                <button class="btn rounded border border-2 p-3" id="leftPage">
+                    <img src="/images/static/left.png" alt="left">
+                </button>
+                <div class="text-center fw-light text-15 flex-grow-1 my-auto" id="pageRange"></div>
+                <button class="btn rounded border border-2 p-3" id="rightPage">
                     <img src="/images/static/right-arrow1.png"
                          alt="right">
                 </button>
             </div>
+                    }
         </div>
     </section>
 </div>
 <hr class="my-5">
 <section class="container pb-4">
     <h3 class="text-center fw-light mb-4">Related Missions</h3>
-    <section class="index-grid-view row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-        <div class="col">
-            <div class="card shadow-sm h-100">
-                <div class="position-relative card-top">
-                    <img src="/images/static/Grow-Trees-On-the-path-to-environment-sustainability-3.png"
-                         class="card-img-top h-100" alt="mission image">
-                    <div href="#"
-                         class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                        <img src="/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
-                    </div>
-                    <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                        <img src="/images/static/heart.png" alt="heart">
-                    </a>
-                    <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                        <img src="/images/static/user.png" alt="user">
-                    </a>
-                    <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                        Environment
-                    </div>
-                </div>
-                <div class="card-body color-darkgray">
-                    <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                    <p class="card-text fw-light index-mission-desc-ellipsis-2 text-black-50 text-15">
-                        Some quick
-                        example text to
-                        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                        sit
-                        amet
-                        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                        dolore.
-                        Deserunt, veritatis tempora.
-                    </p>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-light">Tree Canada</span>
-                        <div class="d-flex align-items-center">
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                            <img src="/images/static/star.png" alt="star">
-                            <img src="/images/static/star.png" alt="star">
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                        From 10/01/2019 untill 25/01/2019
-                    </div>
-                    <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4">
-                        <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                            <img src="/images/static/Seats-left.png" alt="Seats-left">
-                            <div>
-                                <div>10</div>
-                                <div class="fw-light text-14">Seats left</div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                            <img src="/images/static/deadline.png" alt="deadline">
-                            <div>
-                                <div>09/01/2019</div>
-                                <div class="fw-light text-14">Deadline</div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-2 flex-grow-1 d-none">
-                            <img src="/images/static/achieved.png" alt="achieved">
-                            <div class="w-100">
-                                <div class="progress" role="progressbar" aria-label="Basic example"
-                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                     style="height:0.5rem; width: 100%;">
-                                    <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                                </div>
-                                <div class="fw-light text-14">8000 Achieved</div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="m-0 bg-secondary">
-                    <a href="#" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                        Apply
-                        <img src="/images/static/right-arrow.png" alt="rigth arrow">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card shadow-sm h-100">
-                <div class="card-top position-relative">
-                    <img src="/images/static/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png"
-                         class="card-img-top h-100" alt="mission image">
-                    <div href="#"
-                         class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                        <img src="/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
-                    </div>
-                    <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                        <img src="/images/static/heart.png" alt="heart">
-                    </a>
-                    <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                        <img src="/images/static/user.png" alt="user">
-                    </a>
-                    <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
-                        APPLIED
-                    </span>
-                    <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                        Environment
-                    </div>
-                </div>
-                <div class="card-body color-darkgray">
-                    <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                    <p class="card-text fw-light index-mission-desc-ellipsis-2 text-black-50 text-15">
-                        Some quick
-                        example text to
-                        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                        sit
-                        amet
-                        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                        dolore.
-                        Deserunt, veritatis tempora.
-                    </p>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-light">Tree Canada</span>
-                        <div class="d-flex align-items-center">
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                            <img src="/images/static/star.png" alt="star">
-                            <img src="/images/static/star.png" alt="star">
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                        From 10/01/2019 untill 25/01/2019
-                    </div>
-                    <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 gap-3">
-                        <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                            <img src="/images/static/Seats-left.png" alt="Seats-left">
-                            <div>
-                                <div>10</div>
-                                <div class="fw-light text-14">Seats left</div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
-                            <img src="/images/static/deadline.png" alt="deadline">
-                            <div>
-                                <div>09/01/2019</div>
-                                <div class="fw-light text-14">Deadline</div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-2 flex-grow-1">
-                            <img src="/images/static/achieved.png" alt="achieved">
-                            <div class="w-100">
-                                <div class="progress" role="progressbar" aria-label="Basic example"
-                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                     style="height:0.5rem; width: 100%;">
-                                    <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                                </div>
-                                <div class="fw-light text-14">8000 Achieved</div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="m-0 bg-secondary">
-                    <a href="#" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                        View details
-                        <img src="/images/static/right-arrow.png" alt="rigth arrow">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card shadow-sm h-100">
-                <div class="card-top position-relative">
-                    <img src="/images/static/Plantation-and-Afforestation-programme-1.png" class="card-img-top h-100"
-                         alt="mission image">
-                    <div href="#"
-                         class="position-absolute p-2 rounded-pill index-city d-flex gap-1 align-items-center">
-                        <img src="/images/static/pin.png" alt="pin"><span class="text-light fw-light text-14">Toronto</span>
-                    </div>
-                    <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
-                        <img src="/images/static/heart.png" alt="heart">
-                    </a>
-                    <a href="#" class="position-absolute p-2 rounded-circle index-invite">
-                        <img src="/images/static/user.png" alt="user">
-                    </a>
-                    <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
-                        APPLIED
-                    </span>
-                    <div class="bg-white rounded-pill mx-auto translate-middle-y px-2 py-1 width-max-conatent fw-light mb-n2">
-                        Environment
-                    </div>
-                </div>
-                <div class="card-body color-darkgray">
-                    <h4 class="card-title">Grow Trees On the path to environment sustainability</h4>
-                    <p class="card-text fw-light index-mission-desc-ellipsis-2 text-black-50 text-15">
-                        Some quick
-                        example text to
-                        build on the card title and make up the bulk of the card's content. Lorem ipsum dolor
-                        sit
-                        amet
-                        consectetur adipisicing elit. Cum id consequuntur tempora vel, unde consectetur adipisci
-                        dolore.
-                        Deserunt, veritatis tempora.
-                    </p>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="fw-light">Tree Canada</span>
-                        <div class="d-flex align-items-center">
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                            <img src="/images/static/selected-star.png" alt="selected-star">
-                            <img src="/images/static/star.png" alt="star">
-                            <img src="/images/static/star.png" alt="star">
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-pill px-2 mx-auto py-1 width-max-conatent -translate-middle-y border fw-light">
-                        From 10/01/2019 untill 25/01/2019
-                    </div>
-                    <div class="d-flex justify-content-around color-darkgray border-top py-2 pt-4 gap-3">
-                        <div class="d-flex align-items-center gap-3 flex-shrink-0">
-                            <img src="/images/static/Seats-left.png" alt="Seats-left">
-                            <div>
-                                <div>10</div>
-                                <div class="fw-light text-14">Seats left</div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-2 flex-shrink-0 d-none">
-                            <img src="/images/static/deadline.png" alt="deadline">
-                            <div>
-                                <div>09/01/2019</div>
-                                <div class="fw-light text-14">Deadline</div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-2 flex-grow-1">
-                            <img src="/images/static/achieved.png" alt="achieved">
-                            <div class="w-100">
-                                <div class="progress" role="progressbar" aria-label="Basic example"
-                                     aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                                     style="height:0.5rem; width: 100%;">
-                                    <div class="progress-bar bg-light-orange" style="width: 70%"></div>
-                                </div>
-                                <div class="fw-light text-14">8000 Achieved</div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="m-0 bg-secondary">
-                    <a href="#" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                        View details
-                        <img src="/images/static/right-arrow.png" alt="rigth arrow">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div id="partialViewContainer"></div>
+    <div id="noRelatedMission" class="text-center d-none">No related missions found!</div>
 </section>
 <partial name="_Footer"></partial>
 

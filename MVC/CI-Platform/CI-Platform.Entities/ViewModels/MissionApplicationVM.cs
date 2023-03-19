@@ -13,4 +13,8 @@ public class MissionApplicationVM
     public DateTime AppliedAt { get; set; }
 
     public ApprovalStatus ApprovalStatus { get; set; }
+
+    public string? UserName { get; set; }
+
+    public string? Avatar { get; set; }
 }

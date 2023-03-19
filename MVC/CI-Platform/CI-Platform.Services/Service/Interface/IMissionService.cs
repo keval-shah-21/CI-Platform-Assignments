@@ -10,7 +10,9 @@ public interface IMissionService
 
     List<CityVM> GetCitiesByMissions(List<MissionVM> missionVM);
 
-    List<MissionVM> FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId);
+    List<MissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId);
 
     MissionVM GetMissionById(long? id);
+
+    MissionVM UpdateMissionRating(long id);
 }

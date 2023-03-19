@@ -6,7 +6,7 @@ namespace CI_Platform.Services.Service
 {
     public class MissionFilterService : IMissionFilterService
     {
-        public List<MissionVM> FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId, IUnitOfWork _unitOfWork)
+        public static List<MissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId, IUnitOfWork _unitOfWork)
         {
             List<MissionVM> missionVM = new MissionService(_unitOfWork).GetAllMissions();
             List<CityVM> cityVM = new CityService(_unitOfWork).GetAll();

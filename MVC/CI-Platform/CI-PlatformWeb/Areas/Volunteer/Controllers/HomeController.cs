@@ -37,7 +37,7 @@ public class HomeController : Controller
         if(HttpContext.Session.GetString("UserId") != null){
             userId = long.Parse(HttpContext.Session.GetString("UserId"));
         }
-        List<MissionVM> missionVMs = _unitOfService.Mission.FilterData(country, city, theme, skill, search, sort, userId);
+        List<MissionVM> missionVMs = _unitOfService.Mission.FilterMissions(country, city, theme, skill, search, sort, userId);
         ViewBag.TotalMissions = missionVMs.LongCount();
         missionVMs = missionVMs.Skip((page - 1) * 9).Take(9).ToList();
         return PartialView("_IndexMissions", missionVMs);

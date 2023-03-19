@@ -30,8 +30,18 @@ namespace CI_Platform.Services.Service
                 UserId = c.UserId,
                 UserName = c.User.FirstName + " " + c.User.LastName,
                 Avatar = c.User.Avatar,
-                Text = c.Text
+                Text = c.Text,
+                CreatedAt = c.CreatedAt
             };
+        }
+
+        public void PostComment(long missionId, long userId, string comment){
+            _unitOfWork.Comment.Add(new Comment(){
+                missionId = missionId,
+                userId = userId,
+                Text = comment,
+                CreatedAt = DateTimeOffset.Now
+            });
         }
     }
 }
