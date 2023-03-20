@@ -31,8 +31,8 @@ public class MissionApplicationService: IMissionApplicationService
             UserId = ma.UserId,
             AppliedAt = ma.AppliedAt,
             ApprovalStatus = ma.ApprovalStatus == 0 ? ApprovalStatus.PENDING : ma.ApprovalStatus == 1 ? ApprovalStatus.APPROVED : ApprovalStatus.DECLINED,
-            UserName = c.User.FirstName + " " + c.User.LastName,
-            Avatar = c.User.Avatar,
+            UserName = ma.User.FirstName + " " + ma.User.LastName,
+            Avatar = ma.User.Avatar,
         };
     }
 }

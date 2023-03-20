@@ -6,6 +6,6 @@ namespace CI_Platform.Services.Service.Interface
     {
         List<CommentVM> GetAll();
 
-        public void Add(CommentVM commentVM);
+        void PostComment(long missionId, long userId, string comment);
     }
 }

@@ -154,6 +154,7 @@ public class UserController: Controller
         {
             _unitOfService.FavouriteMission.AddToFavourite(missionId, userId);
         }
-        return Ok();
+        _unitOfService.Save();
+        return NoContent();
     }
 }

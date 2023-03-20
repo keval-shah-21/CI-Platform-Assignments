@@ -44,19 +44,21 @@ Tab1.addEventListener('click', () => {
 const addFavouriteBtn = document.querySelector("#addFavourite");
 const removeFavouriteBtn = document.querySelector("#removeFavourite");
 const missionId = document.querySelector("#missionId").value;
-const isFavourite = document.querySelector("#isFavourite").value;
+let isFavourite = document.querySelector("#isFavourite").value;
+const userId = document.querySelector("#userId").value;
+const hasApplied = document.querySelector("#hasApplied").value;
 
 $(document).ready(() => {
-    const isFavourite = $("#isFavourite").val();
     toggleFavouriteButton(isFavourite)
 
     $.ajax({
-        url: "/volunteer/mission/RelatedMissions",
+        url: "/Volunteer/Mission/RelatedMissions",
         method: "GET",
-        data: {missionId : missionId},
-        result: (result) => {
+        data: { id: missionId },
+        success: (result) => {
             $('#partialViewContainer').html(result);
-            if($('#totalMissions').val() == 0){
+            $('.index-list-view').addClass("d-none");
+            if ($('#totalMissions').val() == 0) {
                 $('#noRelatedMission').removeClass("d-none");
             }
         },
@@ -64,19 +66,45 @@ $(document).ready(() => {
             console.log(error);
         }
     });
+    const stars = Array.from(document.querySelectorAll("[data-star]"));
+    stars.forEach((star, index) => {
+        $(star).click(() => {
+            if (userId == null || userId == "" || hasApplied == 'false' ) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'You need to register in this mission to give rating!',
+                })
+                return;
+            }
+            stars.forEach((star, i) => {
+                if (i <= index)
+                    star.src = "/images/static/selected-star.png";
+                else
+                    star.src = "/images/static/star.png";
+            })
+            $.ajax({
+                url: "/Volunteer/Mission/RateMission",
+                method: "POST",
+                data: { missionId: missionId, userId: userId, rate: index + 1 },
+                success: (result) => {
+                    $("#MissionRatingContainer").html(result);
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Successfully rated the mission!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        })
+    })
 });
-function toggleFavouriteButton(isFavourite) {
-    if (isFavourite == "true"){
-        $(removeFavouriteBtn).removeClass("d-none");
-        $(addFavouriteBtn).addClass("d-none");
-    }
-    else {
-        $(removeFavouriteBtn).addClass("d-none");
-        $(addFavouriteBtn).removeClass("d-none");
-    }
-}
-$(addFavouriteBtn, removeFavouriteBtn).click(() => {
-    const userId = document.querySelector("#userId").value;
+$(".fav-btn").click(() => {
     if (userId == null || userId == "") {
         Swal.fire({
             icon: 'error',
@@ -88,27 +116,25 @@ $(addFavouriteBtn, removeFavouriteBtn).click(() => {
     }
     $.ajax({
         url: "/volunteer/user/toggle-favourite-mission",
-        method: "GET",
-        data: { missionId: missionId, userId : userId, isFavourite: isFavourite === "true" },
-        result: () => {
-            if(isFavourite === "true"){
-                isFavourite = "false";
+        method: "POST",
+        data: { missionId: missionId, userId: userId, isFavourite: isFavourite === "true" },
+        success: (_) => {
+            if (isFavourite === "true") {         
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
                     title: 'Succesfully removed from Favourite missions!',
                     showConfirmButton: false,
                     timer: 1500
-                  })
-            }else{
-                isFavourite = "true";
+                })
+            } else {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
                     title: 'Succesfully added to Favourite missions!',
                     showConfirmButton: false,
                     timer: 1500
-                  })
+                })
             }
             isFavourite = isFavourite === "true" ? "false" : "true";
             toggleFavouriteButton(isFavourite);
@@ -118,70 +144,87 @@ $(addFavouriteBtn, removeFavouriteBtn).click(() => {
         }
     });
 });
+function toggleFavouriteButton(isFavourite) {
+    if (isFavourite == "true") {
+        $(removeFavouriteBtn).removeClass("d-none");
+        $(addFavouriteBtn).addClass("d-none");
+    }
+    else {
+        $(removeFavouriteBtn).addClass("d-none");
+        $(addFavouriteBtn).removeClass("d-none");
+    }
+}
 
 let currentPage = 1;
-const totalVolunteers = document.querySelector("#totalVolunteers");
-if(totalVolunteers > 0){
+const totalVolunteers = document.querySelector("#totalVolunteers").value;
+if (totalVolunteers > 0) {
     const totalPages = Math.ceil(totalVolunteers / 9);
     const recentVolunteers = document.querySelectorAll("[data-recent]");
     const rightPage = document.querySelector("#rightPage");
     const leftPage = document.querySelector("#leftPage");
     setPage(recentVolunteers);
-    $(rightPage).click(()=>{
-        if(currentPage == totalPages) return;
+    $(rightPage).click(() => {
+        if (currentPage == totalPages) return;
         currentPage++;
         setPage(recentVolunteers);
     })
-    $(leftPage).click(()=>{
-        if(currentPage == 1) return;
+    $(leftPage).click(() => {
+        if (currentPage == 1) return;
         currentPage--;
         setPage(recentVolunteers)
     })
 }
-function setPage(recentVolunteers){
+function setPage(recentVolunteers) {
     let count = 0;
-    $(recentVolunteers).foreach((vol) => {
+    Array.from($(recentVolunteers)).forEach((vol) => {
         const i = $(vol).data('recent');
-        if(i >= (currentPage-1)*9 && i < currentPage*9 ){
+        if (i >= (currentPage - 1) * 9 && i < currentPage * 9) {
             $(vol).removeClass("d-none");
-        }else{
             count++;
+        } else {
             $(vol).addClass("d-none");
         }
     })
     const pageRange = document.querySelector("#pageRange");
-    const start = (currentPage-1)*9 + 1;
-    pageRange.textContent = `${start} - ${start+count-1} recent volunteers`
+    const start = (currentPage - 1) * 9 + 1;
+    pageRange.textContent = `${start} - ${start + count - 1} of ${totalVolunteers} recent volunteers`
 }
 
-const hasApplied = document.querySelector("#hasApplied");
-if(hasApplied == 'true'){
-    const postComment = document.querySelector("#postComment");
-    const comment = document.querySelector("#comment");
-    $(postComment).click(() => {
-        if(comment.value == null || comment.value == ""){
-            $('.commentError').text("This field is required.");
-            return;
-        }else{
-            $('.commentError').text("");
+const postComment = document.querySelector("#postComment");
+const comment = document.querySelector("#comment");
+$(postComment).click(() => {
+    if (userId == null || userId == "" || hasApplied == 'false') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You need to register in this mission to post comment!',
+        })
+        return;
+    }
+    if (comment.value == null || comment.value == "") {
+        $('.commentError').text("This field is required.");
+        return;
+    } else {
+        $('.commentError').text("");
+    }
+    $.ajax({
+        url: "/Volunteer/Mission/PostComment",
+        method: "POST",
+        data: { missionId: missionId, userId: userId, comment: comment.value },
+        success: (result) => {
+            comment.value = "";
+            $("#partialCommentsContainer").html(result);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Successfully posted a comment!',
+                text: 'Admin may remove it if necessary.',
+                showConfirmButton: false,
+                timer: 2500
+            })
+        },
+        error: (error) => {
+            console.log(error);
         }
-        $.ajax({
-            url: "/Volunteer/Mission/PostComment",
-            method: "GET",
-            data: {missionId: missionId, userId: userId, comment: comment.value},
-            result: (_)=>{
-                comment.value = "";
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Successfully posted a comment!',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-            },
-            error: (error) => {
-                console.log(error);
-            }
-        });
     });
-}
+});

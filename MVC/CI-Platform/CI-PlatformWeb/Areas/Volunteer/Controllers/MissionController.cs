@@ -1,6 +1,5 @@
 ﻿using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
-using CI_PlatformWeb.Areas.Volunteer.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
@@ -24,18 +23,25 @@ public class MissionController : Controller
     }
 
     public IActionResult RelatedMissions(long id){
-        MissionVM missionVM = _unitOfService.Mission.GetRelatedMissions(id);
-        missionVM = missionVM.Take(3);
-        return PartialView("_IndexMissions", missionVM);
+        List<MissionVM> missionVM = _unitOfService.Mission.GetRelatedMissions(id);
+        missionVM = missionVM.Take(3).ToList();
+        ViewBag.TotalMissions = missionVM.Count();
+        return PartialView("../Home/_IndexMissions", missionVM);
     }
 
-    public void PostComment(long missionId, long userId, string comment){
+    [HttpPost]
+    public IActionResult PostComment(long missionId, long userId, string comment){
         _unitOfService.Comment.PostComment(missionId, userId, comment);
+        _unitOfService.Save();
+        MissionVM mission = _unitOfService.Mission.GetMissionById(missionId);
+        return PartialView("_MissionComments", mission);
     }
 
+    [HttpPost]
     public IActionResult RateMission(long missionId, long userId, byte rate){ 
-        _unitOfService._MissionRating.RateMission(missionId, userId, rate);
+        _unitOfService.MissionRating.RateMission(missionId, userId, rate);
          MissionVM missionVM = _unitOfService.Mission.UpdateMissionRating(missionId);
+        _unitOfService.Save();
         return PartialView("_MissionRating", missionVM);
     }
 }

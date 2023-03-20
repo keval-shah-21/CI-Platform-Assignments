@@ -1,4 +1,6 @@
-﻿namespace CI_Platform.Entities.ViewModels
+﻿using CI_Platform.Entities.Constants;
+
+namespace CI_Platform.Entities.ViewModels
 {
     public class CommentVM
     {
@@ -8,7 +10,7 @@
 
         public long UserId { get; set; }
 
-        public byte ApprovalStatus { get; set; }
+        public ApprovalStatus ApprovalStatus { get; set; }
 
         public string? UserName { get; set; }
 

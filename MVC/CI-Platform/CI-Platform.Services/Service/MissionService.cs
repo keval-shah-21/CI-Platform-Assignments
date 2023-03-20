@@ -65,6 +65,7 @@ public class MissionService : IMissionService
     public MissionVM GetMissionById(long? id)
     {
         Mission mission = _unitOfWork.Mission.GetFirstOrDefault(mission => mission.MissionId == id);
+        if (mission == null) return null!;
         return ConvertMissionToVM(mission);
     }
 
@@ -73,14 +74,16 @@ public class MissionService : IMissionService
     }
 
     public List<MissionVM> GetRelatedMissions(long id){
-        missionVM missionVM = GetMissionById(id);
+        MissionVM missionVM = GetMissionById(id);
         return GetAllMissions()
-        .Where(mission => mission.MissionTheme.MissionThemeName == missionVM.MissionTheme.MissionThemeName);
+        .Where(mission => 
+        mission.MissionThemeVM.MissionThemeName == missionVM.MissionThemeVM.MissionThemeName
+        && mission.MissionId != missionVM.MissionId).ToList();
     }
 
     public MissionVM UpdateMissionRating(long id){
         Mission mission = _unitOfWork.Mission.GetFirstOrDefault(mission => mission.MissionId == id);
-        byte average = (byte)Math.Ceiling(mission.MissionRatingVM.Average(mr => mr.Rating));
+        byte average = (byte)Math.Ceiling(mission.MissionRatings.Average(mr => mr.Rating));
         mission.MissionRating = average;
         _unitOfWork.Mission.Update(mission);
         return ConvertMissionToVM(mission);
@@ -110,14 +113,15 @@ public class MissionService : IMissionService
 
     internal List<MissionRatingVM> GetMissionRatingsByMission(Mission mission)
     {
-        return mission.MissionRatings.Select(r =>
+        return mission.MissionRatings.LongCount() > 0 ? mission.MissionRatings.Select(r =>
             MissionRatingService.ConvertMissionRatingToVM(r)
-        ).ToList();
+        ).ToList() : null!;
     }
     internal List<CommentVM> GetCommentsByMission(Mission mission)
     {
-        return mission.Comments.Where(c => c.ApprovalStatus == ApprovalStatus.APPROVED).Select(c => 
-        CommentService.ConvertCommentToVM(c)).OrderBy(c => c.CreatedAt).ToList();
+        return mission.Comments.Select(c => CommentService.ConvertCommentToVM(c))
+            .Where(c => c.ApprovalStatus == ApprovalStatus.APPROVED || c.ApprovalStatus == ApprovalStatus.PENDING)
+            .OrderBy(c => c.CreatedAt).ToList();
     }
     internal string GetMissionThumbnail(Mission mission)
     {

@@ -15,4 +15,6 @@ public interface IMissionService
     MissionVM GetMissionById(long? id);
 
     MissionVM UpdateMissionRating(long id);
+
+    List<MissionVM> GetRelatedMissions(long id);
 }

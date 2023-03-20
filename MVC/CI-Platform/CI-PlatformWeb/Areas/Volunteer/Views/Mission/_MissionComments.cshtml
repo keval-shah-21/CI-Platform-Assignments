@@ -1,0 +1,17 @@
+﻿@model MissionVM
+<div class="mp-comments-section bg-light p-3 rounded mt-3 overflow-auto d-grid row-gap-1">
+    @foreach (CommentVM c in Model.CommentVM)
+    {
+        <div class="d-flex gap-2 bg-white p-2 rounded">
+            <img src="@c.Avatar" alt="user" class="rounded-circle object-fit-cover" height="60px"
+             width="60px">
+            <div class="color-darkgray">
+                <div>@c.UserName</div>
+                <div class="fw-light text-13 text-secondary">@c.CreatedAt.ToString("dddd, MMMM dd, yyyy, H:mm tt")</div>
+                <div class="text-14 ellipsis-2 fw-light mt-2">
+                    @c.Text
+                </div>
+            </div>
+        </div>
+    }
+</div>

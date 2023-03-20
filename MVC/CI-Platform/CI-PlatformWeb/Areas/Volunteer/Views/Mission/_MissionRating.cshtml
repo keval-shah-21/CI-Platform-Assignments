@@ -10,5 +10,10 @@
         {
             <img src="/images/static/star.png" alt="star">
         }
-        (by @Model?.MissionRatingVM?.Count() volunteers)
-</div>
+        @if (Model?.MissionRatingVM?.Count() > 0)
+        {
+            <span>
+                (by @Model.MissionRatingVM.Count() volunteers)
+            </span>
+        }
+    </div>

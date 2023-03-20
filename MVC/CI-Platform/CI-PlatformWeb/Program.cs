@@ -13,8 +13,8 @@ builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped<IUnitOfService, UnitOfService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<IEmailService, EmailService>();
-
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddSession();
 
 var app = builder.Build();

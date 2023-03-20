@@ -19,7 +19,9 @@ img {
   display: block;
   max-width: 100%;
 }
-
+.w-80{
+    width: 80%;
+}
 a {
   text-decoration: none;
 }

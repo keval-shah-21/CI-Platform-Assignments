@@ -38,18 +38,20 @@ public class MissionRatingService: IMissionRatingService
         if(mr == null)
             AddMissionRating(missionId, userId, rate);
         else
-            UpdateMissionRating(mr);
+            UpdateMissionRating(mr, rate);
     }
 
     public void AddMissionRating(long missionId, long userId, byte rate){
         _unitOfWork.MissionRating.Add(new MissionRating(){
             MissionId = missionId,
             Rating = rate,
-            UserId = userId
+            UserId = userId,
+            CreatedAt= DateTimeOffset.Now
         });
     }
     public void UpdateMissionRating(MissionRating mr, byte rate){
         mr.Rating = rate;
+        mr.UpdatedAt = DateTimeOffset.Now;
         _unitOfWork.MissionRating.Update(mr);
     }
 }

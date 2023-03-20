@@ -4,23 +4,32 @@
     ViewData["Title"] = "Mission Details";
     var userId = Context.Session.GetString("UserId");
     var isFavourite = "false";
-    @if (userId != null && Model?.FavouriteMissionVM?.LongCount() > 0
-     && Model.FavouriteMissionVM.Any(fm => fm.UserId == long.Parse(userId)) )
+    @if (!string.IsNullOrEmpty(userId) && Model?.FavouriteMissionVM?.LongCount() > 0
+    && Model.FavouriteMissionVM.Any(fm => fm.UserId == long.Parse(userId)))
     {
         isFavourite = "true";
     }
+
+    byte? userRate = 0;
+    if (!string.IsNullOrEmpty(userId))
+    {
+        userRate = Model?.MissionRatingVM?.FirstOrDefault(mr => mr.UserId == long.Parse(userId))?.Rating;
+        if (userRate == null) userRate = 0;
+    }
     var hasApplied = userId != null && Model?.MissionApplicationVM != null && Model.MissionApplicationVM.
-                Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED);
+                        Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED);
 }
-<input hidden value="@hasApplied ? 'true' : 'false'" id="hasApplied">
-<input hidden value="@userId" id='userId'/>
+<input hidden value="@(hasApplied ? "true" : "false")" id="hasApplied">
+<input hidden value="@userId" id='userId' />
 <input hidden value="@Model.MissionId" id='missionId' />
+<input hidden value="@Model?.MissionApplicationVM?.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED).Count()" id="totalVolunteers" />
+<input hidden value="@Model?.MissionMediaVM?.Count()" id="missionMedia" />
+<input hidden value="@isFavourite" id="isFavourite">
 
 <partial name="_Navbar"></partial>
 <section class="container mp-top d-flex flex-column flex-lg-row py-4 gap-4 align-items-center">
     <div class="position-relative">
         <img src="@Model.MissionThumbnail" alt="mission image" class="h-100 w-100">
-        <input hidden value="@Model?.MissionMediaVM?.Count()" id="missionMedia"/>
         @if (@Model?.MissionMediaVM?.Count() > 0)
         {
             <div class="position-relative">
@@ -38,18 +47,18 @@
                 </div>
             </div>
         }
-        @if (mission.Status == MissionStatus.FINISHED)
-                    {
-                        <span class="bg-warning px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
-                            CLOSED
-                        </span>
-                    }
-                    else if (hasApplied)
-                    {
-                        <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
-                            APPLIED
-                        </span>
-                    }
+        @if (@Model.Status == MissionStatus.FINISHED)
+        {
+            <span class="bg-warning px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+                CLOSED
+            </span>
+        }
+        else if (hasApplied)
+        {
+            <span class="bg-success px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
+                APPLIED
+            </span>
+        }
     </div>
     <div class="color-darkgray">
         <h4 class="fw-light">@Model.Title</h4>
@@ -86,7 +95,7 @@
                             }
                             else
                             {
-                                <div>@Model.MissionApplicationVM.LongCount()</div>
+                                <div>@Model.MissionApplicationVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED)?.LongCount()</div>
                             }
                             <div class="fw-light text-14">Already volunteered</div>
                         </div>
@@ -113,7 +122,7 @@
                             }
                             else
                             {
-                                <div>@Model.MissionApplicationVM.LongCount()</div>
+                                <div>@Model.MissionApplicationVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED)?.LongCount()</div>
                             }
                             <div class="fw-light text-14">Already volunteered</div>
                         </div>
@@ -136,7 +145,7 @@
                     var percentage = achieved * 100 / value;
                     <div class="d-flex align-items-center gap-2 flex-grow-1">
                         <img src="/images/static/achieved.png" alt="achieved">
-                        <div>
+                        <div class="w-80">
                             <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="50"
                          aria-valuemin="0" aria-valuemax="100" style="height:0.5rem; width: 100%;">
                                 <div class="progress-bar bg-light-orange" style="width: @percentage%"></div>
@@ -148,38 +157,34 @@
             </div>
             <hr class="m-0 bg-secondary">
             <div class="my-3 d-flex flex-column gap-2 flex-md-row">
-                <input hidden value="@isFavourite" id="isFavourite">
-                <button
-                id="addFavourite"
-               class="btn rounded-pill d-flex align-items-center gap-2 border border-dark w-100 justify-content-center fw-light text-15 color-darkgray">
+                <button id="addFavourite"
+                    class="btn fav-btn rounded-pill d-flex align-items-center gap-2 border border-dark w-100 justify-content-center fw-light text-15 color-darkgray">
                     <img src="/images/static/heart1.png" alt="heart">
                     Add to Favourite
                 </button>
-                <button
-                id="removeFavourite"
-               class="btn rounded-pill d-flex align-items-center gap-2 border border-danger border w-100 justify-content-center fw-light text-15 color-darkgray">
-                    <img src="/images/static/heart1.png" alt="heart">
+                <button id="removeFavourite"
+                    class="btn fav-btn rounded-pill d-flex align-items-center gap-2 border border-danger border w-100 justify-content-center fw-light text-15 text-danger">
+                    <img src="/images/static/heart-fill.svg" alt="heart">
                     Remove from Favourite
                 </button>
-                <button
-               class="btn rounded-pill d-flex align-items-center gap-2 border border-dark w-100 justify-content-center fw-light text-15 color-darkgray">
+                <button class="btn rounded-pill d-flex align-items-center gap-2 border border-dark w-100 justify-content-center fw-light text-15 color-darkgray">
                     <img src="/images/static/add1.png" alt="user">
                     Recommand to Co-Worker
                 </button>
             </div>
         }
         <hr class="m-0 bg-secondary mt-4">
-        @*@if(hasApplied)
-            {*@
 
-        <div class="d-flex align-items-center translate-middle-y bg-white width-max-conatent mx-auto">
-            <img src="/images/static/star-empty.png" alt="star empty">
-            <img src="/images/static/star-empty.png" alt="star empty">
-            <img src="/images/static/star-empty.png" alt="star empty">
-            <img src="/images/static/star-empty.png" alt="star empty">
-            <img src="/images/static/star-empty.png" alt="star empty">
+        <div class="d-flex align-items-center translate-middle-y bg-white width-max-conatent mx-auto gap-1">
+            @for (byte i = 0; i < @userRate; i++)
+            {
+                <img src="/images/static/selected-star.png" data-star="i" alt="selected-star" height="30px" width="32px">
+            }
+            @for (byte i = 0; i < 5 - @userRate; i++)
+            {
+                <img src="/images/static/star.png" alt="star" data-star="i" height="30px" width="32px">
+            }
         </div>
-        @*}*@
         <div class="row g-3 row-cols-2 row-cols-md-4">
             <div class="col">
                 <div class="border rounded p-2 h-100 d-flex justify-content-between flex-column align-items-start gap-2">
@@ -236,9 +241,9 @@
         </div>
         @if ((!string.IsNullOrEmpty(userId) && @Model?.MissionApplicationVM?.LongCount() > 0 &&
         @Model.MissionApplicationVM.All(ma => ma.UserId != long.Parse(userId)))
-        || @Model.Status == MissionStatus.ONGOING
-        || @Model?.SeatsLeft > 0
-        || @Model?.RegistrationDeadline >= DateTime.Now)
+        || (@Model.Status == MissionStatus.ONGOING
+        && @Model?.TotalSeats == null ? true : Model.SeatsLeft > 0
+        && @Model?.RegistrationDeadline == null ? true : Model.RegistrationDeadline >= DateTime.Now))
         {
             <a href="#" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
                 <span>Apply</span>
@@ -299,38 +304,22 @@
                 </p>
             </div>
             <div class="mp-comments d-none">
-                @if (hasApplied)
-                {
-                    <textarea id="comment" class="form-control" placeholder="Enter your comments..."></textarea>
-                    <span class="commentError bg-danger text-14"></span>
-                    <button class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-content" id="postComment">
-                        Post comment
-                    </button>
-                }
-                    @if (Model?.CommentVM?.LongCount() == 0)
-                    {
-                        <span class="mx-auto">No comments so far.</span>
-                    }
-                    else
-                    {
-                <div class="mp-comments-section bg-light p-3 rounded mt-3 overflow-auto d-grid row-gap-1">
-                        <div class="d-flex gap-2 bg-white p-2 rounded">
-                            @foreach (CommentVM c in Model.CommentVM)
-                            {
-                                <img src="@c.Avatar" alt="user" class="rounded-circle" height="60px"
-                             width="60px">
-                                <div class="color-darkgray">
-                                    <div>@c.UserName</div>
-                                    <div class="fw-light text-13 text-secondary">@c.CreatedAt?.ToString("dddd, MMMM dd, yyyy, H:mm tt")</div>
-                                    <div class="text-14 ellipsis-2 fw-light mt-2">
-                                        @c.Text
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                </div>
-                    }
+                <textarea id="comment" class="form-control" placeholder="Enter your comments..."></textarea>
+                <span class="commentError text-danger text-14"></span>
+                <button class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-content" id="postComment">
+                    Post comment
+                </button>
 
+                @if (Model?.CommentVM?.LongCount() == 0)
+                {
+                    <span class="mx-auto">No comments so far.</span>
+                }
+                else
+                {
+                    <div id="partialCommentsContainer">
+                        <partial name="_MissionComments"></partial>
+                    </div>
+                }
             </div>
         </div>
         <div class="col-12 col-lg-5">
@@ -341,10 +330,7 @@
                 <div class="d-flex gap-4 text-15 fw-light text-secondary border-bottom pb-3">
                     <span>Skills</span>
                     <div>
-                        @foreach (string skill in @Model.SkillList)
-                        {
-                            <span>@skill</span>
-                        }
+                        <span>@string.Join(", ", Model!.SkillList)</span>
                     </div>
                 </div>
                 <div class="d-flex gap-4 text-15 fw-light text-secondary border-bottom py-3">
@@ -370,43 +356,52 @@
                     <partial name="_MissionRating"></partial>
                 </div>
             </div>
-                <input hidden value="@Model?.MissionApplicationVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED).Count()" id="totalVolunteers"/>
-                    @if(Model?.MissionApplicationVM?.LongCount() > 0){
-            <div class="border mt-4 p-3">
-                <div class="border-bottom mb-3">
-                    <h5 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Recent Volunteers</h5>
-                </div>
-                <div class="d-grid grid-cols-3 text-13 fw-light text-center row-gap-1">
-                    @{int i = 0;}
-                    @foreach(var ma in Model.MissionApplicationVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED)){
-                    <div data-recent="i">
-                        i++;
-                        <img src="@ma.Avatar" alt="volunteer" class="rounded-circle mx-auto"
-                             width="70px" height="70px">
-                        <span>@ma.UserName</span>
+            @if (Model?.MissionApplicationVM?.LongCount() > 0)
+            {
+                <div class="border mt-4 p-3">
+                    <div class="border-bottom mb-3">
+                        <h5 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Recent Volunteers</h5>
                     </div>
+                    <div class="d-grid grid-cols-3 text-13 fw-light text-center row-gap-1">
+                        @{
+                            int i = 0;
+                        }
+                        @foreach (var ma in Model.MissionApplicationVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED))
+                        {
+                            <div data-recent="@i">
+                                @{
+                                    i++;
+                                }
+                                <img src="@ma.Avatar" alt="volunteer" class="rounded-circle mx-auto object-fit-cover"
+                             width="70px" height="70px">
+                                <span>@ma.UserName</span>
+                            </div>
+                        }
+                    </div>
+                    @if (Model.MissionApplicationVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED)?.LongCount() == 0)
+                    {
+                        <span class="fw-light">No volunteers so far.</span>
                     }
                 </div>
-            </div>
-            <div class="d-flex border">
-                <button class="btn rounded border border-2 p-3" id="leftPage">
-                    <img src="/images/static/left.png" alt="left">
-                </button>
-                <div class="text-center fw-light text-15 flex-grow-1 my-auto" id="pageRange"></div>
-                <button class="btn rounded border border-2 p-3" id="rightPage">
-                    <img src="/images/static/right-arrow1.png"
+                <div class="d-flex border">
+                    <button class="btn rounded border border-2 p-3" id="leftPage">
+                        <img src="/images/static/left.png" alt="left">
+                    </button>
+                    <div class="text-center fw-light text-15 flex-grow-1 my-auto" id="pageRange"></div>
+                    <button class="btn rounded border border-2 p-3" id="rightPage">
+                        <img src="/images/static/right-arrow1.png"
                          alt="right">
-                </button>
-            </div>
-                    }
+                    </button>
+                </div>
+            }
         </div>
     </section>
 </div>
-<hr class="my-5">
+<hr class="my-4">
 <section class="container pb-4">
     <h3 class="text-center fw-light mb-4">Related Missions</h3>
     <div id="partialViewContainer"></div>
-    <div id="noRelatedMission" class="text-center d-none">No related missions found!</div>
+    <div id="noRelatedMission" class="text-center d-none fw-light my-3">No related missions found!</div>
 </section>
 <partial name="_Footer"></partial>
 
