@@ -1,4 +1,5 @@
 ﻿@using CI_Platform.Entities.Constants
+@inject IWebHostEnvironment env
 @model MissionVM
 @{
     ViewData["Title"] = "Mission Details";
@@ -16,7 +17,7 @@
         userRate = Model?.MissionRatingVM?.FirstOrDefault(mr => mr.UserId == long.Parse(userId))?.Rating;
         if (userRate == null) userRate = 0;
     }
-    var hasApplied = userId != null && Model?.MissionApplicationVM != null && Model.MissionApplicationVM.
+    var hasApplied = userId != null && Model.MissionApplicationVM.
                         Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED);
 }
 <input hidden value="@(hasApplied ? "true" : "false")" id="hasApplied">
@@ -167,10 +168,15 @@
                     <img src="/images/static/heart-fill.svg" alt="heart">
                     Remove from Favourite
                 </button>
-                <button class="btn rounded-pill d-flex align-items-center gap-2 border border-dark w-100 justify-content-center fw-light text-15 color-darkgray">
+
+                <!-- Button trigger modal -->
+            <button class="btn rounded-pill d-flex align-items-center gap-2 border border-dark w-100 justify-content-center fw-light text-15 color-darkgray"
+                    type="button" data-bs-target="#exampleModal" id="recommendBtn">
                     <img src="/images/static/add1.png" alt="user">
-                    Recommand to Co-Worker
+                    Recommend to Co-Worker
                 </button>
+
+                <div id="partialRecommendContainer"></div>
             </div>
         }
         <hr class="m-0 bg-secondary mt-4">
@@ -266,27 +272,33 @@
                 <p class="text-15 fw-light text-secondary">
                     @Model.Description
                 </p>
-                @if (@Model.MissionDocument != null)
+                @if (@Model?.MissionDocumentVM?.LongCount() > 0)
                 {
                     <h4>Documents</h4>
                     <div class="d-flex gap-3 flex-wrap">
-                        @foreach (MissionDocumentVM md in Model.MissionDocument)
+                        @foreach (MissionDocumentVM md in Model.MissionDocumentVM)
                         {
-                            <button class="btn border rounded-pill p-2 d-flex align-items-center gap-2 fw-light text-15 text-secondary">
-                                @if (md.DocumentType == ".doc" || md.DocumentType == ".docx")
-                                {
-                                    <img src="/images/static/doc.png" alt="doc">
-                                }
-                                else if (md.DocumentType == ".xlsx")
-                                {
-                                    <img src="/images/static/xlsx.png" alt="xlsx">
-                                }
-                                else if (md.DocumentType == ".pdf")
-                                {
-                                    <img src="/images/static/pdf.png" alt="pdf">
-                                }
-                                @md.DocumentName@md.DocumentType
-                            </button>
+                            var wwwroot = env.WebRootPath;
+                            var path = wwwroot + md.DocumentPath + md.DocumentName + md.DocumentType;
+                            var type = md.DocumentType.Substring(1);
+
+                            <a asp-action="OpenDocument" asp-controller="Mission" target="_blank" asp-route-path="@path" asp-route-type="@type">
+                                <button class="btn border rounded-pill p-2 d-flex align-items-center gap-2 fw-light text-15 text-secondary">
+                                    @if (md.DocumentType == ".doc" || md.DocumentType == ".docx")
+                                    {
+                                        <img src="/images/static/doc.png" alt="doc">
+                                    }
+                                    else if (md.DocumentType == ".xlsx")
+                                    {
+                                        <img src="/images/static/xlsx.png" alt="xlsx">
+                                    }
+                                    else if (md.DocumentType == ".pdf")
+                                    {
+                                        <img src="/images/static/pdf.png" alt="pdf">
+                                    }
+                                    @md.DocumentName@md.DocumentType
+                                </button>
+                            </a>
                         }
                     </div>
                 }

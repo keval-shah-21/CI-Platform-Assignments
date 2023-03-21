@@ -37,6 +37,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<MissionGoal> MissionGoals { get; set; }
 
+    public virtual DbSet<MissionInvite> MissionInvites { get; set; }
+
     public virtual DbSet<MissionMedium> MissionMedia { get; set; }
 
     public virtual DbSet<MissionRating> MissionRatings { get; set; }
@@ -50,6 +52,8 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Skill> Skills { get; set; }
 
     public virtual DbSet<Story> Stories { get; set; }
+
+    public virtual DbSet<StoryInvite> StoryInvites { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -396,6 +400,38 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("FK__mission_g__missi__17F790F9");
         });
 
+        modelBuilder.Entity<MissionInvite>(entity =>
+        {
+            entity.HasKey(e => e.MissionInviteId).HasName("PK__mission___A97ED1583F5663D8");
+
+            entity.ToTable("mission_invite");
+
+            entity.Property(e => e.MissionInviteId).HasColumnName("mission_invite_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.FromUserId).HasColumnName("from_user_id");
+            entity.Property(e => e.MissionId).HasColumnName("mission_id");
+            entity.Property(e => e.ToUserId).HasColumnName("to_user_id");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.FromUser).WithMany(p => p.MissionInviteFromUsers)
+                .HasForeignKey(d => d.FromUserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__mission_i__from___51300E55");
+
+            entity.HasOne(d => d.Mission).WithMany(p => p.MissionInvites)
+                .HasForeignKey(d => d.MissionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__mission_i__missi__503BEA1C");
+
+            entity.HasOne(d => d.ToUser).WithMany(p => p.MissionInviteToUsers)
+                .HasForeignKey(d => d.ToUserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__mission_i__to_us__5224328E");
+        });
+
         modelBuilder.Entity<MissionMedium>(entity =>
         {
             entity.HasKey(e => e.MissionMediaId).HasName("PK__mission___848A78E8BE3A41A5");
@@ -583,6 +619,38 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__story__user_id__1CBC4616");
+        });
+
+        modelBuilder.Entity<StoryInvite>(entity =>
+        {
+            entity.HasKey(e => e.StoryInviteId).HasName("PK__story_in__044978676440E59D");
+
+            entity.ToTable("story_invite");
+
+            entity.Property(e => e.StoryInviteId).HasColumnName("story_invite_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.FromUserId).HasColumnName("from_user_id");
+            entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.ToUserId).HasColumnName("to_user_id");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.FromUser).WithMany(p => p.StoryInviteFromUsers)
+                .HasForeignKey(d => d.FromUserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__story_inv__from___56E8E7AB");
+
+            entity.HasOne(d => d.Story).WithMany(p => p.StoryInvites)
+                .HasForeignKey(d => d.StoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__story_inv__story__55F4C372");
+
+            entity.HasOne(d => d.ToUser).WithMany(p => p.StoryInviteToUsers)
+                .HasForeignKey(d => d.ToUserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__story_inv__to_us__57DD0BE4");
         });
 
         modelBuilder.Entity<User>(entity =>

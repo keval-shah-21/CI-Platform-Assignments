@@ -23,6 +23,8 @@ public class UnitOfWork : IUnitOfWork
         Skill = new SkillRepository(_context);
         Comment = new CommentRepository(_context);
         MissionDocument = new MissionDocumentRepository(_context);
+        MissionInvite = new MissionInviteRepository(_context);
+        StoryInvite = new StoryInviteRepository(_context);
     }
     public IUserRepository User{get; private set;}
 
@@ -53,6 +55,10 @@ public class UnitOfWork : IUnitOfWork
     public ICommentRepository Comment { get; private set; }
 
     public IMissionDocumentRepository MissionDocument{get; private set;}
+
+    public IMissionInviteRepository MissionInvite { get; private set; }
+
+    public IStoryInviteRepository StoryInvite { get; private set; }
     public void Save()
     {
         _context.SaveChanges();

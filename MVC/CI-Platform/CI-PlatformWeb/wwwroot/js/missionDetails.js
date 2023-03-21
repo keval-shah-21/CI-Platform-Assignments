@@ -69,7 +69,7 @@ $(document).ready(() => {
     const stars = Array.from(document.querySelectorAll("[data-star]"));
     stars.forEach((star, index) => {
         $(star).click(() => {
-            if (userId == null || userId == "" || hasApplied == 'false' ) {
+            if (userId == null || userId == "" || hasApplied == 'false') {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -103,6 +103,64 @@ $(document).ready(() => {
             });
         })
     })
+
+    $("#recommendBtn").click(() => {
+        if (userId == null || userId == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You need to Login to recommend your co-workers!',
+                footer: '<a href="/volunteer/user/login">Login here</a>'
+            })
+            return;
+        }
+        $.ajax({
+            url: "/Volunteer/User/get-users-to-recommend",
+            method: "GET",
+            data: { userId },
+            success: (result) => {
+                $("#partialRecommendContainer").html(result);
+                $("#exampleModal").modal('show');
+                $('#modalRecommendBtn').click(() => {
+                    const checkedInputs = Array.from(document.querySelectorAll(".form-check-input:checked"));
+                    if (checkedInputs.length == 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please select at least one user to recommend!',
+                        })
+                        return;
+                    }
+                    $("#exampleModal").modal('hide');
+                    const userList = [];
+                    checkedInputs.forEach((checked) => {
+                        userList.push(+$(checked).val());
+                    })
+                    $.ajax({
+                        url: "/Volunteer/Mission/RecommendMission",
+                        data: { missionId, userId, toUsers: userList },
+                        method: "POST",
+                        success: (result) => {
+                            $("#partialRecommendContainer").html(result);
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Successfully recommended the mission!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        },
+                        error: (error) => {
+                            console.log(error)
+                        }
+                    });
+                })
+            },
+            error: (error) => {
+                console.log(error);
+            }
+        });
+    })
 });
 $(".fav-btn").click(() => {
     if (userId == null || userId == "") {
@@ -119,7 +177,7 @@ $(".fav-btn").click(() => {
         method: "POST",
         data: { missionId: missionId, userId: userId, isFavourite: isFavourite === "true" },
         success: (_) => {
-            if (isFavourite === "true") {         
+            if (isFavourite === "true") {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

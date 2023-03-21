@@ -15,7 +15,7 @@ public class MissionService : IMissionService
     {
         _unitOfWork = unitOfWork;
     }
-    public MissionVM ConvertMissionToVM(Mission mission)
+    public static MissionVM ConvertMissionToVM(Mission mission) 
     {
         List<MissionApplicationVM> maVM = GetMissionApplication(mission);
         return new MissionVM()
@@ -42,7 +42,7 @@ public class MissionService : IMissionService
             RegistrationDeadline = mission.RegistrationDeadline,
             MissionThumbnail = GetMissionThumbnail(mission),
             MissionMediaVM = GetOtherMissionMedia(mission),
-            MissionDocument = GetMissionDocumentByMission(mission),
+            MissionDocumentVM = GetMissionDocumentsByMission(mission),
             FavouriteMissionVM = GetFavouriteByMission(mission),
             MissionApplicationVM = maVM,
             MissionGoalVM = GetMissionGoal(mission),
@@ -111,48 +111,51 @@ public class MissionService : IMissionService
         return cityVM;
     }
 
-    internal List<MissionRatingVM> GetMissionRatingsByMission(Mission mission)
+    internal static List<MissionRatingVM> GetMissionRatingsByMission(Mission mission)
     {
         return mission.MissionRatings.LongCount() > 0 ? mission.MissionRatings.Select(r =>
             MissionRatingService.ConvertMissionRatingToVM(r)
-        ).ToList() : null!;
+        ).ToList() : new();
     }
-    internal List<CommentVM> GetCommentsByMission(Mission mission)
+    internal static List<CommentVM> GetCommentsByMission(Mission mission)
     {
         return mission.Comments.Select(c => CommentService.ConvertCommentToVM(c))
             .Where(c => c.ApprovalStatus == ApprovalStatus.APPROVED || c.ApprovalStatus == ApprovalStatus.PENDING)
-            .OrderBy(c => c.CreatedAt).ToList();
+            .OrderByDescending(c => c.CreatedAt).ToList();
     }
-    internal string GetMissionThumbnail(Mission mission)
+    internal static string GetMissionThumbnail(Mission mission)
     {
         MissionMedium mm = mission.MissionMedia?.FirstOrDefault(mm => mm.Default == true)!;
         return mm != null ? mm.MediaPath + mm.MediaName + mm.MediaType : "";
     }
-    internal List<FavouriteMissionVM> GetFavouriteByMission(Mission mission)
+    internal static List<FavouriteMissionVM> GetFavouriteByMission(Mission mission)
     {
         return mission.FavouriteMissions.LongCount() > 0 ? mission.FavouriteMissions.Select(fm =>
             FavouriteMissionService.ConvertFavouriteMissionToVM(fm)    
-        ).ToList() : null!;
+        ).ToList() : new();
     }
-    internal MissionGoalVM GetMissionGoal(Mission mission){
+    internal static MissionGoalVM GetMissionGoal(Mission mission){
         return mission.MissionGoals.LongCount() > 0 ? MissionGoalService.ConvertMissionGoalToVM(mission.MissionGoals.First()) : new();
     }
-    internal List<MissionDocumentVM> GetMissionDocumentByMission(Mission mission)
+    internal static List<MissionDocumentVM> GetMissionDocumentsByMission(Mission mission)
     {
         return mission.MissionDocuments.LongCount() > 0 ? mission.MissionDocuments.Select(md =>
-        MissionDocumentService.ConvertMissionDocumentToVM(md)).ToList() : null!;
+        MissionDocumentService.ConvertMissionDocumentToVM(md)).ToList() : new();
     }
-    internal List<MissionApplicationVM> GetMissionApplication(Mission mission){
-        return mission.MissionApplications.LongCount() > 0 ? mission.MissionApplications.Select(ma =>
+    internal static List<MissionApplicationVM> GetMissionApplication(Mission mission){
+        //return mission.MissionApplications.LongCount() > 0 ? mission.MissionApplications.Select(ma =>
+        //    MissionApplicationService.ConvertMissionApplicationToVM(ma)
+            //).ToList() : new();
+        return mission.MissionApplications.Select(ma =>
             MissionApplicationService.ConvertMissionApplicationToVM(ma)
-            ).ToList() : null!;
+            ).ToList();
     }
-    internal List<MissionSkillVM> GetMissionSkill(Mission mission){
+    internal static List<MissionSkillVM> GetMissionSkill(Mission mission){
         return mission.MissionSkills.LongCount() > 0 ? mission.MissionSkills.Select(ms =>
             MissionSkillService.ConvertMissionSkillToVM(ms)    
-        ).ToList() : null!;
+        ).ToList() : new();
     }
-    internal List<MissionMediaVM> GetOtherMissionMedia(Mission mission) {
+    internal static List<MissionMediaVM> GetOtherMissionMedia(Mission mission) {
         return mission.MissionMedia.Select(mm => MissionMediaService.ConvertMissionMediaToVM(mm)).
             Where(mm => mm.Default == false).ToList();
     }

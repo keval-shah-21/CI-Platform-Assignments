@@ -25,5 +25,7 @@ public partial class Story
 
     public virtual Mission Mission { get; set; } = null!;
 
+    public virtual ICollection<StoryInvite> StoryInvites { get; } = new List<StoryInvite>();
+
     public virtual User User { get; set; } = null!;
 }

@@ -30,5 +30,9 @@ public interface IUnitOfService
 
     ICommentService Comment { get; }
 
+    IMissionInviteService MissionInvite { get; }
+
+    IStoryInviteService StoryInvite { get; } 
+
     void Save();
 }

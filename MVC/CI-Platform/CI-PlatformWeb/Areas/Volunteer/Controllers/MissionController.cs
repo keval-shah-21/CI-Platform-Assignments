@@ -44,4 +44,29 @@ public class MissionController : Controller
         _unitOfService.Save();
         return PartialView("_MissionRating", missionVM);
     }
+
+    [HttpPost]
+    public IActionResult RecommendMission(long missionId, long userId, long[] toUsers)
+    {
+        var url = Url.Action("MissionDetails", "Mission", new { id = missionId }, "https");
+        _unitOfService.MissionInvite.RecommendMission(missionId, userId, toUsers, url);
+        _unitOfService.Save();
+        List<UserVM> users = _unitOfService.User.GetAllUsersToRecommendMission();
+        ViewBag.UserId = userId;
+        return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
+    }
+
+    public IActionResult OpenDocument(string path, string type)
+    {
+        string filePath = path;
+        if (System.IO.File.Exists(filePath))
+        {
+            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            return new FileStreamResult(fileStream, $"application/{type}");
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
 }

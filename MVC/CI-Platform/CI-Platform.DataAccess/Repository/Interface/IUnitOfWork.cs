@@ -30,5 +30,9 @@ public interface IUnitOfWork{
     ICommentRepository Comment { get; }
 
     IMissionDocumentRepository MissionDocument { get; }
+
+    IMissionInviteRepository MissionInvite { get; }
+
+    IStoryInviteRepository StoryInvite { get; }
     void Save();
 }

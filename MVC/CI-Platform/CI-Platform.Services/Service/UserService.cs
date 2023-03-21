@@ -17,6 +17,31 @@ public class UserService : IUserService
         _emailService = emailService;
     }
 
+    public static UserVM ConvertUserToVM(User user)
+    {
+        return new UserVM()
+        {
+            UserId = user.UserId,
+            Avatar = user.Avatar,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Password = user.Password,
+            PhoneNumber = user.PhoneNumber,
+            MissionInviteFromVM = GetMissionInviteFrom(user),
+            MissionInviteToVM = GetMissionInviteTo(user),
+            StoryInviteFromVM = GetStoryInviteFrom(user),
+            StoryInviteToVM = GetStoryInviteTo(user)
+        };
+    }
+
+    public List<UserVM> GetAll()
+    {
+        IEnumerable<User> users = _unitOfWork.User.GetAll();
+        if(users == null)return null!;
+        return users.Select(user => ConvertUserToVM(user)).ToList();
+    }
+
     public void Add(UserVM userVM)
     {
         User obj = new User()
@@ -36,37 +61,13 @@ public class UserService : IUserService
     {
         Expression<Func<User, bool>> filter = user => (user.Email == loginVM.Email && user.Password == loginVM.Password);
         User obj = _unitOfWork.User.GetFirstOrDefault(filter);
-        if (obj != null)
-            return new UserVM()
-            {
-                UserId = obj.UserId,
-                FirstName = obj.FirstName,
-                LastName = obj.LastName,
-                Email = obj.Email,
-                Password = obj.Password,
-                PhoneNumber = obj.PhoneNumber,
-                Avatar = obj.Avatar
-            };
-        return null!;
+        return obj == null ? null! : ConvertUserToVM(obj);
     }
 
     public UserVM GetFirstOrDefaultByEmail(string email)
     {
         User obj = _unitOfWork.User.GetFirstOrDefault(user => user.Email.Equals(email));
-        if (obj != null)
-        {
-            return new UserVM()
-            {
-                UserId = obj.UserId,
-                FirstName = obj.FirstName,
-                LastName = obj.LastName,
-                Email = obj.Email,
-                Password = obj.Password,
-                PhoneNumber = obj.PhoneNumber,
-                Avatar = obj.Avatar
-            };
-        }
-        return null!;
+        return obj == null ? null! : ConvertUserToVM(obj);
     }
 
     public void SendResetPasswordEmail(string email, string url)
@@ -81,5 +82,33 @@ public class UserService : IUserService
         User user = _unitOfWork.User.GetFirstOrDefault(user => user.Email == email);
         user.Password = password;
         _unitOfWork.User.Update(user);
+    }
+
+    public List<UserVM> GetAllUsersToRecommendMission()
+    {
+        List<User> users = _unitOfWork.User.GetAllToRecommendMission();
+        if (users == null) return null!;
+        return users.Select(user => ConvertUserToVM(user)).ToList();
+    }
+
+    internal static List<MissionInviteVM> GetMissionInviteFrom(User user)
+    {
+        return user?.MissionInviteFromUsers?.LongCount() > 0 ? 
+            user.MissionInviteFromUsers.Select(mi => MissionInviteService.ConvertMissionInviteToVM(mi)).ToList() : new();
+    }
+    internal static List<MissionInviteVM> GetMissionInviteTo(User user)
+    {
+        return user?.MissionInviteToUsers?.LongCount() > 0 ?
+            user.MissionInviteToUsers.Select(mi => MissionInviteService.ConvertMissionInviteToVM(mi)).ToList() : new();
+    }
+    internal static List<StoryInviteVM> GetStoryInviteFrom(User user)
+    {
+        return user?.StoryInviteFromUsers?.LongCount() > 0 ?
+            user.StoryInviteFromUsers.Select(mi => StoryInviteService.ConvertStoryInviteToVM(mi)).ToList() : new();
+    }
+    internal static List<StoryInviteVM> GetStoryInviteTo(User user)
+    {
+        return user?.StoryInviteToUsers?.LongCount() > 0 ?
+            user.StoryInviteToUsers.Select(mi => StoryInviteService.ConvertStoryInviteToVM(mi)).ToList() : new();
     }
 }

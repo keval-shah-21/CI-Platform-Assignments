@@ -35,4 +35,9 @@ public class UserVM{
     public string? Avatar {get; set;}
 
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
+
+    public List<MissionInviteVM>? MissionInviteFromVM { get; set; }
+    public List<StoryInviteVM>? StoryInviteFromVM { get; set; }
+    public List<MissionInviteVM>? MissionInviteToVM { get; set; }
+    public List<StoryInviteVM>? StoryInviteToVM { get; set; }
 }

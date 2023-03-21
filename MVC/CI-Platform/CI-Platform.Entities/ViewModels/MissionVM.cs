@@ -43,19 +43,19 @@ public class MissionVM {
 
     public string MissionThumbnail {get; set;} = string.Empty;
     public List<MissionMediaVM> MissionMediaVM { get; set; } = null!;
-    public List<MissionDocumentVM>? MissionDocument { get; set; }
+    public List<MissionDocumentVM>? MissionDocumentVM { get; set; } = new();
 
-    public List<FavouriteMissionVM>? FavouriteMissionVM {get; set;}
+    public List<FavouriteMissionVM>? FavouriteMissionVM {get; set; } = new();
 
-    public List<MissionApplicationVM>? MissionApplicationVM {get; set;}
+    public List<MissionApplicationVM>? MissionApplicationVM {get; set; } = new();
 
-    public MissionGoalVM? MissionGoalVM{get; set;}
+    public MissionGoalVM? MissionGoalVM{get; set; } = new();
 
-    public List<MissionSkillVM>? MissionSkillVM {get; set;}
+    public List<MissionSkillVM>? MissionSkillVM {get; set; } = new();
 
-    public List<MissionRatingVM>? MissionRatingVM {get; set;}
+    public List<MissionRatingVM>? MissionRatingVM {get; set; } = new();
 
     public List<string> SkillList { get; set; } = null!;
 
-    public List<CommentVM>? CommentVM {get; set;}
+    public List<CommentVM>? CommentVM { get; set; } = new();
 }

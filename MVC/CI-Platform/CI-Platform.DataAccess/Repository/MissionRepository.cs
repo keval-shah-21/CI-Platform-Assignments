@@ -7,10 +7,8 @@ namespace CI_Platform.DataAccess.Repository;
 
 public class MissionRepository : Repository<Mission>, IMissionRepository
 {
-    private readonly ApplicationDbContext _context;
     public MissionRepository(ApplicationDbContext context) : base(context)
     {
-        _context = context;
     }
 
     public override IEnumerable<Mission> GetAll()
@@ -26,9 +24,6 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
         .Include(m => m.FavouriteMissions)
         .Include(m => m.MissionCityNavigation)
         .Include(m => m.MissionCountryNavigation)
-        .Include(m => m.Comments)
-            .ThenInclude(c => c.User)
-        .Include(m => m.MissionRatings)
         .ToList();
     }
 
@@ -48,6 +43,7 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
         .Include(m => m.Comments)
             .ThenInclude(c => c.User)
         .Include(m => m.MissionRatings)
+        .Include(m => m.MissionDocuments)
         .FirstOrDefault(filter)!;
     }
 }

@@ -157,4 +157,12 @@ public class UserController: Controller
         _unitOfService.Save();
         return NoContent();
     }
+
+    [Route("get-users-to-recommend")]
+    public IActionResult GetAllUsersToRecommend(long userId)
+    {
+        List<UserVM> users = _unitOfService.User.GetAllUsersToRecommendMission();
+        ViewBag.UserId = userId;
+        return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
+    }
 }
