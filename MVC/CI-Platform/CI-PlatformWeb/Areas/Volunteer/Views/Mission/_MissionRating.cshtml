@@ -2,11 +2,11 @@
 <div class="d-flex gap-3 text-15 fw-light text-secondary pt-3">
     <span>Rating</span>
     <div class="d-flex align-items-center flex-wrap">
-        @for (byte i = 0; i < @Model.MissionRating; i++)
+        @for (byte i = 0; i < Model.MissionRating; i++)
         {
             <img src="/images/static/selected-star.png" alt="selected-star">
         }
-        @for (byte i = 0; i < 5 - @Model.MissionRating; i++)
+        @for (byte i = 0; i < 5 - Model.MissionRating; i++)
         {
             <img src="/images/static/star.png" alt="star">
         }
@@ -17,3 +17,4 @@
             </span>
         }
     </div>
+</div>

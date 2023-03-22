@@ -50,7 +50,11 @@ const hasApplied = document.querySelector("#hasApplied").value;
 
 $(document).ready(() => {
     toggleFavouriteButton(isFavourite)
-
+    getRelatedMissions();
+    handleMissionRating();
+    handleRecommendMission();
+});
+function getRelatedMissions() {
     $.ajax({
         url: "/Volunteer/Mission/RelatedMissions",
         method: "GET",
@@ -66,6 +70,8 @@ $(document).ready(() => {
             console.log(error);
         }
     });
+}
+function handleMissionRating() {
     const stars = Array.from(document.querySelectorAll("[data-star]"));
     stars.forEach((star, index) => {
         $(star).click(() => {
@@ -103,7 +109,8 @@ $(document).ready(() => {
             });
         })
     })
-
+}
+function handleRecommendMission() {
     $("#recommendBtn").click(() => {
         if (userId == null || userId == "") {
             Swal.fire({
@@ -117,7 +124,7 @@ $(document).ready(() => {
         $.ajax({
             url: "/Volunteer/User/get-users-to-recommend",
             method: "GET",
-            data: { userId },
+            data: { missionId, userId },
             success: (result) => {
                 $("#partialRecommendContainer").html(result);
                 $("#exampleModal").modal('show');
@@ -161,7 +168,8 @@ $(document).ready(() => {
             }
         });
     })
-});
+}
+
 $(".fav-btn").click(() => {
     if (userId == null || userId == "") {
         Swal.fire({
@@ -173,7 +181,7 @@ $(".fav-btn").click(() => {
         return;
     }
     $.ajax({
-        url: "/volunteer/user/toggle-favourite-mission",
+        url: "/Volunteer/Mission/ToggleFavouriteMission",
         method: "POST",
         data: { missionId: missionId, userId: userId, isFavourite: isFavourite === "true" },
         success: (_) => {
@@ -216,7 +224,7 @@ function toggleFavouriteButton(isFavourite) {
 let currentPage = 1;
 const totalVolunteers = document.querySelector("#totalVolunteers").value;
 if (totalVolunteers > 0) {
-    const totalPages = Math.ceil(totalVolunteers / 9);
+    const totalPages = Math.ceil(totalVolunteers / 2);
     const recentVolunteers = document.querySelectorAll("[data-recent]");
     const rightPage = document.querySelector("#rightPage");
     const leftPage = document.querySelector("#leftPage");
@@ -236,7 +244,7 @@ function setPage(recentVolunteers) {
     let count = 0;
     Array.from($(recentVolunteers)).forEach((vol) => {
         const i = $(vol).data('recent');
-        if (i >= (currentPage - 1) * 9 && i < currentPage * 9) {
+        if (i >= (currentPage - 1) * 2 && i < currentPage * 2) {
             $(vol).removeClass("d-none");
             count++;
         } else {
@@ -244,7 +252,7 @@ function setPage(recentVolunteers) {
         }
     })
     const pageRange = document.querySelector("#pageRange");
-    const start = (currentPage - 1) * 9 + 1;
+    const start = (currentPage - 1) * 2 + 1;
     pageRange.textContent = `${start} - ${start + count - 1} of ${totalVolunteers} recent volunteers`
 }
 

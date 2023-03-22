@@ -31,10 +31,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Home/_IndexMissions.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXEhvbWVcX0luZGV4TWlzc2lvbnMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Mission/MissionDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXE1pc3Npb25cTWlzc2lvbkRldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -51,12 +47,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXFNoYXJlZFxfRm9vdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Shared/_IndexMissions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXFNoYXJlZFxfSW5kZXhNaXNzaW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Shared/_Navbar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXFNoYXJlZFxfTmF2YmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Shared/_RecommendToCoWorker.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXFNoYXJlZFxfUmVjb21tZW5kVG9Db1dvcmtlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Story/ShareStory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXFN0b3J5XFNoYXJlU3RvcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/User/ForgotPassword.cshtml]

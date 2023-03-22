@@ -31,7 +31,7 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult FilterData(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, int page)
+    public IActionResult FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, int page)
     {
         long? userId = 0;
         if(HttpContext.Session.GetString("UserId") != null){

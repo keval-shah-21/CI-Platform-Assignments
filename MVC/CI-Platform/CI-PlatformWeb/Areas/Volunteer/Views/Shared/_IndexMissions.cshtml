@@ -4,13 +4,15 @@
     var userId = Context.Session.GetString("UserId");
 }
 <input hidden value="@ViewBag.TotalMissions" id="totalMissions">
+<input hidden value="@userId" id='userId' />
+<div id="partialRecommendContainer"></div>
 <section class="index-grid-view row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
     @foreach (MissionVM mission in Model)
     {
-        <div class="col -z-index-1">
+        <div class="col">
             <div class="card shadow-sm h-100">
                 <div class="position-relative card-top">
-                    <a href="#">
+                    <a asp-action="MissionDetails" asp-controller="Mission" asp-route-id="@mission.MissionId">
                         <img src="@mission.MissionThumbnail"
                          class="card-img-top h-100 object-fit-cover" alt="mission image">
                     </a>
@@ -19,19 +21,23 @@
                     </div>
                     @if (!string.IsNullOrEmpty(userId) && mission?.FavouriteMissionVM?.LongCount() > 0 && mission.FavouriteMissionVM.Any(fm => fm.UserId == long.Parse(userId)))
                     {
-                        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
+                        <div data-missionid="@mission.MissionId"
+                     class="position-absolute p-2 rounded-circle index-wishlist bg-danger remove-favourite cursor-pointer">
                             <img src="/images/static/heart.png" alt="heart">
-                        </a>
+                        </div>
                     }
                     else
                     {
-                        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+                        <div data-missionid="@mission.MissionId"
+                     class="position-absolute p-2 rounded-circle index-wishlist add-favourite cursor-pointer">
                             <img src="/images/static/heart.png" alt="heart">
-                        </a>
+                        </div>
                     }
-                    <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+                    <div class="position-absolute p-2 rounded-circle index-invite cursor-pointer"
+                     data-bs-target="#exampleModal" id="recommendBtn" data-missionid="@mission.MissionId">
                         <img src="/images/static/user.png" alt="user">
-                    </a>
+                    </div>
+
                     @if (mission.Status == MissionStatus.FINISHED)
                     {
                         <span class="bg-warning px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
@@ -50,16 +56,16 @@
                     </div>
                 </div>
                 <div class="card-body color-darkgray">
-                    <a href="#" class="color-darkgray">
-                        <h4 class="card-title">@mission.Title</h4>
+                    <a asp-action="MissionDetails" asp-controller="Mission" asp-route-id="@mission.MissionId" class="color-darkgray">
+                        <h4>@mission.Title</h4>
                     </a>
                     @if (mission.Status == MissionStatus.FINISHED)
                     {
-                        <p class="card-text fw-light ellipsis-7 text-black-50 text-15">@mission.Description</p>
+                        <p class="fw-light ellipsis-7 text-black-50 text-15">@mission.Description</p>
                     }
                     else
                     {
-                        <p class="card-text fw-light ellipsis-2 text-black-50 text-15">@mission.ShortDescription</p>
+                        <p class="fw-light ellipsis-2 text-black-50 text-15">@mission.ShortDescription</p>
                     }
                     <div class="d-flex justify-content-between mb-2">
                         <span class="fw-light">@mission.OrganizationName</span>
@@ -168,23 +174,34 @@
                         </div>
                     }
                     <hr class="m-0 bg-secondary">
-                    <a href="#"
+                    @if ((!string.IsNullOrEmpty(userId) && mission?.MissionApplicationVM?.LongCount() > 0 &&
+                   mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.PENDING)))
+                    {
+                        <a href="#"
                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
-                        @if ((!string.IsNullOrEmpty(userId) && mission?.MissionApplicationVM?.LongCount() > 0 &&
-                       mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED))
-                       || mission.Status == MissionStatus.FINISHED
-                       || mission?.SeatsLeft == 0
-                       || mission?.RegistrationDeadline < DateTime.Now)
-                        {
-                            <span>View Details</span>
-                        }
-                        else
-                        {
-                            <span>Apply</span>
-                        }
-
-                        <img src="/images/static/right-arrow.png" alt="rigth arrow">
-                    </a>
+                            <span>Cancel</span>
+                            <img src="/images/static/right-arrow.png" alt="rigth arrow">
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="MissionDetails" asp-controller="Mission" asp-route-id="@mission.MissionId"
+                   class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+                            @if ((!string.IsNullOrEmpty(userId) && mission?.MissionApplicationVM?.LongCount() > 0 &&
+                           mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED))
+                           || mission.Status == MissionStatus.FINISHED
+                           || mission?.SeatsLeft == 0
+                           || mission?.RegistrationDeadline < DateTime.Now)
+                            {
+                                <span>View Details</span>
+                            }
+                            else
+                            {
+                                <span>Apply</span>
+                            }
+                            <img src="/images/static/right-arrow.png" alt="rigth arrow">
+                        </a>
+                    }
                 </div>
             </div>
         </div>
@@ -194,11 +211,10 @@
 <section class="index-list-view d-grid gap-3">
     @foreach (MissionVM mission in Model)
     {
-        <div class="card shadow-sm -z-index-1">
+        <div class="card shadow-sm">
             <div class="row g-0">
                 <div class="h-100 position-relative col-4 col-lg-3">
-                    <a href="#">
-
+                    <a asp-action="MissionDetails" asp-controller="Mission" asp-route-id="@mission.MissionId">
                         <img src="@mission.MissionThumbnail"
                          class="rounded-start h-100 w-100 object-fit-cover" alt="mission image">
                     </a>
@@ -207,19 +223,22 @@
                     </div>
                     @if (!string.IsNullOrEmpty(userId) && mission?.FavouriteMissionVM?.LongCount() > 0 && mission.FavouriteMissionVM.Any(fm => fm.UserId == long.Parse(userId)))
                     {
-                        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist bg-danger">
+                        <div data-missionid="@mission.MissionId"
+                     class="position-absolute p-2 rounded-circle index-wishlist bg-danger remove-favourite cursor-pointer">
                             <img src="/images/static/heart.png" alt="heart">
-                        </a>
+                        </div>
                     }
                     else
                     {
-                        <a href="#" class="position-absolute p-2 rounded-circle index-wishlist">
+                        <div data-missionid="@mission.MissionId"
+                     class="position-absolute p-2 rounded-circle index-wishlist add-favourite cursor-pointer">
                             <img src="/images/static/heart.png" alt="heart">
-                        </a>
+                        </div>
                     }
-                    <a href="#" class="position-absolute p-2 rounded-circle index-invite">
+                    <div class="position-absolute p-2 rounded-circle index-invite cursor-pointer"
+                     data-bs-target="#exampleModal" id="recommendBtn" data-missionid="@mission.MissionId">
                         <img src="/images/static/user.png" alt="user">
-                    </a>
+                    </div>
                     @if (mission.Status == MissionStatus.FINISHED)
                     {
                         <span class="bg-warning px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
@@ -260,24 +279,24 @@
                             }
                         </div>
                     </div>
-                    <a href="#">
-                        <h4 class="card-title mt-1 mt-lg-2 mb-0 mb-lg-1">
+                    <a asp-action="MissionDetails" asp-controller="Mission" asp-route-id="@mission.MissionId" class="color-darkgray">
+                        <h4 class="mt-1 mt-lg-2 mb-0 mb-lg-1">
                             @mission.Title
                         </h4>
                     </a>
                     @if (mission.Status == MissionStatus.FINISHED)
                     {
-                        <p class="card-text fw-light ellipsis-2 text-black-50 text-15">@mission.Description</p>
+                        <p class="fw-light ellipsis-2 text-black-50 text-15">@mission.Description</p>
                     }
                     else
                     {
-                        <p class="card-text fw-light text-truncate text-black-50 text-15">@mission.ShortDescription</p>
+                        <p class="fw-light text-truncate text-black-50 text-15">@mission.ShortDescription</p>
                     }
                     <div class="d-flex justify-content-between align-items-center mt-1 mt-lg-2">
                         @if (mission.Status == MissionStatus.ONGOING)
                         {
                             <div class="d-flex color-darkgray gap-1 gap-lg-3 align-items-center flex-wrap">
-                                <div class="d-flex align-items-center gap-1">
+                                <div class="d-flex align-items-center gap-1 flex-shrink-1">
                                     @if (mission.RegistrationDeadline != null && mission.RegistrationDeadline < DateTime.Now)
                                     {
                                         <img src="/images/static/Already-volunteered.png" alt="already volunteered">
@@ -365,23 +384,34 @@
                                 </div>
                             </div>
                         }
-                        <a href="#"
+                        @if ((!string.IsNullOrEmpty(userId) && mission?.MissionApplicationVM?.LongCount() > 0 &&
+                       mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.PENDING)))
+                        {
+                            <a href="#"
+                                class="btn button d-flex gap-2 align-items-center">
+                                <span>Cancel</span>
+                                <img src="/images/static/right-arrow.png" alt="rigth arrow">
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-action="MissionDetails" asp-controller="Mission" asp-route-id="@mission.MissionId"
                        class="btn button d-flex gap-2 align-items-center">
-                            @if ((!string.IsNullOrEmpty(userId) && mission?.MissionApplicationVM?.LongCount() > 0 &&
-                           mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED))
-                           || mission.Status == MissionStatus.FINISHED
-                           || mission?.SeatsLeft == 0
-                           || mission?.RegistrationDeadline < DateTime.Now)
-                            {
-                                <span>View Details</span>
-                            }
-                            else
-                            {
-                                <span>Apply</span>
-                            }
-
-                            <img src="/images/static/right-arrow.png" alt="rigth arrow">
-                        </a>
+                                @if ((!string.IsNullOrEmpty(userId) && mission?.MissionApplicationVM?.LongCount() > 0 &&
+                               mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED))
+                               || mission.Status == MissionStatus.FINISHED
+                               || mission?.SeatsLeft == 0
+                               || mission?.RegistrationDeadline < DateTime.Now)
+                                {
+                                    <span>View Details</span>
+                                }
+                                else
+                                {
+                                    <span>Apply</span>
+                                }
+                                <img src="/images/static/right-arrow.png" alt="rigth arrow">
+                            </a>
+                        }
                     </div>
                 </div>
             </div>

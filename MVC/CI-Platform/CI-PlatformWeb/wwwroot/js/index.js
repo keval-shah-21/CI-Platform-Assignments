@@ -31,25 +31,25 @@ let page = 1, totalPages = 0, pageSet = 1;
 
 $(document).ready(() => {
     $.ajax({
-        url: `/Volunteer/Home/FilterData`,
+        url: `/Volunteer/Home/FilterMissions`,
         type: "POST",
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: (result) => {
-            $('#partialViewContainer').html('');
             $('#partialViewContainer').html(result);
-            $('.index-list-view').addClass("d-none");
             const totalMissions = $('#totalMissions').val();
             $('.total-missions').text(totalMissions);
             createPaginationHTML(totalMissions);
+            handleIndexFavouriteMissions();
+            handleIndexRecommendMission();
+            $('.index-list-view').addClass("d-none");
         }
     })
 });
-
 const query = document.querySelector("#Search");
 $(query).on('input', () => {
     search = $(query).val();
     page = 1;
     MakeAjaxCall();
+    window.scrollTo(0, 0);
 })
 $("#sortDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
@@ -57,6 +57,7 @@ $("#sortDropdown li").on("click", (e) => {
     sort = id;
     page = 1;
     MakeAjaxCall();
+    window.scrollTo(0, 0);
 })
 $("#themeDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
@@ -65,6 +66,7 @@ $("#themeDropdown li").on("click", (e) => {
     createFilterHTML("Theme", e.currentTarget.textContent, id);
     page = 1;
     MakeAjaxCall();
+    window.scrollTo(0, 0);
 })
 $("#skillDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
@@ -73,6 +75,7 @@ $("#skillDropdown li").on("click", (e) => {
     createFilterHTML("Skill", e.currentTarget.textContent, id);
     page = 1;
     MakeAjaxCall();
+    window.scrollTo(0, 0);
 })
 $("#countryDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
@@ -89,6 +92,7 @@ $("#countryDropdown li").on("click", (e) => {
     createFilterHTML("Country", e.currentTarget.textContent, id);
     page = 1;
     MakeAjaxCall();
+    window.scrollTo(0, 0);
 })
 $("#cityDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
@@ -108,6 +112,7 @@ $("#cityDropdown li").on("click", (e) => {
     createFilterHTML("City", e.currentTarget.textContent, id);
     page = 1;
     MakeAjaxCall();
+    window.scrollTo(0, 0);
 })
 function createFilterHTML(type, value, id) {
     if (!isClearAllExists) {
@@ -134,6 +139,7 @@ function createFilterHTML(type, value, id) {
             country = [];
             isClearAllExists = false;
             MakeAjaxCall();
+            window.scrollTo(0, 0);
         })
     }
     $(`<div
@@ -181,6 +187,7 @@ function HandleFilterRemove(event, type, id) {
         return;
     }
     MakeAjaxCall();
+    window.scrollTo(0, 0);
 }
 function MakeAjaxCall() {
     var obj = {
@@ -193,10 +200,9 @@ function MakeAjaxCall() {
         page: page
     };
     $.ajax({
-        url: `/Volunteer/Home/FilterData`,
+        url: `/Volunteer/Home/FilterMissions`,
         type: "POST",
         data: obj,
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: (result) => {
             $('#partialViewContainer').html('');
             $('#partialViewContainer').html(result);
@@ -209,15 +215,16 @@ function MakeAjaxCall() {
             }
             const totalMissions = $('#totalMissions').val();
             $('.total-missions').text(totalMissions);
-            window.scrollTo(0, 0);
             createPaginationHTML(totalMissions);
-            if (totalMissions == 0) {
+            if (totalMissions == 0 && sort != 5) {
                 $(".index-top").addClass("d-none");
                 $(".no-mission").removeClass("d-none");
             } else {
                 $(".index-top").removeClass("d-none");
                 $(".no-mission").addClass("d-none");
             }
+            handleIndexFavouriteMissions();
+            handleIndexRecommendMission();
         }
     })
 }
@@ -308,4 +315,127 @@ function handlePagination(value) {
         $(`[data-page=${page}]`).addClass('active-page');
     }
     MakeAjaxCall();
+    window.scrollTo(0, 0);
+}
+function handleIndexFavouriteMissions() {
+
+    const userId = document.querySelector("#userId").value;
+    Array.from(document.querySelectorAll(".add-favourite")).forEach(fav => {
+        $(fav).click(() => {
+            if (userId == null || userId == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'You need to Login to add this mission as your favourite!',
+                    footer: '<a href="/volunteer/user/login">Login here</a>'
+                })
+                return;
+            }
+            $.ajax({
+                url: "/volunteer/user/toggle-favourite-mission",
+                method: "POST",
+                data: { missionId: $(fav).data("missionid"), userId: userId, isFavourite: false },
+                success: (_) => {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Succesfully added to Favourite missions!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    MakeAjaxCall();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        })
+    })
+
+    Array.from(document.querySelectorAll(".remove-favourite")).forEach(fav => {
+        $(fav).click(() => {
+            console.log($(fav).data("missionid"));
+            $.ajax({
+                url: "/volunteer/user/toggle-favourite-mission",
+                method: "POST",
+                data: { missionId: $(fav).data("missionid"), userId: userId, isFavourite: true },
+                success: (_) => {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Succesfully removed from Favourite missions!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    MakeAjaxCall();
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        })
+    })
+}
+
+function handleIndexRecommendMission() {
+    Array.from(document.querySelectorAll("#recommendBtn")).forEach(recBtn => {
+        $(recBtn).click(() => {
+            const userId = document.querySelector("#userId").value;
+            if (userId == null || userId == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'You need to Login to recommend your co-workers!',
+                    footer: '<a href="/volunteer/user/login">Login here</a>'
+                })
+                return;
+            }
+            $.ajax({
+                url: "/Volunteer/User/get-users-to-recommend",
+                method: "GET",
+                data: { missionId: $(recBtn).data("missionid"), userId },
+                success: (result) => {
+                    $("#partialRecommendContainer").html(result);
+                    $("#exampleModal").modal('show');
+                    $('#modalRecommendBtn').click(() => {
+                        const checkedInputs = Array.from(document.querySelectorAll(".form-check-input:checked"));
+                        if (checkedInputs.length == 0) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Please select at least one user to recommend!',
+                            })
+                            return;
+                        }
+                        $("#exampleModal").modal('hide');
+                        const userList = [];
+                        checkedInputs.forEach((checked) => {
+                            userList.push(+$(checked).val());
+                        })
+                        $.ajax({
+                            url: "/Volunteer/Mission/RecommendMission",
+                            data: { missionId: $(recBtn).data("missionid"), userId, toUsers: userList },
+                            method: "POST",
+                            success: (result) => {
+                                $("#partialRecommendContainer").html(result);
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Successfully recommended the mission!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                            },
+                            error: (error) => {
+                                console.log(error)
+                            }
+                        });
+                    })
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        })
+    })
 }

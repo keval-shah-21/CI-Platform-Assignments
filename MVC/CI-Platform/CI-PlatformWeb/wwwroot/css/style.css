@@ -22,6 +22,9 @@ img {
 .w-80{
     width: 80%;
 }
+.z-index-10{
+    z-index: 10;
+}
 a {
   text-decoration: none;
 }
@@ -86,9 +89,6 @@ form input {
 .mt-n1 {
   margin-top: -1rem;
 }
-.-z-index-1{
-  z-index: -1;
-}
 .-translate-middle-y {
   transform: translateY(50%);
 }
@@ -123,7 +123,7 @@ form input:focus {
 
 .button:hover {
   color: var(--light-orange) !important;
-  background-color: rgb(241, 241, 241) !important;
+  background-color: rgb(231, 231, 231) !important;
   transition: var(--transition);
 }
 

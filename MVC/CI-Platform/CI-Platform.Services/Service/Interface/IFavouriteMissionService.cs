@@ -8,5 +8,5 @@ public interface IFavouriteMissionService
 
     void AddToFavourite(long missionId, long userId);
 
-    void RemoveFromFavourite(long userId);
+    void RemoveFromFavourite(long missionId, long userId);
 }

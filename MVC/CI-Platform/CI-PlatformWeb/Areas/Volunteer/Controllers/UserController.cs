@@ -142,27 +142,12 @@ public class UserController: Controller
         return View(resetPasswordDataVM);
     }
 
-    [HttpPost]
-    [Route("toggle-favourite-mission")]
-    public IActionResult ToggleFavouriteMission(long missionId, long userId, bool isFavourite)
-    {
-        if (isFavourite)
-        {
-            _unitOfService.FavouriteMission.RemoveFromFavourite(userId);
-        }
-        else
-        {
-            _unitOfService.FavouriteMission.AddToFavourite(missionId, userId);
-        }
-        _unitOfService.Save();
-        return NoContent();
-    }
-
     [Route("get-users-to-recommend")]
-    public IActionResult GetAllUsersToRecommend(long userId)
+    public IActionResult GetAllUsersToRecommend(long missionId, long userId)
     {
         List<UserVM> users = _unitOfService.User.GetAllUsersToRecommendMission();
         ViewBag.UserId = userId;
+        ViewBag.MissionId = missionId;
         return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
     }
 }

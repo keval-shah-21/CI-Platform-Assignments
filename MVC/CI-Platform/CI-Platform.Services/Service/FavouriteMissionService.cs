@@ -34,15 +34,15 @@ public class FavouriteMissionService : IFavouriteMissionService
     {
         FavouriteMission fmVM = new FavouriteMission()
         {
-            MissionId = (long)missionId,
-            UserId = (long)userId,
+            MissionId = missionId,
+            UserId = userId,
             CreatedAt = DateTime.UtcNow,
         };
         _unitOfWork.FavouriteMission.Add(fmVM);
     }
-    public void RemoveFromFavourite(long userId)
+    public void RemoveFromFavourite(long missionId, long userId)
     {
-        FavouriteMission fmVM = _unitOfWork.FavouriteMission.GetFirstOrDefault(fm => fm.UserId == userId);
+        FavouriteMission fmVM = _unitOfWork.FavouriteMission.GetFirstOrDefault(fm => fm.UserId == userId && fm.MissionId == missionId);
         _unitOfWork.FavouriteMission.Remove(fmVM);
     }
     public void Add(FavouriteMission favouriteMission)
