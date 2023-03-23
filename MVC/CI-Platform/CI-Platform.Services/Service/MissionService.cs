@@ -142,11 +142,11 @@ public class MissionService : IMissionService
         return mission.MissionDocuments.LongCount() > 0 ? mission.MissionDocuments.Select(md =>
         MissionDocumentService.ConvertMissionDocumentToVM(md)).ToList() : new();
     }
-    internal static List<MissionApplicationVM> GetMissionApplication(Mission mission){
+    internal static List<MissionApplicationVM>? GetMissionApplication(Mission mission){
         //return mission.MissionApplications.LongCount() > 0 ? mission.MissionApplications.Select(ma =>
         //    MissionApplicationService.ConvertMissionApplicationToVM(ma)
             //).ToList() : new();
-        return mission.MissionApplications.Select(ma =>
+        return mission?.MissionApplications?.Select(ma =>
             MissionApplicationService.ConvertMissionApplicationToVM(ma)
             ).ToList();
     }

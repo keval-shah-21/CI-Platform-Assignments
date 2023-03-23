@@ -33,6 +33,7 @@ public interface IUnitOfWork{
 
     IMissionInviteRepository MissionInvite { get; }
 
+    IStoryRepository Story { get; }
     IStoryInviteRepository StoryInvite { get; }
     void Save();
 }

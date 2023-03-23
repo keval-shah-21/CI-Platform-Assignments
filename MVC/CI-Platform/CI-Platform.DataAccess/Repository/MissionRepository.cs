@@ -10,7 +10,6 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
     public MissionRepository(ApplicationDbContext context) : base(context)
     {
     }
-
     public override IEnumerable<Mission> GetAll()
     {
         return dbSet

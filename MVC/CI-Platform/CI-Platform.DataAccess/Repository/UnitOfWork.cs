@@ -25,6 +25,7 @@ public class UnitOfWork : IUnitOfWork
         MissionDocument = new MissionDocumentRepository(_context);
         MissionInvite = new MissionInviteRepository(_context);
         StoryInvite = new StoryInviteRepository(_context);
+        Story = new StoryRepository(_context);
     }
     public IUserRepository User{get; private set;}
 
@@ -58,6 +59,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IMissionInviteRepository MissionInvite { get; private set; }
 
+    public IStoryRepository Story {get; private set;}
     public IStoryInviteRepository StoryInvite { get; private set; }
     public void Save()
     {

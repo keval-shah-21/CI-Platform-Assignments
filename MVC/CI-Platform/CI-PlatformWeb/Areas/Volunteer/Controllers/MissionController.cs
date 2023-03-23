@@ -56,6 +56,7 @@ public class MissionController : Controller
         _unitOfService.Save();
         List<UserVM> users = _unitOfService.User.GetAllUsersToRecommendMission();
         ViewBag.UserId = userId;
+        ViewBag.MissionId = missionId;
         return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
     }
 

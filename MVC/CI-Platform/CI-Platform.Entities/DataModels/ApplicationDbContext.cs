@@ -594,6 +594,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("story");
 
             entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.ApprovalStatus).HasColumnName("approval_status");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -609,6 +610,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("title");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.VideoUrl)
+                .HasColumnType("text")
+                .HasColumnName("video_url");
 
             entity.HasOne(d => d.Mission).WithMany(p => p.Stories)
                 .HasForeignKey(d => d.MissionId)

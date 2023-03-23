@@ -1,151 +1,65 @@
-﻿<div class="grid-body d-grid min-vh-100">
-    <nav class="navbar sticky-top bg-white py-1 border-2 border-bottom">
-        <div class="container">
-            <div class="d-flex gap-5 align-items-center fw-light">
-                <a href="#">
-                    <img src="./image/logo.png" alt="logo" class="navbar-brand" />
-                </a>
-                <a href="#" class="color-darkgray">Stories</a>
-                <div class="dropdown d-none d-md-block">
-                    <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        Policy
-                        <img src="./image/drop-down.png" alt="drop-down" class="d-inline ms-2" />
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="./image/user-img.png" alt="profile" class="rounded-circle" width="40px" height="40px" />
-                        <span class="d-none d-md-inline">Evan Donohue</span>
-                        <img src="./image/drop-down.png" alt="drop-down" />
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
+﻿@model List<MissionVM>
+@{
+    ViewData["Title"] = "Stories";
+}
+<div class="grid-body d-grid min-vh-100">
+    <partial name="_Navbar"></partial>
     <section class="container py-4">
         <h2 class="color-darkgray fw-light mb-4">Share your Story</h2>
-        <form class="d-flex flex-column gap-4 color-darkgray">
-            <div class="row row-cols-1 row-cols-md-3">
+        <form method="POST" class="d-flex flex-column gap-4 color-darkgray" id="ssForm" enctype="multipart/form-data">
+            <div class="row row-cols-1 row-cols-md-2">
                 <div class="col">
                     <span> Select Mission </span>
-                    <select class="form-select" id="storyMission">
-                        <option disabled selected>Select your mission</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="form-select" id="StoryMission">
+                        <option value="0" disabled selected>Select your mission</option>
+                        @foreach(var mission in Model)
+                        {
+                            <option value="@mission.MissionId">@mission.Title</option>
+                        }
                     </select>
+                    <span id="StoryMissionError" class="text-danger text-14"></span>
                 </div>
                 <div class="col">
-                    <span> My Story Title </span>
-                    <input type="text" class="form-control" id="storyTitle" placeholder="Enter story title" />
-                </div>
-                <div class="col">
-                    <span> Date </span>
-                    <input type="date" class="form-control color-darkgray" id="storyDate" />
+                    <label for="Title">My Story Title</label>
+                    <input type="text" class="form-control" id="Title" placeholder="Enter story title" />
+                    <span id="TitleError" class="text-danger text-14"></span>
                 </div>
             </div>
 
             <!-- rich text editor -->
             <div>
-                <span>My story</span>
-                <div id="editor"></div>
+                <label>My Story</label>
+                <textarea id="tiny"></textarea>
+                <span id="DescriptionError" class="text-danger text-14"></span>
             </div>
             <div>
-                <label for="storyURL">Enter Video URL</label>
-                <input type="text" placeholder="Enter your URL" class="form-control" id="storyURL" />
+                <label for="VideoUrl">Enter Video URL</label>
+                <input type="text" placeholder="Enter your URL" class="form-control" id="VideoUrl" />
+                <span id="VideoUrlError" class="text-danger text-14"></span>
             </div>
 
             <div class="ss-dragndrop d-flex flex-column align-items-center justify-content-center border border-secondary border-dashed py-4 cursor-pointer">
-                <img src="./image/drag-and-drop.png" alt="drag" />
+                <img src="/images/static/drag-and-drop.png" alt="drag" />
                 <input type="file" name="ssImagesInput" id="ssImagesInput" multiple hidden accept=".png, .jpg, .jpeg" />
             </div>
+            <span id="MediaError" class="text-danger text-14"></span>
             <div class="ss-selected-images d-flex gap-2 gap-md-3 flex-wrap"></div>
 
             <div class="d-flex justify-content-between">
-                <a href="#" class="btn border border-secondary rounded-pill color-darkgray">
+                <a asp-for="StoryList" asp-controller="Story" class="btn border border-secondary rounded-pill color-darkgray">
                     Cancel
                 </a>
                 <div>
-                    <a href="#" class="btn button me-md-1">Save</a>
-                    <a href="#" class="btn button">Submit</a>
+                    <button id="saveBtn" type="submit" class="btn button me-md-1">Save</button>
+                    <button id="submitBtn" type="submit" class="btn button">Submit</button>
                 </div>
             </div>
         </form>
     </section>
-    <footer class="border-top">
-        <div class="container py-4 fw-light">
-            <a href="#" class="color-darkgray">Privacy Policy</a>
-        </div>
-    </footer>
+    <partial name="_Footer"></partial>
 </div>
-<script src="./js/bootstrap.bundle.min.js"></script>
-<script src="./ckeditor5/build/ckeditor.js"></script>
-<script>
-    CKSource.Editor
-      .create(document.querySelector('#editor'))
-      .catch(error => {
-        console.error(error);
-      });
-
-    ssDragndrop = document.querySelector(".ss-dragndrop");
-    ssImagesInput = document.querySelector("#ssImagesInput");
-    ssSelectedImages = document.querySelector(".ss-selected-images");
-    ssDragndrop.addEventListener("click", () => { ssImagesInput.click(); });
-    files = [];
-
-    ssImagesInput.addEventListener("change", () => {
-      let file = ssImagesInput.files;
-      // if user select no image
-      if (file.length == 0) return;
-
-      for (let i = 0; i < file.length; i++) {
-        if (file[i].type.split("/")[0] != "image") continue;
-        if (!files.some((e) => e.name == file[i].name)) files.push(file[i]);
-      }
-      showImages();
-    });
-    ssDragndrop.addEventListener("dragover", e => e.preventDefault());
-    ssDragndrop.addEventListener("dragenter", e => e.preventDefault());
-    ssDragndrop.addEventListener("drop", e => {
-      e.preventDefault();
-      let file = e.dataTransfer.files;
-      for (let i = 0; i < file.length; i++) {
-        /** Check selected file is image */
-        if (file[i].type.split("/")[1] != "png" && file[i].type.split("/")[1] != "jpg" && file[i].type.split("/")[1] != "jpeg") continue;
-        if (!files.some((e) => e.name == file[i].name)) files.push(file[i]);
-      }
-      showImages();
-    });
-    function showImages() {
-      ssSelectedImages.innerHTML = '';
-      files.forEach((element, index, _) => {
-        ssSelectedImages.innerHTML += `<div class="position-relative">
-        <img src="${URL.createObjectURL(element)}" alt="story image" height="90px" width="90px" />
-        <div class="position-absolute top-0 end-0 p-1 bg-dark cursor-pointer" onClick=delImage(${index})>
-          <img src="./image/cross.png" alt="cross" height="10px"/>
-        </div>`;
-      });
-    }
-    function delImage(index) {
-      files.splice(index, 1);
-      showImages();
-    }
-</script>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial.cshtml"></partial>
+    <script src="/js/shareStory.js"></script>
+    <script src="/js/tinymceScript.js"></script>
+}

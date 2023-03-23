@@ -4,4 +4,5 @@ namespace CI_Platform.DataAccess.Repository.Interface;
 
 public interface IMissionApplicationRepository : IRepository<MissionApplication>
 {
+    IEnumerable<MissionApplication> GetAllForStoryMissions();
 }

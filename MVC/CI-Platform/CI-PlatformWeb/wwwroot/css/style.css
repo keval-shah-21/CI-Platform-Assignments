@@ -355,7 +355,7 @@ form input:focus {
 /* story list page */
 .sl-top {
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url(../image/Grow-Trees-On-the-path-to-environment-sustainability-login.png);
+    url(/images/static/Grow-Trees-On-the-path-to-environment-sustainability-login.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center 40%;
