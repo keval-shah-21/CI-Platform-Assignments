@@ -190,7 +190,7 @@ function HandleFilterRemove(event, type, id) {
     window.scrollTo(0, 0);
 }
 function MakeAjaxCall() {
-    var obj = {
+    let obj = {
         country: country,
         city: city,
         theme: theme,
@@ -332,7 +332,7 @@ function handleIndexFavouriteMissions() {
                 return;
             }
             $.ajax({
-                url: "/volunteer/user/toggle-favourite-mission",
+                url: "/Volunteer/Mission/ToggleFavouriteMission",
                 method: "POST",
                 data: { missionId: $(fav).data("missionid"), userId: userId, isFavourite: false },
                 success: (_) => {
@@ -356,7 +356,7 @@ function handleIndexFavouriteMissions() {
         $(fav).click(() => {
             console.log($(fav).data("missionid"));
             $.ajax({
-                url: "/volunteer/user/toggle-favourite-mission",
+                url: "/Volunteer/Mission/ToggleFavouriteMission",
                 method: "POST",
                 data: { missionId: $(fav).data("missionid"), userId: userId, isFavourite: true },
                 success: (_) => {

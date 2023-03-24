@@ -33,6 +33,7 @@ public interface IUnitOfService
     IMissionInviteService MissionInvite { get; }
 
     IStoryInviteService StoryInvite { get; } 
+    IStoryService Story { get; }
 
     void Save();
 }

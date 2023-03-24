@@ -5,25 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <style>
-    span{
-      border: 3px solid red;
-      padding: 1rem;
-    }
-  </style>
 </head>
 <body>
-  <div class="lol"></div>
+  <input type="file" id="lol" multiple/>
+  <input type="file" id="new"/>
   <script>
-    for(let i = 0; i < 10; i++){
-      document.querySelector('.lol').innerHTML +=
-      `<img src="./image/add.png" data-id=${i}>`
-    }
-    for(let i = 0; i < 10; i++){
-      document.querySelector(`[data-id="${i}"]`).addEventListener('click', () => {
-        console.log("hello");
-      });
-    }
+      document.querySelector("#lol").addEventListener("change", () => {
+          const files = document.querySelector('#lol').files;
+          console.log(files)
+          document.querySelector("#new").files = files;
+          console.log(document.querySelector("#new").files);
+      })
   </script>
 </body>
 </html>

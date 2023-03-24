@@ -10,7 +10,8 @@
         "dependencies": {
           "CI-Platform.Entities": "1.0.0",
           "CI-Platform.Services": "1.0.0",
-          "Microsoft.EntityFrameworkCore.Design": "7.0.3"
+          "Microsoft.EntityFrameworkCore.Design": "7.0.3",
+          "TinyMCE": "6.4.0"
         },
         "runtime": {
           "CI-PlatformWeb.dll": {}
@@ -737,6 +738,7 @@
           }
         }
       },
+      "TinyMCE/6.4.0": {},
       "CI-Platform.DataAccess/1.0.0": {
         "dependencies": {
           "CI-Platform.Entities": "1.0.0"
@@ -1278,6 +1280,13 @@
       "sha512": "sha512-c1ho9WU9ZxMZawML+ssPKZfdnrg/OjR3pe0m9v8230z3acqphwvPJqzAkH54xRYm5ntZHGG1EPP3sux9H3qSPg==",
       "path": "system.windows.extensions/5.0.0",
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
+    },
+    "TinyMCE/6.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bW54Nb19eUl52kkzB+5YpKX6C/Oe5gDMfTNn0lpoDEYA1doFO+985eF23Xl0luf5APgjbg3Gnvx75diHT5g0HA==",
+      "path": "tinymce/6.4.0",
+      "hashPath": "tinymce.6.4.0.nupkg.sha512"
     },
     "CI-Platform.DataAccess/1.0.0": {
       "type": "project",

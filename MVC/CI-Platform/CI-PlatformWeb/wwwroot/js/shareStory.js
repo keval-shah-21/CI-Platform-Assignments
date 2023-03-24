@@ -1,8 +1,19 @@
-﻿//CKSource.Editor
-//    .create(document.querySelector('#editor'))
-//    .catch(error => {
-//        console.error(error);
-//    });
+﻿let draftMedia = [];
+const mediaDiv = document.querySelectorAll("#data-media");
+
+if (mediaDiv.length != 0) {
+    Array.from(mediaDiv).forEach(element => {
+        console.log($(element).data('media'));
+        draftMedia.push(+$(element).data('media'));
+    })
+
+    $(mediaDiv).click(() => {
+        console.log(draftMedia)
+        draftMedia.splice(draftMedia.indexOf(+$(this).data()), 1)
+        $(this).parent().remove();
+        console.log(draftMedia)
+    })
+}
 
 ssDragndrop = document.querySelector(".ss-dragndrop");
 ssImagesInput = document.querySelector("#ssImagesInput");
@@ -31,6 +42,7 @@ ssDragndrop.addEventListener("drop", e => {
         if (file[i].type.split("/")[1] != "png" && file[i].type.split("/")[1] != "jpg" && file[i].type.split("/")[1] != "jpeg") continue;
         if (!files.some((e) => e.name == file[i].name)) files.push(file[i]);
     }
+    setImageInput();
     showImages();
 });
 function showImages() {
@@ -45,77 +57,13 @@ function showImages() {
 }
 function delImage(index) {
     files.splice(index, 1);
+    setImageInput();
     showImages();
 }
-
-
-let action = "";
-$("#ssForm").on('submit', (e) => {
-    e.preventDefault();
-    const videourl = $('#VideoUrl').val();
-
-    let error = false;
-    if (files.length < 1) {
-        $('#MediaError').text("Upload at least one image.");
-        error = true;
-    } else
-        $('#MediaError').text("");
-
-    const missionId = $('#StoryMission').find(":selected").val();
-    if (missionId == 0) {
-        $('#StoryMissionError').text("This field is required.");
-        error = true;
-    } else
-        $('#StoryMissionError').text('');
-
-    const title = $('#Title').val();
-    if (title == null || title == "") {
-        $("#TitleError").text("This field is required.");
-        error = true;
-    } else
-        $("#TitleError").text("");
-
-    var myContent = tinymce.get("tiny").getContent();
-    if (myContent == null || myContent == "") {
-        $("#DescriptionError").text('This field is required.')
-        error = true;
-    } else
-        $("#DescriptionError").text('')
-
-    if (error == true) return;
-
-
-    let formData = new FormData()
-    files.forEach(f => {
-        formData.append('file', f)
-    })
-    var obj = {
-        missionId: missionId,
-        title: title,
-        description: myContent,
-        videourl: videourl,
-        files: formData ,
-        action: action,
-    }
-    console.log(obj);
-    $.ajax({
-        url: "/Volunteer/Story/ShareStory",
-        method: "POST",
-        data: obj,
-        contentType: false,
-        processData: false,
-        success: result => {
-            console.log(result);
-        },
-        error: error => {
-            console.log(error);
-        }
+function setImageInput() {
+    let myFileList = new DataTransfer();
+    files.forEach(function (file) {
+        myFileList.items.add(file);
     });
-})
-
-$("#saveBtn").click((e) => {
-    action = 'save';
-})
-$("#submitBtn").click((e) => {
-    action = 'submit';
-})
+    ssImagesInput.files = myFileList.files;
+}

@@ -1,57 +1,70 @@
-﻿@model List<MissionVM>
+﻿@model StoryVM
 @{
     ViewData["Title"] = "Stories";
+    var isDraft = ViewBag.draft;
 }
 <div class="grid-body d-grid min-vh-100">
     <partial name="_Navbar"></partial>
     <section class="container py-4">
         <h2 class="color-darkgray fw-light mb-4">Share your Story</h2>
-        <form method="POST" class="d-flex flex-column gap-4 color-darkgray" id="ssForm" enctype="multipart/form-data">
+        <form asp-action="ShareStory" method="POST" class="d-flex flex-column gap-4 color-darkgray" id="ssForm" enctype="multipart/form-data">
+            <input hidden value="@isDraft" name="isDraft" id="isDraft">
+            <input hidden value="@Model.StoryId" name="storyId"/>
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col">
                     <span> Select Mission </span>
-                    <select class="form-select" id="StoryMission">
+                    <select class="form-select" id="StoryMission" asp-for="MissionId">
                         <option value="0" disabled selected>Select your mission</option>
-                        @foreach(var mission in Model)
+                        @foreach (var mission in Model.MissionVMs)
                         {
                             <option value="@mission.MissionId">@mission.Title</option>
                         }
                     </select>
-                    <span id="StoryMissionError" class="text-danger text-14"></span>
+                    <span asp-validation-for="MissionId" class="text-danger text-14"></span>
                 </div>
                 <div class="col">
                     <label for="Title">My Story Title</label>
-                    <input type="text" class="form-control" id="Title" placeholder="Enter story title" />
-                    <span id="TitleError" class="text-danger text-14"></span>
+                    <input type="text" class="form-control" id="Title" placeholder="Enter story title" asp-for="Title" />
+                    <span asp-validation-for="Title" class="text-danger text-14"></span>
                 </div>
             </div>
 
             <!-- rich text editor -->
             <div>
                 <label>My Story</label>
-                <textarea id="tiny"></textarea>
-                <span id="DescriptionError" class="text-danger text-14"></span>
+                <textarea id="tiny" asp-for="Description"></textarea>
+                <span id="DescriptionError" asp-validation-for="Description" class="text-danger text-14"></span>
             </div>
             <div>
                 <label for="VideoUrl">Enter Video URL</label>
-                <input type="text" placeholder="Enter your URL" class="form-control" id="VideoUrl" />
-                <span id="VideoUrlError" class="text-danger text-14"></span>
+                <input type="text" placeholder="Enter your URL" class="form-control" id="VideoUrl" asp-for="VideoUrl" />
+                <span asp-validation-for="VideoUrl" class="text-danger text-14"></span>
             </div>
 
             <div class="ss-dragndrop d-flex flex-column align-items-center justify-content-center border border-secondary border-dashed py-4 cursor-pointer">
                 <img src="/images/static/drag-and-drop.png" alt="drag" />
                 <input type="file" name="ssImagesInput" id="ssImagesInput" multiple hidden accept=".png, .jpg, .jpeg" />
+                <span class="text-danger text-14"></span>
             </div>
             <span id="MediaError" class="text-danger text-14"></span>
-            <div class="ss-selected-images d-flex gap-2 gap-md-3 flex-wrap"></div>
-
+            <div class="ss-selected-images d-flex gap-2 gap-md-3 flex-wrap">
+                @foreach (var sm in Model.StoryMediaVM)
+                {
+                    <div class="position-relative">
+                        <img src="@sm.MediaPath@sm.MediaName@sm.MediaType" alt="story image" height="90px" width="90px" />
+                        <div class="position-absolute top-0 end-0 p-1 bg-dark cursor-pointer" data-media="@sm.StoryMediaId">
+                            <img src="/images/static/cross.png" alt="cross" height="10px" />
+                        </div>
+                    </div>
+                }
+            </div>
             <div class="d-flex justify-content-between">
                 <a asp-for="StoryList" asp-controller="Story" class="btn border border-secondary rounded-pill color-darkgray">
                     Cancel
                 </a>
                 <div>
-                    <button id="saveBtn" type="submit" class="btn button me-md-1">Save</button>
-                    <button id="submitBtn" type="submit" class="btn button">Submit</button>
+                    <button type="submit" value="save" name="action" class="btn button me-md-1">Save</button>
+                    <button type="submit" value="submit" name="action" class="btn button">Submit</button>
                 </div>
             </div>
         </form>
@@ -59,7 +72,7 @@
     <partial name="_Footer"></partial>
 </div>
 @section Scripts{
-    <partial name="_ValidationScriptsPartial.cshtml"></partial>
-    <script src="/js/shareStory.js"></script>
-    <script src="/js/tinymceScript.js"></script>
+<partial name="_ValidationScriptsPartial.cshtml"></partial>
+<script src="/js/shareStory.js"></script>
+<script src="/js/tinymceScript.js"></script>
 }

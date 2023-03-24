@@ -74,40 +74,4 @@ public class MissionController : Controller
         _unitOfService.Save();
         return NoContent();
     }
-
-    public IActionResult OpenDocument(string name, string path, string type)
-    {
-        string filePath = path;
-        if (System.IO.File.Exists(filePath))
-        {
-            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            return new FileStreamResult(fileStream, $"{GetContentType(type)}")
-            {
-                FileDownloadName = name
-            };
-        }
-        else
-        {
-            return NotFound();
-        }
-    }
-    private string GetContentType(string fileExtension)
-    {
-        switch (fileExtension.ToLower())
-        {
-            case ".pdf":
-                return "application/pdf";
-            case ".doc":
-                return "application/msword";
-            case ".docx":
-                return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            case ".xls":
-                return "application/vnd.ms-excel";
-            case ".xlsx":
-                return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            default:
-                return "application/octet-stream";
-        }
-    }
-
 }

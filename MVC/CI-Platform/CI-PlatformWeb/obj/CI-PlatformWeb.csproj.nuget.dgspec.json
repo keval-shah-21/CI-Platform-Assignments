@@ -271,6 +271,10 @@
             "Microsoft.EntityFrameworkCore.Design": {
               "target": "Package",
               "version": "[7.0.3, )"
+            },
+            "TinyMCE": {
+              "target": "Package",
+              "version": "[6.4.0, )"
             }
           },
           "imports": [

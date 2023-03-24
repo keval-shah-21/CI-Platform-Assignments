@@ -26,6 +26,7 @@ public class UnitOfService : IUnitOfService
         Comment = new CommentService(_unitOfWork);
         MissionInvite = new MissionInviteService(_unitOfWork, emailService);
         StoryInvite = new StoryInviteService(_unitOfWork);
+        Story = new StoryService(_unitOfWork);
     }
 
     public IUserService User{get; private set;}
@@ -57,6 +58,8 @@ public class UnitOfService : IUnitOfService
     public IMissionInviteService MissionInvite{get; private set;}
 
     public IStoryInviteService StoryInvite{get; private set;}
+
+    public IStoryService Story {get; private set;}
 
     public void Save(){
         _unitOfWork.Save();

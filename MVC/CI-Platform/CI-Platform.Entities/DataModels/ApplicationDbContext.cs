@@ -55,6 +55,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<StoryInvite> StoryInvites { get; set; }
 
+    public virtual DbSet<StoryMedium> StoryMedia { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserSkill> UserSkills { get; set; }
@@ -355,11 +357,10 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.DocumentName)
-                .HasMaxLength(128)
+                .HasMaxLength(64)
                 .IsUnicode(false)
                 .HasColumnName("document_name");
             entity.Property(e => e.DocumentPath)
-                .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("document_path");
             entity.Property(e => e.DocumentType)
@@ -447,11 +448,10 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("default");
             entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.MediaName)
-                .HasMaxLength(128)
+                .HasMaxLength(64)
                 .IsUnicode(false)
                 .HasColumnName("media_name");
             entity.Property(e => e.MediaPath)
-                .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("media_path");
             entity.Property(e => e.MediaType)
@@ -655,6 +655,40 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.ToUserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__story_inv__to_us__57DD0BE4");
+        });
+
+        modelBuilder.Entity<StoryMedium>(entity =>
+        {
+            entity.HasKey(e => e.StoryMediaId).HasName("PK__story_me__29BD053CFDB4BB62");
+
+            entity.ToTable("story_media");
+
+            entity.Property(e => e.StoryMediaId).HasColumnName("story_media_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("created_at");
+            entity.Property(e => e.Default)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("default");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.MediaName)
+                .HasMaxLength(64)
+                .IsUnicode(false)
+                .HasColumnName("media_name");
+            entity.Property(e => e.MediaPath)
+                .IsUnicode(false)
+                .HasColumnName("media_path");
+            entity.Property(e => e.MediaType)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("media_type");
+            entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.Story).WithMany(p => p.StoryMedia)
+                .HasForeignKey(d => d.StoryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__story_med__story__7755B73D");
         });
 
         modelBuilder.Entity<User>(entity =>

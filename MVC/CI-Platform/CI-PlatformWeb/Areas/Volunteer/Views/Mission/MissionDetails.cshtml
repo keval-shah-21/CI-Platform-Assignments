@@ -1,5 +1,4 @@
 ﻿@using CI_Platform.Entities.Constants
-@inject IWebHostEnvironment env
 @model MissionVM
 @{
     ViewData["Title"] = "Mission Details";
@@ -287,13 +286,8 @@
                     <div class="d-flex gap-3 flex-wrap">
                         @foreach (MissionDocumentVM md in Model.MissionDocumentVM)
                         {
-                            var wwwroot = env.WebRootPath;
-                            var path = wwwroot + md.DocumentPath + md.DocumentName + md.DocumentType;
-                            var type = md.DocumentType;
-                            var name = md.DocumentName + md.DocumentType;
-
-                            <a asp-action="OpenDocument" asp-controller="Mission" target="_blank" asp-route-name="@name"  asp-route-path="@path" asp-route-type="@type">
-                                <button class="btn border rounded-pill p-2 d-flex align-items-center gap-2 fw-light text-15 text-secondary">
+                                <a target="_blank" href="@md.DocumentPath@md.DocumentName@md.DocumentType"
+                                class="btn border rounded-pill p-2 d-flex align-items-center gap-2 fw-light text-15 text-secondary">
                                     @if (md.DocumentType == ".doc" || md.DocumentType == ".docx")
                                     {
                                         <img src="/images/static/doc.png" alt="doc">
@@ -307,8 +301,7 @@
                                         <img src="/images/static/pdf.png" alt="pdf">
                                     }
                                     @md.DocumentName@md.DocumentType
-                                </button>
-                            </a>
+                                </a>
                         }
                     </div>
                 }
