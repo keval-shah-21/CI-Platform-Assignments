@@ -24,19 +24,21 @@ namespace CI_Platform.Services.Service
                 story.ApprovalStatus == 2 ? ApprovalStatus.DECLINED :
                 ApprovalStatus.DRAFT,
                 CreatedAt = story.CreatedAt,
+                ShortDescription = story.ShortDescription,
                 Description = story.Description,
                 MissionId = story.MissionId,
                 MissionTheme = story.Mission.MissionTheme.MissionThemeName,
                 UserId = story.UserId,
                 PublishedAt = story.PublishedAt,
                 Title = story.Title,
-                StoryMediaVM = GetStoryMedia(story),
+                StoryThumbnail = GetStoryThumbnail(story),
+                StoryMediaVM = GetOtherStoryMedia(story),
                 UserVM = GetStoryUser(story)
             };
         }
         public List<StoryVM> GetAll()
         {
-            IEnumerable<Story> stories = _unitOfWork.Story.GetAll();
+            IEnumerable<Story> stories = _unitOfWork.Story.GetAllWithInclude();
             if (stories.LongCount() == 0) return new();
             return stories.Select(s => ConvertStoryToVM(s)).ToList();
         }
@@ -46,11 +48,12 @@ namespace CI_Platform.Services.Service
             {
                 MissionId = storyVM.MissionId,
                 UserId = userId,
+                ShortDescription = storyVM.ShortDescription,
                 Description = storyVM.Description,
                 Title = storyVM.Title,
                 ApprovalStatus = approvalStatus,
                 CreatedAt = DateTimeOffset.Now,
-                VideoUrl = storyVM.VideoUrl
+                VideoUrl = storyVM?.VideoUrl
             });
         }
 
@@ -59,23 +62,44 @@ namespace CI_Platform.Services.Service
             Story story = _unitOfWork.Story.GetFirstOrDefault(s => s.StoryId == storyVM.StoryId);
             story.MissionId = storyVM.MissionId;
             story.Description = storyVM.Description;
+            story.ShortDescription = storyVM.ShortDescription;
             story.Title = storyVM.Title;
             story.ApprovalStatus = approvalStatus;
-            story.VideoUrl = storyVM.VideoUrl;
+            story.VideoUrl = storyVM?.VideoUrl;
             story.UpdatedAt = DateTimeOffset.Now;
             _unitOfWork.Story.Update(story);
         }
-
+        public StoryVM GetStoryById(long? id)
+        {
+            Story story = _unitOfWork.Story.GetFirstOrDefaultWithInclude(s => s.StoryId == id);
+            if (story == null) return null!;
+            return ConvertStoryToVM(story);
+        }
         public StoryVM GetDraftStoryByUserId(long userId)
         {
-            Story s = _unitOfWork.Story.GetFirstOrDefault(s => s.UserId == userId && s.ApprovalStatus == 3);
+            Story s = _unitOfWork.Story.GetFirstOrDefaultWithInclude(s => s.UserId == userId && s.ApprovalStatus == 3);
             if(s == null) return new();
             return ConvertStoryToVM(s);
         }
-
-        internal static List<StoryMediaVM> GetStoryMedia(Story story)
+        public void RemoveStoryById(long storyId)
         {
-            return story?.StoryMedia?.Select(sm => StoryMediaService.ConvertStoryMediaToVM(sm)).ToList()!;
+            _unitOfWork.Story.Remove(_unitOfWork.Story.GetFirstOrDefault(s => s.StoryId == storyId));
+        }
+        public long GetLatestStoryId(long userId)
+        {
+            return _unitOfWork.Story.GetAll()
+                .Where(s => s.UserId == userId)
+                .OrderByDescending(s => s.CreatedAt).FirstOrDefault()!.StoryId;
+        }
+
+        internal static string GetStoryThumbnail(Story story)
+        {
+            StoryMedium sm = story.StoryMedia.FirstOrDefault();
+            return sm.MediaPath + sm.MediaName + sm.MediaType;
+        }
+        internal static List<StoryMediaVM> GetOtherStoryMedia(Story story)
+        {
+            return story?.StoryMedia?.Skip(1)?.Select(sm => StoryMediaService.ConvertStoryMediaToVM(sm)).ToList()!;
         }
         internal static UserVM GetStoryUser(Story story)
         {

@@ -19,11 +19,29 @@ namespace CI_Platform.Services.Service
             _unitOfWork = unitOfWork;
         }
 
-        public void SaveStoryMedia()
+        public void SaveAllStoryMedia(List<StoryMediaVM> storyMediaVMs)
         {
-
+            List<StoryMedium> SMVMs = storyMediaVMs.Select(sm =>
+                new StoryMedium()
+                {
+                    StoryId = sm.StoryId,
+                    MediaName = sm.MediaName,
+                    MediaPath = sm.MediaPath,
+                    MediaType = sm.MediaType,
+                    CreatedAt = DateTimeOffset.Now,
+                }
+            ).ToList();
+            _unitOfWork.StoryMedia.AddRange(SMVMs);    
         }
-
+        public void RemoveStoryMedia(long storyId, string mediaName)
+        {
+            StoryMedium sm = _unitOfWork.StoryMedia.GetFirstOrDefault(s => s.StoryId == storyId && s.MediaName == mediaName);
+            _unitOfWork.StoryMedia.Remove(sm);
+        }
+        public void RemoveAllStoryMediaByStoryId(long storyId)
+        {
+            _unitOfWork.StoryMedia.RemoveRange(_unitOfWork.StoryMedia.GetAll().Where(sm => sm.StoryId == storyId));
+        }
         public static StoryMediaVM ConvertStoryMediaToVM(StoryMedium sm)
         {
             return new StoryMediaVM()
@@ -33,7 +51,6 @@ namespace CI_Platform.Services.Service
                 MediaPath = sm.MediaPath,
                 MediaType = sm.MediaType,
                 StoryId = sm.StoryId,
-                Default = sm.Default
             };
         }
     }

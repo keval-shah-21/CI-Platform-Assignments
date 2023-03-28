@@ -15,8 +15,6 @@ public partial class StoryMedium
 
     public string? MediaPath { get; set; }
 
-    public bool? Default { get; set; }
-
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset? UpdatedAt { get; set; }

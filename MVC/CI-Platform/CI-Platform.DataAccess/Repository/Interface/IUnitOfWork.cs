@@ -35,5 +35,6 @@ public interface IUnitOfWork{
 
     IStoryRepository Story { get; }
     IStoryInviteRepository StoryInvite { get; }
+    IStoryMediaRepository StoryMedia { get; }
     void Save();
 }

@@ -368,6 +368,10 @@ public partial class ApplicationDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("document_type");
             entity.Property(e => e.MissionId).HasColumnName("mission_id");
+            entity.Property(e => e.Title)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("title");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
             entity.HasOne(d => d.Mission).WithMany(p => p.MissionDocuments)
@@ -435,7 +439,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<MissionMedium>(entity =>
         {
-            entity.HasKey(e => e.MissionMediaId).HasName("PK__mission___848A78E8BE3A41A5");
+            entity.HasKey(e => e.MissionMediaId).HasName("PK__mission___848A78E8298AC528");
 
             entity.ToTable("mission_media");
 
@@ -464,7 +468,7 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Mission).WithMany(p => p.MissionMedia)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_m__missi__02084FDA");
+                .HasConstraintName("FK__mission_m__missi__0F2D40CE");
         });
 
         modelBuilder.Entity<MissionRating>(entity =>
@@ -604,6 +608,10 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("description");
             entity.Property(e => e.MissionId).HasColumnName("mission_id");
             entity.Property(e => e.PublishedAt).HasColumnName("published_at");
+            entity.Property(e => e.ShortDescription)
+                .HasMaxLength(150)
+                .IsUnicode(false)
+                .HasColumnName("short_description");
             entity.Property(e => e.Title)
                 .HasMaxLength(80)
                 .IsUnicode(false)
@@ -659,7 +667,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<StoryMedium>(entity =>
         {
-            entity.HasKey(e => e.StoryMediaId).HasName("PK__story_me__29BD053CFDB4BB62");
+            entity.HasKey(e => e.StoryMediaId).HasName("PK__story_me__29BD053C65ECB190");
 
             entity.ToTable("story_media");
 
@@ -667,9 +675,6 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
-            entity.Property(e => e.Default)
-                .HasDefaultValueSql("((0))")
-                .HasColumnName("default");
             entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.MediaName)
                 .HasMaxLength(64)
@@ -688,7 +693,7 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Story).WithMany(p => p.StoryMedia)
                 .HasForeignKey(d => d.StoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__story_med__story__7755B73D");
+                .HasConstraintName("FK__story_med__story__0A688BB1");
         });
 
         modelBuilder.Entity<User>(entity =>

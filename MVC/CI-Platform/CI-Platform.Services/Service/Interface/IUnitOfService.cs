@@ -35,5 +35,7 @@ public interface IUnitOfService
     IStoryInviteService StoryInvite { get; } 
     IStoryService Story { get; }
 
+    IStoryMediaService StoryMedia { get; }
+
     void Save();
 }

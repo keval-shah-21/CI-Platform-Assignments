@@ -1,4 +1,5 @@
-﻿using CI_Platform.Entities.ViewModels;
+﻿using CI_Platform.Entities.Constants;
+using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,21 +9,29 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
     public class StoryController : Controller
     {
         private readonly IUnitOfService _unitOfService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public StoryController(IUnitOfService unitOfService)
+        public StoryController(IUnitOfService unitOfService, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfService = unitOfService;
+            _webHostEnvironment = webHostEnvironment;
         }
+        public IActionResult StoryList(int page, string? missionError)
+        {
+            ViewBag.MissionError = missionError;
+            List<StoryVM> stories = _unitOfService.Story.GetAll().Where(s => s.ApprovalStatus == ApprovalStatus.APPROVED).ToList();
+            return View(stories.Skip((page - 1) * 9).Take(9).ToList());
+        }
+
         public IActionResult ShareStory()
         {
             long id = string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")) ? 0
                 : long.Parse(HttpContext.Session.GetString("UserId"));
             if (id == 0) return NotFound();
             List<MissionVM> missions = _unitOfService.MissionApplication.GetAllUserMissions(id);
-            if (missions == null)
+            if (missions.Count == 0)
             {
-                ViewBag.MissionError = "true";
-                return RedirectToAction("StoryList");
+                return RedirectToAction("StoryList", new {missionError = "true" });
             }
 
             StoryVM storyVM = _unitOfService.Story.GetDraftStoryByUserId(id);
@@ -30,29 +39,19 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             {
                 ViewBag.draft = "false";
                 storyVM = new();
-            }else
+            }
+            else
+            {
                 ViewBag.draft = "true";
+            }
             storyVM.MissionVMs = missions;
             return View(storyVM);
         }
 
         [HttpPost]
-        public IActionResult ShareStory(StoryVM storyVM, IFormFileCollection? ssImagesInput, string action, string isDraft, string? storyId)
+        public IActionResult ShareStory(StoryVM storyVM, IFormFileCollection ssImagesInput, string isDraft, string action, List<string>? preLoaded)
         {
             ViewBag.draft = isDraft;
-            if (ssImagesInput?.Count() == 0)
-            {
-                List<MissionVM> missions = _unitOfService.MissionApplication.GetAllUserMissions(long.Parse(HttpContext.Session.GetString("UserId")));
-                storyVM.MissionVMs = missions;
-                return View(storyVM);
-            }
-            if (string.IsNullOrEmpty(storyVM.Description))
-            {
-                List<MissionVM> missions = _unitOfService.MissionApplication.GetAllUserMissions(long.Parse(HttpContext.Session.GetString("UserId")));
-                storyVM.MissionVMs = missions;
-                ModelState.AddModelError("Description", "My Story field is required.");
-                return View(storyVM);
-            }
             long userId = long.Parse(HttpContext.Session.GetString("UserId")!);
             if(isDraft == "false")
             {
@@ -60,17 +59,81 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             }
             else
             {
-                storyVM.StoryId = long.Parse(storyId);
+                storyVM.StoryId = storyVM.StoryId;
                 _unitOfService.Story.UpdateStory(storyVM, (byte)(action == "save" ? 3 : 0));
+            }
+            _unitOfService.Save();
+
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            if(isDraft == "false")
+            {
+                long latestStoryId = _unitOfService.Story.GetLatestStoryId(userId);
+                List<StoryMediaVM> storyMediaVMs = ssImagesInput.Select((image, i) =>
+                    SaveStoryMedia(image, wwwRootPath, latestStoryId)).ToList();
+                _unitOfService.StoryMedia.SaveAllStoryMedia(storyMediaVMs);
+            }
+            else
+            {
+                preLoaded?.ForEach(image =>
+                {
+                    if(!ssImagesInput.Any(ss => image == ss.FileName)){
+                        System.IO.File.Delete(Path.Combine(wwwRootPath, @"images\story", image));
+                        _unitOfService.StoryMedia.RemoveStoryMedia(storyVM.StoryId, image.Split(".")[0]);
+                    }
+                });
+                List<StoryMediaVM> storyMediaVMs = new();
+                ssImagesInput.ToList().ForEach(image =>
+                {
+                    if (!preLoaded.Contains(image.FileName))
+                    {
+                        storyMediaVMs.Add(SaveStoryMedia(image, wwwRootPath, storyVM.StoryId));
+                    }
+                });
+                if(storyMediaVMs.Count > 0)
+                    _unitOfService.StoryMedia.SaveAllStoryMedia(storyMediaVMs);
             }
             _unitOfService.Save();
             return RedirectToAction("StoryList");
         }
 
-        public IActionResult StoryList(int page)
+        public IActionResult StoryDetails(long? id)
         {
-            List<StoryVM> stories = _unitOfService.Story.GetAll();
-            return View(stories.Skip((page - 1) * 9).Take(9).ToList());
+            if(id == null) return NotFound();
+            StoryVM story = _unitOfService.Story.GetStoryById(id);
+            if (story == null) return NotFound();
+            return View(story);
+        }
+        public IActionResult RemoveDraftStory(long storyId)
+        {
+            //long userId = long.Parse(HttpContext.Session.GetString("UserId")!);
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            StoryVM story = _unitOfService.Story.GetStoryById(storyId);
+            story.StoryMediaVM.ForEach(sm =>
+            {
+                System.IO.File.Delete(Path.Combine(wwwRootPath, @"images\story", sm.MediaName+sm.MediaType));
+            });
+            _unitOfService.StoryMedia.RemoveAllStoryMediaByStoryId(story.StoryId);
+            _unitOfService.Story.RemoveStoryById(story.StoryId);
+            _unitOfService.Save();
+            return RedirectToAction("StoryList");
+        }
+        [NonAction]
+        internal StoryMediaVM SaveStoryMedia(IFormFile image, string wwwRootPath, long storyId)
+        {
+            string fileName = Guid.NewGuid().ToString();
+            var uploads = Path.Combine(wwwRootPath, @"images\story");
+            string extension = Path.GetExtension(image.FileName);
+            using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+            {
+                image.CopyTo(fileStreams);
+            }
+            return new StoryMediaVM()
+            {
+                MediaPath = @"\images\story\",
+                MediaName = fileName,
+                MediaType = extension,
+                StoryId = storyId
+            };
         }
     }
 }

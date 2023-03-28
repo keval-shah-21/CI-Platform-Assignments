@@ -27,6 +27,7 @@ public class UserService : IUserService
             FirstName = user.FirstName,
             LastName = user.LastName,
             Password = user.Password,
+            WhyIVolunteer = user.WhyIVolunteer,
             PhoneNumber = user.PhoneNumber,
             MissionInviteFromVM = GetMissionInviteFrom(user),
             MissionInviteToVM = GetMissionInviteTo(user),
@@ -84,7 +85,7 @@ public class UserService : IUserService
         _unitOfWork.User.Update(user);
     }
 
-    public List<UserVM> GetAllUsersToRecommendMission()
+    public List<UserVM> GetAllUsersToRecommend()
     {
         List<User> users = _unitOfWork.User.GetAllToRecommendMission();
         if (users == null) return null!;

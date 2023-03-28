@@ -18,6 +18,10 @@ public class Repository<T> : IRepository<T> where T : class
     {
         dbSet.Add(entity);
     }
+    public void AddRange(IEnumerable<T> entities)
+    {
+        dbSet.AddRange(entities);
+    }
 
     public virtual IEnumerable<T> GetAll()
     {
@@ -34,6 +38,10 @@ public class Repository<T> : IRepository<T> where T : class
     public void Remove(T entity)
     {
         dbSet.Remove(entity);
+    }
+    public void RemoveRange(IEnumerable<T> entities)
+    {
+        dbSet.RemoveRange(entities);
     }
 
     public void Update(T entity)

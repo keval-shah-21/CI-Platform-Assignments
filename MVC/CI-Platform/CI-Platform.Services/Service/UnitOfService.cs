@@ -6,7 +6,6 @@ namespace CI_Platform.Services.Service;
 public class UnitOfService : IUnitOfService
 {
     private readonly IUnitOfWork _unitOfWork;
-
     public UnitOfService(IUnitOfWork unitOfWork, IEmailService emailService)
     {   
         _unitOfWork = unitOfWork;
@@ -27,6 +26,7 @@ public class UnitOfService : IUnitOfService
         MissionInvite = new MissionInviteService(_unitOfWork, emailService);
         StoryInvite = new StoryInviteService(_unitOfWork);
         Story = new StoryService(_unitOfWork);
+        StoryMedia = new StoryMediaService(_unitOfWork);
     }
 
     public IUserService User{get; private set;}
@@ -60,6 +60,7 @@ public class UnitOfService : IUnitOfService
     public IStoryInviteService StoryInvite{get; private set;}
 
     public IStoryService Story {get; private set;}
+    public IStoryMediaService StoryMedia{get; private set;}
 
     public void Save(){
         _unitOfWork.Save();

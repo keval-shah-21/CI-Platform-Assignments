@@ -143,11 +143,12 @@ public class UserController: Controller
     }
 
     [Route("get-users-to-recommend")]
-    public IActionResult GetAllUsersToRecommend(long missionId, long userId)
+    public IActionResult GetAllUsersToRecommend(long? missionId, long? storyId, long userId)
     {
-        List<UserVM> users = _unitOfService.User.GetAllUsersToRecommendMission();
+        List<UserVM> users = _unitOfService.User.GetAllUsersToRecommend();
         ViewBag.UserId = userId;
         ViewBag.MissionId = missionId;
+        ViewBag.StoryId = storyId;
         return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
     }
 }

@@ -63,6 +63,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXFN0b3J5XFNoYXJlU3RvcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Story/StoryDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXFN0b3J5XFN0b3J5RGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/CI-Platform-Assignments/MVC/CI-Platform/CI-PlatformWeb/Areas/Volunteer/Views/Story/StoryList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcVm9sdW50ZWVyXFZpZXdzXFN0b3J5XFN0b3J5TGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

@@ -156,12 +156,12 @@ create table mission_document(
 	document_name varchar(64),
 	document_type varchar(5),
 	document_path varchar(max),
+	title varchar(100),
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset,
 	foreign key (mission_id) references mission(mission_id)
 )
-
 create table mission_application(
 	mission_application_id bigint identity(1,1) primary key,
 	mission_id bigint not null,
@@ -216,6 +216,7 @@ create table story(
 	published_at datetimeoffset,
 	approval_status tinyint not null default 0,
 	description text not null,
+	short_description varchar(150) not null,
 	video_url text,
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
@@ -223,6 +224,7 @@ create table story(
 	foreign key (mission_id) references mission(mission_id),
 	foreign key (user_id) references [user](user_id)
 )
+
 create table comment(
 	comment_id bigint identity(1,1) primary key,
 	mission_id bigint not null,
@@ -267,7 +269,6 @@ create table story_media(
 	media_name varchar(64),
 	media_type varchar(5),
 	media_path varchar(max),
-	[default] bit default 0,
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset,

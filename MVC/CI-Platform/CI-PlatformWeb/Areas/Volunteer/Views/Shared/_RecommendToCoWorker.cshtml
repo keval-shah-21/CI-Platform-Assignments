@@ -1,7 +1,8 @@
 ﻿@model List<UserVM>
 @{
     long userId = ViewBag.UserId;
-    long missionId = ViewBag.MissionId;
+    long missionId = ViewBag?.MissionId;
+    long storyId = ViewBag?.StoryId;
 }
 <!-- modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

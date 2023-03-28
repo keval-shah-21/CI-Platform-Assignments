@@ -4,7 +4,7 @@ if (missionError == "true") {
         icon: 'error',
         title: 'Oops...',
         text: 'Please participate in any mission to share story!',
-        footer: '<a href="/">Checkout missions to apply</a>'
+        footer: '<a href="/">Checkout all missions</a>'
     })
 }
 

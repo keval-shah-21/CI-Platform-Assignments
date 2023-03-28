@@ -18,8 +18,6 @@ namespace CI_Platform.Entities.ViewModels
 
         public string? MediaPath { get; set; }
 
-        public bool? Default { get; set; }
-
         public DateTimeOffset CreatedAt { get; set; }
     }
 }
