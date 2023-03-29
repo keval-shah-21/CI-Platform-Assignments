@@ -24,7 +24,7 @@ public class UnitOfService : IUnitOfService
         Skill = new SkillService(_unitOfWork);
         Comment = new CommentService(_unitOfWork);
         MissionInvite = new MissionInviteService(_unitOfWork, emailService);
-        StoryInvite = new StoryInviteService(_unitOfWork);
+        StoryInvite = new StoryInviteService(_unitOfWork, emailService);
         Story = new StoryService(_unitOfWork);
         StoryMedia = new StoryMediaService(_unitOfWork);
     }

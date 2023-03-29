@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+
+        .active-skill{
+            background-color: darkgray;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container d-flex flex-column gap-4 gap-lg-5 flex-lg-row">
+        <div class="profile-top align-self-center align-self-lg-auto py-4 d-flex flex-column align-items-center border h-100">
+            <img src="./image/user-img-large.png" alt="user image" class="rounded-circle object-fit-cover"
+                height="200px" width="200px">
+            <h4 class="mt-3 color-darkgray">John donhue</h4>
+            <div class="fw-light text-15 cursor-pointer" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change
+                Password</div>
+            <!-- Modal -->
+            <div class="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Change Password</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body d-grid gap-2 color-darkgray">
+                            <div>
+                                <label for="oldPassword">Old Password</label>
+                                <input type="text" class="form-control" id="oldPassword"
+                                    placeholder="Enter old password" />
+                            </div>
+                            <div>
+                                <label for="newPassword">New Password</label>
+                                <input type="text" class="form-control" id="newPassword"
+                                    placeholder="Enter new password" />
+                            </div>
+                            <div>
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="text" class="form-control" id="confirmPassword"
+                                    placeholder="Enter confirm password" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn button px-4">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form action="" class="d-grid gap-5 flex-grow-1 flex-shrink-0 color-darkgray">
+            <div class="d-grid gap-3">
+                <div class="border-bottom border-2 mb-1">
+                    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Basic Information</h4>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col">
+                        <label class="form-label" for="">Name*</label>
+                        <input type="text" placeholder="Enter your name" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="">Surname*</label>
+                        <input type="text" placeholder="Enter your surname" class="form-control">
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col">
+                        <label class="form-label" for="">Employee ID</label>
+                        <input type="text" placeholder="Enter your employee id" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="">Department</label>
+                        <input type="text" placeholder="Enter your department" class="form-control">
+                    </div>
+                </div>
+                <div>
+                    <label class="form-label" for="">My Profile*</label>
+                    <textarea rows="4" type="text" placeholder="Enter your profile description..."
+                        class="form-control"></textarea>
+                </div>
+                <div>
+                    <label class="form-label" for="">Why I Volunteer</label>
+                    <textarea rows="4" type="text" placeholder="Enter your comments..." class="form-control"></textarea>
+                </div>
+
+            </div>
+            </div>
+            <div class="d-grid gap-3">
+                <div class="border-bottom border-2 mb-1">
+                    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Address Information</h4>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col">
+                        <label class="form-label">Select Your City</label>
+                        <select class="form-select">
+                            <option value="0" disabled selected>Select your city</option>
+                            <option value="">Ahmedabad</option>
+                            <option value="">Surat</option>
+                            <option value="">Mumbai</option>
+                            <option value="">Chennai</option>
+                            <option value="">Kolkata</option>
+                            <option value="">New York City</option>
+                            <option value="">Los Angeles</option>
+                            <option value="">Moscow</option>
+                            <option value="">Chicago</option>
+                            <option value="">Tokyo</option>
+                            <option value="">Beijing</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Select Your Country</label>
+                        <select class="form-select">
+                            <option value="0" disabled selected>Select your country</option>
+                            <option value="">India</option>
+                            <option value="">China</option>
+                            <option value="">USA</option>
+                            <option value="">Japan</option>
+                            <option value="">England</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-3">
+                <div class="border-bottom border-2 mb-1">
+                    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Professional Information</h4>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col">
+                        <label class="form-label">Select Your Availability</label>
+                        <select class="form-select">
+                            <option value="0" disabled selected>Select your availability</option>
+                            <option value="">Daily</option>
+                            <option value="">Weekly</option>
+                            <option value="">Monthly</option>
+                            <option value="">Week-end Only</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="">LinkedIn</label>
+                        <input type="text" placeholder="Enter LinkedIn account url" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-3">
+                <div class="border-bottom border-2 mb-1">
+                    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">My Skills</h4>
+                </div>
+                <div class="fw-light border p-2 d-grid gap-1">
+                    <div>Anthropology</div>
+                    <div>Astronomy</div>
+                    <div>Computer Science</div>
+                    <div>Mechanical Engineer</div>
+                    <div>History</div>
+                </div>
+                <button class="btn button-dark px-4 width-max-conatent" type="button" data-bs-toggle="modal" data-bs-target="#skillModal">Add Skills</button>
+                <!-- modal -->
+                <div class="modal fade" id="skillModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Your Skills</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex">
+                    <div id="allSkills" class="border text-14 flex-grow-1">
+                        <div class="px-2 py-1">Anthropology</div>
+                        <div class="px-2 py-1">Music</div>
+                        <div class="px-2 py-1">Cricket</div>
+                        <div class="px-2 py-1">Computer Science</div>
+                        <div class="px-2 py-1">Research</div>
+                        <div class="px-2 py-1">Communication</div>
+                        <div class="px-2 py-1">Agronomy</div>
+                        <div class="px-2 py-1">Botany</div>
+                        <div class="px-2 py-1">Anthropology</div>
+                        <div class="px-2 py-1">Music</div>
+                        <div class="px-2 py-1">Cricket</div>
+                        <div class="px-2 py-1">Computer Science</div>
+                        <div class="px-2 py-1">Research</div>
+                        <div class="px-2 py-1">Communication</div>
+                        <div class="px-2 py-1">Agronomy</div>
+                        <div class="px-2 py-1">Botany</div>
+                    </div>
+                    <div class="mx-3 align-self-center">
+                        <img src="./image/left.png" alt="left" class="mb-3" id="leftSkill">
+                        <img src="./image/right-arrow1.png" alt="right" id="rightSkill">
+                    </div>
+                    <div id="selectedSkills" class="border text-14 flex-grow-1">
+                        <!-- <div class="px-2 py-1">Cricket</div>
+                        <div class="px-2 py-1">Computer Science</div>
+                        <div class="px-2 py-1">Research</div>
+                        <div class="px-2 py-1">Communication</div>
+                        <div class="px-2 py-1">Agronomy</div> -->
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-start">
+                    <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn button px-4">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+        </form>
+    </main>
+    <!-- footer -->
+    <div class="fw-light text-15 cursor-pointer" data-bs-toggle="modal" data-bs-target="#contactModal">contact us</div>
+    <div class="modal fade" id="contactModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Contact Us</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-grid gap-2 color-darkgray">
+                    <div>
+                        <label for="fullName">Name*</label>
+                        <input type="text" class="form-control" value="John doe" id="fullName" readonly/>
+                    </div>
+                    <div>
+                        <label for="email">Email Address*</label>
+                        <input type="text" class="form-control" value="abc1234@gmial.com" id="email" readonly/>
+                    </div>
+                    <div>
+                        <label for="subject">Subject*</label>
+                        <input type="text" class="form-control" id="subject"
+                            placeholder="Enter your subject" />
+                    </div>
+                    <div>
+                        <label for="message">Message*</label>
+                        <textarea type="text" class="form-control" rows="4" id="message"
+                            placeholder="Enter your message" ></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn button px-4">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./js/bootstrap.bundle.min.js"></script>
+<script>
+    const allSkills = document.querySelector("#allSkills");
+    const selectedSkills = document.querySelector("#selectedSkills");
+    const rightSkill = document.querySelector("#rightSkill")
+    const leftSkill = document.querySelector("#leftSkill")
+    skills = [];
+
+</script>
+
+</html>

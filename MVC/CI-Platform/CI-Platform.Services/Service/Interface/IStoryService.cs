@@ -16,5 +16,6 @@ namespace CI_Platform.Services.Service.Interface
         long GetLatestStoryId(long userId);
         void RemoveStoryById(long storyId);
         StoryVM GetStoryById(long? id);
+        void UpdateTotalViews(long storyId);
     }
 }

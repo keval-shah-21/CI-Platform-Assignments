@@ -1,6 +1,6 @@
 ﻿namespace CI_Platform.Entities.Constants
 {
-    public enum MissionAvailability
+    public enum Availability
     {
         DAILY,
         WEEKLY,

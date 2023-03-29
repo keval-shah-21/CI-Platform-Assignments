@@ -31,8 +31,10 @@ namespace CI_Platform.Services.Service
                 UserId = story.UserId,
                 PublishedAt = story.PublishedAt,
                 Title = story.Title,
+                VideoUrl = story.VideoUrl,
+                TotalViews = story.TotalViews,
                 StoryThumbnail = GetStoryThumbnail(story),
-                StoryMediaVM = GetOtherStoryMedia(story),
+                StoryMediaVM = GetStoryMedia(story),
                 UserVM = GetStoryUser(story)
             };
         }
@@ -91,15 +93,20 @@ namespace CI_Platform.Services.Service
                 .Where(s => s.UserId == userId)
                 .OrderByDescending(s => s.CreatedAt).FirstOrDefault()!.StoryId;
         }
-
+        public void UpdateTotalViews(long storyId)
+        {
+            Story story = _unitOfWork.Story.GetFirstOrDefault(s => s.StoryId == storyId);
+            story.TotalViews = story.TotalViews + 1;
+            _unitOfWork.Story.Update(story);
+        }
         internal static string GetStoryThumbnail(Story story)
         {
             StoryMedium sm = story.StoryMedia.FirstOrDefault();
-            return sm.MediaPath + sm.MediaName + sm.MediaType;
+            return sm?.MediaPath + sm?.MediaName + sm?.MediaType;
         }
-        internal static List<StoryMediaVM> GetOtherStoryMedia(Story story)
+        internal static List<StoryMediaVM> GetStoryMedia(Story story)
         {
-            return story?.StoryMedia?.Skip(1)?.Select(sm => StoryMediaService.ConvertStoryMediaToVM(sm)).ToList()!;
+            return story?.StoryMedia?.Select(sm => StoryMediaService.ConvertStoryMediaToVM(sm)).ToList()!;
         }
         internal static UserVM GetStoryUser(Story story)
         {

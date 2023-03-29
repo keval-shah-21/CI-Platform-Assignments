@@ -276,9 +276,8 @@
                 <button class="btn mp-tab3 rounded-0 p-2 p-md-3">Comments</button>
             </div>
             <div class="color-darkgray mp-mission">
-                <h4>Description</h4>
-                <p class="text-15 fw-light text-secondary">
-                    @Model.Description
+                <p class="text-15 text-secondary">
+                    @Html.Raw(Model.Description)
                 </p>
                 @if (@Model?.MissionDocumentVM?.LongCount() > 0)
                 {
@@ -350,15 +349,15 @@
                 </div>
                 <div class="d-flex gap-4 text-15 fw-light text-secondary border-bottom py-3">
                     <span>Days</span>
-                    @if (@Model.Availability == MissionAvailability.DAILY)
+                    @if (@Model.Availability == Availability.DAILY)
                     {
                         <div>Daily</div>
                     }
-                    else if (@Model.Availability == MissionAvailability.MONTHLY)
+                    else if (@Model.Availability == Availability.MONTHLY)
                     {
                         <div>Monthly</div>
                     }
-                    else if (@Model.Availability == MissionAvailability.WEEK_END)
+                    else if (@Model.Availability == Availability.WEEK_END)
                     {
                         <div>Week end only</div>
                     }

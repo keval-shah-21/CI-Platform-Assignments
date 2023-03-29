@@ -5,4 +5,5 @@ namespace CI_Platform.DataAccess.Repository.Interface;
 public interface IUserRepository : IRepository<User>
 {
     List<User> GetAllToRecommendMission();
+    List<User> GetAllToRecommendStory();
 }

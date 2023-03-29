@@ -1,5 +1,4 @@
-﻿@model List<StoryVM>
-@{
+﻿@{
     ViewData["Title"] = "Stories";
 }
 @{
@@ -24,10 +23,9 @@
         <img src="/images/static/right-arrow.png" alt="right arrow" />
     </a>
 </div>
-<main class="container py-4 py-md-5" id="storyPartialContainer">
-    <partial name="_StoryList"></partial>
-</main>
-<div id="pagination" class="d-flex justify-content-center gap-1 mt-5"></div>
+<main class="container py-4 py-md-5" id="storyPartialContainer"></main>
+<div id="pagination" class="d-flex justify-content-center gap-1 mb-5"></div>
+<partial name="_Footer"></partial>
 @section Scripts{
     <script src="~/js/storyList.js"></script>
 }

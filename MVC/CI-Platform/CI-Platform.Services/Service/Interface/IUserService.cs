@@ -14,5 +14,6 @@ public interface IUserService
 
     void UpdatePassword(string email, string password);
 
-    List<UserVM> GetAllUsersToRecommend();
+    List<UserVM> GetAllUsersToRecommendMission();
+    List<UserVM> GetAllUsersToRecommendStory();
 }

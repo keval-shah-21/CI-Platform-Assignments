@@ -36,6 +36,7 @@ namespace CI_Platform.Entities.ViewModels
         public string Description { get; set; } = null!;
 
         public string StoryThumbnail { get; set; } = null!;
+        public long? TotalViews { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
 

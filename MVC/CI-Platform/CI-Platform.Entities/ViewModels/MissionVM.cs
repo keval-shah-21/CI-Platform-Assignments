@@ -39,7 +39,7 @@ public class MissionVM {
 
     public byte? MissionRating { get; set; }
 
-    public MissionAvailability Availability { get; set; }
+    public Availability Availability { get; set; }
 
     public string MissionThumbnail {get; set;} = string.Empty;
     public List<MissionMediaVM> MissionMediaVM { get; set; } = null!;

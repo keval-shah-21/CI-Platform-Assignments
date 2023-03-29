@@ -21,7 +21,8 @@ $("#shareStoryBtn").click((e) => {
 })
 
 $(document).ready(() => {
-    const totalStories = document.querySelector("#totalStories");
+    MakeAjaxCall();
+    const totalStories = document.querySelector("#totalStories").value;
     createPaginationHTML(totalStories);
 })
 
@@ -119,13 +120,14 @@ function handlePagination(value) {
 
 function MakeAjaxCall() {
     $.ajax({
-        url: "/Volunteer/Story/StoryList",
+        url: "/Volunteer/Story/StoryListPartial",
         method: "GET",
-        data: { page: currentPage },
+        data: { page: page },
         success: (result) => {
+            window.scroll(0, 0);
             $('#storyPartialContainer').html(result);
         },
-        error: errro => {
+        error: error => {
             console.log(error);
         }
     });

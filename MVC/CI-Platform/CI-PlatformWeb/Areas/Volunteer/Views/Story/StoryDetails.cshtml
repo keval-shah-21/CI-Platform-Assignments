@@ -7,67 +7,89 @@
 <input hidden value="@userId" id='userId' />
 <input hidden value="@Model.StoryId" id='storyId' />
 
-<partial name="_Navbar"></partial>
-<section class="container mp-top d-flex flex-column flex-lg-row py-4 gap-4">
-    <div class="my-auto">
-        <img src="@Model.StoryThumbnail"
-             alt="mission image"
-             class="object-fit-cover" />
-        @if (@Model?.StoryMediaVM?.Count() > 0)
-        {
-            <div class="position-relative">
-                <div class="d-flex mp-small-images overflow-scroll">
-                    @foreach (StoryMediaVM sm in Model.StoryMediaVM)
-                    {
-                        <img src="@sm.MediaPath@sm.MediaName@sm.MediaType"
-                     class="object-fit-cover"
-                     alt="mission image" />
-                    }
-                    <div class="mp-left-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 cursor-pointer">
-                        <img src="/images/static/left1.png" alt="left arrow" />
+<div class="grid-body d-grid min-vh-100">
+    <partial name="_Navbar"></partial>
+    <main class="container py-4">
+        <section class="mp-top d-flex flex-column flex-lg-row pb-4 gap-4">
+            <div class="my-auto">
+                <img src="@Model.StoryThumbnail"
+                     alt="mission image"
+                     class="object-fit-cover" />
+                @if (@Model?.StoryMediaVM?.Count() > 0)
+                {
+                    <div class="position-relative">
+                        <div class="d-flex mp-small-images overflow-scroll">
+                            @foreach (StoryMediaVM sm in Model.StoryMediaVM)
+                            {
+                                <img src="@sm.MediaPath@sm.MediaName@sm.MediaType"
+                             class="object-fit-cover"
+                             alt="mission image" />
+                            }
+                            <div class="mp-left-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 cursor-pointer">
+                                <img src="/images/static/left1.png" alt="left arrow" />
+                            </div>
+                            <div class="mp-right-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 end-0 cursor-pointer">
+                                <img src="/images/static/right-arrow2.png" alt="left arrow" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="mp-right-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 end-0 cursor-pointer">
-                        <img src="/images/static/right-arrow2.png" alt="left arrow" />
-                    </div>
+                }
+            </div>
+            <div class="text-secondary">
+                <img src="@Model.UserVM.Avatar"
+                     alt="user"
+                     width="80px"
+                     height="80px"
+                     class="rounded-circle object-fit-cover" />
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span>@Model.UserVM.FirstName @Model.UserVM.LastName</span>
+                    <span class="rounded-pill border d-flex gap-2 p-2 align-items-center text-secondary"><img src="/images/static/eye.png" alt="eye" /> @Model.TotalViews views</span>
+                </div>
+                @if (string.IsNullOrEmpty(@Model.UserVM.WhyIVolunteer))
+                {
+                    <p>
+                        @Model.UserVM.ProfileText
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        @Model.UserVM.WhyIVolunteer
+                    </p>
+                }
+                <div class="my-3 d-flex flex-column align-items-center justify-content-lg-between gap-2 gap-lg-4 flex-md-row flex-wrap">
+                    <button class="btn button-dark d-flex align-items-center gap-2 justify-content-center px-xl-4"
+                            type="button" data-bs-target="#exampleModal" id="recommendBtn">
+                        <img src="/images/static/add1.png" alt="user" />
+                        Recommend to Co-Worker
+                    </button>
+                    <div id="partialRecommendContainer"></div>
+                    <a asp-action="MissionDetails" asp-controller="Mission" asp-route-id="@Model.MissionId"
+                       class="btn button d-flex align-items-center gap-2 justify-content-center text-15 px-xl-4">
+                        Open Mission
+                        <img src="/images/static/right-arrow.png" alt="arrow" />
+                    </a>
                 </div>
             </div>
-        }
-
-    </div>
-    <div class="text-secondary">
-        <img src="@Model.UserVM.Avatar"
-             alt="user"
-             width="80px"
-             height="80px"
-             class="rounded-circle object-fit-cover" />
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <span>@Model.UserVM.FirstName @Model.UserVM.LastName</span>
-            <span class="rounded-pill border d-flex gap-2 p-2 align-items-center text-secondary"><img src="/images/static/eye.png" alt="eye" /> 12,000 views</span>
-        </div>
-        <p>
-            @Model.UserVM.WhyIVolunteer
-        </p>
-        <div class="my-3 d-flex flex-column gap-2 gap-lg-4 flex-md-row">
-            <button class="btn rounded-pill d-flex align-items-center gap-2 border border-2 border-secondary justify-content-center px-xl-4 text-secondary"
-                    type="button" data-bs-target="#exampleModal" id="recommendBtn">
-                <img src="/images/static/add1.png" alt="user" />
-                Recommend to Co-Worker
-            </button>
-            <div id="partialRecommendContainer"></div>
-            <a asp-action="MissionDetails" asp-controller="Mission" asp-route-id="@Model.MissionId"
-               class="btn button d-flex align-items-center gap-2 justify-content-center text-15 px-xl-4">
-                Open Mission
-                <img src="/images/static/right-arrow.png" alt="arrow" />
-            </a>
-        </div>
-    </div>
-</section>
-<section class="container mt-4 pb-4">
-    <div class="border-bottom mb-3">
-        <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">@Model.Title</h4>
-    </div>
-    <div class="py-3 text-secondary">
-        @Html.Raw(Model.Description)
-    </div>
-</section>
-<partial name="_Footer"></partial>
+        </section>
+        <section class="mt-4">
+            <div class="border-bottom mb-3">
+                <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">@Model.Title</h4>
+            </div>
+            <div class="py-3 text-secondary">
+                @Html.Raw(Model.Description)
+            </div>
+            @if (Model.VideoUrl != null)
+            {
+                <hr />
+                <a href="@Model.VideoUrl" class="btn button" target="_blank">
+                    Related Link
+                </a>
+            }
+        </section>
+    </main>
+    <partial name="_Footer"></partial>
+</div>
+@section Scripts{
+<script src="~/js/storyDetails.js"></script>
+}

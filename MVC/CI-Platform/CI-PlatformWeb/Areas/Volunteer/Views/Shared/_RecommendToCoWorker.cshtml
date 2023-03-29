@@ -1,8 +1,8 @@
 ﻿@model List<UserVM>
 @{
     long userId = ViewBag.UserId;
-    long missionId = ViewBag?.MissionId;
-    long storyId = ViewBag?.StoryId;
+    var storyId = ViewBag?.StoryId;
+    var missionId = ViewBag?.MissionId;
 }
 <!-- modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -15,7 +15,11 @@
             <div class="modal-body">
                 @foreach (UserVM user in Model)
                 {
-                    if ((bool)user?.MissionInviteToVM.Any(mi => mi.FromUserId == userId && mi.MissionId == missionId))
+                    if ((missionId != null && (bool)user?.MissionInviteToVM
+                    ?.Any(mi => mi.FromUserId == userId && mi.MissionId == missionId)!)
+                    ||
+                    (storyId != null && (bool)user?.StoryInviteToVM
+                    ?.Any(si => si.FromUserId == userId && si.StoryId == storyId)!))
                     {
                         <div class="form-check mb-2">
                             <img class="form-check-input border-0" src="/images/static/success-green-check-mark-icon.svg" alt="check" height="30px" width="30px">

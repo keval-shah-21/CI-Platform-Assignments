@@ -28,6 +28,7 @@ public class UserService : IUserService
             LastName = user.LastName,
             Password = user.Password,
             WhyIVolunteer = user.WhyIVolunteer,
+            ProfileText = user.ProfileText,
             PhoneNumber = user.PhoneNumber,
             MissionInviteFromVM = GetMissionInviteFrom(user),
             MissionInviteToVM = GetMissionInviteTo(user),
@@ -53,6 +54,8 @@ public class UserService : IUserService
             Password = userVM.Password,
             PhoneNumber = userVM.PhoneNumber,
             CreatedAt = userVM.CreatedAt,
+            WhyIVolunteer = userVM.WhyIVolunteer,
+            ProfileText = userVM.ProfileText,
             Avatar = userVM.Avatar
         };
         _unitOfWork.User.Add(obj);
@@ -85,13 +88,18 @@ public class UserService : IUserService
         _unitOfWork.User.Update(user);
     }
 
-    public List<UserVM> GetAllUsersToRecommend()
+    public List<UserVM> GetAllUsersToRecommendMission()
     {
         List<User> users = _unitOfWork.User.GetAllToRecommendMission();
         if (users == null) return null!;
         return users.Select(user => ConvertUserToVM(user)).ToList();
     }
-
+    public List<UserVM> GetAllUsersToRecommendStory()
+    {
+        List<User> users = _unitOfWork.User.GetAllToRecommendStory();
+        if (users == null) return null!;
+        return users.Select(user => ConvertUserToVM(user)).ToList();
+    }
     internal static List<MissionInviteVM> GetMissionInviteFrom(User user)
     {
         return user?.MissionInviteFromUsers?.LongCount() > 0 ? 

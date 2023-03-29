@@ -17,4 +17,11 @@ public class UserRepository : Repository<User>, IUserRepository
         .Include(u => u.MissionInviteToUsers)
         .ToList();
     }
+    public List<User> GetAllToRecommendStory()
+    {
+        return dbSet
+        .Include(u => u.StoryInviteFromUsers)
+        .Include(u => u.StoryInviteToUsers)
+        .ToList();
+    }
 }

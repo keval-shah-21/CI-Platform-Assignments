@@ -616,6 +616,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasMaxLength(80)
                 .IsUnicode(false)
                 .HasColumnName("title");
+            entity.Property(e => e.TotalViews)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("total_views");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.VideoUrl)

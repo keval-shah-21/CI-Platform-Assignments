@@ -54,6 +54,7 @@ create table [user](
 	profile_text text,
 	linked_in_url varchar(255),
 	title varchar(255),
+	availability tinyint,
 	status bit not null default 1,
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
@@ -61,6 +62,7 @@ create table [user](
 	foreign key (city_id) references city(city_id),
 	foreign key (country_id) references country(country_id)
 )
+
 create table reset_password(
 	email varchar(128) primary key,
 	token varchar(255) not null,
@@ -218,13 +220,13 @@ create table story(
 	description text not null,
 	short_description varchar(150) not null,
 	video_url text,
+	total_views bigint default 0,
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset,
 	foreign key (mission_id) references mission(mission_id),
 	foreign key (user_id) references [user](user_id)
 )
-
 create table comment(
 	comment_id bigint identity(1,1) primary key,
 	mission_id bigint not null,

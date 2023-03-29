@@ -9,7 +9,6 @@ namespace CI_Platform.Services.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailService _emailService;
-        private readonly IUserService _userService;
 
         public MissionInviteService(IUnitOfWork unitOfWork, IEmailService emailService)
         {
@@ -28,13 +27,13 @@ namespace CI_Platform.Services.Service
             };
         }
 
-        public async void RecommendMission(long missionId, long userId, long[] toUsers, string url)
+        public void RecommendMission(long missionId, long userId, long[] toUsers, string url)
         {
             User user = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == userId);
             string name = user.FirstName + " " + user.LastName;
             string subject = "CI Platform - Mission Recommendation";
             string link = $"<a href='{url}' style='text-decoration:none;display:block;width:max-content;border:1px solid black;border-radius:5rem;padding:0.75rem 1rem;margin:1rem auto;color:black;font-size:1rem;'>Open mission</a>";
-            string body = $"<p style='text-align:center;font-size:2rem'>Your co-worker {name} has recommended a mission to you.</p><p style='text-align:center;font-size:1.5rem'>Click on the link below check mission out</p><hr/>{link}";
+            string body = $"<p style='text-align:center;font-size:2rem'>Your co-worker '{name}' has recommended a mission to you.</p><p style='text-align:center;font-size:1.5rem'>Click on the link below check mission out.</p><hr/>{link}";
 
             foreach (long toUser in toUsers)
             {

@@ -64,13 +64,9 @@ public class MissionController : Controller
     public IActionResult ToggleFavouriteMission(long missionId, long userId, bool isFavourite)
     {
         if (isFavourite)
-        {
             _unitOfService.FavouriteMission.RemoveFromFavourite(missionId, userId);
-        }
         else
-        {
             _unitOfService.FavouriteMission.AddToFavourite(missionId, userId);
-        }
         _unitOfService.Save();
         return NoContent();
     }

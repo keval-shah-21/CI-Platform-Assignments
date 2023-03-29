@@ -32,6 +32,7 @@ public class UserVM{
     [StringLength(10, ErrorMessage ="Phone number should be of 10 digits only.", MinimumLength =10)]
     public string PhoneNumber {get; set;} = string.Empty;
     public string? WhyIVolunteer { get; set; }
+    public string? ProfileText { get; set; }
 
     public string? Avatar {get; set;}
 

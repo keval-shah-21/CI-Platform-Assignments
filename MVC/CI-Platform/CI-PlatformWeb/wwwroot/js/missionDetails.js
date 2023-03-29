@@ -4,6 +4,22 @@
     const smallImages = document.querySelector(".mp-small-images");
     rightScroll.addEventListener("click", () => { smallImages.scrollTo(smallImages.scrollLeft + smallImages.offsetWidth, 0); })
     leftScroll.addEventListener("click", () => { smallImages.scrollTo(smallImages.scrollLeft - smallImages.offsetWidth, 0); })
+    if (smallImages.scrollWidth > smallImages.clientWidth) {
+        leftScroll.classList.remove("d-none");
+        rightScroll.classList.remove("d-none");
+    } else {
+        leftScroll.classList.add("d-none");
+        rightScroll.classList.add("d-none");
+    }
+    addEventListener("resize", () => {
+        if (smallImages.scrollWidth > smallImages.clientWidth) {
+            leftScroll.classList.remove("d-none");
+            rightScroll.classList.remove("d-none");
+        } else {
+            leftScroll.classList.add("d-none");
+            rightScroll.classList.add("d-none");
+        }
+    });
 }
 
 const Tab1 = document.querySelector(".mp-tab1");

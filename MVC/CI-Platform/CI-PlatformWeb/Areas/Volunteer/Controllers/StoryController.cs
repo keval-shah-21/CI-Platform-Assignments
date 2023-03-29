@@ -16,13 +16,18 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             _unitOfService = unitOfService;
             _webHostEnvironment = webHostEnvironment;
         }
-        public IActionResult StoryList(int page, string? missionError)
+        public IActionResult StoryList(string? missionError)
         {
             ViewBag.MissionError = missionError;
             List<StoryVM> stories = _unitOfService.Story.GetAll().Where(s => s.ApprovalStatus == ApprovalStatus.APPROVED).ToList();
-            return View(stories.Skip((page - 1) * 9).Take(9).ToList());
+            ViewBag.TotalStories = stories.LongCount();
+            return View();
         }
-
+        public IActionResult StoryListPartial(int page)
+        {
+            List<StoryVM> stories = _unitOfService.Story.GetAll().Where(s => s.ApprovalStatus == ApprovalStatus.APPROVED).ToList();
+            return PartialView("_StoryList", stories.Skip((page - 1) * 9).Take(9).ToList());
+        }
         public IActionResult ShareStory()
         {
             long id = string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")) ? 0
@@ -101,11 +106,14 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             if(id == null) return NotFound();
             StoryVM story = _unitOfService.Story.GetStoryById(id);
             if (story == null) return NotFound();
+            _unitOfService.Story.UpdateTotalViews(story.StoryId);
+            _unitOfService.Save();
+            story.TotalViews = story.TotalViews + 1;
+            story.StoryMediaVM = story.StoryMediaVM.Skip(1).ToList();
             return View(story);
         }
         public IActionResult RemoveDraftStory(long storyId)
         {
-            //long userId = long.Parse(HttpContext.Session.GetString("UserId")!);
             string wwwRootPath = _webHostEnvironment.WebRootPath;
             StoryVM story = _unitOfService.Story.GetStoryById(storyId);
             story.StoryMediaVM.ForEach(sm =>
@@ -117,6 +125,19 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             _unitOfService.Save();
             return RedirectToAction("StoryList");
         }
+
+        [HttpPost]
+        public IActionResult RecommendStory(long storyId, long userId, long[] toUsers)
+        {
+            var url = Url.Action("StoryDetails", "Story", new { id = storyId }, "https");
+            _unitOfService.StoryInvite.RecommendStory(storyId, userId, toUsers, url);
+            _unitOfService.Save();
+            List<UserVM> users = _unitOfService.User.GetAllUsersToRecommendStory();
+            ViewBag.UserId = userId;
+            ViewBag.StoryId = storyId;
+            return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
+        }
+
         [NonAction]
         internal StoryMediaVM SaveStoryMedia(IFormFile image, string wwwRootPath, long storyId)
         {

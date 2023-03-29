@@ -51,10 +51,6 @@ public class UserController: Controller
         HttpContext.Session.SetString("Avatar", userVM.Avatar!.ToString());
     }
 
-    public void SetUserProfileSession(){
-
-    }
-
     [Route("registration", Name="Registration")]
     public IActionResult Registration(){
         return View();
@@ -145,7 +141,15 @@ public class UserController: Controller
     [Route("get-users-to-recommend")]
     public IActionResult GetAllUsersToRecommend(long? missionId, long? storyId, long userId)
     {
-        List<UserVM> users = _unitOfService.User.GetAllUsersToRecommend();
+        List<UserVM> users = new();
+        if(missionId != null)
+        {
+            users = _unitOfService.User.GetAllUsersToRecommendMission();
+        }
+        else
+        {
+            users = _unitOfService.User.GetAllUsersToRecommendStory();
+        }
         ViewBag.UserId = userId;
         ViewBag.MissionId = missionId;
         ViewBag.StoryId = storyId;
