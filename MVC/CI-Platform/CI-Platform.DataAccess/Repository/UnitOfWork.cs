@@ -27,6 +27,7 @@ public class UnitOfWork : IUnitOfWork
         StoryInvite = new StoryInviteRepository(_context);
         Story = new StoryRepository(_context);
         StoryMedia = new StoryMediaRepository(_context);
+        UserSkill = new UserSkillRepository(_context);
     }
     public IUserRepository User{get; private set;}
 
@@ -63,6 +64,7 @@ public class UnitOfWork : IUnitOfWork
     public IStoryRepository Story {get; private set;}
     public IStoryInviteRepository StoryInvite { get; private set; }
     public IStoryMediaRepository StoryMedia { get; private set; }
+    public IUserSkillRepository UserSkill { get; private set; }
     public void Save()
     {
         _context.SaveChanges();

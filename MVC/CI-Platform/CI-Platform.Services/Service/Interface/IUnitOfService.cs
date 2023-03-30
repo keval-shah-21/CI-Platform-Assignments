@@ -37,5 +37,7 @@ public interface IUnitOfService
 
     IStoryMediaService StoryMedia { get; }
 
+    IUserSkillService UserSkill { get; }
+
     void Save();
 }

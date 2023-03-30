@@ -1,6 +1,9 @@
-@using Microsoft.AspNetCore.Http;
-@inject IHttpContextAccessor HttpContextAccessor
-
+@{
+    var firstName = Context.Session.GetString("FirstName");
+    var lastName = Context.Session.GetString("LastName");
+    var userId = Context.Session.GetString("UserId");
+    var avatar = Context.Session.GetString("Avatar");
+}
 <nav class="navbar sticky-top bg-white py-1 border-2 border-bottom">
     <div class="container">
         <div class="d-flex gap-5 align-items-center fw-light">
@@ -22,16 +25,16 @@
             </div>
         </div>
         <div>
-            @if(@HttpContextAccessor.HttpContext!.Session.GetString("Email") != null){
+            @if(userId != null){
                 <div class="dropdown">
                     <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src='@HttpContextAccessor.HttpContext.Session.GetString("Avatar")' alt="profile" class="rounded-circle object-fit-cover" width="40px" height="40px">
-                    <span class="d-none d-md-inline">@HttpContextAccessor.HttpContext.Session.GetString("FirstName") @HttpContextAccessor.HttpContext.Session.GetString("LastName")</span>
+                    <img src='@avatar' alt="profile" class="rounded-circle object-fit-cover" width="40px" height="40px">
+                    <span class="d-none d-md-inline">@firstName @lastName</span>
                     <img src="~/images/static/drop-down.png" alt="drop-down">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
-                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><a class="dropdown-item" asp-action="UserProfile" asp-controller="User" asp-route-userId="@userId">My Profile</a></li>
                         <li><a class="dropdown-item" href="#">Volunteer TimeSheet</a></li>
                         <li><a id="logoutBtn" class="dropdown-item">Logout</a></li>
                     </ul>

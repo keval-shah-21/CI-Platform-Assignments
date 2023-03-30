@@ -31,9 +31,9 @@ public class MissionService : IMissionService
             OrganizationDetails = mission.OrganizationDetails,
             StartDate = mission.StartDate,
             EndDate = mission.EndDate,
-            Availability = mission.Availability == 0 ? MissionAvailability.DAILY : 
-                            mission.Availability == 1? MissionAvailability.WEEKLY :
-                            mission.Availability == 2 ? MissionAvailability.WEEK_END : MissionAvailability.MONTHLY,
+            Availability = mission.Availability == 0 ? Availability.DAILY : 
+                            mission.Availability == 1? Availability.WEEKLY :
+                            mission.Availability == 2 ? Availability.WEEK_END : Availability.MONTHLY,
             TotalSeats = mission.TotalSeats,
             SeatsLeft = (short?)(mission.TotalSeats - (maVM == null ? 0 : maVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED).LongCount())),
             MissionType = mission.MissionType ? MissionType.GOAL : MissionType.TIME,

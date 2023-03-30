@@ -36,5 +36,7 @@ public interface IUnitOfWork{
     IStoryRepository Story { get; }
     IStoryInviteRepository StoryInvite { get; }
     IStoryMediaRepository StoryMedia { get; }
+
+    IUserSkillRepository UserSkill { get; }
     void Save();
 }

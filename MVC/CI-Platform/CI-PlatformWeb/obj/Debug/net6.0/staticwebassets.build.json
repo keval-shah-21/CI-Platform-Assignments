@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "U97Reb2BzJfT3gCdy945DibqUtsqxxYZqIOCltYSGrA=",
+  "Hash": "rZMcdKJpgSYU2CZqHtGGGSdMQnenLsetlYsOtk5Y9uE=",
   "Source": "CI-PlatformWeb",
   "BasePath": "_content/CI-PlatformWeb",
   "Mode": "Default",
@@ -2565,6 +2565,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\tinymceScript.js"
+    },
+    {
+      "Identity": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\js\\userProfile.js",
+      "SourceId": "CI-PlatformWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
+      "BasePath": "_content/CI-PlatformWeb",
+      "RelativePath": "js/userProfile.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\userProfile.js"
     },
     {
       "Identity": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

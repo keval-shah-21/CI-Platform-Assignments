@@ -415,3 +415,15 @@ form input:focus {
         display: flex !important;
     }
 }
+
+/* my profile page */
+.profile-top {
+    width: 330px;
+}
+.active-skill {
+    background-color: rgb(224, 224, 224);
+}
+
+.skillBtn:hover {
+    background-color: lightgray;
+}

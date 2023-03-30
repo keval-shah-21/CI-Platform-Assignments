@@ -16,4 +16,6 @@ public interface IUserService
 
     List<UserVM> GetAllUsersToRecommendMission();
     List<UserVM> GetAllUsersToRecommendStory();
+
+    ProfileVM GetUserProfileById(long userId);
 }

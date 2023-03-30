@@ -9,7 +9,6 @@ public class UnitOfService : IUnitOfService
     public UnitOfService(IUnitOfWork unitOfWork, IEmailService emailService)
     {   
         _unitOfWork = unitOfWork;
-        User = new UserService(_unitOfWork, emailService);
         ResetPassword = new ResetPasswordService(_unitOfWork);
         Mission = new MissionService(_unitOfWork);
         City = new CityService(_unitOfWork);
@@ -27,6 +26,8 @@ public class UnitOfService : IUnitOfService
         StoryInvite = new StoryInviteService(_unitOfWork, emailService);
         Story = new StoryService(_unitOfWork);
         StoryMedia = new StoryMediaService(_unitOfWork);
+        UserSkill = new UserSkillService(_unitOfWork);
+        User = new UserService(_unitOfWork, emailService, Skill, City, Country, UserSkill);
     }
 
     public IUserService User{get; private set;}
@@ -61,6 +62,8 @@ public class UnitOfService : IUnitOfService
 
     public IStoryService Story {get; private set;}
     public IStoryMediaService StoryMedia{get; private set;}
+
+    public IUserSkillService UserSkill{get; private set;}
 
     public void Save(){
         _unitOfWork.Save();

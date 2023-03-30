@@ -103,9 +103,9 @@ create table user_skill(
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset
-	foreign key (user_id) references [user](user_id)
+	foreign key (user_id) references [user](user_id),
+	foreign key (skill_id) references skill(skill_id)
 )
-
 create table mission(
 	mission_id bigint identity(1,1) primary key,
 	mission_city int not null,

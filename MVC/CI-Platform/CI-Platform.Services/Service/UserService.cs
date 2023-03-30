@@ -9,12 +9,20 @@ namespace CI_Platform.Services.Service;
 public class UserService : IUserService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserSkillService _userSkillService;
+    private readonly ICountryService _countryService;
+    private readonly ICityService _cityService;
+    private readonly ISkillService _skillService;
     private readonly IEmailService _emailService;
 
-    public UserService(IUnitOfWork unitOfWork, IEmailService emailService)
+    public UserService(IUnitOfWork unitOfWork, IEmailService emailService, ISkillService skillService, ICityService cityService, ICountryService countryService, IUserSkillService userSkillService)
     {
         _unitOfWork = unitOfWork;
         _emailService = emailService;
+        _cityService = cityService;
+        _countryService = countryService;
+        _skillService = skillService;
+        _userSkillService = userSkillService;
     }
 
     public static UserVM ConvertUserToVM(User user)
@@ -34,6 +42,32 @@ public class UserService : IUserService
             MissionInviteToVM = GetMissionInviteTo(user),
             StoryInviteFromVM = GetStoryInviteFrom(user),
             StoryInviteToVM = GetStoryInviteTo(user)
+        };
+    }
+    public ProfileVM ConvertProfileToVM(User user)
+    {
+        return new ProfileVM()
+        {
+            UserId = user.UserId,
+            Avatar = user.Avatar,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Password = user.Password,
+            WhyIVolunteer = user.WhyIVolunteer,
+            ProfileText = user.ProfileText,
+            PhoneNumber = user.PhoneNumber,
+            Department = user.Department,
+            LinkedInUrl = user.LinkedInUrl,
+            EmployeeId = user.EmployeeId,
+            Title = user.Title,
+            Availability = user.Availability,
+            CityId = user.CityId,
+            CountryId = user.CountryId,
+            skillVMs = _skillService.GetAll(),
+            cityVMs = _cityService.GetAll(),
+            countryVMs = _countryService.GetAll(),
+            UserSkillVMs = _userSkillService.GetUserSkillsByUserId(user.UserId)
         };
     }
 
@@ -73,7 +107,11 @@ public class UserService : IUserService
         User obj = _unitOfWork.User.GetFirstOrDefault(user => user.Email.Equals(email));
         return obj == null ? null! : ConvertUserToVM(obj);
     }
-
+    public ProfileVM GetUserProfileById(long userId)
+    {
+        User obj = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == userId);
+        return obj == null ? null! : ConvertProfileToVM(obj);
+    }
     public void SendResetPasswordEmail(string email, string url)
     {
         string subject = "CI Platform - Reset-Password link";

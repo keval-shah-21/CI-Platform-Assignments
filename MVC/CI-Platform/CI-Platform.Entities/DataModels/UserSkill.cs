@@ -17,5 +17,7 @@ public partial class UserSkill
 
     public DateTimeOffset? DeletedAt { get; set; }
 
+    public virtual Skill Skill { get; set; } = null!;
+
     public virtual User User { get; set; } = null!;
 }

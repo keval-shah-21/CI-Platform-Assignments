@@ -706,6 +706,7 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("user");
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.Availability).HasColumnName("availability");
             entity.Property(e => e.Avatar)
                 .IsUnicode(false)
                 .HasColumnName("avatar");
@@ -774,7 +775,7 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<UserSkill>(entity =>
         {
-            entity.HasKey(e => e.UserSkillId).HasName("PK__user_ski__FD3B576BF3D9AF10");
+            entity.HasKey(e => e.UserSkillId).HasName("PK__user_ski__FD3B576B4663116E");
 
             entity.ToTable("user_skill");
 
@@ -787,10 +788,15 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
+            entity.HasOne(d => d.Skill).WithMany(p => p.UserSkills)
+                .HasForeignKey(d => d.SkillId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__user_skil__skill__308E3499");
+
             entity.HasOne(d => d.User).WithMany(p => p.UserSkills)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__user_skil__delet__6E01572D");
+                .HasConstraintName("FK__user_skil__delet__2F9A1060");
         });
 
         OnModelCreatingPartial(modelBuilder);

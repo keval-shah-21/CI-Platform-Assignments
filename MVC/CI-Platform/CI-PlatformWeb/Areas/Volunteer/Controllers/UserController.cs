@@ -155,4 +155,20 @@ public class UserController: Controller
         ViewBag.StoryId = storyId;
         return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
     }
+
+    [Route("user-profile")]
+    public IActionResult UserProfile(long userId)
+    {
+        if (userId == null) return NotFound();
+        ProfileVM user = _unitOfService.User.GetUserProfileById(userId);
+        if(user == null) return NotFound();
+        return View(user);
+    }
+
+    [Route("user-profile")]
+    [HttpPost]
+    public IActionResult UserProfile(ProfileVM profileVM, IFormFile profileInput)
+    {
+        return View(profileVM);
+    }
 }

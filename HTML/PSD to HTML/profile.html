@@ -8,24 +8,29 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <style>
+        .active-skill {
+            background-color: rgb(224, 224, 224);
+        }
 
-        .active-skill{
-            background-color: darkgray;
+        .skillBtn:hover {
+            background-color: lightgray;
         }
     </style>
 </head>
 
 <body>
     <main class="container d-flex flex-column gap-4 gap-lg-5 flex-lg-row">
-        <div class="profile-top align-self-center align-self-lg-auto py-4 d-flex flex-column align-items-center border h-100">
-            <img src="./image/user-img-large.png" alt="user image" class="rounded-circle object-fit-cover"
-                height="200px" width="200px">
-            <h4 class="mt-3 color-darkgray">John donhue</h4>
-            <div class="fw-light text-15 cursor-pointer" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change
+        <div
+            class="profile-top align-self-center align-self-lg-auto py-4 d-flex flex-column align-items-center border h-100">
+            <img src="./image/user-img-large.png" alt="user image" class="rounded-circle object-fit-cover cursor-pointer"
+                height="200px" width="200px" id="profilePic">
+                <h4 class="mt-3 color-darkgray">John donhue</h4>
+            <div class="fw-light text-15 cursor-pointer" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                Change
                 Password</div>
             <!-- Modal -->
-            <div class="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -37,27 +42,33 @@
                                 <label for="oldPassword">Old Password</label>
                                 <input type="text" class="form-control" id="oldPassword"
                                     placeholder="Enter old password" />
+                                <span class="text-danger text-14" id="oldPasswordError"></span>
                             </div>
                             <div>
                                 <label for="newPassword">New Password</label>
                                 <input type="text" class="form-control" id="newPassword"
                                     placeholder="Enter new password" />
+                                <span class="text-danger text-14" id="newPasswordError"></span>
+
                             </div>
                             <div>
                                 <label for="confirmPassword">Confirm Password</label>
                                 <input type="text" class="form-control" id="confirmPassword"
                                     placeholder="Enter confirm password" />
+                                <span class="text-danger text-14" id="confirmPasswordError"></span>
+
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn button px-4">Save changes</button>
+                            <button type="button" class="btn button px-4" id="savePasswordBtn">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <form action="" class="d-grid gap-5 flex-grow-1 flex-shrink-0 color-darkgray">
+            <input type="file" name="profileInput" id="profileInput" hidden accept=".png, .jpg, .jpeg">
             <div class="d-grid gap-3">
                 <div class="border-bottom border-2 mb-1">
                     <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Basic Information</h4>
@@ -80,6 +91,16 @@
                     <div class="col">
                         <label class="form-label" for="">Department</label>
                         <input type="text" placeholder="Enter your department" class="form-control">
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col">
+                        <label class="form-label" for="">Title</label>
+                        <input type="text" placeholder="Enter your title" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="">Phone Number</label>
+                        <input type="text" placeholder="Enter your phone number" class="form-control">
                     </div>
                 </div>
                 <div>
@@ -155,60 +176,64 @@
                     <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">My Skills</h4>
                 </div>
                 <div class="fw-light border p-2 d-grid gap-1">
-                    <div>Anthropology</div>
-                    <div>Astronomy</div>
-                    <div>Computer Science</div>
-                    <div>Mechanical Engineer</div>
-                    <div>History</div>
+                    <div class="d-none" id="noSkill">No skills are selected.</div>
+                    <div id="outerSkillsContainer">
+                        <div data-pre="Anthropology">Anthropology</div>
+                        <div data-pre="Computer Science">Computer Science</div>
+                    </div>
                 </div>
-                <button class="btn button-dark px-4 width-max-conatent" type="button" data-bs-toggle="modal" data-bs-target="#skillModal">Add Skills</button>
+                <button class="btn button-dark px-4 width-max-conatent" type="button" data-bs-toggle="modal"
+                    data-bs-target="#skillModal">Add Skills</button>
                 <!-- modal -->
                 <div class="modal fade" id="skillModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Your Skills</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex">
-                    <div id="allSkills" class="border text-14 flex-grow-1">
-                        <div class="px-2 py-1">Anthropology</div>
-                        <div class="px-2 py-1">Music</div>
-                        <div class="px-2 py-1">Cricket</div>
-                        <div class="px-2 py-1">Computer Science</div>
-                        <div class="px-2 py-1">Research</div>
-                        <div class="px-2 py-1">Communication</div>
-                        <div class="px-2 py-1">Agronomy</div>
-                        <div class="px-2 py-1">Botany</div>
-                        <div class="px-2 py-1">Anthropology</div>
-                        <div class="px-2 py-1">Music</div>
-                        <div class="px-2 py-1">Cricket</div>
-                        <div class="px-2 py-1">Computer Science</div>
-                        <div class="px-2 py-1">Research</div>
-                        <div class="px-2 py-1">Communication</div>
-                        <div class="px-2 py-1">Agronomy</div>
-                        <div class="px-2 py-1">Botany</div>
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Your Skills</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body d-flex">
+                                <div id="allSkillsContainer"
+                                    class="border text-14 flex-grow-1 d-grid gap-1 flex-basis-100">
+                                    <div class="px-2 py-1 cursor-pointer">Anthropology</div>
+                                    <div class="px-2 py-1 cursor-pointer">Music</div>
+                                    <div class="px-2 py-1 cursor-pointer">Cricket</div>
+                                    <div class="px-2 py-1 cursor-pointer">Computer Science</div>
+                                    <div class="px-2 py-1 cursor-pointer">Research</div>
+                                    <div class="px-2 py-1 cursor-pointer">Astronomy</div>
+                                    <div class="px-2 py-1 cursor-pointer">Communication</div>
+                                    <div class="px-2 py-1 cursor-pointer">Agronomy</div>
+                                    <div class="px-2 py-1 cursor-pointer">Botany</div>
+                                    <div class="px-2 py-1 cursor-pointer">Mathematics</div>
+                                    <div class="px-2 py-1 cursor-pointer">Administration</div>
+                                    <div class="px-2 py-1 cursor-pointer">Environment</div>
+                                    <div class="px-2 py-1 cursor-pointer">Coding</div>
+                                    <div class="px-2 py-1 cursor-pointer">History</div>
+                                    <div class="px-2 py-1 cursor-pointer">Gaming</div>
+                                    <div class="px-2 py-1 cursor-pointer">Shooting</div>
+                                    <div class="px-2 py-1 cursor-pointer">Swimming</div>
+                                    <div class="px-2 py-1 cursor-pointer">Technical</div>
+                                </div>
+                                <div class="mx-md-2 align-self-center flex-shrink-0">
+                                    <div class="p-3 skillBtn rounded-circle cursor-pointer" id="rightSkill">
+                                        <img src="./image/right-arrow1.png" alt="right">
+                                    </div>
+                                    <div class="p-3 skillBtn rounded-circle cursor-pointer" id="leftSkill">
+                                        <img src="./image/left.png" alt="left">
+                                    </div>
+                                </div>
+                                <div id="selectedSkillsContainer" class="border text-14 flex-basis-100"></div>
+                            </div>
+                            <div class="modal-footer justify-content-start">
+                                <button type="button" class="btn button-dark px-4"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn button px-4" id="saveSkillBtn">Save</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mx-3 align-self-center">
-                        <img src="./image/left.png" alt="left" class="mb-3" id="leftSkill">
-                        <img src="./image/right-arrow1.png" alt="right" id="rightSkill">
-                    </div>
-                    <div id="selectedSkills" class="border text-14 flex-grow-1">
-                        <!-- <div class="px-2 py-1">Cricket</div>
-                        <div class="px-2 py-1">Computer Science</div>
-                        <div class="px-2 py-1">Research</div>
-                        <div class="px-2 py-1">Communication</div>
-                        <div class="px-2 py-1">Agronomy</div> -->
-                    </div>
                 </div>
-                <div class="modal-footer justify-content-start">
-                    <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn button px-4">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
             </div>
         </form>
     </main>
@@ -225,39 +250,200 @@
                 <div class="modal-body d-grid gap-2 color-darkgray">
                     <div>
                         <label for="fullName">Name*</label>
-                        <input type="text" class="form-control" value="John doe" id="fullName" readonly/>
+                        <input type="text" class="form-control" value="John doe" id="fullName" readonly />
                     </div>
                     <div>
                         <label for="email">Email Address*</label>
-                        <input type="text" class="form-control" value="abc1234@gmial.com" id="email" readonly/>
+                        <input type="text" class="form-control" value="abc1234@gmial.com" id="email" readonly />
                     </div>
                     <div>
                         <label for="subject">Subject*</label>
-                        <input type="text" class="form-control" id="subject"
-                            placeholder="Enter your subject" />
+                        <input type="text" class="form-control" id="subject" placeholder="Enter your subject" />
+                        <span class="text-danger text-14" id="subjectError"></span>
                     </div>
                     <div>
                         <label for="message">Message*</label>
                         <textarea type="text" class="form-control" rows="4" id="message"
-                            placeholder="Enter your message" ></textarea>
+                        placeholder="Enter your message"></textarea>
+                        <span class="text-danger text-14" id="messageError"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn button px-4">Save</button>
+                    <button type="button" class="btn button px-4" id="saveContactBtn">Save</button>
                 </div>
             </div>
         </div>
     </div>
 </body>
 <script src="./js/bootstrap.bundle.min.js"></script>
+<script src="./js/jquery-3.6.4.js"></script>
 <script>
-    const allSkills = document.querySelector("#allSkills");
-    const selectedSkills = document.querySelector("#selectedSkills");
-    const rightSkill = document.querySelector("#rightSkill")
-    const leftSkill = document.querySelector("#leftSkill")
-    skills = [];
+    const allSkillsContainer = document.querySelector("#allSkillsContainer");
+    const selectedSkillsContainer = document.querySelector("#selectedSkillsContainer");
+    const rightSkillBtn = document.querySelector("#rightSkill")
+    const leftSkillBtn = document.querySelector("#leftSkill")
+    let skills = [];
+    let selectedLeftSkill = '';
+    let selectedRightSkill = '';
+    allSkillsArray = Array.from(allSkillsContainer.children);
+    addEventsLeft();
 
+    function addEventsLeft() {
+        allSkillsArray.forEach((s) => {
+            s.addEventListener("click", () => {
+                s.classList.add("active-skill");
+                if (!skills.includes(s.textContent)) {
+                    selectedLeftSkill = s.textContent;
+                    resetLeftCSS();
+                }
+            })
+        });
+    }
+    function addEventsRight() {
+        const selectedSkillsArray = Array.from(selectedSkillsContainer.children);
+        selectedSkillsArray.forEach(s => {
+            s.addEventListener("click", () => {
+                selectedRightSkill = s.textContent;
+                selectedSkillsArray.forEach(re => {
+                    if (selectedRightSkill != re.textContent) {
+                        re.classList.remove("active-skill")
+                    } else {
+                        re.classList.add("active-skill")
+                    }
+                })
+            })
+        })
+    }
+    const pre = document.querySelectorAll(`[data-pre]`);
+    pre.forEach(s => {
+        skills.push(s.textContent)
+        selectedSkillsContainer.innerHTML += `<div class="px-2 py-1 cursor-pointer" data-skill='${s.textContent}'>${s.textContent}</div>`;
+    })
+    addEventsRight();
+    resetLeftCSS();
+
+    function resetLeftCSS() {
+        allSkillsArray.forEach(re => {
+            if (!skills.includes(re.textContent) && re.textContent != selectedLeftSkill) {
+                re.classList.remove("active-skill")
+            } else {
+                re.classList.add("active-skill");
+            }
+        })
+    }
+    function resetRightCSS() {
+        Array.from(selectedSkillsContainer.children).forEach(re => {
+            if (selectedRightSkill != re.textContent) {
+                re.classList.remove("active-skill")
+            } else {
+                re.classList.add("active-skill")
+            }
+        })
+    }
+    rightSkillBtn.addEventListener("click", () => {
+        if (selectedLeftSkill != "" && selectedLeftSkill != null) {
+            skills.push(selectedLeftSkill);
+            selectedSkillsContainer.innerHTML += `<div class="px-2 py-1 cursor-pointer" data-skill='${selectedLeftSkill}'>${selectedLeftSkill}</div>`;
+            addEventsRight();
+            selectedLeftSkill = "";
+            selectedRightSkill = "";
+            resetLeftCSS();
+            resetRightCSS();
+        }
+    })
+    leftSkillBtn.addEventListener("click", () => {
+        if (selectedRightSkill != "" && selectedRightSkill != null) {
+            skills.splice(skills.indexOf(selectedRightSkill), 1);
+            selectedSkillsContainer.removeChild(document.querySelector(`[data-skill='${selectedRightSkill}']`));
+            selectedRightSkill = "";
+            selectedLeftSkill = "";
+            resetLeftCSS();
+            resetRightCSS();
+        }
+    })
+    const noSkill = document.querySelector("#noSkill");
+    document.querySelector("#saveSkillBtn").addEventListener("click", () => {
+        if (skills.length == 0) {
+            noSkill.classList.remove("d-none");
+            document.querySelector("#outerSkillsContainer").innerHTML = "";
+        } else {
+            noSkill.classList.add("d-none");
+            const outerSkillsContainer = document.querySelector("#outerSkillsContainer");
+            outerSkillsContainer.innerHTML = "";
+            skills.forEach(s => {
+                outerSkillsContainer.innerHTML += `<div data-pre="${s}">${s}</div>`
+            })
+        }
+        $("#skillModal").modal("hide")
+    })
+
+    $('#savePasswordBtn').click(() => {
+        const oldPassword = document.querySelector("#oldPassword").value.trim();
+        const newPassword = document.querySelector("#newPassword").value.trim();
+        const confirmPassword = document.querySelector("#confirmPassword").value
+        let error = false;
+        if(oldPassword == null || oldPassword == ""){
+            $("#oldPasswordError").text("The Old Password field is required.");
+            error = true;
+        }else if(oldPassword.length < 8){
+            $("#oldPasswordError").text("Minimum 8 characters required.");
+            error = true;
+        }
+        else{
+            $("#oldPasswordError").text("");
+        }
+
+        if(newPassword == null || newPassword == ""){
+            $("#newPasswordError").text("The New Password field is required.");
+            error = true;
+        }else if(newPassword.length < 8){
+            $("#newPasswordError").text("Minimum 8 characters required.");
+            error = true;
+        }else{
+            $("#newPasswordError").text("");
+        }
+
+        if(confirmPassword == null || confirmPassword == ""){
+            $("#confirmPasswordError").text("The Confirm Password field is required.");
+            error = true;
+        }else if(newPassword != confirmPassword){
+            $("#confirmPasswordError").text("Both New Password and Confirm Password must be same");
+            error = true;
+        }else{
+            $("#confirmPasswordError").text("");
+        }
+
+        if(error) return;
+        $("#changePasswordModal").modal("hide");
+    });
+
+    $("#saveContactBtn").click(() =>{
+        const message = document.querySelector('#message').value.trim();
+        const subject = document.querySelector('#subject').value.trim();
+        let error = false;
+
+        if(message == null || message == ""){
+            error = true;
+            $("#messageError").text("The Message field is required.");
+        }else{
+            $("#messageError").text("");
+        }
+        if(subject== null || subject == ""){
+            error = true;
+            $("#subjectError").text("The Subject field is required.");
+        }else{
+            $("#subjectError").text("");
+        }
+
+        if(error) return;
+        $('#contactModal').modal("hide");
+    });
+
+    $("#profilePic").click(()=>{$('#profileInput').click();});
+    $("#profileInput").on("change", ()=>{
+        $("#profilePic").attr("src", URL.createObjectURL($("#profileInput").prop('files')[0]))
+    })
 </script>
 
 </html>
