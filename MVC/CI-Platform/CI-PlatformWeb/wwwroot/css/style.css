@@ -420,10 +420,32 @@ form input:focus {
 .profile-top {
     width: 330px;
 }
+
 .active-skill {
     background-color: rgb(224, 224, 224);
 }
 
 .skillBtn:hover {
     background-color: lightgray;
+}
+
+.top-titles {
+    font-size: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .top-titles {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .top-titles {
+        font-size: 2.5rem;
+    }
+}
+@media (min-width: 992px) {
+    .spy {
+        max-width: 300px;
+    }
 }

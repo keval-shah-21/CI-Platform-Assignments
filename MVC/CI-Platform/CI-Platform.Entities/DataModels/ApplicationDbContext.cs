@@ -25,6 +25,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Comment> Comments { get; set; }
 
+    public virtual DbSet<Contact> Contacts { get; set; }
+
     public virtual DbSet<Country> Countries { get; set; }
 
     public virtual DbSet<FavouriteMission> FavouriteMissions { get; set; }
@@ -46,6 +48,8 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<MissionSkill> MissionSkills { get; set; }
 
     public virtual DbSet<MissionTheme> MissionThemes { get; set; }
+
+    public virtual DbSet<MissionTimesheet> MissionTimesheets { get; set; }
 
     public virtual DbSet<ResetPassword> ResetPasswords { get; set; }
 
@@ -207,6 +211,33 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__comment__user_id__3E1D39E1");
+        });
+
+        modelBuilder.Entity<Contact>(entity =>
+        {
+            entity.HasKey(e => e.ContactId).HasName("PK__contact__024E7A86E384A132");
+
+            entity.ToTable("contact");
+
+            entity.Property(e => e.ContactId).HasColumnName("contact_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.Message)
+                .HasColumnType("text")
+                .HasColumnName("message");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.Subject)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("subject");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Contacts)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__contact__user_id__42ACE4D4");
         });
 
         modelBuilder.Entity<Country>(entity =>
@@ -546,6 +577,39 @@ public partial class ApplicationDbContext : DbContext
                 .HasDefaultValueSql("((1))")
                 .HasColumnName("status");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+        });
+
+        modelBuilder.Entity<MissionTimesheet>(entity =>
+        {
+            entity.HasKey(e => e.TimesheetId).HasName("PK__mission___7BBF50684127C647");
+
+            entity.ToTable("mission_timesheet");
+
+            entity.Property(e => e.TimesheetId).HasColumnName("timesheet_id");
+            entity.Property(e => e.Action).HasColumnName("action");
+            entity.Property(e => e.ApprovalStatus).HasColumnName("approval_status");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("created_at");
+            entity.Property(e => e.DateVolunteered)
+                .HasColumnType("date")
+                .HasColumnName("date_volunteered");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.MissionId).HasColumnName("mission_id");
+            entity.Property(e => e.Notes)
+                .HasColumnType("text")
+                .HasColumnName("notes");
+            entity.Property(e => e.TimeVolunteered).HasColumnName("time_volunteered");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Mission).WithMany(p => p.MissionTimesheets)
+                .HasForeignKey(d => d.MissionId)
+                .HasConstraintName("FK__mission_t__missi__477199F1");
+
+            entity.HasOne(d => d.User).WithMany(p => p.MissionTimesheets)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__mission_t__user___467D75B8");
         });
 
         modelBuilder.Entity<ResetPassword>(entity =>

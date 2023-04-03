@@ -39,5 +39,27 @@ namespace CI_Platform.Services.Service
             if (userSkills.Count() == 0) return new();
             return userSkills.Select(us => ConvertUserSkillToVM(us)).ToList();
         }
+
+        public void RemoveAllUserSkills(long userId)
+        {
+            var userSkills = _unitOfWork.UserSkill.GetAll()?.Where(us => us.UserId == userId);
+            if(userSkills?.Count() > 0)
+            {
+                _unitOfWork.UserSkill.RemoveRange(userSkills);
+            }
+        }
+        public void SaveAllUserSkills(List<short> skillIds, long userId)
+        {
+            
+            IEnumerable<UserSkill> us = skillIds.Select(skillId =>
+                new UserSkill()
+                {
+                    SkillId = skillId,
+                    UserId = userId,
+                    CreatedAt = DateTimeOffset.Now
+                }
+            );
+            _unitOfWork.UserSkill.AddRange(us);
+        }
     }
 }

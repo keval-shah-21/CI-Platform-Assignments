@@ -101,8 +101,25 @@ form.addEventListener('submit', (e) => {
 
     $('#action').val(e.submitter.getAttribute('value'));
     setImageInput();
-    if (!error)
-        form.submit();
+    if (!error) {
+        if (e.submitter.getAttribute("value") == 'submit') {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to edit this later! Admin will review and approve it.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Submit!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            })
+        } else {
+            form.submit();
+        }
+    }
 })
 
 function setImageInput() {
@@ -127,7 +144,7 @@ $("#cancelBtn").click(() => {
             if (result.isConfirmed) {
                 const storyId = $('#storyId').val();
                 window.location.replace(`/Volunteer/Story/RemoveDraftStory?storyId=${storyId}`);
-            } 
+            }
         })
     } else {
         window.location.href = "/Volunteer/Story/StoryList";

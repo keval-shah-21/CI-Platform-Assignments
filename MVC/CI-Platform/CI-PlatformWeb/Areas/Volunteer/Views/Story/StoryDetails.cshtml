@@ -45,7 +45,7 @@
                     <span>@Model.UserVM.FirstName @Model.UserVM.LastName</span>
                     <span class="rounded-pill border d-flex gap-2 p-2 align-items-center text-secondary"><img src="/images/static/eye.png" alt="eye" /> @Model.TotalViews views</span>
                 </div>
-                @if (string.IsNullOrEmpty(@Model.UserVM.WhyIVolunteer))
+                @if (!string.IsNullOrEmpty(@Model.UserVM.ProfileText))
                 {
                     <p>
                         @Model.UserVM.ProfileText

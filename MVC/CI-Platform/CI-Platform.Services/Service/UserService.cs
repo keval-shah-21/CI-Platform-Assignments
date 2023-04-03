@@ -112,6 +112,24 @@ public class UserService : IUserService
         User obj = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == userId);
         return obj == null ? null! : ConvertProfileToVM(obj);
     }
+    public void UpdateUserProfile(ProfileVM profileVM)
+    {
+        User user = _unitOfWork.User.GetFirstOrDefault(user => user.UserId == profileVM.UserId);
+        user.FirstName = profileVM.FirstName;
+        user.LastName = profileVM.LastName;
+        user.LinkedInUrl = profileVM.LinkedInUrl;
+        user.Availability = profileVM.Availability;
+        user.Avatar = profileVM.Avatar;
+        user.UpdatedAt = DateTimeOffset.Now;
+        user.CityId = profileVM.CityId;
+        user.CountryId = profileVM.CountryId;
+        user.Department = profileVM.Department;
+        user.EmployeeId = profileVM.EmployeeId;
+        user.Title = profileVM.Title;
+        user.ProfileText = profileVM.ProfileText;
+        user.WhyIVolunteer = profileVM.WhyIVolunteer;
+        user.PhoneNumber = profileVM.PhoneNumber;
+    }
     public void SendResetPasswordEmail(string email, string url)
     {
         string subject = "CI Platform - Reset-Password link";
@@ -119,11 +137,17 @@ public class UserService : IUserService
         string body = $"<p style='text-align:center;font-size:1.5rem'>Click on the link below to reset your password</p><hr/>{link}";
         _emailService.SendEmail(email, subject, body);
     }
+
+    public bool IsPasswordValid(string email, string password)
+    {
+        User user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
+        if (user == null) return false;
+        if(user.Password != password) return false;
+        return true;
+    }
     public void UpdatePassword(string email, string password)
     {
-        User user = _unitOfWork.User.GetFirstOrDefault(user => user.Email == email);
-        user.Password = password;
-        _unitOfWork.User.Update(user);
+        _unitOfWork.User.UpdatePassword(email, password);
     }
 
     public List<UserVM> GetAllUsersToRecommendMission()

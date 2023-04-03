@@ -1,5 +1,11 @@
+@{
+    var userId = Context.Session.GetString("UserId");
+}
+<input hidden value="@userId" id="sessionUserId"/>
 <footer class="border-top">
-    <div class="container py-4 fw-light">
-        <a href="#" class="color-darkgray">Privacy Policy</a>
+    <div class="container py-4 fw-light d-flex gap-3">
+        <a asp-action="Privacy" asp-controller="Home" class="color-darkgray">Privacy Policy</a>
+        <a class="cursor-pointer color-darkgray" id="contactBtn" data-bs-target="#contactModal">Contact us</a>
     </div>
+    <div id="partialContactContainer"></div>
 </footer>

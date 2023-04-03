@@ -1,8 +1,10 @@
 ﻿@model IndexHeaderVM
 @{
     ViewData["Title"] = "Home Page";
+    var profileSuccess = ViewBag?.ProfileSuccess;
     var userId = Context.Session.GetString("UserId");
 }
+<input hidden value="@profileSuccess" id="profileSuccess"/>
 <div class="grid-body d-grid min-vh-100">
     <header class="border-bottom border-2 bg-white">
         <partial name="_Navbar"></partial>

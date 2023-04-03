@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CI_Platform.Entities.ViewModels
 {
@@ -31,7 +26,7 @@ namespace CI_Platform.Entities.ViewModels
         [StringLength(10, ErrorMessage = "Phone number should be of 10 digits only.", MinimumLength = 10)]
         public string PhoneNumber { get; set; } = null!;
 
-        public string Email { get; set; } = null!;
+        public string? Email { get; set; }
 
         public string? Avatar { get; set; }
 
@@ -58,9 +53,11 @@ namespace CI_Platform.Entities.ViewModels
         public byte? Availability { get; set; }
 
         [Required]
+        [Display(Name ="City")]
         public int? CityId { get; set; }
 
         [Required]
+        [Display(Name ="Country")]
         public short? CountryId { get; set; }
 
         public List<UserSkillVM>? UserSkillVMs { get; set; } = new List<UserSkillVM>();

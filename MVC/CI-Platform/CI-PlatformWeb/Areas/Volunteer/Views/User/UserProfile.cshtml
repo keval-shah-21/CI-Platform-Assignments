@@ -51,8 +51,11 @@
             </div>
         </div>
     </div>
-    <form action="" class="d-grid gap-5 flex-grow-1 flex-shrink-0 color-darkgray">
-        <input hidden asp-for="Password" id="Password"/>
+    <form method="post" class="d-grid gap-5 flex-grow-1 flex-shrink-0 color-darkgray" enctype="multipart/form-data">
+        <input hidden asp-for="UserId" id="UserId" />
+        <input hidden asp-for="Avatar" />
+        <input hidden asp-for="Email" />
+        <input hidden name="preloadedImage" value="@Model.Avatar" />
         <input type="file" name="profileInput" id="profileInput" hidden accept=".png, .jpg, .jpeg">
         <div class="d-grid gap-3">
             <div class="border-bottom border-2 mb-1">
@@ -68,7 +71,6 @@
                     <label class="form-label" asp-for="LastName"></label>
                     <input type="text" asp-for="LastName" placeholder="Enter your surname" class="form-control">
                     <span class="text-danger text-14" asp-validation-for="LastName"></span>
-
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-2">
@@ -113,22 +115,22 @@
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col">
                     <label class="form-label">Select Your City</label>
-                    <select class="form-select" asp-for="CityId">
+                    <select class="form-select" asp-for="CityId" id="cityDropdown">
                         <option value="0" disabled selected>Select your city</option>
                         @foreach (CityVM city in Model.cityVMs)
                         {
-                            <option value="@city.CityId">@city.CityName</option>
+                            <option data-id="@city.CountryId" value="@city.CityId">@city.CityName</option>
                         }
                     </select>
                     <span class="text-danger text-14" asp-validation-for="CityId"></span>
                 </div>
                 <div class="col">
                     <label class="form-label">Select Your Country</label>
-                    <select class="form-select" asp-for="CountryId">
+                    <select class="form-select" asp-for="CountryId" id="countryDropdown">
                         <option value="0" disabled selected>Select your country</option>
                         @foreach (CountryVM country in Model.countryVMs)
                         {
-                            <option value="@country.CountryName">@country.CountryName</option>
+                            <option value="@country.CountryId">@country.CountryName</option>
                         }
                     </select>
                     <span class="text-danger text-14" asp-validation-for="CountryId"></span>
@@ -162,15 +164,18 @@
             <div class="border-bottom border-2 mb-1">
                 <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">My Skills</h4>
             </div>
+            @foreach (UserSkillVM userSkill in Model.UserSkillVMs)
+            {
+                <input hidden name="preloadedSkills" value="@userSkill.SkillId">
+            }
             <div class="fw-light border p-2 d-grid gap-1">
-                @if (Model.UserSkillVMs.Count() == 0)
-                {
-                    <div id="noSkill">No skills are selected.</div>
-                }
+                <div id="noSkill">No skills are selected.</div>
                 <div id="outerSkillsContainer">
                     @foreach (UserSkillVM userSkill in Model.UserSkillVMs)
                     {
-                        <div data-pre="@userSkill.Skill.SkillName">@userSkill.Skill.SkillName</div>
+                        <div data-pre="@userSkill.SkillId">
+                            @userSkill.Skill.SkillName
+                        </div>
                     }
                 </div>
             </div>
@@ -193,7 +198,7 @@
                                  class="border text-14 flex-grow-1 d-grid gap-1 flex-basis-100">
                                 @foreach (SkillVM skill in Model.skillVMs)
                                 {
-                                    <div class="px-2 py-1 cursor-pointer">@skill.SkillName</div>
+                                    <div class="px-2 py-1 cursor-pointer" data-id="@skill.SkillId">@skill.SkillName</div>
                                 }
                             </div>
                             <div class="mx-md-2 align-self-center flex-shrink-0">
@@ -264,5 +269,6 @@
 </footer>
 
 @section Scripts{
-    <script src="~/js/userProfile.js"></script>
+<partial name="_ValidationScriptsPartial.cshtml"></partial>
+<script src="~/js/userProfile.js"></script>
 }

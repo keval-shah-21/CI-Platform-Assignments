@@ -6,4 +6,5 @@ public interface IUserRepository : IRepository<User>
 {
     List<User> GetAllToRecommendMission();
     List<User> GetAllToRecommendStory();
+    void UpdatePassword(string email, string password);
 }

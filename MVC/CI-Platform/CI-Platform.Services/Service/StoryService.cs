@@ -93,11 +93,9 @@ namespace CI_Platform.Services.Service
                 .Where(s => s.UserId == userId)
                 .OrderByDescending(s => s.CreatedAt).FirstOrDefault()!.StoryId;
         }
-        public void UpdateTotalViews(long storyId)
+        public void UpdateTotalViews(long storyId, long totalViews)
         {
-            Story story = _unitOfWork.Story.GetFirstOrDefault(s => s.StoryId == storyId);
-            story.TotalViews = story.TotalViews + 1;
-            _unitOfWork.Story.Update(story);
+            _unitOfWork.Story.UpdateTotalViews(storyId, totalViews);
         }
         internal static string GetStoryThumbnail(Story story)
         {

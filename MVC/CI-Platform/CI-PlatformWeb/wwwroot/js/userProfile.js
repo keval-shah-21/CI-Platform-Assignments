@@ -2,9 +2,11 @@
 const selectedSkillsContainer = document.querySelector("#selectedSkillsContainer");
 const rightSkillBtn = document.querySelector("#rightSkill")
 const leftSkillBtn = document.querySelector("#leftSkill")
-let skills = [];
+let skills = new Map();
 let selectedLeftSkill = '';
 let selectedRightSkill = '';
+let leftSkillId = 0;
+let rightSkillId = 0;
 allSkillsArray = Array.from(allSkillsContainer.children);
 addEventsLeft();
 
@@ -12,8 +14,9 @@ function addEventsLeft() {
     allSkillsArray.forEach((s) => {
         s.addEventListener("click", () => {
             s.classList.add("active-skill");
-            if (!skills.includes(s.textContent)) {
+            if (!skills.has($(s).data("id"))) {
                 selectedLeftSkill = s.textContent;
+                leftSkillId = $(s).data("id")
                 resetLeftCSS();
             }
         })
@@ -24,6 +27,7 @@ function addEventsRight() {
     selectedSkillsArray.forEach(s => {
         s.addEventListener("click", () => {
             selectedRightSkill = s.textContent;
+            rightSkillId = $(s).data("skill");
             selectedSkillsArray.forEach(re => {
                 if (selectedRightSkill != re.textContent) {
                     re.classList.remove("active-skill")
@@ -36,15 +40,17 @@ function addEventsRight() {
 }
 const pre = document.querySelectorAll(`[data-pre]`);
 pre.forEach(s => {
-    skills.push(s.textContent)
-    selectedSkillsContainer.innerHTML += `<div class="px-2 py-1 cursor-pointer" data-skill='${s.textContent}'>${s.textContent}</div>`;
+    skills.set($(s).data('pre'), s.textContent)
+    selectedSkillsContainer.innerHTML += `<div class="px-2 py-1 cursor-pointer" data-skill='${$(s).data('pre')}'>${s.textContent}</div>`;
 })
+const noSkill = document.querySelector("#noSkill");
+if (skills.size != 0) noSkill.classList.add("d-none");
 addEventsRight();
 resetLeftCSS();
 
 function resetLeftCSS() {
     allSkillsArray.forEach(re => {
-        if (!skills.includes(re.textContent) && re.textContent != selectedLeftSkill) {
+        if (!skills.has($(re).data("id")) && re.textContent != selectedLeftSkill) {
             re.classList.remove("active-skill")
         } else {
             re.classList.add("active-skill");
@@ -62,9 +68,10 @@ function resetRightCSS() {
 }
 rightSkillBtn.addEventListener("click", () => {
     if (selectedLeftSkill != "" && selectedLeftSkill != null) {
-        skills.push(selectedLeftSkill);
-        selectedSkillsContainer.innerHTML += `<div class="px-2 py-1 cursor-pointer" data-skill='${selectedLeftSkill}'>${selectedLeftSkill}</div>`;
+        skills.set(leftSkillId, selectedLeftSkill);
+        selectedSkillsContainer.innerHTML += `<div class="px-2 py-1 cursor-pointer" data-skill='${leftSkillId}'>${selectedLeftSkill}</div>`;
         addEventsRight();
+
         selectedLeftSkill = "";
         selectedRightSkill = "";
         resetLeftCSS();
@@ -73,25 +80,24 @@ rightSkillBtn.addEventListener("click", () => {
 })
 leftSkillBtn.addEventListener("click", () => {
     if (selectedRightSkill != "" && selectedRightSkill != null) {
-        skills.splice(skills.indexOf(selectedRightSkill), 1);
-        selectedSkillsContainer.removeChild(document.querySelector(`[data-skill='${selectedRightSkill}']`));
+        skills.delete(rightSkillId);
+        selectedSkillsContainer.removeChild(document.querySelector(`[data-skill='${rightSkillId}']`));
         selectedRightSkill = "";
         selectedLeftSkill = "";
         resetLeftCSS();
         resetRightCSS();
     }
 })
-const noSkill = document.querySelector("#noSkill");
 document.querySelector("#saveSkillBtn").addEventListener("click", () => {
-    if (skills.length == 0) {
+    if (skills.size == 0) {
         noSkill.classList.remove("d-none");
         document.querySelector("#outerSkillsContainer").innerHTML = "";
     } else {
         noSkill.classList.add("d-none");
         const outerSkillsContainer = document.querySelector("#outerSkillsContainer");
         outerSkillsContainer.innerHTML = "";
-        skills.forEach(s => {
-            outerSkillsContainer.innerHTML += `<div data-pre="${s}">${s}</div>`
+        skills.forEach((value, key) => {
+            outerSkillsContainer.innerHTML += `<div data-pre="${key}">${value}</div><input hidden name="skillIds" value=${key}>`
         })
     }
     $("#skillModal").modal("hide")
@@ -108,8 +114,6 @@ $('#savePasswordBtn').click(() => {
     } else if (oldPassword.length < 8) {
         $("#oldPasswordError").text("Minimum 8 characters required.");
         error = true;
-    } else if (oldPassword != $('#Password').val()) {
-        $("#oldPasswordError").text("Incorrect old Password.");
     }
     else {
         $("#oldPasswordError").text("");
@@ -136,32 +140,54 @@ $('#savePasswordBtn').click(() => {
     }
 
     if (error) return;
-    $("#changePasswordModal").modal("hide");
-});
-
-$("#saveContactBtn").click(() => {
-    const message = document.querySelector('#message').value.trim();
-    const subject = document.querySelector('#subject').value.trim();
-    let error = false;
-
-    if (message == null || message == "") {
-        error = true;
-        $("#messageError").text("The Message field is required.");
-    } else {
-        $("#messageError").text("");
-    }
-    if (subject == null || subject == "") {
-        error = true;
-        $("#subjectError").text("The Subject field is required.");
-    } else {
-        $("#subjectError").text("");
-    }
-
-    if (error) return;
-    $('#contactModal').modal("hide");
+    $.ajax({
+        url: "/volunteer/user/update-password",
+        method: "put",
+        data: { email: $('#email').val(), oldPassword: oldPassword, newPassword: newPassword },
+        success: (_, __, status) => {
+            if (status.status == 204) {
+                $("#oldPasswordError").text("The Old Password is incorrect!");
+            } else {
+                $("#oldPasswordError").text("");
+                $("#changePasswordModal").modal("hide");
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Successfully updated the Password!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        },
+        error: error => {
+            console.log(error)
+        }
+    });
 });
 
 $("#profilePic").click(() => { $('#profileInput').click(); });
 $("#profileInput").on("change", () => {
     $("#profilePic").attr("src", URL.createObjectURL($("#profileInput").prop('files')[0]))
+})
+if ($('countryDropdown').val() != 0) {
+    const countryId = $("#countryDropdown").val();
+    document.querySelectorAll('#cityDropdown option').forEach(city => {
+        if ($(city).data('id') == countryId) {
+            $(city).removeClass("d-none");
+        } else {
+            $(city).addClass("d-none");
+        }
+    })
+}
+$('#countryDropdown option').on("click", e => {
+    if ($("#cityDropdown").val() != e.currentTarget.value) {
+        $('#cityDropdown').val(0);
+    }
+    document.querySelectorAll('#cityDropdown option').forEach(city => {
+        if ($(city).data('id') == e.currentTarget.value) {
+            $(city).removeClass("d-none");
+        } else {
+            $(city).addClass("d-none");
+        }
+    })
 })

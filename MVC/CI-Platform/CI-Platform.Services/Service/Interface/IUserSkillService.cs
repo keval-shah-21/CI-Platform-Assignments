@@ -11,6 +11,8 @@ namespace CI_Platform.Services.Service.Interface
     {
         List<UserSkillVM> GetAll();
         List<UserSkillVM> GetUserSkillsByUserId(long userId);
+        void RemoveAllUserSkills(long userId);
+        void SaveAllUserSkills(List<short> skillIds, long userId);
 
     }
 }

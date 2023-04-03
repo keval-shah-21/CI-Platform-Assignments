@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+        ol {
+            list-style-type: none;
+            counter-reset: item;
+            margin: 0;
+            padding: 0;
+        }
+
+        ol>li {
+            display: table;
+            counter-increment: item;
+            margin-left: 1em;
+        }
+
+        ol>li:before {
+            content: counters(item, ".") ". ";
+            display: table-cell;
+            padding-left: 2rem;
+            padding-right: 0.6em;
+        }
+
+        li ol>li {
+            margin: 0;
+        }
+
+        li ol>li:before {
+            content: counters(item, ".") " ";
+        }
+
+        @media (min-width: 992px) {
+            .spy {
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container py-4">
+        <p class="top-titles color-darkgray fw-light">Privacy and Cookies Policy</p>
+        <div class="row">
+            <div class="spy col-12 col-lg-4 mb-5 mb-lg-0">
+                <div class="color-darkgray fw-light">
+                    <a class="border-bottom py-3 color-darkgray d-flex justify-content-between align-items-center"
+                        href="#introduction">Introduction<img src="./image/right-arrow1.png" alt="right arrow"></a>
+                    <a class="border-bottom py-3 color-darkgray  d-flex justify-content-between align-items-center"
+                        href="#cookies">How does use cookies?<img src="./image/right-arrow1.png" alt="right arrow"></a>
+                    <a class="border-bottom py-3 color-darkgray  d-flex justify-content-between align-items-center"
+                        href="#manage">How to manage your cookie preference?<img src="./image/right-arrow1.png"
+                            alt="right arrow"></a>
+                </div>
+            </div>
+            <div class="col-12 col-lg-8">
+                <h4 id="introduction" class="color-darkgray">Introduction</h4>
+                <div class="fw-light mb-5">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi numquam unde odit deleniti vero
+                        autem aperiam, ea ipsa. Dolorem dolor amet exercitationem, magni sed, molestiae quas
+                        nesciunt
+                        inventore minus eum hic voluptas necessitatibus reprehenderit, fuga officiis voluptatibus
+                        atque
+                        laborum vitae eius? Deleniti labore temporibus amet similique facere voluptates qui minus.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure deserunt magni a dolor
+                        exercitationem aspernatur aperiam suscipit minima, recusandae optio ullam quasi eligendi
+                        obcaecati adipisci dicta nam, fuga rem laudantium tempore vitae et nisi magnam. Molestias
+                        nihil
+                        dolorem at minima?
+                    </p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit modi deleniti cupiditate
+                        perspiciatis suscipit repudiandae autem aliquam, laboriosam alias inventore laborum
+                        laudantium
+                        quas tempora animi officia dolor, aperiam at earum accusantium explicabo vitae praesentium.
+                    </p>
+
+                </div>
+                <h4 id="cookies" class="color-darkgray">How does use cookies?</h4>
+                <div class="fw-light mb-5">
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque veritatis nihil perspiciatis
+                        odio dolore voluptate id optio illum debitis quia, eaque labore maiores sunt et pariatur
+                        consequatur architecto doloribus iusto.</p>
+
+                    <h5>Why Optimy Uses These Technologies?</h5>
+                    <p>we use these technologies for a number of purposes, such as:</p>
+                    <ul>
+                        <li>
+                            But I must explain to you how all this mistaken idea of denouncing pleasure and praising
+                            pain.
+                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                            voluptatum deleniti atque
+                        </li>
+                        <li>
+                            excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia
+                            deserunt
+                            mollitia animi.
+                        </li>
+                        <li>
+                            On the other hand, we denounce with righteous indignation and dislike men who
+                            are so beguiled and demoralized
+                            But I must explain to you how all this mistaken idea of
+                            denouncing pleasure and praising pain.
+                        </li>
+                        <li>
+
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore
+                        </li>
+                    </ul>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero ex nisi esse dolorem similique
+                        velit numquam temporibus libero excepturi! Eius, ex eaque suscipit pariatur excepturi animi
+                        voluptatem dicta quasi sit illum labore nobis laudantium enim nisi doloremque repellat
+                        magnam
+                        obcaecati voluptatibus perferendis eum nulla est dolorum. Commodi ipsum facere architecto?
+                    </p>
+                </div>
+
+                <h4 id="manage" class="color-darkgray">How to manage your cookie preference?</h4>
+                <div class="fw-light">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit perferendis voluptatum quod
+                        accusamus. Corporis, quam necessitatibus. Facere, consequatur eligendi vel excepturi
+                        deleniti
+                        deserunt error assumenda quibusdam sed adipisci architecto. Ea.</p>
+                    <h5>Subtitle goes here</h5>
+                    <ol class="mb-5">
+                        <li>
+                            But I must explain to you how all this mistaken idea of denouncing pleasure and praising
+                            pain.
+                            <ol>
+                                <li>On the other hand, we denounce with righteous indignation and dislike men who
+                                    are so
+                                    beguiled.</li>
+                                <li>On the other hand, we denounce with righteous indignation and dislike men who
+                                    are so
+                                    beguiled.</li>
+                            </ol>
+                        </li>
+                        <li>
+                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                            voluptatum deleniti atque excepturi sint occaecati cupiditate non provident, similique
+                            sunt
+                            in culpa qui officia deserunt mollitia animi.
+                        </li>
+                        <li>
+                            On the other hand, we denounce with righteous indignation and dislike men who are so
+                            beguiled and demoralized
+                        </li>
+                        <li>
+                            But I must explain to you how all this mistaken idea of denouncing pleasure and praising
+                            pain.
+                        </li>
+                        <li>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut
+                            labore et dolore
+                        </li>
+                    </ol>
+                    <h1>The first level heading - H1</h1>
+                    <h2>The second level heading - H2</h2>
+                    <h3>The third level heading - H3</h3>
+                    <h4>The forth level heading - H4</h4>
+                    <h5>The fifth level heading - H5</h5>
+                    <h6>The sixth level heading - H6</h6>
+                    <p class="mt-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque fugit ea
+                        nesciunt distinctio autem ab perspiciatis commodi accusantium harum laborum, blanditiis non
+                        neque unde officiis ad aliquam alias architecto quibusdam quisquam repellat. Commodi
+                        repellendus sequi cupiditate aliquid deleniti sapiente tempore sint et, animi sunt non
+                        laboriosam ex delectus itaque! Aperiam?</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="./js/jquery-3.6.4.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

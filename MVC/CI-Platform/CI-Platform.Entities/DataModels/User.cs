@@ -49,6 +49,8 @@ public partial class User
 
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
 
+    public virtual ICollection<Contact> Contacts { get; } = new List<Contact>();
+
     public virtual Country? Country { get; set; }
 
     public virtual ICollection<FavouriteMission> FavouriteMissions { get; } = new List<FavouriteMission>();
@@ -60,6 +62,8 @@ public partial class User
     public virtual ICollection<MissionInvite> MissionInviteToUsers { get; } = new List<MissionInvite>();
 
     public virtual ICollection<MissionRating> MissionRatings { get; } = new List<MissionRating>();
+
+    public virtual ICollection<MissionTimesheet> MissionTimesheets { get; } = new List<MissionTimesheet>();
 
     public virtual ICollection<Story> Stories { get; } = new List<Story>();
 

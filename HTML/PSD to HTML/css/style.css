@@ -36,10 +36,10 @@ a {
     text-decoration: none;
 }
 
-    a:hover {
-        color: var(--blue);
-        font-weight: 400 !important;
-    }
+a:hover {
+    color: var(--blue);
+    font-weight: 400 !important;
+}
 
 .flex-basis-100 {
     flex-basis: 100%;
@@ -129,12 +129,12 @@ form input:focus {
     color: var(--light-orange);
 }
 
-    .button:hover {
-        color: var(--light-orange) !important;
-        background-color: rgb(231, 231, 231) !important;
-        transition: var(--transition);
-        box-shadow: 0 5px 5px darkgray;
-    }
+.button:hover {
+    color: var(--light-orange) !important;
+    background-color: rgb(231, 231, 231) !important;
+    transition: var(--transition);
+    box-shadow: 0 5px 5px darkgray;
+}
 
 .button-dark {
     border: 2px solid #757575;
@@ -143,10 +143,11 @@ form input:focus {
     color: #757575;
 }
 
-    .button-dark:hover {
-        color: black;
-        box-shadow: 0 5px 5px darkgray;
-    }
+.button-dark:hover {
+    color: black;
+    box-shadow: 0 5px 5px darkgray;
+}
+
 /* login page css */
 .carousel {
     height: 70vh;
@@ -160,7 +161,7 @@ form input:focus {
 }
 
 @media (min-width: 768px) {
-    .carousel-caption > h5 {
+    .carousel-caption>h5 {
         font-size: 43px;
     }
 
@@ -183,7 +184,7 @@ form input:focus {
 }
 
 @media (min-width: 1200px) {
-    .carousel-caption > h5 {
+    .carousel-caption>h5 {
         width: 80%;
     }
 }
@@ -247,7 +248,7 @@ form input:focus {
     }
 }
 
-.dropdown-menu > li {
+.dropdown-menu>li {
     cursor: pointer;
 }
 
@@ -289,7 +290,7 @@ form input:focus {
     height: 220px;
 }
 
-.card > .row {
+.card>.row {
     height: 200px;
 }
 
@@ -336,12 +337,13 @@ form input:focus {
     background-color: var(--light-orange);
     color: white;
 }
+
 /* mission page */
-.mp-top > div {
+.mp-top>div {
     flex-basis: 100%;
 }
 
-.mp-small-images > img {
+.mp-small-images>img {
     height: 120px;
     width: 175px;
 }
@@ -355,9 +357,9 @@ form input:focus {
     scrollbar-width: none;
 }
 
-    .mp-small-images div {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55));
-    }
+.mp-small-images div {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55));
+}
 
 .mp-tab1,
 .mp-tab2,
@@ -365,11 +367,11 @@ form input:focus {
     color: #757575;
 }
 
-    .mp-tab1:focus,
-    .mp-tab2:focus,
-    .mp-tab3:focus {
-        box-shadow: none;
-    }
+.mp-tab1:focus,
+.mp-tab2:focus,
+.mp-tab3:focus {
+    box-shadow: none;
+}
 
 .mp-tab-active {
     border-bottom: 2px solid var(--dark-gray);
@@ -395,13 +397,13 @@ form input:focus {
 }
 
 @media(min-width:768px) {
-    .sl-top > div {
+    .sl-top>div {
         width: 75%;
     }
 }
 
 @media(min-width:992px) {
-    .sl-top > div {
+    .sl-top>div {
         width: 50%;
     }
 }
@@ -417,6 +419,22 @@ form input:focus {
 }
 
 /* my profile page */
-.profile-top{
+.profile-top {
     width: 330px;
+}
+
+.top-titles {
+    font-size: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .top-titles {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .top-titles {
+        font-size: 2.5rem;
+    }
 }

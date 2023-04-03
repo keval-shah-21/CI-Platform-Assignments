@@ -28,6 +28,8 @@ public class UnitOfService : IUnitOfService
         StoryMedia = new StoryMediaService(_unitOfWork);
         UserSkill = new UserSkillService(_unitOfWork);
         User = new UserService(_unitOfWork, emailService, Skill, City, Country, UserSkill);
+        Contact = new ContactService(_unitOfWork);
+        MissionTimesheet = new MissionTimesheetService(_unitOfWork);
     }
 
     public IUserService User{get; private set;}
@@ -65,6 +67,9 @@ public class UnitOfService : IUnitOfService
 
     public IUserSkillService UserSkill{get; private set;}
 
+    public IContactService Contact { get; private set;}
+
+    public IMissionTimesheetService MissionTimesheet { get; private set;}
     public void Save(){
         _unitOfWork.Save();
     }

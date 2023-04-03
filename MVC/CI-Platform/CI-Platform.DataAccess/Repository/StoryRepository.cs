@@ -1,5 +1,6 @@
 ﻿using CI_Platform.DataAccess.Repository.Interface;
 using CI_Platform.Entities.DataModels;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -31,6 +32,14 @@ namespace CI_Platform.DataAccess.Repository
                 .Include(s => s.User)
                 .Include(s => s.StoryMedia)
             .FirstOrDefault(filter)!;
+        }
+
+        public void UpdateTotalViews(long storyId, long totalViews)
+        {
+            var totalViewsParam = new SqlParameter("@storyView", totalViews);
+            var storyIdParam = new SqlParameter("@storyId", storyId);
+
+            _context.Database.ExecuteSqlRaw("UPDATE story SET total_views = @storyView WHERE story_id = @storyId", totalViewsParam, storyIdParam);
         }
     }
 }

@@ -18,4 +18,7 @@ public interface IUserService
     List<UserVM> GetAllUsersToRecommendStory();
 
     ProfileVM GetUserProfileById(long userId);
+    void UpdateUserProfile(ProfileVM profileVM);
+
+    bool IsPasswordValid(string email, string password);
 }

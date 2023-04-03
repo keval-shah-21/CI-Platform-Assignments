@@ -38,5 +38,9 @@ public interface IUnitOfWork{
     IStoryMediaRepository StoryMedia { get; }
 
     IUserSkillRepository UserSkill { get; }
+
+    IContactRepository Contact { get; }
+
+    IMissionTimesheetRepository MissionTimesheet { get; }
     void Save();
 }

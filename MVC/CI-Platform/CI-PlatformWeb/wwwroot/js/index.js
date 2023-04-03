@@ -1,3 +1,13 @@
+if ($("#profileSuccess").val() == "true") {
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Successfully updated the profile!',
+        showConfirmButton: false,
+        timer: 1500
+    })
+}
+
 let currentView = "grid";
 const filterToggleBtn = document.querySelector(".filter-toggle-btn");
 const filterMenu = document.querySelector(".filter-menu");
@@ -354,7 +364,6 @@ function handleIndexFavouriteMissions() {
 
     Array.from(document.querySelectorAll(".remove-favourite")).forEach(fav => {
         $(fav).click(() => {
-            console.log($(fav).data("missionid"));
             $.ajax({
                 url: "/Volunteer/Mission/ToggleFavouriteMission",
                 method: "POST",

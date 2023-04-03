@@ -106,9 +106,8 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             if(id == null) return NotFound();
             StoryVM story = _unitOfService.Story.GetStoryById(id);
             if (story == null) return NotFound();
-            _unitOfService.Story.UpdateTotalViews(story.StoryId);
-            _unitOfService.Save();
             story.TotalViews = story.TotalViews + 1;
+            _unitOfService.Story.UpdateTotalViews(story.StoryId, (long)story.TotalViews);
             story.StoryMediaVM = story.StoryMediaVM.Skip(1).ToList();
             return View(story);
         }

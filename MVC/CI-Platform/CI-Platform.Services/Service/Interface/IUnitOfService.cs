@@ -39,5 +39,8 @@ public interface IUnitOfService
 
     IUserSkillService UserSkill { get; }
 
+    IContactService Contact { get; }
+
+    IMissionTimesheetService MissionTimesheet { get; }
     void Save();
 }

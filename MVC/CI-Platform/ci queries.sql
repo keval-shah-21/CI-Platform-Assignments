@@ -276,3 +276,31 @@ create table story_media(
 	deleted_at datetimeoffset,
 	foreign key (story_id) references story(story_id)
 )
+
+create table contact(
+	contact_id bigint identity(1,1) primary key,
+	subject varchar(255) not null,
+	message text,
+	status tinyint,
+	user_id bigint,
+	created_at datetimeoffset not null default current_timestamp,
+	updated_at datetimeoffset,
+	deleted_at datetimeoffset,
+	foreign key (user_id) references [user](user_id)
+)
+
+create table mission_timesheet(
+	timesheet_id bigint identity(1,1) primary key,
+	mission_id bigint,
+	user_id bigint,
+	date_volunteered date,
+	time_volunteered time,
+	notes text,
+	action int,
+	approval_status tinyint,
+	created_at datetimeoffset not null default current_timestamp,
+	updated_at datetimeoffset,
+	deleted_at datetimeoffset,
+	foreign key (user_id) references [user](user_id),
+	foreign key (mission_id) references [mission](mission_id)
+)
