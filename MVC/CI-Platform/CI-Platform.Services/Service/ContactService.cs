@@ -27,9 +27,7 @@ public class ContactService:IContactService
         {
             ContactId = contact.ContactId,
             Message = contact.Message,
-            Status = contact.Status == 0 ? ApprovalStatus.PENDING :
-                    contact.Status == 1 ? ApprovalStatus.APPROVED :
-                    ApprovalStatus.DECLINED ,
+            Status = (ApprovalStatus)contact.Status!,
             Subject = contact.Subject,
             UserId = contact.UserId,
             User = contact.User != null ? UserService.ConvertUserToVM(contact.User) : null!, 

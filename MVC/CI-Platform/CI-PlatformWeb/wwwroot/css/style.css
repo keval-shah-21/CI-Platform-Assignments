@@ -449,3 +449,7 @@ form input:focus {
         max-width: 300px;
     }
 }
+
+.active-navitem{
+    color: var(--light-orange) !important;
+}

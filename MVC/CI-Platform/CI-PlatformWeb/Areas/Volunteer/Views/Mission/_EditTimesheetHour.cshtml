@@ -1,27 +1,25 @@
-﻿@model MissionTimesheetGoalVM
-@{
-    var userId = long.Parse(Context.Session.GetString("UserId")!);
-}
-<div class="modal fade" id="goalModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+﻿@model MissionTimesheetHourVM
+<div class="modal fade" id="editHourModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">
                     Please input below Volunteering
-                    Goal
+                    Hours
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <form asp-action="AddTimesheetGoal" method="post" class="d-grid gap-3" id="addGoalForm">
-                <input hidden asp-for="UserId" value="@userId" />
+            <form class="d-grid gap-3" id="editHourForm">
+                <input hidden asp-for="UserId"/>
+                <input hidden asp-for="TimesheetId"/>
                 <div class="modal-body d-grid gap-2 color-darkgray">
                     <div>
                         <label asp-for="MissionId" class="form-label">Mission</label>
                         <select asp-for="MissionId" class="form-select">
                             <option selected disabled value="0">Select Mission</option>
-                            @foreach (MissionVM m in Model.MissionVM)
+                            @foreach(MissionVM m in Model.MissionVM)
                             {
                                 <option value="@m.MissionId">@m.Title</option>
                             }
@@ -33,10 +31,19 @@
                         <input type="date" class="form-control" asp-for="DateVolunteered" placeholder="Select date">
                         <span class="text-danger text-14" asp-validation-for="DateVolunteered"></span>
                     </div>
-                    <div>
-                        <label asp-for="Action"></label>
-                        <input type="text" class="form-control" asp-for="Action" placeholder="Enter Actions">
-                        <span class="text-danger text-14" asp-validation-for="Action"></span>
+                    <div class="row row-cols-1 row-cols-md-2">
+                        <div class="col">
+                            <label asp-for="Hours"></label>
+                            <input type="text" class="form-control" asp-for="Hours"
+                                   placeholder="Enter Spent Hours">
+                            <span class="text-danger text-14" asp-validation-for="Hours"></span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="Minutes"></label>
+                            <input type="text" class="form-control" asp-for="Minutes"
+                                   placeholder="Enter Spent Minutes">
+                            <span class="text-danger text-14" asp-validation-for="Minutes"></span>
+                        </div>
                     </div>
                     <div>
                         <label asp-for="Notes"></label>

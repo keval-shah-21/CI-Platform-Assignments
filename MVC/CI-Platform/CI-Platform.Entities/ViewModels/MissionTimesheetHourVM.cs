@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CI_Platform.Entities.Constants;
+using System.ComponentModel.DataAnnotations;
 
 namespace CI_Platform.Entities.ViewModels;
 
@@ -16,16 +17,19 @@ public class MissionTimesheetHourVM
     public DateTime? DateVolunteered { get; set; }
 
     [Required]
-    [MaxLength(24)]
-    [MinLength(0)]
-    public byte? Hours;
+    [Range(0, 24)]
+    [RegularExpression("([0-9]+)", ErrorMessage = "Invalid Hours input.")]
+    public int? Hours { get; set; }
 
     [Required]
-    [MaxLength(60)]
-    [MinLength(0)]
-    public byte? Minutes;
+    [Range(0, 60)]
+    [RegularExpression("([0-9]+)", ErrorMessage = "Invalid Minutes input.")]
+    public int? Minutes { get; set; }
 
     [Required]
     [Display(Name = "Message")]
     public string? Notes { get; set; }
+    public ApprovalStatus? ApprovalStatus { get; set; }
+
+    public List<MissionVM>? MissionVM { get; set; }
 }

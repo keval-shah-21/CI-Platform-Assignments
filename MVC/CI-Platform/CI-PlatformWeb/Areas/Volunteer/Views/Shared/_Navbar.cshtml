@@ -34,8 +34,8 @@
                     <img src="~/images/static/drop-down.png" alt="drop-down">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
-                        <li><a class="dropdown-item" asp-action="UserProfile" asp-controller="User" asp-route-userId="@userId">My Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Volunteer TimeSheet</a></li>
+                        <li><a class="dropdown-item" id="myprofileBtn" asp-action="UserProfile" asp-controller="User" asp-route-userId="@userId">My Profile</a></li>
+                        <li><a class="dropdown-item" id="timesheetBtn" asp-action="MissionTimesheet" asp-controller="Mission" asp-route-userId="@userId">Volunteer TimeSheet</a></li>
                         <li><a id="logoutBtn" class="dropdown-item">Logout</a></li>
                     </ul>
                 </div>

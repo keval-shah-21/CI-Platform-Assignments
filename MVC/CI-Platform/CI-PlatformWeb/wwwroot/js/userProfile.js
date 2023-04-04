@@ -1,4 +1,6 @@
-﻿const allSkillsContainer = document.querySelector("#allSkillsContainer");
+﻿$('#myprofileBtn').addClass("active-navitem");
+
+const allSkillsContainer = document.querySelector("#allSkillsContainer");
 const selectedSkillsContainer = document.querySelector("#selectedSkillsContainer");
 const rightSkillBtn = document.querySelector("#rightSkill")
 const leftSkillBtn = document.querySelector("#leftSkill")

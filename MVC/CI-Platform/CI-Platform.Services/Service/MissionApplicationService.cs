@@ -47,7 +47,7 @@ public class MissionApplicationService : IMissionApplicationService
         {
             MissionId = mi.Mission.MissionId,
             Title = mi.Mission.Title,
-        }
-        ).ToList();
+            MissionType = mi.Mission.MissionType ? MissionType.GOAL : MissionType.TIME,
+        }).ToList();
     }
 }

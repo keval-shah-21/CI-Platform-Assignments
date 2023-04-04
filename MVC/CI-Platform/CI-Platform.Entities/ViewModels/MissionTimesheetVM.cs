@@ -1,10 +1,16 @@
-﻿namespace CI_Platform.Entities.ViewModels;
+﻿using CI_Platform.Entities.Constants;
+
+namespace CI_Platform.Entities.ViewModels;
 
 public class MissionTimesheetVM
 {
     public long TimesheetId { get; set; }
 
     public long? MissionId { get; set; }
+
+    public string? MissionName { get; set; }
+
+    public MissionType? MissionType { get; set; } 
 
     public long? UserId { get; set; }
 
@@ -22,7 +28,7 @@ public class MissionTimesheetVM
 
     public DateTimeOffset? DeletedAt { get; set; }
 
-    public MissionVM? Mission { get; set; }
+    public ApprovalStatus? ApprovalStatus { get; set; }
 
     public UserVM? User { get; set; }
 }

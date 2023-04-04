@@ -1,53 +1,67 @@
-﻿  <div class="modal fade" id="hoursModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Please input below Volunteering
-                                    Hours</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <form class="d-grid gap-3">
-                                <div class="modal-body d-grid gap-2 color-darkgray">
-                                    <div>
-                                        <label asp-for="" class="form-label">Mission</label>
-                                        <select asp-for="">
-                                            <option selected disabled value="0">Select Mission</option>
-                                        </select>
-                                        <span class="text-danger text-14"></span>
-                                    </div>
-                                    <div>
-                                        <label asp-for=""></label>
-                                        <input type="date" class="form-control" asp-for="" placeholder="Select date">
-                                        <span class="text-danger text-14"></span>
-                                    </div>
-                                    <div class="row row-cols-1 row-cols-md-2">
-                                        <div class="col">
-                                            <label asp-for=""></label>
-                                            <input type="text" class="form-control" asp-for=""
-                                                placeholder="Enter Spent Hours">
-                                            <span class="text-danger text-14"></span>
-                                        </div>
-                                        <div class="col">
-                                            <label asp-for=""></label>
-                                            <input type="text" class="form-control" asp-for=""
-                                                placeholder="Enter Spent Minutes">
-                                            <span class="text-danger text-14"></span>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label asp-for=""></label>
-                                        <textarea asp-for="" rows="4" placeholder="Enter your Message"></textarea>
-                                        <span class="text-danger text-14"></span>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn button-dark px-4"
-                                        data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn button px-4" id="saveHoursBtn">Save</button>
-                                </div>
-                            </form>
+﻿@model MissionTimesheetHourVM
+@{
+    var userId = long.Parse(Context.Session.GetString("UserId")!);
+}
+<div class="modal fade" id="hourModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Please input below Volunteering
+                    Hours
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form class="d-grid gap-3" id="addHourForm">
+                <input hidden asp-for="UserId" value="@userId"/>
+                <div class="modal-body d-grid gap-2 color-darkgray">
+                    <div>
+                        <label asp-for="MissionId" class="form-label">Mission</label>
+                        <select asp-for="MissionId" class="form-select">
+                            <option selected disabled value="0">Select Mission</option>
+                            @foreach(MissionVM m in Model.MissionVM)
+                            {
+                                <option value="@m.MissionId">@m.Title</option>
+                            }
+                        </select>
+                        <span class="text-danger text-14" asp-validation-for="MissionId"></span>
+                    </div>
+                    <div>
+                        <label asp-for="DateVolunteered"></label>
+                        <input type="date" class="form-control" asp-for="DateVolunteered" placeholder="Select date">
+                        <span class="text-danger text-14" asp-validation-for="DateVolunteered"></span>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-2">
+                        <div class="col">
+                            <label asp-for="Hours"></label>
+                            <input type="text" class="form-control" asp-for="Hours"
+                                   placeholder="Enter Spent Hours">
+                            <span class="text-danger text-14" asp-validation-for="Hours"></span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="Minutes"></label>
+                            <input type="text" class="form-control" asp-for="Minutes"
+                                   placeholder="Enter Spent Minutes">
+                            <span class="text-danger text-14" asp-validation-for="Minutes"></span>
                         </div>
                     </div>
+                    <div>
+                        <label asp-for="Notes"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Enter your Message"></textarea>
+                        <span class="text-danger text-14" asp-validation-for="Notes"></span>
+                    </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-dark px-4"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn button px-4">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="_ValidationScriptsPartial"></partial>

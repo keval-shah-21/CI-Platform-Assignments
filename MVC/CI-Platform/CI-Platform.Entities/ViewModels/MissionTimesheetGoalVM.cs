@@ -22,7 +22,10 @@ public class MissionTimesheetGoalVM
 
     [Required]
     [Display(Name = "Actions")]
+    [RegularExpression("([0-9]+)", ErrorMessage = "Invalid Action input.")]
     public int? Action { get; set; }
 
     public ApprovalStatus? ApprovalStatus { get; set; }
+
+    public List<MissionVM>?  MissionVM { get; set; }
 }

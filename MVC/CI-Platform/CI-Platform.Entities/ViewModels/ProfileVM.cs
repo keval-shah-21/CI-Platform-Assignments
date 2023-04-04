@@ -18,8 +18,6 @@ namespace CI_Platform.Entities.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; } = null!;
 
-        public string Password { get; set; } = null!;
-
         [Required]
         [Display(Name = "Phone Number")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Invalid Phone Number.")]

@@ -5,4 +5,5 @@ namespace CI_Platform.DataAccess.Repository.Interface;
 public interface IMissionTimesheetRepository: IRepository<MissionTimesheet>
 {
     IEnumerable<MissionTimesheet> GetAllWithInclude();
+    void DeleteById(long timesheetId);
 }

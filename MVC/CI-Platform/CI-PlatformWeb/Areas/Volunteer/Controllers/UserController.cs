@@ -181,7 +181,7 @@ public class UserController : Controller
     [Authentication]
     public IActionResult UserProfile(long userId)
     {
-        if (userId == null) return NotFound();
+        if (userId == 0) return NotFound();
         ProfileVM user = _unitOfService.User.GetUserProfileById(userId);
         if (user == null) return NotFound();
         return View(user);

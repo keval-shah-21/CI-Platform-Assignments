@@ -1,8 +1,5 @@
 ﻿@model MissionTimesheetGoalVM
-@{
-    var userId = long.Parse(Context.Session.GetString("UserId")!);
-}
-<div class="modal fade" id="goalModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="editGoalModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -14,14 +11,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
             </div>
-            <form asp-action="AddTimesheetGoal" method="post" class="d-grid gap-3" id="addGoalForm">
-                <input hidden asp-for="UserId" value="@userId" />
+            <form class="d-grid gap-3" id="editGoalForm">
+                <input hidden asp-for="UserId"/>
+                <input hidden asp-for="TimesheetId"/>
                 <div class="modal-body d-grid gap-2 color-darkgray">
                     <div>
                         <label asp-for="MissionId" class="form-label">Mission</label>
                         <select asp-for="MissionId" class="form-select">
                             <option selected disabled value="0">Select Mission</option>
-                            @foreach (MissionVM m in Model.MissionVM)
+                            @foreach(MissionVM m in Model.MissionVM)
                             {
                                 <option value="@m.MissionId">@m.Title</option>
                             }
