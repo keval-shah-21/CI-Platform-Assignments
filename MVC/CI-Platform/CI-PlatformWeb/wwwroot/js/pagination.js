@@ -1,28 +1,31 @@
-﻿function createPaginationHTML() {
+﻿const pagination = document.querySelector('.pagination');
+let totalPages = 1, pageSet = 1, page = 1;
+export function createPagination(totalRows) {
     pagination.innerHTML = "";
-    let totalMissions = $('#totalMissions').val();
-    totalPages = Math.ceil(totalMissions / 9);
+    if (Math.ceil(totalRows / 2) < 1) return;
+
+    pageSet = 1; page = 1;
+    totalPages = Math.ceil(totalRows / 2);
     if (totalPages > 5) {
         pagination.innerHTML = `<button data-page="previous" class="btn rounded border border-2">
-        <img src="/images/static/previous.png" alt="previous">
+        <img src="./image/previous.png" alt="previous">
         </button>`;
     }
     if (totalPages > 1) {
         pagination.innerHTML += `<button data-page="left" class="btn rounded border border-2">
-        <img src="/images/static/left.png" alt="left"></button>`;
+        <img src="./image/left.png" alt="left"></button>`;
         for (let i = 1; i <= totalPages; i++) {
             pagination.innerHTML += `<button data-page="${i}"
              class="btn rounded border border-2 shadow-sm color-darkgray fw-light">${i}</button>`;
         }
         pagination.innerHTML += `<button data-page="right" class="btn rounded border border-2">
-        <img src="/images/static/right-arrow1.png" alt="right"></button>`;
+        <img src="./image/right-arrow1.png" alt="right"></button>`;
     }
     if (totalPages > 5) {
         pagination.innerHTML += `<button data-page="next" class="btn rounded border border-2">
-        <img src="/images/static/next.png" alt="next">
+        <img src="./image/next.png" alt="next">
         </button>`;
     }
-    //event listner
     document.querySelectorAll('[data-page]').forEach((btn) => {
         $(btn).click(() => handlePagination($(btn).data('page')));
 
@@ -32,6 +35,7 @@
 
     // css to current page
     $(`[data-page=${page}]`).addClass('active-page');
+    displayRows();
 }
 function scrollPageSet() {
     document.querySelectorAll('[data-page]').forEach((btn) => {
@@ -40,6 +44,16 @@ function scrollPageSet() {
         else
             $(btn).removeClass("d-none");
     });
+}
+function displayRows() {
+    document.querySelectorAll("tbody > tr").forEach((row, index) => {
+        if (index >= (page - 1) * 2 && index < page * 2) {
+            $(row).removeClass("d-none");
+        }
+        else {
+            $(row).addClass("d-none");
+        }
+    })
 }
 function handlePagination(value) {
     if (value == 'next') {
@@ -56,16 +70,14 @@ function handlePagination(value) {
     }
     else if (value == 'left') {
         if (page == 1) return;
+        $(`[data-page=${page}]`).removeClass('active-page');
         page = page - 1;
-        if (page <= (pageSet - 1) * 5) {
-            pageSet -= 1;
-            scrollPageSet();
-        }
-    }
-    else if (value == 'right') {
-        if (page == totalPages) return;
-        page = page + 1;
-        if (page > pageSet * 5) {
+        $(`[data-page=${page}]`).addClass('active-page');
+        if (page <= (pageSet - 1) * 5) { pageSet -= 1; scrollPageSet(); }
+    } else if (value == 'right') {
+        if
+            (page == totalPages) return; $(`[data-page=${page}]`).removeClass('active-page'); page = page + 1;
+        $(`[data-page=${page}]`).addClass('active-page'); if (page > pageSet * 5) {
             pageSet += 1;
             scrollPageSet();
         }
@@ -77,6 +89,8 @@ function handlePagination(value) {
         }
         $(`[data-page=${page}]`).removeClass('active-page');
         page = value;
+        $(`[data-page=${page}]`).addClass('active-page');
     }
-    MakeAjaxCall();
+    displayRows();
+    window.scrollTo(0, 0);
 }

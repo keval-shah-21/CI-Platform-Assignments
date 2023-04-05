@@ -1,0 +1,32 @@
+﻿@{
+    var firstName = Context.Session.GetString("FirstName");
+    var lastName = Context.Session.GetString("LastName");
+    var userId = Context.Session.GetString("UserId");
+    var avatar = Context.Session.GetString("Avatar");
+}
+<nav class="d-flex justify-content-between align-items-center py-1 px-3 shadow-sm">
+    <div class="d-flex gap-3 align-items-center">
+        <img src="/images/static/list.png" alt="list" class="hamburger d-lg-none">
+        <span id="currentTime" class="color-darkgray text-15"></span>
+    </div>
+    <div class="dropdown flex-shrink-0">
+        <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
+                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src='/images/static/user-img.png' alt="profile" class="rounded-circle object-fit-cover"
+                 width="40px" height="40px">
+            <span class="d-none d-md-inline">@firstName @lastName</span>
+            <img src="/images/static/drop-down.png" alt="drop-down">
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
+            <li>
+                <a class="dropdown-item" id="myprofileBtn" asp-action="UserProfile" asp-controller="User"
+                   asp-route-userId="@userId">My Profile</a>
+            </li>
+            @*<li>
+                <a class="dropdown-item" id="timesheetBtn" asp-action="MissionTimesheet"
+                   asp-controller="Mission" asp-route-userId="@userId">Volunteer TimeSheet</a>
+            </li>*@
+            <li><a id="logoutBtn" class="dropdown-item">Logout</a></li>
+        </ul>
+    </div>
+</nav>

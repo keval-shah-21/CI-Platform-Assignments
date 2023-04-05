@@ -11,6 +11,7 @@
     th,
     td {
         padding: 0 0.5rem;
+        border-bottom: none !important;
     }
 
     th {
@@ -19,23 +20,23 @@
 
     td {
         font-size: 15px;
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
+        padding-top: 0.25rem !important;
+        padding-bottom: 0.25rem !important;
     }
 </style>
-<input hidden id="userId" value="@userId"/>
+<input hidden id="userId" value="@userId" />
 <div class="grid-body d-grid min-vh-100">
-<partial name="_Navbar"></partial>
-<main class="container py-5">
-    <p class="top-titles color-darkgray fw-light">Volunteering Timesheet</p>
-    <section id="partialTimesheetContainer" class="d-flex flex-column flex-lg-row gap-3">
-        <partial name="_MissionTimesheetPartial"></partial>
-    </section>
-</main>
-<partial name="_Footer"></partial>
+    <partial name="_Navbar"></partial>
+    <main class="container py-5">
+        <p class="top-titles color-darkgray fw-light">Volunteering Timesheet</p>
+        <section id="partialTimesheetContainer" class="d-flex flex-column flex-lg-row gap-3">
+            <partial name="_MissionTimesheetPartial"></partial>
+        </section>
+    </main>
+    <partial name="_Footer"></partial>
 </div>
 <div id="partialTimesheetModalContainer"></div>
 
 @section Scripts{
-    <script src="/js/timesheet.js"></script>
+<script src="/js/timesheet.js"></script>
 }

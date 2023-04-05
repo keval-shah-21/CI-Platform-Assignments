@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .sidebar {
+            width: 330px;
+            height: 100vh;
+            position: fixed;
+            transform: translateX(-100%);
+            z-index: 3;
+        }
+
+        @media(min-width: 992px) {
+            .sidebar {
+                position: static;
+                transform: translateX(0);
+            }
+
+            .overlay {
+                display: none;
+            }
+        }
+
+        .sidebar-open {
+            transform: translateX(0);
+            transition: 0.3s all linear;
+        }
+
+        .overlay {
+            inset: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+            z-index: 2;
+        }
+
+        #adminSearch {
+            max-width: 20rem !important;
+        }
+
+        th {
+            font-weight: 500;
+            font-size: 1.25rem !important;
+            padding: 1rem 1rem !important;
+            background-color: #F8F9FC !important;
+        }
+
+        .table thead>tr>th {
+            border-bottom-color: #ced4da !important;
+        }
+
+        .table tbody>tr>td {
+            padding-left: 1rem !important;
+        }
+
+        .table {
+            margin-bottom: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="d-flex">
+        <div class="overlay position-absolute d-none"></div>
+        <aside class="sidebar px-4">
+            <div class="d-flex justify-content-between py-3 bg-white mb-2">
+                <span>NAVIGATION</span>
+                <button type="button" class="btn-close d-lg-none" aria-label="Close"></button>
+            </div>
+            <div class="d-flex gap-2 align-items-center p-3 ">
+                <img src="./image/person-white.svg" alt="user" height="20px" width="20px">
+                User
+            </div>
+            <div class="d-flex gap-2 align-items-center p-3 ">
+                <img src="./image/file-earmark-text-white.svg" alt="user">
+                CMS Page
+            </div>
+            <div class="d-flex gap-2 align-items-center p-3 bg-white">
+                <img src="./image/bullseye-white.svg" alt="user">
+                Mission
+            </div>
+            <div class="d-flex gap-2 align-items-center p-3 ">
+                <img src="./image/puzzle-white.svg" alt="user">
+                Mission Theme
+            </div>
+            <div class="d-flex gap-2 align-items-center p-3 ">
+                <img src="./image/tools-white.svg" alt="user">
+                Mission Skills
+            </div>
+            <div class="d-flex gap-2 align-items-center p-3 ">
+                <img src="./image/folder-white.svg" alt="user">
+                Mission Application
+            </div>
+            <div class="d-flex gap-2 align-items-center p-3 ">
+                <img src="./image/bookmark-star-white.svg" alt="user">
+                Story
+            </div>
+            <div class="d-flex gap-2 align-items-center p-3 ">
+                <img src="./image/image-white.svg" alt="user">
+                Banner Management
+            </div>
+        </aside>
+        <div class="flex-grow-1">
+            <nav class="d-flex justify-content-between align-items-center p-1 px-2 shadow-sm">
+                <div class="d-flex gap-3 align-items-center">
+                    <img src="./image/list.png" alt="list" class="hamburger d-lg-none">
+                    <span id="currentTime" class="color-darkgray text-15"></span>
+                </div>
+                <div class="dropdown flex-shrink-0">
+                    <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
+                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src='./image/user-img.png' alt="profile" class="rounded-circle object-fit-cover"
+                            width="40px" height="40px">
+                        <span class="d-none d-md-inline">@firstName @lastName</span>
+                        <img src="./image/drop-down.png" alt="drop-down">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
+                        <li><a class="dropdown-item" id="myprofileBtn" asp-action="UserProfile" asp-controller="User"
+                                asp-route-userId="@userId">My Profile</a></li>
+                        <li><a class="dropdown-item" id="timesheetBtn" asp-action="MissionTimesheet"
+                                asp-controller="Mission" asp-route-userId="@userId">Volunteer TimeSheet</a></li>
+                        <li><a id="logoutBtn" class="dropdown-item">Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <section class="px-3 py-4">
+                <input type="hidden" id="totalRows" data-total="11">
+                <div class="border-bottom mb-4">
+                    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Mission</h4>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="d-flex align-items-center">
+                            <img src="./image/search.png" alt="search" class="h-50 my-auto me-2">
+                            <input type="search" id="adminSearch" placeholder="Search" class="form-control">
+                        </div>
+                        <button class="btn button d-flex align-items-center">
+                            <img src="./image/plus.png" alt="plus">
+                            Add
+                        </button>
+                    </div>
+                    <div class="table-responsive border">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- @if (timeSheet.Count() == 0)
+                                {
+                                    <tr>
+                                        <td colspan="100%">
+                                            <div class="text-center">No entries found.</div>
+                                        </td>
+                                    </tr>
+                                } -->
+                                <!-- @foreach (var time in timeSheet)
+                                { -->
+                                <tr>
+                                    <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae maxime aut
+                                        delectus veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>lkasfd jak sjdfajfklasjdfalsd tus veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae maxime aut
+                                        delectus veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>Quae maxime aut delectus veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>sum dolor sit, amet consectetur adipisicing elit. Quae maxime aut
+                                        deleeniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>Lorem veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>Lorem ipsum dolor sit, ameeniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>Lorem ipsuniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>consectetur adipisicing elit. Quae maxime aut
+                                        delectus veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae maxime aut
+                                        delectus veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>sit, amet consectetur adipisicing elit. Quae maxime aut
+                                        delectus veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>cing elit. Quae maxime aut
+                                    delectus veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>sit, a veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>sit, a veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <tr>
+                                    <td>sit, a veniam </td>
+                                    <td>Active</td>
+                                    <!-- @if (time.ApprovalStatus == ApprovalStatus.PENDING)
+                                        { -->
+                                    <td>
+                                        <img src="./image/editing.png"
+                                            class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                            height="20px" width="20px" data-id="@time.TimesheetId">
+                                        <img src="./image/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                                            alt="bin" height="20px" width="20px" data-id="@time.TimesheetId">
+                                    </td>
+                                    <!-- } -->
+                                </tr>
+                                <!-- } -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="pagination d-flex justify-content-end gap-1 mt-5"></div>
+            </section>
+        </div>
+    </main>
+    <script src="./js/jquery-3.6.4.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script>
+        const pagination = document.querySelector('.pagination');
+        let totalPages = 1, pageSet = 1, page = 1;
+        createPagination(15);
+        function createPagination(totalRows) {
+            pagination.innerHTML = "";
+            totalPages = 1; pageSet = 1; page = 1;
+            if (Math.ceil(totalRows / 2) < 1) return;
+            totalPages = Math.ceil(totalRows / 2);
+            if (totalPages > 5) {
+                pagination.innerHTML = `<button data-page="previous" class="btn rounded border border-2">
+        <img src="./image/previous.png" alt="previous">
+        </button>`;
+            }
+            if (totalPages > 1) {
+                pagination.innerHTML += `<button data-page="left" class="btn rounded border border-2">
+        <img src="./image/left.png" alt="left"></button>`;
+                for (let i = 1; i <= totalPages; i++) {
+                    pagination.innerHTML += `<button data-page="${i}"
+             class="btn rounded border border-2 shadow-sm color-darkgray fw-light">${i}</button>`;
+                }
+                pagination.innerHTML += `<button data-page="right" class="btn rounded border border-2">
+        <img src="./image/right-arrow1.png" alt="right"></button>`;
+            }
+            if (totalPages > 5) {
+                pagination.innerHTML += `<button data-page="next" class="btn rounded border border-2">
+        <img src="./image/next.png" alt="next">
+        </button>`;
+            }
+            document.querySelectorAll('[data-page]').forEach((btn) => {
+                $(btn).click(() => handlePagination($(btn).data('page')));
+
+                if ($(btn).data('page') <= 5 * (pageSet - 1) || $(btn).data('page') > pageSet * 5)
+                    $(btn).addClass("d-none")
+            });
+
+            // css to current page
+            $(`[data-page=${page}]`).addClass('active-page');
+            displayRows();
+        }
+        function scrollPageSet() {
+            document.querySelectorAll('[data-page]').forEach((btn) => {
+                if ($(btn).data('page') <= 5 * (pageSet - 1) || $(btn).data('page') > pageSet * 5)
+                    $(btn).addClass("d-none")
+                else
+                    $(btn).removeClass("d-none");
+            });
+        }
+        function displayRows() {
+            document.querySelectorAll("tbody > tr").forEach((row, index) => {
+                if (index >= (page - 1) * 2 && index < page * 2) {
+                    $(row).removeClass("d-none");
+                }
+                else {
+                    $(row).addClass("d-none");
+                }
+            })
+        }
+        function handlePagination(value) {
+            if (value == 'next') {
+                if (pageSet * 5 > totalPages) return;
+                pageSet += 1;
+                scrollPageSet();
+                return;
+            }
+            else if (value == 'previous') {
+                if (pageSet == 1) return;
+                pageSet -= 1;
+                scrollPageSet();
+                return;
+            }
+            else if (value == 'left') {
+                if (page == 1) return;
+                $(`[data-page=${page}]`).removeClass('active-page');
+                page = page - 1;
+                $(`[data-page=${page}]`).addClass('active-page');
+                if (page <= (pageSet - 1) * 5) { pageSet -= 1; scrollPageSet(); }
+            } else if (value == 'right') {
+                if
+                    (page == totalPages) return; $(`[data-page=${page}]`).removeClass('active-page'); page = page + 1;
+                $(`[data-page=${page}]`).addClass('active-page'); if (page > pageSet * 5) {
+                    pageSet += 1;
+                    scrollPageSet();
+                }
+            }
+            else {
+                if (page == value) {
+                    window.scrollTo(0, 0);
+                    return;
+                }
+                $(`[data-page=${page}]`).removeClass('active-page');
+                page = value;
+                $(`[data-page=${page}]`).addClass('active-page');
+            }
+            displayRows();
+            window.scrollTo(0, 0);
+        }
+
+        $(".hamburger").click(() => {
+            $(".sidebar").addClass("sidebar-open");
+            $(".overlay").removeClass("d-none");
+        })
+        $(".btn-close").click(() => {
+            $(".sidebar").removeClass("sidebar-open");
+            $(".overlay").addClass("d-none");
+        })
+        const months = [
+            'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+            'November',
+            'December'
+        ]
+        const days = [
+            'Sunday',
+            'Monday',
+            'Tueday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday'
+        ]
+
+        function updateCurrentDateTime() {
+            let currentDate = new Date();
+            document.getElementById("currentTime").textContent = `${days[currentDate.getDay()]}, ${months[currentDate.getMonth()]} ${currentDate.getDate()}, ${currentDate.getFullYear()}, ${currentDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`;
+        }
+
+        updateCurrentDateTime();
+        setInterval(updateCurrentDateTime, 1000);
+    </script>
+</body>
+
+</html>
+<!--
+
+    function createPaginationHTML(totalMissions) {
+        
+        if (totalPages == Math.ceil(totalMissions / 9)) return;
+pagination.innerHTML = "";
+totalPages = Math.ceil(totalMissions / 9);
+if (totalPages > 5) {
+pagination.innerHTML = `<button data-page="previous" class="btn rounded border border-2">
+    <img src="./image/previous.png" alt="previous">
+</button>`;
+}
+if (totalPages > 1) {
+pagination.innerHTML += `<button data-page="left" class="btn rounded border border-2">
+    <img src="./image/left.png" alt="left"></button>`;
+for (let i = 1; i <= totalPages; i++) { pagination.innerHTML +=`<button data-page="${i}"
+class="btn rounded border border-2 shadow-sm color-darkgray fw-light">${i}</button>`;
+    }
+    pagination.innerHTML += `<button data-page="right" class="btn rounded border border-2">
+        <img src="./image/right-arrow1.png" alt="right"></button>`;
+    }
+    if (totalPages > 5) {
+        pagination.innerHTML += `<button data-page="next" class="btn rounded border border-2">
+            <img src="./image/next.png" alt="next">
+        </button>`;
+    }
+    //event listner
+    document.querySelectorAll('[data-page]').forEach((btn) => {
+        $(btn).click(() => handlePagination($(btn).data('page')));
+        
+    if ($(btn).data('page') <= 5 * (pageSet - 1) || $(btn).data('page')> pageSet * 5)
+        $(btn).addClass("d-none")
+        });
+
+        // css to current page
+        $(`[data-page=${page}]`).addClass('active-page');
+    }
+    function scrollPageSet() {
+        document.querySelectorAll('[data-page]').forEach((btn) => {
+            if ($(btn).data('page') <= 5 * (pageSet - 1) || $(btn).data('page')> pageSet * 5)
+            $(btn).addClass("d-none")
+            else
+            $(btn).removeClass("d-none");
+            });
+        }
+        function handlePagination(value) {
+            if (value == 'next') {
+                if (pageSet * 5 > totalPages) return;
+                pageSet += 1;
+                scrollPageSet();
+                return;
+            }
+            else if (value == 'previous') {
+                if (pageSet == 1) return;
+                pageSet -= 1;
+                scrollPageSet();
+                return;
+            }
+            else if (value == 'left') {
+                if (page == 1) return;
+                $(`[data-page=${page}]`).removeClass('active-page');
+            page = page - 1;
+            $(`[data-page=${page}]`).addClass('active-page');
+            if (page <= (pageSet - 1) * 5) { pageSet -=1; scrollPageSet(); } } else if (value=='right' ) { if
+                (page==totalPages) return; $(`[data-page=${page}]`).removeClass('active-page'); page=page + 1;
+                $(`[data-page=${page}]`).addClass('active-page'); if (page> pageSet * 5) {
+                    pageSet += 1;
+                scrollPageSet();
+            }
+        }
+        else {
+            if (page == value) {
+                window.scrollTo(0, 0);
+                return;
+            }
+            $(`[data-page=${page}]`).removeClass('active-page');
+            page = value;
+            $(`[data-page=${page}]`).addClass('active-page');
+        }
+        MakeAjaxCall();
+        window.scrollTo(0, 0);
+    }
+-->

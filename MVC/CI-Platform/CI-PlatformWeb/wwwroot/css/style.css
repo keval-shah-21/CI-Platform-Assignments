@@ -444,12 +444,52 @@ form input:focus {
         font-size: 2.5rem;
     }
 }
+
 @media (min-width: 992px) {
     .spy {
         max-width: 300px;
     }
 }
 
-.active-navitem{
+.active-navitem {
     color: var(--light-orange) !important;
+}
+
+/*admin css*/
+.sidebar {
+    width: 330px;
+    flex-shrink: 0;
+    min-height:100vh;
+    position: fixed;
+    transform: translateX(-100%);
+    z-index: 3;
+    background-color: var(--light-orange);
+}
+
+@media(min-width: 992px) {
+    .sidebar {
+        position: static;
+        transform: translateX(0);
+    }
+
+    .overlay {
+        display: none;
+    }
+}
+
+.sidebar-open {
+    transform: translateX(0);
+    transition: 0.3s all linear;
+}
+.active-sidebar-item{
+    background-color: white;
+    color: var(--light-orange) !important;
+}
+.overlay {
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    z-index: 2;
+}
+#adminSearch {
+    max-width: 20rem !important;
 }
