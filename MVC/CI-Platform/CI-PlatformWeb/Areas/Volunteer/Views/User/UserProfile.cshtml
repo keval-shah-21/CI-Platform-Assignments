@@ -8,48 +8,11 @@
         <img src="@Model.Avatar" alt="user image" class="rounded-circle object-fit-cover cursor-pointer"
              height="200px" width="200px" id="profilePic">
         <h4 class="mt-3 color-darkgray">@Model.FirstName @Model.LastName</h4>
-        <div class="fw-light text-15 cursor-pointer" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+        <div class="fw-light text-15 cursor-pointer" id="changePasswordBtn">
             Change
             Password
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false"
-             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Change Password</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-grid gap-2 color-darkgray">
-                        <div>
-                            <label for="oldPassword">Old Password</label>
-                            <input type="text" class="form-control" id="oldPassword"
-                                   placeholder="Enter old password" />
-                            <span class="text-danger text-14" id="oldPasswordError"></span>
-                        </div>
-                        <div>
-                            <label for="newPassword">New Password</label>
-                            <input type="text" class="form-control" id="newPassword"
-                                   placeholder="Enter new password" />
-                            <span class="text-danger text-14" id="newPasswordError"></span>
-
-                        </div>
-                        <div>
-                            <label for="confirmPassword">Confirm Password</label>
-                            <input type="text" class="form-control" id="confirmPassword"
-                                   placeholder="Enter confirm password" />
-                            <span class="text-danger text-14" id="confirmPasswordError"></span>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn button px-4" id="savePasswordBtn">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="changePasswordPartialContainer"></div>
     </div>
     <form method="post" class="d-grid gap-5 flex-grow-1 flex-shrink-0 color-darkgray" enctype="multipart/form-data">
         <input hidden asp-for="UserId" id="UserId" />

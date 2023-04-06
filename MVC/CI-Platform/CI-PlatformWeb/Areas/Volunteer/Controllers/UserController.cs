@@ -230,6 +230,11 @@ public class UserController : Controller
 
         return View(profileVM);
     }
+    [Route("get-change-password-partial")]
+    public IActionResult GetChangePasswordPartial()
+    {
+        return PartialView("_ChangePassword");
+    }
 
     [HttpPut]
     [Route("update-password")]

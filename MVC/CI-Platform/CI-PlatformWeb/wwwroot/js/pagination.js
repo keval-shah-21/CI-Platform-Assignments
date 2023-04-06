@@ -1,29 +1,30 @@
-﻿const pagination = document.querySelector('.pagination');
-let totalPages = 1, pageSet = 1, page = 1;
-export function createPagination(totalRows) {
+﻿let totalPages = 1, pageSet = 1, page = 1, numberOfRows = 5;
+function createPagination() {
+    const totalRows = document.querySelectorAll("tbody>tr").length;
+    let pagination = document.querySelector('.pagination');
     pagination.innerHTML = "";
-    if (Math.ceil(totalRows / 2) < 1) return;
+    if (Math.ceil(totalRows / numberOfRows) < 1) return;
 
     pageSet = 1; page = 1;
-    totalPages = Math.ceil(totalRows / 2);
+    totalPages = Math.ceil(totalRows / numberOfRows);
     if (totalPages > 5) {
         pagination.innerHTML = `<button data-page="previous" class="btn rounded border border-2">
-        <img src="./image/previous.png" alt="previous">
+        <img src="/images/static/previous.png" alt="previous">
         </button>`;
     }
     if (totalPages > 1) {
         pagination.innerHTML += `<button data-page="left" class="btn rounded border border-2">
-        <img src="./image/left.png" alt="left"></button>`;
+        <img src="/images/static/left.png" alt="left"></button>`;
         for (let i = 1; i <= totalPages; i++) {
             pagination.innerHTML += `<button data-page="${i}"
              class="btn rounded border border-2 shadow-sm color-darkgray fw-light">${i}</button>`;
         }
         pagination.innerHTML += `<button data-page="right" class="btn rounded border border-2">
-        <img src="./image/right-arrow1.png" alt="right"></button>`;
+        <img src="/images/static/right-arrow1.png" alt="right"></button>`;
     }
     if (totalPages > 5) {
         pagination.innerHTML += `<button data-page="next" class="btn rounded border border-2">
-        <img src="./image/next.png" alt="next">
+        <img src="/images/static/next.png" alt="next">
         </button>`;
     }
     document.querySelectorAll('[data-page]').forEach((btn) => {
@@ -47,7 +48,7 @@ function scrollPageSet() {
 }
 function displayRows() {
     document.querySelectorAll("tbody > tr").forEach((row, index) => {
-        if (index >= (page - 1) * 2 && index < page * 2) {
+        if (index >= (page - 1) * numberOfRows && index < page * numberOfRows) {
             $(row).removeClass("d-none");
         }
         else {

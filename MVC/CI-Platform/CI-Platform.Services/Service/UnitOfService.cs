@@ -30,6 +30,7 @@ public class UnitOfService : IUnitOfService
         User = new UserService(_unitOfWork, emailService, Skill, City, Country, UserSkill);
         Contact = new ContactService(_unitOfWork);
         MissionTimesheet = new MissionTimesheetService(_unitOfWork);
+        CmsPage = new CmsPageService(_unitOfWork);
     }
 
     public IUserService User{get; private set;}
@@ -70,6 +71,8 @@ public class UnitOfService : IUnitOfService
     public IContactService Contact { get; private set;}
 
     public IMissionTimesheetService MissionTimesheet { get; private set;}
+
+    public ICmsPageService CmsPage { get; private set; }
     public void Save(){
         _unitOfWork.Save();
     }

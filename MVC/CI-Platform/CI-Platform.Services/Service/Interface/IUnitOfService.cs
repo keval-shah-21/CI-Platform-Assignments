@@ -42,5 +42,7 @@ public interface IUnitOfService
     IContactService Contact { get; }
 
     IMissionTimesheetService MissionTimesheet { get; }
+
+    ICmsPageService CmsPage { get; }
     void Save();
 }

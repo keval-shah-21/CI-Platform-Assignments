@@ -8,16 +8,6 @@ create table admin(
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset
 )
-create table banner(
-	banner_id int identity(1,1) primary key,
-	banner_image varchar(max) not null,
-	title varchar(300) not null,
-	description text,
-	sort_order tinyint default 0,
-	created_at datetimeoffset not null default current_timestamp,
-	updated_at datetimeoffset,
-	deleted_at datetimeoffset
-)
 
 create table country(
 	country_id smallint identity(1,1) primary key,
@@ -68,16 +58,7 @@ create table reset_password(
 	token varchar(255) not null,
 	created_at datetimeoffset not null default current_timestamp
 )
-create table cms_page(
-	cms_page_id smallint identity(1,1) primary key,
-	title varchar(255) not null,
-	description text not null,
-	slug varchar(255),
-	status bit not null default 1,
-	created_at datetimeoffset not null default current_timestamp,
-	updated_at datetimeoffset,
-	deleted_at datetimeoffset
-)
+
 create table mission_theme(
 	mission_theme_id smallint identity(1,1) primary key,
 	mission_theme_name varchar(50) unique,
@@ -303,4 +284,28 @@ create table mission_timesheet(
 	deleted_at datetimeoffset,
 	foreign key (user_id) references [user](user_id),
 	foreign key (mission_id) references [mission](mission_id)
+)
+
+create table cms_page(
+	cms_page_id bigint identity(1,1) primary key,
+	title varchar(255),
+	description text,
+	slug varchar(30) UNIQUE NOT NULL,
+	status bit default 1,
+	created_at datetimeoffset not null default current_timestamp,
+	updated_at datetimeoffset,
+	deleted_at datetimeoffset,
+)
+
+create table banner(
+	banner_id bigint identity(1,1) primary key,
+	media_name varchar(64),
+	media_type varchar(5),
+	media_path varchar(max),
+	sort_order int,
+	title varchar(200),
+	description text,
+	created_at datetimeoffset not null default current_timestamp,
+	updated_at datetimeoffset,
+	deleted_at datetimeoffset,
 )

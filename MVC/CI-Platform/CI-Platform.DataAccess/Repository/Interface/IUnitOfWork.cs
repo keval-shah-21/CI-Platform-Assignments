@@ -42,5 +42,7 @@ public interface IUnitOfWork{
     IContactRepository Contact { get; }
 
     IMissionTimesheetRepository MissionTimesheet { get; }
+
+    ICmsPageRepository CmsPage { get; }
     void Save();
 }

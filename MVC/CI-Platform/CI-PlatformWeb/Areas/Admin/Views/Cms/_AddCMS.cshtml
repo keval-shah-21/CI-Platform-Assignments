@@ -1,0 +1,38 @@
+﻿@model CmsPageVM
+<form class="p-4">
+    <div class="border border-2">
+        <div class="py-2 px-4 bg-light fs-4 border-bottom border-2">Add CMS Page</div>
+        <div class="d-grid gap-3 p-4 color-darkgray">
+            <div>
+                <label asp-for="Title" class="form-label">t</label>
+                <input type="text" class="form-control" asp-for="Title">
+                <span class="text-14 text-danger" asp-validation-for="Title"></span>
+            </div>
+            <div>
+                <label asp-for="Description" class="form-label">d</label>
+                <textarea id="tiny" asp-for="Description"></textarea>
+                <span id="descriptionError" class="text-14 text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Slug" class="form-label">s</label>
+                <input type="text" class="form-control" asp-for="Slug">
+                <span class="text-14 text-danger" asp-validation-for="Slug"></span>
+            </div>
+            <div>
+                <label asp-for="Status" class="form-label">s</label>
+                <select asp-for="Status" class="form-select">
+                    <option selected disabled value=-1>Select status</option>
+                    <option value=1>Active</option>
+                    <option value=0>Not Active</option>
+                </select>
+                <span class="text-14 text-danger" asp-validation-for="Status"></span>
+            </div>
+        </div>
+    </div>
+    <div class="text-end mt-4">
+        <button asp-action="Index" type="button" class="btn button-dark px-4">
+            Cancel
+        </button>
+        <button type="submit" class="btn button px-4">Save</button>
+    </div>
+</form>

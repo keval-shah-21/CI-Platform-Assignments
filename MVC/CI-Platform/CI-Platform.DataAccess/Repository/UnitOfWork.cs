@@ -30,6 +30,7 @@ public class UnitOfWork : IUnitOfWork
         UserSkill = new UserSkillRepository(_context);
         Contact = new ContactRepository(_context);
         MissionTimesheet = new MissionTimesheetRepository(_context);
+        CmsPage = new CmsPageRepository(_context);
     }
     public IUserRepository User{get; private set;}
 
@@ -71,6 +72,8 @@ public class UnitOfWork : IUnitOfWork
     public IContactRepository Contact { get; private set; }
 
     public IMissionTimesheetRepository MissionTimesheet { get; private set;}
+
+    public ICmsPageRepository CmsPage { get; private set; }
     public void Save()
     {
         _context.SaveChanges();

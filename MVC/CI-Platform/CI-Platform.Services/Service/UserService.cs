@@ -5,7 +5,6 @@ using CI_Platform.DataAccess.Repository.Interface;
 using System.Linq.Expressions;
 
 namespace CI_Platform.Services.Service;
-
 public class UserService : IUserService
 {
     private readonly IUnitOfWork _unitOfWork;

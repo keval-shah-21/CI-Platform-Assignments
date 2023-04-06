@@ -104,8 +104,20 @@ document.querySelector("#saveSkillBtn").addEventListener("click", () => {
     }
     $("#skillModal").modal("hide")
 })
+$("#changePasswordBtn").click(() => {
+    $.ajax({
+        url: "/Volunteer/User/get-change-password-partial",
+        method: "GET",
+        success: (result) => {
+            $("#changePasswordPartialContainer").html(result);
+            $("#changePasswordModal").modal("show");
+            $("#savePasswordBtn").click(() => handleChangePassword());
+        },
+        error: (error) => console.log(error)
+    });
+})
 
-$('#savePasswordBtn').click(() => {
+function handleChangePassword() {
     const oldPassword = document.querySelector("#oldPassword").value.trim();
     const newPassword = document.querySelector("#newPassword").value.trim();
     const confirmPassword = document.querySelector("#confirmPassword").value
@@ -165,7 +177,7 @@ $('#savePasswordBtn').click(() => {
             console.log(error)
         }
     });
-});
+}
 
 $("#profilePic").click(() => { $('#profileInput').click(); });
 $("#profileInput").on("change", () => {

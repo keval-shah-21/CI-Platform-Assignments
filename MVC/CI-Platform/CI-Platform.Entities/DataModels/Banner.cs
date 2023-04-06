@@ -5,15 +5,19 @@ namespace CI_Platform.Entities.DataModels;
 
 public partial class Banner
 {
-    public int BannerId { get; set; }
+    public long BannerId { get; set; }
 
-    public string BannerImage { get; set; } = null!;
+    public string? MediaName { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string? MediaType { get; set; }
+
+    public string? MediaPath { get; set; }
+
+    public int? SortOrder { get; set; }
+
+    public string? Title { get; set; }
 
     public string? Description { get; set; }
-
-    public byte? SortOrder { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 

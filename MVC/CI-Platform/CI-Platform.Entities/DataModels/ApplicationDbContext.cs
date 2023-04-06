@@ -105,14 +105,11 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Banner>(entity =>
         {
-            entity.HasKey(e => e.BannerId).HasName("PK__banner__10373C347AEBEADE");
+            entity.HasKey(e => e.BannerId).HasName("PK__banner__10373C34475344F9");
 
             entity.ToTable("banner");
 
             entity.Property(e => e.BannerId).HasColumnName("banner_id");
-            entity.Property(e => e.BannerImage)
-                .IsUnicode(false)
-                .HasColumnName("banner_image");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -120,11 +117,20 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
-            entity.Property(e => e.SortOrder)
-                .HasDefaultValueSql("((0))")
-                .HasColumnName("sort_order");
+            entity.Property(e => e.MediaName)
+                .HasMaxLength(64)
+                .IsUnicode(false)
+                .HasColumnName("media_name");
+            entity.Property(e => e.MediaPath)
+                .IsUnicode(false)
+                .HasColumnName("media_path");
+            entity.Property(e => e.MediaType)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .HasColumnName("media_type");
+            entity.Property(e => e.SortOrder).HasColumnName("sort_order");
             entity.Property(e => e.Title)
-                .HasMaxLength(300)
+                .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("title");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
@@ -156,9 +162,11 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<CmsPage>(entity =>
         {
-            entity.HasKey(e => e.CmsPageId).HasName("PK__cms_page__B46D5B52B493D489");
+            entity.HasKey(e => e.CmsPageId).HasName("PK__cms_page__B46D5B5278651B47");
 
             entity.ToTable("cms_page");
+
+            entity.HasIndex(e => e.Slug, "UQ__cms_page__32DD1E4C3D37DEC8").IsUnique();
 
             entity.Property(e => e.CmsPageId).HasColumnName("cms_page_id");
             entity.Property(e => e.CreatedAt)
@@ -169,11 +177,10 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.Slug)
-                .HasMaxLength(255)
+                .HasMaxLength(30)
                 .IsUnicode(false)
                 .HasColumnName("slug");
             entity.Property(e => e.Status)
-                .IsRequired()
                 .HasDefaultValueSql("((1))")
                 .HasColumnName("status");
             entity.Property(e => e.Title)

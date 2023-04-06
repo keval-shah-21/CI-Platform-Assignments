@@ -5,13 +5,13 @@ namespace CI_Platform.Entities.DataModels;
 
 public partial class CmsPage
 {
-    public short CmsPageId { get; set; }
+    public long CmsPageId { get; set; }
 
-    public string Title { get; set; } = null!;
+    public string? Title { get; set; }
 
-    public string Description { get; set; } = null!;
+    public string? Description { get; set; }
 
-    public string? Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     public bool? Status { get; set; }
 

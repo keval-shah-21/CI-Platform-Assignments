@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <form class="p-4">
+        <div class="border border-2">
+            <div class="py-2 px-4 bg-light fs-4 border-bottom border-2">Add CMS Page</div>
+            <div class="d-grid gap-3 p-4 color-darkgray">
+                <div>
+                    <label for="" class="form-label">t</label>
+                    <input type="text" class="form-control">
+                    <span class="text-14 text-danger"></span>
+                </div>
+                <div>
+                    <label for="" class="form-label">d</label>
+                    <textarea id="tiny"></textarea>
+                    <span id="descriptionError" class="text-14 text-danger"></span>
+                </div>
+                <div>
+                    <label for="" class="form-label">s</label>
+                    <input type="text" class="form-control">
+                    <span class="text-14 text-danger"></span>
+                </div>
+                <div>
+                    <label for="" class="form-label">s</label>
+                    <select asp-for="" class="form-select">
+                        <option selected disabled value=-1>Select status</option>
+                        <option value=1>Active</option>
+                        <option value=0>Not Active</option>
+                    </select>
+                    <span class="text-14 text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="text-end mt-4">
+            <button id="cancelBtn" type="button" class="btn button-dark px-4">
+                Cancel
+            </button>
+            <button type="submit" value="save" class="btn button px-4">Save</button>
+        </div>
+    </form>
+    <script src="./js/jquery-3.6.4.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
