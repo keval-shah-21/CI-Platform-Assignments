@@ -7,7 +7,7 @@ public class CmsPageVM
     public long CmsPageId { get; set; }
 
     [Required]
-    [StringLength(255, MinimumLength = 20, ErrorMessage = "Title should be between 20 to 255 characters.")]
+    [StringLength(80)]
     public string? Title { get; set; }
 
     [Required]

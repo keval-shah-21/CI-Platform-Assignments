@@ -8,23 +8,151 @@ public class CmsController : Controller
 {
     private readonly IUnitOfService _unitOfService;
 
-    public CmsController( IUnitOfService unitOfService)
+    public CmsController(IUnitOfService unitOfService)
     {
         _unitOfService = unitOfService;
     }
     public IActionResult LoadCMSPage()
     {
-        List<CmsPageVM> cms = _unitOfService.CmsPage.GetAll();
-        return PartialView("_CMS_Page", cms);
+        try
+        {
+            List<CmsPageVM> cms = _unitOfService.CmsPage.GetAll();
+            cms = cms.OrderByDescending(c => c.CreatedAt).ToList();
+            return PartialView("_CMS_Page", cms);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error loading cms: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
     }
 
     public IActionResult AddCMSPage()
     {
-        return PartialView("_AddCMS");
+        try
+        {
+            return PartialView("_AddCMS");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error loading cms addpage: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
     }
 
     [HttpPost]
-    public IActionResult AddCMSPage(CmsPageVM cms) {
-        return RedirectToAction("LoadCMSPage");
+    public IActionResult AddCMSPage(CmsPageVM cms)
+    {
+        try
+        {
+            _unitOfService.CmsPage.SaveCmsPage(cms);
+            _unitOfService.Save();
+
+            List<CmsPageVM> cmsList = _unitOfService.CmsPage.GetAll();
+            cmsList = cmsList.OrderByDescending(c => c.CreatedAt).ToList();
+            return PartialView("_CMS_Page", cmsList);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error saving cms: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
+    }
+
+    public IActionResult EditCMSPage(long cmsPageId)
+    {
+        try
+        {
+            CmsPageVM cms = _unitOfService.CmsPage.GetCmsPageById(cmsPageId);
+            return PartialView("_EditCMS", cms);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error loading cmsedit: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
+    }
+
+    [HttpPut]
+    public IActionResult EditCMSPage(CmsPageVM cms)
+    {
+        try
+        {
+            _unitOfService.CmsPage.UpdateCmsPage(cms);
+            _unitOfService.Save();
+
+            List<CmsPageVM> cmsList = _unitOfService.CmsPage.GetAll();
+            cmsList = cmsList.OrderByDescending(c => c.CreatedAt).ToList();
+            return PartialView("_CMS_Page", cmsList);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error saving cmsedit: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
+    }
+
+    [HttpDelete]
+    public IActionResult DeleteCMSPage(long cmsPageId)
+    {
+        try
+        {
+            _unitOfService.CmsPage.DeleteCmsPage(cmsPageId);
+
+            List<CmsPageVM> cmsList = _unitOfService.CmsPage.GetAll();
+            cmsList = cmsList.OrderByDescending(c => c.CreatedAt).ToList();
+            return PartialView("_CMS_Page", cmsList);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error deleting cms: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
+    }
+    [HttpPut]
+    public IActionResult DeactivateCMSPage(long cmsPageId)
+    {
+        try
+        {
+            _unitOfService.CmsPage.DeactivateCmsPage(cmsPageId);
+            _unitOfService.Save();
+
+            List<CmsPageVM> cmsList = _unitOfService.CmsPage.GetAll();
+            cmsList = cmsList.OrderByDescending(c => c.CreatedAt).ToList();
+            return PartialView("_CMS_Page", cmsList);
+        }
+        catch (Exception e) 
+        {
+            Console.WriteLine("Error deactivating cms: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
+    }
+    public bool IsSlugUnique(string slug, long? id)
+    {
+        if (string.IsNullOrEmpty(slug)) return false;
+        return _unitOfService.CmsPage.IsSlugUnique(slug, id);
+    }
+
+    public IActionResult SearchCmsPage(string? query)
+    {
+        try
+        {
+            List<CmsPageVM> cms = _unitOfService.CmsPage.Search(query);
+            cms = cms.OrderByDescending(c => c.CreatedAt).ToList();
+            return PartialView("_CMS_Page", cms);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error searching cms: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
     }
 }

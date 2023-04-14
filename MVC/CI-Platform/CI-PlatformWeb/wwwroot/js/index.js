@@ -7,7 +7,13 @@ if ($("#profileSuccess").val() == "true") {
         timer: 1500
     })
 }
-
+if ($("#registered").val() == "true") {
+    Swal.fire(
+        'Registered Successfully',
+        'Check your mail to verify account.',
+        'info'
+    )
+}
 let currentView = "grid";
 const filterToggleBtn = document.querySelector(".filter-toggle-btn");
 const filterMenu = document.querySelector(".filter-menu");
@@ -54,12 +60,24 @@ $(document).ready(() => {
         }
     })
 });
-const query = document.querySelector("#Search");
-$(query).on('input', () => {
-    search = $(query).val();
+function debounce(cb, delay = 800) {
+    let timeout;
+    return (...arg) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            cb(...arg);
+        }, delay);
+    }
+}
+const searchMission = debounce((query) => {
+    search = query;
     page = 1;
     MakeAjaxCall();
     window.scrollTo(0, 0);
+});
+const query = document.querySelector("#Search");
+$(query).on('input', () => {
+    searchMission($(query).val());
 })
 $("#sortDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');

@@ -1,6 +1,90 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-s
+﻿@using CI_Platform.Entities.Constants
+@model List<StoryVM>
+<style>
+    .PENDING{
+        color:  #007bff;
+    }
+    .APPROVED{
+        color: #28a745;
+    }
+    .DECLINED{
+        color: #dc3545;
+    }
+</style>
+<div class="border-bottom mb-4">
+    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">User</h4>
+</div>
+<div class="d-flex align-items-center adminSearchContainer mb-4 gap-1">
+    <div class="d-flex align-items-center border border-2 rounded py-1 ps-2 gap-1 flex-grow-1">
+        <img src="/images/static/search.png" alt="search">
+        <input type="search" id="adminSearch" placeholder="Search" class="form-control border-0">
+    </div>
+    <div class="spinner-border text-secondary opacity-0" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="table-responsive border">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Story Title</th>
+                <th>Full Name</th>
+                <th>Mission Title</th>
+                <th>Status</th>
+                <th>Pubished At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.LongCount() == 0)
+            {
+                <tr>
+                    <td colspan="100%">
+                        <div class="text-center py-3">No users found.</div>
+                    </td>
+                </tr>
+            }
+            @foreach (StoryVM story in Model)
+            {
+                <tr>
+                    <td>
+                        @story.Title
+                    </td>
+                    <td>
+                        @story.UserVM.FirstName @story.UserVM.LastName
+                    </td>
+                    <td>
+                        @story.MissionTitle
+                    </td>
+                    <td class="@story.ApprovalStatus">
+                        @Html.DisplayFor(_ => @story.ApprovalStatus)
+                    </td>
+                    <td>
+                        @(story.PublishedAt?.ToString("d") ?? "-")
+                    </td>
+                    <td>
+                        <a asp-action="ViewStory" target="_blank" asp-route-id="@story.StoryId" class="btn button text-14 px-3 py-1">View</a>
+                        @if (story.ApprovalStatus == ApprovalStatus.DECLINED)
+                        {
+                            <img src="/images/static/arrow-clockwise.svg" class="cursor-pointer d-inline width-max-conatent"
+                         alt="bin" height="25px" width="25px" data-restore="@story.StoryId">
+                        }
+                        else if (story.ApprovalStatus == ApprovalStatus.PENDING)
+                        {
+                            <img src="/images/static/check-circle.svg" class="cursor-pointer d-inline width-max-conatent me-1"
+                         alt="bin" height="25px" width="25px" data-accept="@story.StoryId">
+                        }
+                        @if (story.ApprovalStatus != ApprovalStatus.DECLINED)
+                        {
+                        <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent me-1"
+                         alt="bin" height="25px" width="25px" data-decline="@story.StoryId">
+                        }
+                        <img src="/images/static/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                         alt="bin" height="22px" width="22px" data-delete="@story.StoryId">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination d-flex justify-content-end gap-1 px-3 my-5"></div>

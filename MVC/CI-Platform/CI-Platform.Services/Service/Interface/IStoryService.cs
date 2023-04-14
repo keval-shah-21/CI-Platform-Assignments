@@ -17,5 +17,10 @@ namespace CI_Platform.Services.Service.Interface
         void RemoveStoryById(long storyId);
         StoryVM GetStoryById(long? id);
         void UpdateTotalViews(long storyId, long totalViews);
+        List<StoryVM> GetAdminStories();
+        void AcceptStory(long id);
+        void UpdateStatus(long id, byte value);
+        void DeleteStory(long id);
+        List<StoryVM> Search(string? query);
     }
 }

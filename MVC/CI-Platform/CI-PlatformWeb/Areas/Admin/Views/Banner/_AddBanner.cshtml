@@ -1,0 +1,36 @@
+﻿@model BannerVM
+<form id="bannerForm" enctype="multipart/form-data">
+    <div class="border border-2">
+        <div class="py-2 px-4 bg-light fs-4 border-bottom border-2">Add Banner</div>
+        <div class="d-grid gap-3 p-4 color-darkgray">
+            <div>
+                <label for="bannerImage" class="form-label">Banner Image</label>
+                <img class="mb-1 object-fit-cover" id="preview"/>
+                <input type="file" class="form-control" id="bannerImage" name="bannerImage">
+                <span class="text-14 text-danger" id="imageError"></span>
+            </div>
+            <div>
+                <label asp-for="Title" class="form-label"></label>
+                <input type="text" class="form-control" asp-for="Title" placeholder="Enter title">
+                <span class="text-14 text-danger" asp-validation-for="Title"></span>
+            </div>
+            <div>
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter description"></textarea>
+                <span asp-validation-for="Description" class="text-14 text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="SortOrder" class="form-label"></label>
+                <input type="text" class="form-control" asp-for="SortOrder" placeholder="Enter sort number">
+                <span class="text-14 text-danger" asp-validation-for="SortOrder"></span>
+            </div>
+        </div>
+    </div>
+    <div class="text-end mt-4">
+        <button type="button" id="cancelBtn" class="btn button-dark px-4">
+            Cancel
+        </button>
+        <button type="submit" class="btn button px-4">Save</button>
+    </div>
+</form>
+<partial name="_ValidationScriptsPartial"></partial>

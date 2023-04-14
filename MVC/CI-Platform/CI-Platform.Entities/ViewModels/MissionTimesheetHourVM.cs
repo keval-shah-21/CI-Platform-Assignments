@@ -28,6 +28,7 @@ public class MissionTimesheetHourVM
 
     [Required]
     [Display(Name = "Message")]
+    [StringLength(80)]
     public string? Notes { get; set; }
     public ApprovalStatus? ApprovalStatus { get; set; }
 

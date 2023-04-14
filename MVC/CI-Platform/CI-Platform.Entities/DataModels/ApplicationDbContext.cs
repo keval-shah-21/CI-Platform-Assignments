@@ -65,6 +65,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<UserSkill> UserSkills { get; set; }
 
+    public virtual DbSet<VerifyEmail> VerifyEmails { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=PCE40\\SQL2017;Initial Catalog=CI_platform;Persist Security Info=False;User ID=sa;Password=tatva123;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
@@ -80,6 +82,9 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.AdminId)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("admin_id");
+            entity.Property(e => e.Avatar)
+                .IsUnicode(false)
+                .HasColumnName("avatar");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -230,10 +235,12 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.Message)
                 .HasColumnType("text")
                 .HasColumnName("message");
+            entity.Property(e => e.Reply)
+                .HasColumnType("text")
+                .HasColumnName("reply");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Subject)
                 .HasMaxLength(255)
@@ -604,7 +611,8 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.MissionId).HasColumnName("mission_id");
             entity.Property(e => e.Notes)
-                .HasColumnType("text")
+                .HasMaxLength(80)
+                .IsUnicode(false)
                 .HasColumnName("notes");
             entity.Property(e => e.TimeVolunteered).HasColumnName("time_volunteered");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
@@ -822,10 +830,7 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.ProfileText)
                 .HasColumnType("text")
                 .HasColumnName("profile_text");
-            entity.Property(e => e.Status)
-                .IsRequired()
-                .HasDefaultValueSql("((1))")
-                .HasColumnName("status");
+            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -868,6 +873,22 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__user_skil__delet__2F9A1060");
+        });
+
+        modelBuilder.Entity<VerifyEmail>(entity =>
+        {
+            entity.HasKey(e => e.Email).HasName("PK__verify_e__AB6E616578E1E2C9");
+
+            entity.ToTable("verify_email");
+
+            entity.Property(e => e.Email)
+                .HasMaxLength(128)
+                .IsUnicode(false)
+                .HasColumnName("email");
+            entity.Property(e => e.Token)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("token");
         });
 
         OnModelCreatingPartial(modelBuilder);

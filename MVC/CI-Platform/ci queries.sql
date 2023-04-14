@@ -3,6 +3,7 @@ create table admin(
 	first_name varchar(16) not null,
 	last_name varchar(16) not null,
 	email varchar(128) not null,
+	avatar varchar(max),
 	password varchar(255) not null,
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
@@ -45,7 +46,7 @@ create table [user](
 	linked_in_url varchar(255),
 	title varchar(255),
 	availability tinyint,
-	status bit not null default 1,
+	status bit not null default 0,
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset,
@@ -254,7 +255,6 @@ create table story_media(
 	media_path varchar(max),
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
-	deleted_at datetimeoffset,
 	foreign key (story_id) references story(story_id)
 )
 
@@ -262,21 +262,21 @@ create table contact(
 	contact_id bigint identity(1,1) primary key,
 	subject varchar(255) not null,
 	message text,
-	status tinyint,
+	status bit,
 	user_id bigint,
+	reply text,
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset,
 	foreign key (user_id) references [user](user_id)
 )
-
 create table mission_timesheet(
 	timesheet_id bigint identity(1,1) primary key,
 	mission_id bigint,
 	user_id bigint,
 	date_volunteered date,
 	time_volunteered time,
-	notes text,
+	notes varchar(80),
 	action int,
 	approval_status tinyint,
 	created_at datetimeoffset not null default current_timestamp,
@@ -285,10 +285,9 @@ create table mission_timesheet(
 	foreign key (user_id) references [user](user_id),
 	foreign key (mission_id) references [mission](mission_id)
 )
-
 create table cms_page(
 	cms_page_id bigint identity(1,1) primary key,
-	title varchar(255),
+	title varchar(80),
 	description text,
 	slug varchar(30) UNIQUE NOT NULL,
 	status bit default 1,
@@ -308,4 +307,9 @@ create table banner(
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset,
+)
+
+create table verify_email(
+	email varchar(128) primary key,
+	token varchar(255) not null,
 )

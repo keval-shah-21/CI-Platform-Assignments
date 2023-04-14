@@ -12,4 +12,10 @@ public interface IMissionTimesheetService
     void EditTimesheetHour(MissionTimesheetHourVM timesheet);
     void EditTimesheetGoal(MissionTimesheetGoalVM timesheet);
     void DeleteTimesheetById(long timesheetId);
+
+    void UpdateStatus(long id, byte value);
+    List<MissionTimesheetVM> GetHourTimesheetAdmin();
+    List<MissionTimesheetVM> GetGoalTimesheetAdmin();
+    List<MissionTimesheetVM> SearchHourTimehseet(string? query);
+    List<MissionTimesheetVM> SearchGoalTimehseet(string? query);
 }

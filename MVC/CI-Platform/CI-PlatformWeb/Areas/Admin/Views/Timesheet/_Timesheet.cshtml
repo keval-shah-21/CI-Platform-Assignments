@@ -1,0 +1,75 @@
+﻿@model List<MissionTimesheetVM>
+<div class="border-bottom mb-4">
+    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Hour Timesheet</h4>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-4 gap-1">
+    <div class="flex-grow-1 d-flex gap-1 align-items-center adminSearchContainer">
+        <div class="d-flex align-items-center border border-2 rounded py-1 ps-2 gap-1 flex-grow-1">
+            <img src="/images/static/search.png" alt="search">
+            <input type="search" id="adminSearch" data-search="time" placeholder="Search" class="form-control border-0">
+        </div>
+        <div class="spinner-border text-secondary opacity-0" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <button class="btn button d-flex align-items-center gap-2" id="addBtn">
+        <img src="/images/static/plus.png" alt="plus">
+        Add
+    </button>
+</div>
+<div class="table-responsive border">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Mission</th>
+                <th>Date Volunteered</th>
+                <th>Time Volunteered</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.LongCount() == 0)
+            {
+                <tr>
+                    <td colspan="100%">
+                        <div class="text-center py-3">No skills found.</div>
+                    </td>
+                </tr>
+            }
+            @foreach (MissionTimesheetVM mt in Model)
+            {
+                <tr>
+                    <td>
+                        @mt.User.FirstName @mt.User.LastName
+                    </td>
+                    <td>
+                        @mt.MissionName
+                    </td>
+                    <td>
+                        @mt.DateVolunteered?.ToString("d")
+                    </td>
+                    <td>
+                        @mt.TimeVolunteered
+                    </td>
+                    <td>
+                        @mt.Notes
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => @mt.ApprovalStatus)
+                    </td>
+                    <td>
+                        <img src="/images/static/check-circle.svg"
+                         class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                         height="20px" width="20px" data-accept="@mt.TimesheetId">
+                        <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent"
+                         alt="bin" height="20px" width="20px" data-decline="@mt.TimesheetId">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination d-flex justify-content-end gap-1 px-3 my-5"></div>

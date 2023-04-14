@@ -8,7 +8,7 @@ namespace CI_Platform.Services.Service
 {
     public class StoryService:IStoryService
     {
-        private readonly IUnitOfWork _unitOfWork;
+readonly IUnitOfWork _unitOfWork;
 
         public StoryService(IUnitOfWork unitOfWork)
         {
@@ -19,15 +19,13 @@ namespace CI_Platform.Services.Service
             return new StoryVM
             {
                 StoryId = story.StoryId,
-                ApprovalStatus = story.ApprovalStatus == 0 ? ApprovalStatus.PENDING :
-                story.ApprovalStatus == 1 ? ApprovalStatus.APPROVED :
-                story.ApprovalStatus == 2 ? ApprovalStatus.DECLINED :
-                ApprovalStatus.DRAFT,
+                ApprovalStatus = (ApprovalStatus)story.ApprovalStatus,
                 CreatedAt = story.CreatedAt,
                 ShortDescription = story.ShortDescription,
                 Description = story.Description,
                 MissionId = story.MissionId,
                 MissionTheme = story.Mission.MissionTheme.MissionThemeName,
+                MissionTitle = story.Mission.Title,
                 UserId = story.UserId,
                 PublishedAt = story.PublishedAt,
                 Title = story.Title,
@@ -40,7 +38,8 @@ namespace CI_Platform.Services.Service
         }
         public List<StoryVM> GetAll()
         {
-            IEnumerable<Story> stories = _unitOfWork.Story.GetAllWithInclude();
+            IEnumerable<Story> stories = _unitOfWork.Story.GetAllWithInclude()
+                .Where(s => s.ApprovalStatus == 1);
             if (stories.LongCount() == 0) return new();
             return stories.Select(s => ConvertStoryToVM(s)).ToList();
         }
@@ -96,6 +95,39 @@ namespace CI_Platform.Services.Service
         public void UpdateTotalViews(long storyId, long totalViews)
         {
             _unitOfWork.Story.UpdateTotalViews(storyId, totalViews);
+        }
+
+        public List<StoryVM> GetAdminStories()
+        {
+            return _unitOfWork.Story.GetAllWithInclude()
+                .Where(s => s.ApprovalStatus != 3)
+                .OrderByDescending(s => s.ApprovalStatus == 0)
+                .Select(s => ConvertStoryToVM(s))
+                .ToList();
+        }
+        public void AcceptStory(long id)
+        {
+            Story story = _unitOfWork.Story.GetFirstOrDefault(s => s.StoryId == id);
+            story.ApprovalStatus = 1;
+            story.PublishedAt = DateTimeOffset.Now;
+        }
+        public void UpdateStatus(long id, byte value)
+        {
+            _unitOfWork.Story.UpdateStats(id, value);
+        }
+        public void DeleteStory(long id)
+        {
+            _unitOfWork.Story.RemoveById(id);
+        }
+        public List<StoryVM> Search(string? query)
+        {
+            IEnumerable<Story> stories = _unitOfWork.Story.GetAllWithInclude();
+
+            return string.IsNullOrEmpty(query) ? stories.Select(s => ConvertStoryToVM(s)).ToList()
+                : stories
+                    .Where(s => s.Title.ToLower().Contains(query.ToLower()))
+                    .Select(s => ConvertStoryToVM(s))
+                    .ToList();
         }
         internal static string GetStoryThumbnail(Story story)
         {

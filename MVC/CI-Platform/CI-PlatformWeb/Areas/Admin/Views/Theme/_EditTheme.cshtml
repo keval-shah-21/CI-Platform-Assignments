@@ -1,0 +1,42 @@
+﻿@model MissionThemeVM
+<div class="modal fade" id="themeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Edit Mission Theme
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form id="themeForm">
+                <input hidden asp-for="MissionThemeId"/>
+                <div class="modal-body d-grid gap-2 color-darkgray">
+                    <div>
+                        <label asp-for="MissionThemeName" class="form-label"></label>
+                        <input asp-for="MissionThemeName" class="form-control" placeholder="Enter theme title" />
+                        <span asp-validation-for="MissionThemeName" id="themeError" class="text-14 text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Status" class="form-label"></label>
+                        <select asp-for="Status" class="form-select">
+                            <option selected disabled>Select status</option>
+                            <option value="true">Active</option>
+                            <option value="false">Not Active</option>
+                        </select>
+                        <span class="text-14 text-danger" asp-validation-for="Status"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-dark px-4"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn button px-4">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="_ValidationScriptsPartial"></partial>

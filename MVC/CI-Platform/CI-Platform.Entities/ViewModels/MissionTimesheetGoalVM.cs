@@ -18,6 +18,7 @@ public class MissionTimesheetGoalVM
 
     [Required]
     [Display(Name ="Message")]
+    [StringLength(80)]
     public string? Notes { get; set; }
 
     [Required]

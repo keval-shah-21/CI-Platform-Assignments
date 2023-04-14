@@ -25,4 +25,12 @@ public class MissionTimesheetRepository : Repository<MissionTimesheet>, IMission
 
         _context.Database.ExecuteSqlRaw("DELETE mission_timesheet WHERE timesheet_id = @timesheetId", timesheetIdaram);
     }
+
+    public void UpdateStatus(long id, int value)
+    {
+        SqlParameter idParameter = new SqlParameter("@timesheetId", id);
+        SqlParameter statusParameter = new SqlParameter("@status", value);
+
+        _context.Database.ExecuteSqlRaw("UPDATE mission_timesheet SET approval_status = @status WHERE timesheet_id = @storyId", statusParameter, idParameter);
+    }
 }

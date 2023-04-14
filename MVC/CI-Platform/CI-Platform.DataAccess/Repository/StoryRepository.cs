@@ -41,5 +41,19 @@ namespace CI_Platform.DataAccess.Repository
 
             _context.Database.ExecuteSqlRaw("UPDATE story SET total_views = @storyView WHERE story_id = @storyId", totalViewsParam, storyIdParam);
         }
+
+        public void RemoveById(long id)
+        {
+            SqlParameter idParameter = new SqlParameter("@storyId", id);
+            _context.Database.ExecuteSqlRaw("DELETE FROM story WHERE story_id = @storyId", idParameter);
+        }
+
+        public void UpdateStats(long id, byte value)
+        {
+            SqlParameter idParameter = new SqlParameter("@storyId", id);
+            SqlParameter statusParameter = new SqlParameter("@status", value);
+
+            _context.Database.ExecuteSqlRaw("UPDATE story SET approval_status = @status WHERE story_id = @storyId", statusParameter,  idParameter);
+        }
     }
 }

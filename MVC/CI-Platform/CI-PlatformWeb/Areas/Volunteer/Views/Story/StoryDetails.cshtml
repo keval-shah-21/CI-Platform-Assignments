@@ -3,7 +3,6 @@
     ViewData["Title"] = "Story Details";
     var userId = Context.Session.GetString("UserId");
 }
-<input hidden value="@Model?.StoryMediaVM?.Count()" id="storyMedia" />
 <input hidden value="@userId" id='userId' />
 <input hidden value="@Model.StoryId" id='storyId' />
 
@@ -14,26 +13,25 @@
             <div class="my-auto">
                 <img src="@Model.StoryThumbnail"
                      alt="mission image"
-                     class="object-fit-cover" />
-                @if (@Model?.StoryMediaVM?.Count() > 0)
-                {
-                    <div class="position-relative">
-                        <div class="d-flex mp-small-images overflow-scroll">
-                            @foreach (StoryMediaVM sm in Model.StoryMediaVM)
-                            {
-                                <img src="@sm.MediaPath@sm.MediaName@sm.MediaType"
+                     id="storyImage"
+                     class="object-fit-cover w-100" />
+                <div class="position-relative">
+                    <div class="d-flex mp-small-images overflow-scroll">
+                        @foreach (StoryMediaVM sm in Model.StoryMediaVM)
+                        {
+                            <img src="@sm.MediaPath@sm.MediaName@sm.MediaType"
                              class="object-fit-cover"
                              alt="mission image" />
-                            }
-                            <div class="mp-left-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 cursor-pointer">
-                                <img src="/images/static/left1.png" alt="left arrow" />
-                            </div>
-                            <div class="mp-right-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 end-0 cursor-pointer">
-                                <img src="/images/static/right-arrow2.png" alt="left arrow" />
-                            </div>
+                        }
+                        <div class="mp-left-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 cursor-pointer">
+                            <img src="/images/static/left1.png" alt="left arrow" />
+                        </div>
+                        <div class="mp-right-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 end-0 cursor-pointer">
+                            <img src="/images/static/right-arrow2.png" alt="left arrow" />
                         </div>
                     </div>
-                }
+                </div>
+
             </div>
             <div class="text-secondary">
                 <img src="@Model.UserVM.Avatar"
@@ -65,6 +63,7 @@
                     </button>
                     <div id="partialRecommendContainer"></div>
                     <a asp-action="MissionDetails" asp-controller="Mission" asp-route-id="@Model.MissionId"
+                       target="_blank"
                        class="btn button d-flex align-items-center gap-2 justify-content-center text-15 px-xl-4">
                         Open Mission
                         <img src="/images/static/right-arrow.png" alt="arrow" />

@@ -6,4 +6,5 @@ public interface IMissionTimesheetRepository: IRepository<MissionTimesheet>
 {
     IEnumerable<MissionTimesheet> GetAllWithInclude();
     void DeleteById(long timesheetId);
+    void UpdateStatus(long id, int value);
 }

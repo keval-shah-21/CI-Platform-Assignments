@@ -6,6 +6,8 @@ public interface IUnitOfService
 
     IResetPasswordService ResetPassword{get;}
 
+    IBannerService Banner{get;}
+
     IMissionService Mission{get;}
 
     ICityService City{get;}

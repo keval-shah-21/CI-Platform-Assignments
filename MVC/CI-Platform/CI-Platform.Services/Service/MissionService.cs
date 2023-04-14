@@ -41,7 +41,7 @@ public class MissionService : IMissionService
             MissionRating = mission.MissionRating,
             RegistrationDeadline = mission.RegistrationDeadline,
             MissionThumbnail = GetMissionThumbnail(mission),
-            MissionMediaVM = GetOtherMissionMedia(mission),
+            MissionMediaVM = GetMissionMedia(mission),
             MissionDocumentVM = GetMissionDocumentsByMission(mission),
             FavouriteMissionVM = GetFavouriteByMission(mission),
             MissionApplicationVM = maVM,
@@ -143,9 +143,6 @@ public class MissionService : IMissionService
         MissionDocumentService.ConvertMissionDocumentToVM(md)).ToList() : new();
     }
     internal static List<MissionApplicationVM>? GetMissionApplication(Mission mission){
-        //return mission.MissionApplications.LongCount() > 0 ? mission.MissionApplications.Select(ma =>
-        //    MissionApplicationService.ConvertMissionApplicationToVM(ma)
-            //).ToList() : new();
         return mission?.MissionApplications?.Select(ma =>
             MissionApplicationService.ConvertMissionApplicationToVM(ma)
             ).ToList();
@@ -155,8 +152,7 @@ public class MissionService : IMissionService
             MissionSkillService.ConvertMissionSkillToVM(ms)    
         ).ToList() : new();
     }
-    internal static List<MissionMediaVM> GetOtherMissionMedia(Mission mission) {
-        return mission.MissionMedia.Select(mm => MissionMediaService.ConvertMissionMediaToVM(mm)).
-            Where(mm => mm.Default == false).ToList();
+    internal static List<MissionMediaVM> GetMissionMedia(Mission mission) {
+        return mission.MissionMedia.Select(mm => MissionMediaService.ConvertMissionMediaToVM(mm)).ToList();
     }
 }

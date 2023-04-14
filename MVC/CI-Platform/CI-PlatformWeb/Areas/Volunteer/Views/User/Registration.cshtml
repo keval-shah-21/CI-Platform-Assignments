@@ -10,7 +10,7 @@
         <form method="post" asp-route="RegistrationPost" class="d-grid gap-3 gap-lg-1 gap-xxl-3" id="RegistrationForm">
             <div>
                 <label asp-for="FirstName" class="fw-light"></label>
-                <input type="text" asp-for="FirstName" class="form-control p-lg-1 p-xxl-2" placeholder="Enter your first name">
+                <input type="text" asp-for="FirstName" class="form-control p-lg-1 p-xxl-2" placeholder="Enter your first name" autofocus>
                 <span asp-validation-for="FirstName" class="text-danger text-13"></span>
             </div>
             <div>

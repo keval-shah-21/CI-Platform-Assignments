@@ -108,7 +108,7 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             if (story == null) return NotFound();
             story.TotalViews = story.TotalViews + 1;
             _unitOfService.Story.UpdateTotalViews(story.StoryId, (long)story.TotalViews);
-            story.StoryMediaVM = story.StoryMediaVM.Skip(1).ToList();
+            story.StoryMediaVM = story.StoryMediaVM.ToList();
             return View(story);
         }
         public IActionResult RemoveDraftStory(long storyId)

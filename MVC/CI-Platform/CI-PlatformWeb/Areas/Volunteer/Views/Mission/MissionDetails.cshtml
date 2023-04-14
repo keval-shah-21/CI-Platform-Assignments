@@ -23,30 +23,28 @@
 <input hidden value="@userId" id='userId' />
 <input hidden value="@Model.MissionId" id='missionId' />
 <input hidden value="@Model?.MissionApplicationVM?.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED).Count()" id="totalVolunteers" />
-<input hidden value="@Model?.MissionMediaVM?.Count()" id="missionMedia" />
 <input hidden value="@isFavourite" id="isFavourite">
 
 <partial name="_Navbar"></partial>
 <section class="container mp-top d-flex flex-column flex-lg-row py-4 gap-4 align-items-center">
     <div class="position-relative">
-        <img src="@Model.MissionThumbnail" alt="mission image" class="h-100 w-100">
-        @if (@Model?.MissionMediaVM?.Count() > 0)
-        {
-            <div class="position-relative">
-                <div class="d-flex mp-small-images overflow-scroll">
-                    @foreach (MissionMediaVM mm in @Model.MissionMediaVM)
-                    {
-                        <img src="@mm.MediaPath@mm.MediaName@mm.MediaType" alt="mission image">
-                    }
-                    <div class="mp-left-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 cursor-pointer">
-                        <img src="/images/static/left1.png" alt="left arrow">
-                    </div>
-                    <div class="mp-right-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 end-0 cursor-pointer">
-                        <img src="/images/static/right-arrow2.png" alt="left arrow">
-                    </div>
+        <img src="@Model.MissionThumbnail" alt="mission image" id="missionImage" class="w-100 object-fit-cover">
+
+        <div class="position-relative">
+            <div class="d-flex mp-small-images overflow-scroll">
+                @foreach (MissionMediaVM mm in @Model.MissionMediaVM)
+                {
+                    <img src="@mm.MediaPath@mm.MediaName@mm.MediaType" alt="mission image" class="object-fit-cover">
+                }
+                <div class="mp-left-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 cursor-pointer">
+                    <img src="/images/static/left1.png" alt="left arrow">
+                </div>
+                <div class="mp-right-scroll position-absolute d-flex align-items-center justify-content-center px-2 h-100 end-0 cursor-pointer">
+                    <img src="/images/static/right-arrow2.png" alt="left arrow">
                 </div>
             </div>
-        }
+        </div>
+
         @if (@Model.Status == MissionStatus.FINISHED)
         {
             <span class="bg-warning px-2 py-1 rounded-start rounded-pill position-absolute top-10 text-white text-14">
@@ -169,7 +167,7 @@
                 </button>
 
                 <!-- Button trigger modal -->
-                <button class="btn rounded-pill d-flex align-items-center gap-2 border border-dark w-100 justify-content-center fw-light text-15 color-darkgray"
+            <button class="btn rounded-pill d-flex align-items-center gap-2 border border-dark w-100 justify-content-center fw-light text-15 color-darkgray"
                     type="button" data-bs-target="#exampleModal" id="recommendBtn">
                     <img src="/images/static/add1.png" alt="user">
                     Recommend to Co-Worker
@@ -244,7 +242,7 @@
                 </div>
             </div>
         </div>
-        @if((!string.IsNullOrEmpty(userId) && Model?.MissionApplicationVM?.LongCount() > 0 &&
+        @if ((!string.IsNullOrEmpty(userId) && Model?.MissionApplicationVM?.LongCount() > 0 &&
         @Model.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.PENDING)))
         {
             <a href="#" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
@@ -252,8 +250,9 @@
                 <img src="/images/static/right-arrow.png" alt="rigth arrow">
             </a>
         }
-        else if((!string.IsNullOrEmpty(userId) && Model?.MissionApplicationVM?.LongCount() > 0 &&
-        Model.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED))){
+        else if ((!string.IsNullOrEmpty(userId) && Model?.MissionApplicationVM?.LongCount() > 0 &&
+        Model.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED)))
+        {
         }
         else if ((Model.Status == MissionStatus.ONGOING
         && Model?.TotalSeats == null ? true : Model.SeatsLeft > 0
@@ -285,22 +284,22 @@
                     <div class="d-flex gap-3 flex-wrap">
                         @foreach (MissionDocumentVM md in Model.MissionDocumentVM)
                         {
-                                <a target="_blank" href="@md.DocumentPath@md.DocumentName@md.DocumentType"
-                                class="btn border rounded-pill p-2 d-flex align-items-center gap-2 fw-light text-15 text-secondary">
-                                    @if (md.DocumentType == ".doc" || md.DocumentType == ".docx")
-                                    {
-                                        <img src="/images/static/doc.png" alt="doc">
-                                    }
-                                    else if (md.DocumentType == ".xlsx" || md.DocumentType ==".xls")
-                                    {
-                                        <img src="/images/static/xlsx.png" alt="xlsx">
-                                    }
-                                    else if (md.DocumentType == ".pdf")
-                                    {
-                                        <img src="/images/static/pdf.png" alt="pdf">
-                                    }
-                                    @md.DocumentName@md.DocumentType
-                                </a>
+                            <a target="_blank" href="@md.DocumentPath@md.DocumentName@md.DocumentType"
+                       class="btn border rounded-pill p-2 d-flex align-items-center gap-2 fw-light text-15 text-secondary">
+                                @if (md.DocumentType == ".doc" || md.DocumentType == ".docx")
+                                {
+                                    <img src="/images/static/doc.png" alt="doc">
+                                }
+                                else if (md.DocumentType == ".xlsx" || md.DocumentType == ".xls")
+                                {
+                                    <img src="/images/static/xlsx.png" alt="xlsx">
+                                }
+                                else if (md.DocumentType == ".pdf")
+                                {
+                                    <img src="/images/static/pdf.png" alt="pdf">
+                                }
+                                @md.DocumentName@md.DocumentType
+                            </a>
                         }
                     </div>
                 }
@@ -383,7 +382,9 @@
                         @foreach (var ma in Model.MissionApplicationVM.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED))
                         {
                             <div data-recent="@i">
-                                    @{i++;}
+                                @{
+                                    i++;
+                                }
                                 <img src="@ma.Avatar" alt="volunteer" class="rounded-circle mx-auto object-fit-cover"
                              width="70px" height="70px">
                                 <span>@ma.UserName</span>

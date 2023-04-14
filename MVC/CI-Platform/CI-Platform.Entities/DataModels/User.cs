@@ -35,7 +35,7 @@ public partial class User
 
     public string? Title { get; set; }
 
-    public bool? Status { get; set; }
+    public bool Status { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; }
 

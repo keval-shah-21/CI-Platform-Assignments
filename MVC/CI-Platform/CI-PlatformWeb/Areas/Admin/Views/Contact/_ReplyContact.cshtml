@@ -1,0 +1,47 @@
+﻿@model ContactVM
+<div class="modal fade" id="contactReplyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Contact Us</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="contactForm">
+                <input hidden asp-for="ContactId"/>
+                <div class="modal-body d-grid gap-2 color-darkgray">
+                    <div>
+                        <label for="fullName">Name*</label>
+                        <input type="text" class="form-control" value="@Model.User.FirstName @Model.User.LastName" id="fullName" readonly />
+                    </div>
+                    <div>
+                        <label asp-for="User.Email">Email Address*</label>
+                        <input type="text" class="form-control" asp-for="User.Email" readonly />
+                    </div>
+                    <div>
+                        <label asp-for="Subject">Subject</label>
+                        <input type="text" class="form-control" asp-for="Subject" placeholder="Enter your subject" readonly/>
+                        <span class="text-danger text-14" asp-validation-for="Subject"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Message">Message</label>
+                        <textarea type="text" class="form-control" asp-for="Message" rows="4"
+                                  placeholder="Enter your message" readonly></textarea>
+                        <span class="text-danger text-14" asp-validation-for="Message"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Reply">Reply*</label>
+                        <textarea type="text" class="form-control" asp-for="Reply" rows="4"
+                                  placeholder="Enter your response"></textarea>
+                        <span class="text-danger text-14" id="replyError"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn button px-4">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="_ValidationScriptsPartial"></partial>

@@ -35,4 +35,17 @@ public class UserRepository : Repository<User>, IUserRepository
 
         _context.Database.ExecuteSqlRaw("UPDATE [user] SET password = @password WHERE email = @email",passwordParameter, emailParameter);
     }
+
+    public void ActivateUserByEmail(string email)
+    {
+        var emailParameter = new SqlParameter("@email", email);
+
+        _context.Database.ExecuteSqlRaw("UPDATE [user] SET status = 1 WHERE email = @email", emailParameter);
+    }
+    public void DeactivateUserByEmail(string email)
+    {
+        var emailParameter = new SqlParameter("@email", email);
+
+        _context.Database.ExecuteSqlRaw("UPDATE [user] SET status = 0 WHERE email = @email", emailParameter);
+    }
 }

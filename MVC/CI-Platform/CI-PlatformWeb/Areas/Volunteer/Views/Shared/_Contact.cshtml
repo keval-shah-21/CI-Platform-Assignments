@@ -25,12 +25,12 @@
                         <input type="text" class="form-control" value="@email" id="email" readonly />
                     </div>
                     <div>
-                        <label for="subject">Subject*</label>
+                        <label asp-for="Subject">Subject*</label>
                         <input type="text" class="form-control" asp-for="Subject" placeholder="Enter your subject" />
                         <span class="text-danger text-14" asp-validation-for="Subject"></span>
                     </div>
                     <div>
-                        <label for="message">Message*</label>
+                        <label asp-for="Message">Message*</label>
                         <textarea type="text" class="form-control" asp-for="Message" rows="4"
                                   placeholder="Enter your message"></textarea>
                         <span class="text-danger text-14" asp-validation-for="Message"></span>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn button px-4">Save</button>
+                    <button type="submit" class="btn button px-4">Submit</button>
                 </div>
             </form>
         </div>

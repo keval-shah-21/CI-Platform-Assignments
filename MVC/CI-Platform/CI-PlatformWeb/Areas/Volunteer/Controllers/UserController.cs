@@ -21,8 +21,17 @@ public class UserController : Controller
     }
 
     [Route("login", Name = "Login")]
-    public IActionResult Login()
+    public IActionResult Login(string? email, string? token)
     {
+        if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(token))
+        {
+            if (_unitOfService.User.VerifyEmail(email, token))
+            {
+                _unitOfService.User.RemoveVerifyEmail(email);
+                _unitOfService.User.ActivateUserByEmail(email);
+                _unitOfService.Save();
+            }
+        }
         return View();
     }
 
@@ -40,13 +49,30 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
-            UserVM userVM = _unitOfService.User.Login(loginVM);
+            UserVM userVM = _unitOfService.User.AdminLogin(loginVM);
             if (userVM != null)
             {
                 SetUserLoginSession(userVM.FirstName, userVM.LastName, userVM.Avatar, userVM.UserId, userVM.Email);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
-            TempData["Error"] = "Invalid username or password.";
+            userVM = _unitOfService.User.Login(loginVM);
+
+            if (userVM != null)
+            {
+                if (userVM.Status == false)
+                {
+                    TempData["Error"] = "Account is blocked or not verified yet.";
+                }
+                else
+                {
+                    SetUserLoginSession(userVM.FirstName, userVM.LastName, userVM.Avatar, userVM.UserId, userVM.Email);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                TempData["Error"] = "Invalid username or password.";
+            }
         }
         return View(loginVM);
     }
@@ -77,9 +103,14 @@ public class UserController : Controller
             {
                 userVM.Avatar = @"\images\static\default-profile.webp";
                 _unitOfService.User.Add(userVM);
+                string token = Guid.NewGuid().ToString();
+                var url = Url.Action("Login", "User", new { email = userVM.Email, token = token }, "https");
+
+                _unitOfService.User.SaveVerifyAccountDetails(userVM.Email, token);
+                _unitOfService.User.SendVerifyAccountEmail(userVM.Email, url);
+
                 _unitOfService.Save();
-                SetUserLoginSession(userVM.FirstName, userVM.LastName, userVM.Avatar, userVM.UserId, userVM.Email);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new { registered = "true" });
             }
             TempData["Error"] = "This email is already registered.";
         }
@@ -98,28 +129,40 @@ public class UserController : Controller
     public IActionResult ForgotPassword(string? email)
     {
         if (email == null) { return RedirectToAction("Error", "Home"); }
-
-        if (_unitOfService.User.GetFirstOrDefaultByEmail(email) != null)
+        UserVM user = _unitOfService.User.GetFirstOrDefaultAdminByEmail(email);
+        if (user == null)
         {
-            string token = Guid.NewGuid().ToString();
-            var url = Url.Action("ResetPassword", "User", new { email = email, token = token }, "https");
+            user = _unitOfService.User.GetFirstOrDefaultByEmail(email);
+        }
 
-            ResetPasswordVM obj = new ResetPasswordVM() { Email = email, Token = token };
-            byte result = _unitOfService.ResetPassword.IsValidRecord(email);
-            if (result == 0)
+        if (user != null)
+        {
+            if (user.Status == false)
             {
-                TempData["Error"] = "Try again after sometime.";
-                return RedirectToRoute("ForgotPassword");
+                TempData["Error"] = "Account is blocked or not verified yet.";
             }
-            else if (result == 1)
-                _unitOfService.ResetPassword.RemoveByEmail(email);
+            else
+            {
+                string token = Guid.NewGuid().ToString();
+                var url = Url.Action("ResetPassword", "User", new { email = email, token = token }, "https");
 
-            _unitOfService.ResetPassword.Add(obj);
-            _unitOfService.Save();
+                ResetPasswordVM obj = new ResetPasswordVM() { Email = email, Token = token };
+                byte result = _unitOfService.ResetPassword.IsValidRecord(email);
+                if (result == 0)
+                {
+                    TempData["Error"] = "Try again after sometime.";
+                    return RedirectToRoute("ForgotPassword");
+                }
+                else if (result == 1)
+                    _unitOfService.ResetPassword.RemoveByEmail(email);
 
-            _unitOfService.User.SendResetPasswordEmail(email, url!);
-            TempData["Success"] = "Mail is sent on your email address";
-            return RedirectToRoute("Login");
+                _unitOfService.ResetPassword.Add(obj);
+                _unitOfService.Save();
+
+                _unitOfService.User.SendResetPasswordEmail(email, url!);
+                TempData["Success"] = "Mail is sent on your email address";
+                return RedirectToRoute("Login");
+            }
         }
         else
             TempData["Error"] = "You don't have an account with this email address.";
@@ -151,8 +194,13 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
             _unitOfService.ResetPassword.Remove(resetPasswordDataVM);
-            _unitOfService.User.UpdatePassword(resetPasswordDataVM.Email, resetPasswordDataVM.Password);
+            if (_unitOfService.User.GetFirstOrDefaultAdminByEmail(resetPasswordDataVM.Email) != null)
+                _unitOfService.User.UpdateAdminPassword(resetPasswordDataVM.Email, resetPasswordDataVM.Password);
+            else
+                _unitOfService.User.UpdatePassword(resetPasswordDataVM.Email, resetPasswordDataVM.Password);
 
+            _unitOfService.ResetPassword.RemoveByEmail(resetPasswordDataVM.Email);
+            _unitOfService.Save();
             TempData["Success"] = "Password updated successfully.";
             return RedirectToRoute("Login");
         }
@@ -229,11 +277,6 @@ public class UserController : Controller
         }
 
         return View(profileVM);
-    }
-    [Route("get-change-password-partial")]
-    public IActionResult GetChangePasswordPartial()
-    {
-        return PartialView("_ChangePassword");
     }
 
     [HttpPut]

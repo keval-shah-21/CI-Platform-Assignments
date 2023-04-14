@@ -13,6 +13,7 @@ namespace CI_Platform.Entities.ViewModels
         public long StoryId { get; set; }
 
         [Required(ErrorMessage = "The Mission field is required.")]
+        public string? MissionTitle { get; set; }
         public long MissionId { get; set; }
         public string? MissionTheme { get; set; }
 

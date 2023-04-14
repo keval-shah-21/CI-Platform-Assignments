@@ -28,13 +28,15 @@ public class UnitOfService : IUnitOfService
         StoryMedia = new StoryMediaService(_unitOfWork);
         UserSkill = new UserSkillService(_unitOfWork);
         User = new UserService(_unitOfWork, emailService, Skill, City, Country, UserSkill);
-        Contact = new ContactService(_unitOfWork);
+        Contact = new ContactService(_unitOfWork, emailService);
         MissionTimesheet = new MissionTimesheetService(_unitOfWork);
         CmsPage = new CmsPageService(_unitOfWork);
+        Banner = new BannerService(_unitOfWork);
     }
 
     public IUserService User{get; private set;}
     public IResetPasswordService ResetPassword{get; private set;}
+    public IBannerService Banner { get; private set; }
     public IMissionService Mission {get; private set;}
 
     public ICityService City{get; private set;}

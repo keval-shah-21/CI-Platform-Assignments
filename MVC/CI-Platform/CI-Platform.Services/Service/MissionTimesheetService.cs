@@ -111,6 +111,53 @@ public class MissionTimesheetService : IMissionTimesheetService
         return new();
     }
 
+    public List<MissionTimesheetVM> GetGoalTimesheetAdmin()
+    {
+        return _unitOfWork.MissionTimesheet.GetAllWithInclude()
+            .Where(mt => mt.Mission.MissionType == true)
+            .Select(mt => ConvertTimesheetToVM(mt))
+            .ToList();
+    }
+    public List<MissionTimesheetVM> GetHourTimesheetAdmin()
+    {
+        return _unitOfWork.MissionTimesheet.GetAllWithInclude()
+            .Where(mt => mt.Mission.MissionType == false)
+            .Select(mt => ConvertTimesheetToVM(mt))
+            .ToList();
+    }
+
+    public List<MissionTimesheetVM> SearchGoalTimehseet(string? query)
+    {
+        IEnumerable<MissionTimesheet> mt = _unitOfWork.MissionTimesheet.GetAllWithInclude()
+                                            .Where(m => m.Mission.MissionType == true);
+
+        return string.IsNullOrEmpty(query) ? mt.Select(m => ConvertTimesheetToVM(m)).ToList()
+            : mt
+                .Where(m => m.User.FirstName.ToLower().Contains(query.ToLower()) ||
+                            m.User.LastName.ToLower().Contains(query.ToLower()) ||
+                            m.Mission.Title.ToLower().Contains(query.ToLower()))
+                .Select(m => ConvertTimesheetToVM(m))
+                .ToList();
+    }
+
+    public List<MissionTimesheetVM> SearchHourTimehseet(string? query)
+    {
+        IEnumerable<MissionTimesheet> mt = _unitOfWork.MissionTimesheet.GetAllWithInclude()
+                                            .Where(m => m.Mission.MissionType == false);
+
+        return string.IsNullOrEmpty(query) ? mt.Select(m => ConvertTimesheetToVM(m)).ToList()
+            : mt
+                .Where(m => m.User.FirstName.ToLower().Contains(query.ToLower()) ||
+                            m.User.LastName.ToLower().Contains(query.ToLower()) ||
+                            m.Mission.Title.ToLower().Contains(query.ToLower()))
+                .Select(m => ConvertTimesheetToVM(m))
+                .ToList();
+    }
+    public void UpdateStatus(long id, byte value)
+    {
+        _unitOfWork.MissionTimesheet.UpdateStatus(id, value);
+    }
+
     public static MissionTimesheetVM ConvertTimesheetToVM(MissionTimesheet mt)
     {
         return new MissionTimesheetVM()

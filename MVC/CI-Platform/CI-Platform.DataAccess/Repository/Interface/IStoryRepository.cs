@@ -13,5 +13,7 @@ namespace CI_Platform.DataAccess.Repository.Interface
         IEnumerable<Story> GetAllWithInclude();
         Story GetFirstOrDefaultWithInclude(Expression<Func<Story, bool>> filter);
         void UpdateTotalViews(long storyId, long totalViews);
+        void RemoveById(long id);
+        void UpdateStats(long id, byte value);
     }
 }

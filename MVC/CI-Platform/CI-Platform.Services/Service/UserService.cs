@@ -33,10 +33,12 @@ public class UserService : IUserService
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Password = user.Password,
             WhyIVolunteer = user.WhyIVolunteer,
             ProfileText = user.ProfileText,
             PhoneNumber = user.PhoneNumber,
+            EmployeeId = user.EmployeeId,
+            Department = user.Department,
+            Status = user.Status,
             MissionInviteFromVM = GetMissionInviteFrom(user),
             MissionInviteToVM = GetMissionInviteTo(user),
             StoryInviteFromVM = GetStoryInviteFrom(user),
@@ -88,9 +90,24 @@ public class UserService : IUserService
             CreatedAt = userVM.CreatedAt,
             WhyIVolunteer = userVM.WhyIVolunteer,
             ProfileText = userVM.ProfileText,
-            Avatar = userVM.Avatar
+            Avatar = userVM.Avatar,
+            Status = false
         };
         _unitOfWork.User.Add(obj);
+    }
+    
+    public UserVM AdminLogin(LoginVM loginVM)
+    {
+        Expression<Func<Admin, bool>> filter = user => (user.Email == loginVM.Email && user.Password == loginVM.Password);
+        Admin obj = _unitOfWork.Admin.GetFirstOrDefault(filter);
+        return obj == null ? null! : new UserVM()
+        {
+            UserId = obj.AdminId,
+            FirstName = obj.FirstName,
+            LastName = obj.LastName,
+            Email = obj.Email,
+            Avatar = obj.Avatar
+        };
     }
 
     public UserVM Login(LoginVM loginVM)
@@ -105,6 +122,33 @@ public class UserService : IUserService
         User obj = _unitOfWork.User.GetFirstOrDefault(user => user.Email.Equals(email));
         return obj == null ? null! : ConvertUserToVM(obj);
     }
+
+    public UserVM GetFirstOrDefaultAdminByEmail(string email)
+    {
+        Admin obj = _unitOfWork.Admin.GetFirstOrDefault(user => user.Email.Equals(email));
+        return obj == null ? null! : new UserVM()
+        {
+            UserId = obj.AdminId,
+            FirstName = obj.FirstName,
+            LastName = obj.LastName,
+            Email = obj.Email,
+            Avatar = obj.Avatar
+        };
+    }
+
+    public ProfileVM GetAdminProfileById(long id)
+    {
+        Admin admin = _unitOfWork.Admin.GetFirstOrDefault(u => u.AdminId == id);
+        return admin == null ? null! : new ProfileVM()
+        {
+            UserId = admin.AdminId,
+            FirstName = admin.FirstName,
+            LastName = admin.LastName,
+            Avatar = admin.Avatar,
+            Email = admin.Email
+        };
+    }
+
     public ProfileVM GetUserProfileById(long userId)
     {
         User obj = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == userId);
@@ -128,6 +172,14 @@ public class UserService : IUserService
         user.WhyIVolunteer = profileVM.WhyIVolunteer;
         user.PhoneNumber = profileVM.PhoneNumber;
     }
+    public void UpdateAdminProfile(ProfileVM profile)
+    {
+        Admin admin = _unitOfWork.Admin.GetFirstOrDefault(admin => admin.AdminId == profile.UserId);
+        admin.FirstName = profile.FirstName;
+        admin.LastName = profile.LastName;
+        admin.Avatar = profile.Avatar;
+    }
+
     public void SendResetPasswordEmail(string email, string url)
     {
         string subject = "CI Platform - Reset-Password link";
@@ -135,7 +187,38 @@ public class UserService : IUserService
         string body = $"<p style='text-align:center;font-size:1.5rem'>Click on the link below to reset your password</p><hr/>{link}";
         _emailService.SendEmail(email, subject, body);
     }
-
+    public void SaveVerifyAccountDetails(string email, string token)
+    {
+        _unitOfWork.VerifyEmail.Add(new VerifyEmail()
+        {
+            Email = email,
+            Token = token
+        });
+    }
+    
+    public bool VerifyEmail(string email, string token)
+    {
+        return _unitOfWork.VerifyEmail.GetFirstOrDefault(ve => ve.Email == email && ve.Token == token) != null ? true:false;
+    }
+    public void RemoveVerifyEmail(string email)
+    {
+        _unitOfWork.VerifyEmail.Remove(_unitOfWork.VerifyEmail.GetFirstOrDefault(ve => ve.Email == email));
+    }
+    public void ActivateUserByEmail(string email)
+    {
+        _unitOfWork.User.ActivateUserByEmail(email);
+    }
+    public void DeactivateUserByEmail(string email)
+    {
+        _unitOfWork.User.DeactivateUserByEmail(email);
+    }
+    public void SendVerifyAccountEmail(string email, string url)
+    {
+        string subject = "CI Platform - Verify Account";
+        string link = $"<a href='{url}' style='text-decoration:none;display:block;width:max-content;border:1px solid black;border-radius:5rem;padding:0.75rem 1rem;margin:1rem auto;color:black;font-size:1rem;'>Reset Password</a>";
+        string body = $"<p style='text-align:center;font-size:1.5rem'>Click on the link below to verify your account</p><hr/>{link}";
+        _emailService.SendEmail(email, subject, body);
+    }
     public bool IsPasswordValid(string email, string password)
     {
         User user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
@@ -147,12 +230,24 @@ public class UserService : IUserService
     {
         _unitOfWork.User.UpdatePassword(email, password);
     }
-
+    public void UpdateAdminPassword(string email, string password)
+    {
+        _unitOfWork.Admin.UpdatePassword(email, password);
+    }
     public List<UserVM> GetAllUsersToRecommendMission()
     {
         List<User> users = _unitOfWork.User.GetAllToRecommendMission();
         if (users == null) return null!;
         return users.Select(user => ConvertUserToVM(user)).ToList();
+    }
+    public List<UserVM> SearchUser(string? query)
+    {
+        IEnumerable<User> users = _unitOfWork.User.GetAll();
+        return string.IsNullOrEmpty(query) ? users.Select(u => ConvertUserToVM(u)).ToList()
+            : users
+                .Where(u => u.FirstName.ToLower().Contains(query.ToLower()) || u.LastName.ToLower().Contains(query.ToLower()))
+                .Select(u => ConvertUserToVM(u))
+                .ToList();
     }
     public List<UserVM> GetAllUsersToRecommendStory()
     {

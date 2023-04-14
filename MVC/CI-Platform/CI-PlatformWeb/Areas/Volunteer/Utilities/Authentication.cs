@@ -7,20 +7,21 @@ public class Authentication : ActionFilterAttribute
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {
         var arguments = filterContext.ActionArguments;
-        var userId = arguments["userId"];
         if (filterContext.HttpContext.Session.GetString("Email") == null)
         {
             filterContext.Result = new RedirectToRouteResult(
             new RouteValueDictionary {
                 { "Controller", "User" },
-                { "Action", "Login" }
+                { "Action", "Login" },
+                {"Area", "Volunteer" }
             });
-        } else if (filterContext.HttpContext.Session.GetString("UserId") != userId.ToString())
+        } else if (arguments.Count() > 0 && filterContext.HttpContext.Session.GetString("UserId") != arguments["userId"].ToString())
         {
             filterContext.Result = new RedirectToRouteResult(
             new RouteValueDictionary {
                 { "Controller", "Home" },
-                { "Action", "Index" }
+                { "Action", "Index" },
+                {"Area", "Volunteer" }
             });
         }
 

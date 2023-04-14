@@ -11,7 +11,7 @@ public partial class Contact
 
     public string? Message { get; set; }
 
-    public byte? Status { get; set; }
+    public bool? Status { get; set; }
 
     public long? UserId { get; set; }
 
@@ -19,7 +19,7 @@ public partial class Contact
 
     public DateTimeOffset? UpdatedAt { get; set; }
 
-    public DateTimeOffset? DeletedAt { get; set; }
+    public string? Reply { get; set; }
 
     public virtual User? User { get; set; }
 }

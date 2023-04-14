@@ -9,6 +9,7 @@ public class UnitOfWork : IUnitOfWork
     {
         _context = context;
         User = new UserRepository(_context);
+        Admin = new AdminRepository(_context);
         ResetPassword = new ResetPasswordRepository(_context);
         Mission = new MissionRepository(_context);
         City = new CityRepository(_context);
@@ -31,8 +32,14 @@ public class UnitOfWork : IUnitOfWork
         Contact = new ContactRepository(_context);
         MissionTimesheet = new MissionTimesheetRepository(_context);
         CmsPage = new CmsPageRepository(_context);
+        Banner = new BannerRepository(_context);
+        VerifyEmail = new VerifyEmailRepository(_context);
     }
     public IUserRepository User{get; private set;}
+
+    public IAdminRepository Admin { get; private set;}
+
+    public IVerifyEmailRepository VerifyEmail { get; private set; }
 
     public IResetPasswordRepository ResetPassword{get; private set;}
 
@@ -74,6 +81,8 @@ public class UnitOfWork : IUnitOfWork
     public IMissionTimesheetRepository MissionTimesheet { get; private set;}
 
     public ICmsPageRepository CmsPage { get; private set; }
+
+    public IBannerRepository Banner { get; private set; }   
     public void Save()
     {
         _context.SaveChanges();

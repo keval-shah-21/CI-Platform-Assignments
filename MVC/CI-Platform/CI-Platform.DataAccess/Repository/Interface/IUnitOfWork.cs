@@ -2,9 +2,10 @@ namespace CI_Platform.DataAccess.Repository.Interface;
 
 public interface IUnitOfWork{
     IUserRepository User{get;}
-
+    IAdminRepository Admin{get;}
     IResetPasswordRepository ResetPassword {get;}
-
+    
+    IVerifyEmailRepository VerifyEmail {get;}
     ICityRepository City { get; }
 
     ICountryRepository Country { get; }
@@ -44,5 +45,7 @@ public interface IUnitOfWork{
     IMissionTimesheetRepository MissionTimesheet { get; }
 
     ICmsPageRepository CmsPage { get; }
+
+    IBannerRepository Banner { get; }
     void Save();
 }

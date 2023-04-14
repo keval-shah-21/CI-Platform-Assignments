@@ -9,23 +9,27 @@
 <input hidden id="missionError" value="@missionError" />
 <input hidden id="userId" value="@userId" />
 <input hidden value="@ViewBag.TotalStories" id="totalStories">
-<partial name="_Navbar"></partial>
-<div class="sl-top d-flex justify-content-end justify-content-md-center align-items-center flex-column text-white gap-3 py-3 px-3 px-md-0">
-    <div class="fw-light text-14 text-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum nisi error
-        ab ipsam molestias, ducimus distinctio minus. Facere, fugiat magni
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum nisi error
-        ab ipsam molestias, ducimus distinctio minus. Facere, fugiat magni
-    </div>
-    <a asp-action="ShareStory" asp-controller="Story" id="shareStoryBtn"
-       class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white">
-        Share your Story
-        <img src="/images/static/right-arrow.png" alt="right arrow" />
-    </a>
-</div>
-<main class="container py-4 py-md-5" id="storyPartialContainer"></main>
-<div id="pagination" class="d-flex justify-content-center gap-1 mb-5"></div>
-<partial name="_Footer"></partial>
+<main class="d-grid grid-body min-vh-100">
+    <partial name="_Navbar"></partial>
+    <section>
+        <div class="sl-top d-flex justify-content-end justify-content-md-center align-items-center flex-column text-white gap-3 py-3 px-3 px-md-0">
+            <div class="fw-light text-14 text-center">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum nisi error
+                ab ipsam molestias, ducimus distinctio minus. Facere, fugiat magni
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum nisi error
+                ab ipsam molestias, ducimus distinctio minus. Facere, fugiat magni
+            </div>
+            <a asp-action="ShareStory" asp-controller="Story" id="shareStoryBtn"
+               class="btn border rounded-pill d-flex align-items-center gap-2 border-white text-white">
+                Share your Story
+                <img src="/images/static/right-arrow.png" alt="right arrow" />
+            </a>
+        </div>
+        <main class="container py-4 py-md-5" id="storyPartialContainer"></main>
+        <div id="pagination" class="d-flex justify-content-center gap-1 mb-5"></div>
+    </section>
+    <partial name="_Footer"></partial>
+</main>
 @section Scripts{
-    <script src="~/js/storyList.js"></script>
+<script src="~/js/storyList.js"></script>
 }

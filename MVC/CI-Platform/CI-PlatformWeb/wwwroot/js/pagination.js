@@ -1,8 +1,10 @@
-﻿let totalPages = 1, pageSet = 1, page = 1, numberOfRows = 5;
-function createPagination() {
+﻿let totalPages = 1, pageSet = 1, page = 1, numberOfRows;
+function createPagination(noOfRows = 10) {
+    numberOfRows = noOfRows;
     const totalRows = document.querySelectorAll("tbody>tr").length;
     let pagination = document.querySelector('.pagination');
-    pagination.innerHTML = "";
+    if(pagination)
+        pagination.innerHTML = "";
     if (Math.ceil(totalRows / numberOfRows) < 1) return;
 
     pageSet = 1; page = 1;

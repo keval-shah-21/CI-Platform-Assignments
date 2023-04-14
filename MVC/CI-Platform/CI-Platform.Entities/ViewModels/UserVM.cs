@@ -36,6 +36,11 @@ public class UserVM{
     public string? ProfileText { get; set; }
 
     public string? Avatar {get; set;}
+    public string? EmployeeId { get; set; }
+
+    public string? Department { get; set; }
+
+    public bool? Status { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
 
