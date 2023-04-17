@@ -308,4 +308,10 @@ public class UserController : Controller
         _unitOfService.Save();
         return NoContent();
     }
+
+    [Route("is-profile-filled")]
+    public bool IsProfileFilled(long userId)
+    {
+        return _unitOfService.User.IsProfileFilled(userId);
+    }
 }

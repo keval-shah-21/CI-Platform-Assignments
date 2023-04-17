@@ -140,6 +140,14 @@ function observeSizeChanges() {
 $(window).on("resize", () => setSidebarOnResize());
 const setSidebarOnResize = debounce(() => setSidebarHeight());
 
+//application events
+function addApplicationEvents() {
+
+}
+function applicationTableEvents(){
+
+}
+
 //timesheet events
 function addTimesheetEvents() {
     $("#adminSearch").on("input", () => {
@@ -151,19 +159,21 @@ function addTimesheetEvents() {
         else
             searchBar("/Admin/Timesheet/SearchGoalsheet", query, "timesheet");
     })
-    $("time").click(() =>
-        loadIntialPartial("/Admin/Timesheet/LoadTimesheetPage", "timesheet")
-    );
-    $("goal").click(() =>
-        loadIntialPartial("/Admin/Timesheet/LoadGoalsheetPage", "timesheet"));
+    $("#hourBtn").click(() => {
+        loadIntialPartial("/Admin/Timesheet/LoadTimesheetPage", "timesheet");
+        addAllEvents("timesheet");
+    });
+    $("#goalBtn").click(() => {
+        loadIntialPartial("/Admin/Timesheet/LoadGoalsheetPage", "timesheet")
+        addAllEvents("timesheet");
+    });
 }
-
 function timesheetTableEvents() {
     document.querySelectorAll("[data-decline]").forEach((decline) => {
         decline.addEventListener("click", () => {
             Swal.fire({
                 title: 'Are you sure?',
-                text: "User will be notified!",
+                text: "You won't be able to revert it back!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -174,7 +184,7 @@ function timesheetTableEvents() {
                     $.ajax({
                         url: "/Admin/Timesheet/UpdateStatus",
                         method: "PUT",
-                        data: { id: $(decline).data("decline"), value: 2 },
+                        data: { id: $(decline).data("decline"), status: 2, isTime: $(decline).data("istime") },
                         success: (result) => {
                             partialContainer.html(result);
                             createPagination();
@@ -192,15 +202,61 @@ function timesheetTableEvents() {
     });
     document.querySelectorAll("[data-accept]").forEach((accept) => {
         accept.addEventListener("click", () => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert it back!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Approve!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Timesheet/UpdateStatus",
+                        method: "PUT",
+                        data: { id: $(accept).data("accept"), status: 1, missionId: $(accept).data("missionid"), action: $(accept).data("action"), isTime: $(accept).data("istime") },
+                        success: (result) => {
+                            partialContainer.html(result);
+                            createPagination();
+                            simpleAlert("Successfully approved the timesheet!", "success");
+                            addAllEvents("timesheet");
+                        },
+                        error: (error) => {
+                            console.log(error);
+                            simpleAlert("Something went wrong!", "error");
+                        }
+                    });
+                }
+            })
+        })
+    });
+    document.querySelectorAll("[data-viewgoal]").forEach((view) => {
+        view.addEventListener("click", () => {
             $.ajax({
-                url: "/Admin/Timesheet/UpdateStatus",
-                method: "PUT",
-                data: { id: $(accept).data("accept"), value: 1 },
+                url: '/Admin/Timesheet/ViewGoal',
+                method: "GET",
+                data: { id: $(view).data("viewgoal") },
                 success: (result) => {
-                    partialContainer.html(result);
-                    createPagination();
-                    simpleAlert("Successfully approved the timesheet!", "success");
-                    addAllEvents("timesheet");
+                    partialModalContainer.html(result);
+                    $("#viewGoalModal").modal("show");
+                },
+                error: (error) => {
+                    console.log(error);
+                    simpleAlert("Something went wrong!", "error");
+                }
+            });
+        })
+    });
+    document.querySelectorAll("[data-viewtime]").forEach((view) => {
+        view.addEventListener("click", () => {
+            $.ajax({
+                url: '/Admin/Timesheet/ViewTime',
+                method: "GET",
+                data: { id: $(view).data("viewtime") },
+                success: (result) => {
+                    partialModalContainer.html(result);
+                    $("#viewTimeModal").modal("show");
                 },
                 error: (error) => {
                     console.log(error);

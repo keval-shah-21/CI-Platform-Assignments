@@ -54,9 +54,14 @@ namespace CI_Platform.Entities.ViewModels
         [Display(Name ="City")]
         public int? CityId { get; set; }
 
+        public string? CityName { get; set; }
+
         [Required]
         [Display(Name ="Country")]
         public short? CountryId { get; set; }
+        public string? CountryName { get; set; }
+
+        public List<String>? skillList { get; set; } = new();
 
         public List<UserSkillVM>? UserSkillVMs { get; set; } = new List<UserSkillVM>();
         public List<CityVM> cityVMs { get; set; } = new();

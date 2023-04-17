@@ -37,4 +37,5 @@ public interface IUserService
     void RemoveVerifyEmail(string email);
 
     List<UserVM> SearchUser(string? query);
+    bool IsProfileFilled(long id);
 }

@@ -2,6 +2,7 @@
 using CI_Platform.Entities.DataModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CI_Platform.DataAccess.Repository;
 
@@ -19,6 +20,15 @@ public class MissionTimesheetRepository : Repository<MissionTimesheet>, IMission
             .Include(mt => mt.User)
             .ToList();
     }
+
+    public MissionTimesheet GetFirstOrDefaultWithInclude(Expression<Func<MissionTimesheet, bool>> filter)
+    {
+        return
+            dbSet.
+            Include(mt => mt.Mission)
+            .Include(mt => mt.User)
+            .FirstOrDefault(filter)!;
+    }
     public void DeleteById(long timesheetId)
     {
         var timesheetIdaram = new SqlParameter("@timesheetId", timesheetId);
@@ -31,6 +41,6 @@ public class MissionTimesheetRepository : Repository<MissionTimesheet>, IMission
         SqlParameter idParameter = new SqlParameter("@timesheetId", id);
         SqlParameter statusParameter = new SqlParameter("@status", value);
 
-        _context.Database.ExecuteSqlRaw("UPDATE mission_timesheet SET approval_status = @status WHERE timesheet_id = @storyId", statusParameter, idParameter);
+        _context.Database.ExecuteSqlRaw("UPDATE mission_timesheet SET approval_status = @status WHERE timesheet_id = @timesheetId", statusParameter, idParameter);
     }
 }

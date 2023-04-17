@@ -20,7 +20,12 @@ public class MissionGoalService : IMissionGoalService
         return obj.Select(mg => ConvertMissionGoalToVM(mg)
         ).ToList();
     }
-
+    public void UpdateGoalAchieved(long id, int? value)
+    {
+        MissionGoal mg = _unitOfWork.MissionGoal.GetFirstOrDefault(m => m.MissionId == id);
+        mg.UpdatedAt = DateTimeOffset.Now;
+        mg.GoalAchieved = mg.GoalAchieved + value;
+    }
     public static MissionGoalVM ConvertMissionGoalToVM(MissionGoal mg)
     {
         return new MissionGoalVM()

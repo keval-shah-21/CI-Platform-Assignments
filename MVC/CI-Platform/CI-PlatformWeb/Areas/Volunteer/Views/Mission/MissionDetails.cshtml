@@ -24,6 +24,7 @@
 <input hidden value="@Model.MissionId" id='missionId' />
 <input hidden value="@Model?.MissionApplicationVM?.Where(ma => ma.ApprovalStatus == ApprovalStatus.APPROVED).Count()" id="totalVolunteers" />
 <input hidden value="@isFavourite" id="isFavourite">
+<input hidden value="@ViewBag?.ApplySuccess" id="applySuccess">
 
 <partial name="_Navbar"></partial>
 <section class="container mp-top d-flex flex-column flex-lg-row py-4 gap-4 align-items-center">
@@ -245,23 +246,24 @@
         @if ((!string.IsNullOrEmpty(userId) && Model?.MissionApplicationVM?.LongCount() > 0 &&
         @Model.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.PENDING)))
         {
-            <a href="#" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+            <button id="cancelMission" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
                 <span>Cancel</span>
                 <img src="/images/static/right-arrow.png" alt="rigth arrow">
-            </a>
+            </button>
         }
         else if ((!string.IsNullOrEmpty(userId) && Model?.MissionApplicationVM?.LongCount() > 0 &&
         Model.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.APPROVED)))
         {
+            <div class="text-center text-success mt-2">You're a volunteer.</div>
         }
         else if ((Model.Status == MissionStatus.ONGOING
         && Model?.TotalSeats == null ? true : Model.SeatsLeft > 0
         && Model?.RegistrationDeadline == null ? true : Model.RegistrationDeadline >= DateTime.Now))
         {
-            <a href="#" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
+            <button id="applyBtn" class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
                 <span>Apply</span>
                 <img src="/images/static/right-arrow.png" alt="rigth arrow">
-            </a>
+            </button>
         }
     </div>
 </section>
@@ -419,5 +421,6 @@
 <partial name="_Footer"></partial>
 
 @section Scripts{
+    <script src="/js/sweetAlerts.js"></script>
 <script src="/js/missionDetails.js"></script>
 }

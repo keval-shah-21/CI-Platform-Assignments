@@ -125,7 +125,8 @@ readonly IUnitOfWork _unitOfWork;
 
             return string.IsNullOrEmpty(query) ? stories.Select(s => ConvertStoryToVM(s)).ToList()
                 : stories
-                    .Where(s => s.Title.ToLower().Contains(query.ToLower()))
+                    .Where(s => s.Title.ToLower().Contains(query.ToLower()) ||
+                            (s.User.FirstName.ToLower() + ' ' + s.User.LastName.ToLower()).Contains(query.ToLower()))
                     .Select(s => ConvertStoryToVM(s))
                     .ToList();
         }

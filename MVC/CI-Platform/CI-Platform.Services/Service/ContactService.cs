@@ -76,7 +76,10 @@ public class ContactService : IContactService
         IEnumerable<Contact> contact= _unitOfWork.Contact.GetAllWithInclude();
         return string.IsNullOrEmpty(query) ? contact.Select(u => ConvertContactToVM(u)).ToList()
             : contact
-                .Where(u => u.User.FirstName.ToLower().Contains(query.ToLower()) || u.User.LastName.ToLower().Contains(query.ToLower()) || u.Subject.ToLower().Contains(query.ToLower()))
+                .Where(u => u.User.FirstName.ToLower().Contains(query.ToLower()) ||
+                u.User.LastName.ToLower().Contains(query.ToLower()) ||
+                u.Subject.ToLower().Contains(query.ToLower()) ||
+                            (u.User.FirstName.ToLower() + ' ' + u.User.LastName.ToLower()).Contains(query.ToLower()))
                 .Select(u => ConvertContactToVM(u))
                 .ToList();
     }

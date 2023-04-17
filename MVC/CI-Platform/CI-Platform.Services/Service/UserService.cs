@@ -74,7 +74,7 @@ public class UserService : IUserService
     public List<UserVM> GetAll()
     {
         IEnumerable<User> users = _unitOfWork.User.GetAll();
-        if(users == null)return null!;
+        if (users == null) return null!;
         return users.Select(user => ConvertUserToVM(user)).ToList();
     }
 
@@ -95,7 +95,7 @@ public class UserService : IUserService
         };
         _unitOfWork.User.Add(obj);
     }
-    
+
     public UserVM AdminLogin(LoginVM loginVM)
     {
         Expression<Func<Admin, bool>> filter = user => (user.Email == loginVM.Email && user.Password == loginVM.Password);
@@ -179,7 +179,10 @@ public class UserService : IUserService
         admin.LastName = profile.LastName;
         admin.Avatar = profile.Avatar;
     }
-
+    public bool IsProfileFilled(long id)
+    {
+        return _unitOfWork.User.GetFirstOrDefault(user => user.UserId == id).CityId != null;
+    }
     public void SendResetPasswordEmail(string email, string url)
     {
         string subject = "CI Platform - Reset-Password link";
@@ -195,10 +198,10 @@ public class UserService : IUserService
             Token = token
         });
     }
-    
+
     public bool VerifyEmail(string email, string token)
     {
-        return _unitOfWork.VerifyEmail.GetFirstOrDefault(ve => ve.Email == email && ve.Token == token) != null ? true:false;
+        return _unitOfWork.VerifyEmail.GetFirstOrDefault(ve => ve.Email == email && ve.Token == token) != null;
     }
     public void RemoveVerifyEmail(string email)
     {
@@ -223,7 +226,7 @@ public class UserService : IUserService
     {
         User user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
         if (user == null) return false;
-        if(user.Password != password) return false;
+        if (user.Password != password) return false;
         return true;
     }
     public void UpdatePassword(string email, string password)
@@ -245,7 +248,7 @@ public class UserService : IUserService
         IEnumerable<User> users = _unitOfWork.User.GetAll();
         return string.IsNullOrEmpty(query) ? users.Select(u => ConvertUserToVM(u)).ToList()
             : users
-                .Where(u => u.FirstName.ToLower().Contains(query.ToLower()) || u.LastName.ToLower().Contains(query.ToLower()))
+                .Where(u => (u.FirstName.ToLower() + ' ' + u.LastName.ToLower()).Contains(query.ToLower()))
                 .Select(u => ConvertUserToVM(u))
                 .ToList();
     }
@@ -257,7 +260,7 @@ public class UserService : IUserService
     }
     internal static List<MissionInviteVM> GetMissionInviteFrom(User user)
     {
-        return user?.MissionInviteFromUsers?.LongCount() > 0 ? 
+        return user?.MissionInviteFromUsers?.LongCount() > 0 ?
             user.MissionInviteFromUsers.Select(mi => MissionInviteService.ConvertMissionInviteToVM(mi)).ToList() : new();
     }
     internal static List<MissionInviteVM> GetMissionInviteTo(User user)

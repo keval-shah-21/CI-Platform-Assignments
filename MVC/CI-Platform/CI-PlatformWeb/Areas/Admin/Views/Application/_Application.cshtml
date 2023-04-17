@@ -1,6 +1,68 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-ma
+﻿@using CI_Platform.Entities.Constants
+@model List<MissionApplicationVM>
+<div class="border-bottom mb-4">
+    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Mission Applications</h4>
+</div>
+<div class="d-flex align-items-center adminSearchContainer mb-4 gap-1">
+    <div class="d-flex align-items-center border border-2 rounded py-1 ps-2 gap-1 flex-grow-1">
+        <img src="/images/static/search.png" alt="search">
+        <input type="search" id="adminSearch" placeholder="Search" class="form-control border-0">
+    </div>
+    <div class="spinner-border text-secondary opacity-0" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="table-responsive border">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Mission</th>
+                <th>Applied At</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.LongCount() == 0)
+            {
+                <tr>
+                    <td colspan="100%">
+                        <div class="text-center py-3">No entries found.</div>
+                    </td>
+                </tr>
+            }
+            @foreach (MissionApplicationVM ma in Model)
+            {
+                <tr>
+                    <td>
+                        @ma.User.FirstName @ma.User.LastName
+                    </td>
+                    <td>
+                        @ma.MissionName
+                    </td>
+                    <td>
+                        @ma.AppliedAt.ToString("d")
+                    </td>
+                    <td class="@ma.ApprovalStatus">
+                        @Html.DisplayFor(model => @ma.ApprovalStatus)
+                    </td>
+                    <td>
+                        <button data-view="@ma.UserId" class="btn button-plain text-14 px-3 py-1 me-1">View</button>
+                        @if (ma.ApprovalStatus == ApprovalStatus.PENDING)
+                        {
+                            <img src="/images/static/check-circle.svg"
+                         class="cursor-pointer d-inline width-max-conatent me-1" alt="edit"
+                         height="23px" width="23px" 
+                         data-accept="@ma.MissionApplicationId">
+                            <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent"
+                         alt="bin" height="23px" width="23px" 
+                         data-decline="@ma.MissionApplicationId">
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination d-flex justify-content-end gap-1 px-3 my-5"></div>

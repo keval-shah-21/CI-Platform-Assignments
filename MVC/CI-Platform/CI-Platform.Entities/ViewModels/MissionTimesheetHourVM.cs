@@ -9,6 +9,7 @@ public class MissionTimesheetHourVM
 
     [Required]
     public long? MissionId { get; set; }
+    public string? MissionName { get; set; }
 
     public long? UserId { get; set; }
 

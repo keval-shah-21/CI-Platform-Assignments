@@ -1,0 +1,52 @@
+﻿@model MissionTimesheetHourVM
+<div class="modal fade" id="viewTimeModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Volunteering Hour
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form class="d-grid gap-3">
+                <div class="modal-body d-grid gap-2 color-darkgray">
+                    <div>
+                        <label class="form-label">Mission</label>
+                        <select class="form-select" readonly>
+                            <option selected disabled>@Model.MissionName</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label asp-for="DateVolunteered"></label>
+                        <input type="date" readonly class="form-control" asp-for="DateVolunteered" placeholder="Select date">
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-2">
+                        <div class="col">
+                            <label asp-for="Hours"></label>
+                            <input type="text" class="form-control" asp-for="Hours"
+                                   placeholder="Enter Spent Hours" readonly>
+                        </div>
+                        <div class="col">
+                            <label asp-for="Minutes"></label>
+                            <input type="text" class="form-control" asp-for="Minutes"
+                                   placeholder="Enter Spent Minutes" readonly>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="Notes"></label>
+                        <textarea asp-for="Notes" readonly class="form-control" rows="4" placeholder="Enter your Message"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-dark px-4"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="_ValidationScriptsPartial"></partial>

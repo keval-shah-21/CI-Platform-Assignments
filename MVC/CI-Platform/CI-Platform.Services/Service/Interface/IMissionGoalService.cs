@@ -5,4 +5,5 @@ namespace CI_Platform.Services.Service.Interface;
 public interface IMissionGoalService
 {
     List<MissionGoalVM> GetAll();
+    void UpdateGoalAchieved(long id, int? value);
 }

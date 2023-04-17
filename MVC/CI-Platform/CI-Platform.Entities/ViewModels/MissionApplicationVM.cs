@@ -8,6 +8,8 @@ public class MissionApplicationVM
 
     public long MissionId { get; set; }
 
+    public string? MissionName { get; set; }
+
     public long UserId { get; set; }
 
     public DateTime AppliedAt { get; set; }
@@ -17,4 +19,6 @@ public class MissionApplicationVM
     public string? UserName { get; set; }
 
     public string? Avatar { get; set; }
+
+    public ProfileVM User { get; set; } = null!;
 }

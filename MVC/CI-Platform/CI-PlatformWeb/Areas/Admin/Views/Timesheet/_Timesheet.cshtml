@@ -1,8 +1,9 @@
-﻿@model List<MissionTimesheetVM>
+﻿@using CI_Platform.Entities.Constants
+@model List<MissionTimesheetVM>
 <div class="border-bottom mb-4">
     <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Hour Timesheet</h4>
 </div>
-<div class="d-flex justify-content-between align-items-center mb-4 gap-1">
+<div class="d-flex justify-content-between align-items-center mb-4 gap-1 flex-wrap">
     <div class="flex-grow-1 d-flex gap-1 align-items-center adminSearchContainer">
         <div class="d-flex align-items-center border border-2 rounded py-1 ps-2 gap-1 flex-grow-1">
             <img src="/images/static/search.png" alt="search">
@@ -12,10 +13,14 @@
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
-    <button class="btn button d-flex align-items-center gap-2" id="addBtn">
-        <img src="/images/static/plus.png" alt="plus">
-        Add
-    </button>
+    <div class="d-flex gap-1">
+        <button class="btn button-plain active-button-plain d-flex align-items-center gap-2" id="hourBtn">
+            Hour Sheet
+        </button>
+        <button class="btn button-plain d-flex align-items-center gap-2" id="goalBtn">
+            Goal Sheet
+        </button>
+    </div>
 </div>
 <div class="table-responsive border">
     <table class="table table-hover">
@@ -25,7 +30,6 @@
                 <th>Mission</th>
                 <th>Date Volunteered</th>
                 <th>Time Volunteered</th>
-                <th>Message</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -35,7 +39,7 @@
             {
                 <tr>
                     <td colspan="100%">
-                        <div class="text-center py-3">No skills found.</div>
+                        <div class="text-center py-3">No entries found.</div>
                     </td>
                 </tr>
             }
@@ -52,20 +56,25 @@
                         @mt.DateVolunteered?.ToString("d")
                     </td>
                     <td>
-                        @mt.TimeVolunteered
+                        @mt.TimeVolunteered.Value.Hours hr @mt.TimeVolunteered.Value.Minutes min
                     </td>
-                    <td>
-                        @mt.Notes
-                    </td>
-                    <td>
+                    <td class="@mt.ApprovalStatus">
                         @Html.DisplayFor(model => @mt.ApprovalStatus)
                     </td>
                     <td>
-                        <img src="/images/static/check-circle.svg"
-                         class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
-                         height="20px" width="20px" data-accept="@mt.TimesheetId">
-                        <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent"
-                         alt="bin" height="20px" width="20px" data-decline="@mt.TimesheetId">
+                        <button data-viewtime="@mt.TimesheetId" class="btn button-plain text-14 px-3 py-1 me-1">View</button>
+                        @if (mt.ApprovalStatus == ApprovalStatus.PENDING)
+                        {
+                            <img src="/images/static/check-circle.svg"
+                         class="cursor-pointer d-inline width-max-conatent me-1" alt="edit"
+                         height="23px" width="23px" 
+                         data-istime="true"
+                         data-accept="@mt.TimesheetId">
+                            <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent"
+                         alt="bin" height="23px" width="23px" 
+                         data-istime="true"
+                         data-decline="@mt.TimesheetId">
+                        }
                     </td>
                 </tr>
             }

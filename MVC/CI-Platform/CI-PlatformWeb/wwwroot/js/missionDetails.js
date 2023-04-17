@@ -1,4 +1,8 @@
-﻿const leftScroll = document.querySelector(".mp-left-scroll");
+﻿if ($("#applySuccess").val() == "true") {
+    simpleAlert("Thank you for your participation!", "success");
+}
+
+const leftScroll = document.querySelector(".mp-left-scroll");
 const missionImage = document.querySelector("#missionImage")
 const rightScroll = document.querySelector(".mp-right-scroll");
 const smallImages = document.querySelector(".mp-small-images");
@@ -74,7 +78,96 @@ $(document).ready(() => {
     getRelatedMissions();
     handleMissionRating();
     handleRecommendMission();
+    handleApplyMission();
+    handleCancelMission();
 });
+
+function handleCancelMission() {
+    $("#cancelMission").click(() => {
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Cancel!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Volunteer/Mission/CancelMission",
+                    method: "POST",
+                    data: {missionId, userId},
+                    success: _ => {
+                        window.location.replace(`/Volunteer/Mission/MissionDetails?id=${missionId}`);
+                    },
+                    error: error => {
+                        console.log(error);
+                        simpleAlert("Something went wrong!", "error");
+                    }
+                });
+            }
+        })
+    });
+}
+
+function handleApplyMission() {
+    $("#applyBtn").click(() => {
+        if (userId == null || userId == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You need to Login to recommend your co-workers!',
+                footer: '<a href="/volunteer/user/login">Login here</a>'
+            })
+            return;
+        }
+        $.ajax({
+            url: "/volunteer/user/is-profile-filled",
+            method: "GET",
+            data: { userId },
+            success: result => {
+                if (result) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Admin will review and approv it!",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#28a745',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, Apply!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "/Volunteer/Mission/ApplyMission",
+                                method: "POST",
+                                data: { missionId, userId },
+                                success: _ => {
+                                    window.location.replace(`/Volunteer/Mission/MissionDetails?id=${missionId}&applySuccess=true`);
+                                },
+                                error: error => {
+                                    console.log(error);
+                                    simpleAlert("Something went wrong!", "error");
+                                }
+                            });
+                        }
+                    })
+
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Oops...',
+                        text: 'You need to fill-up your profile before applying in mission!',
+                        footer: `<a href="/Volunteer/User/user-profile?userId=${userId}">My Profile</a>`
+                    })
+                }
+            },
+            error: error => {
+                console.log(error);
+            }
+        })
+    });
+}
+
 function getRelatedMissions() {
     $.ajax({
         url: "/Volunteer/Mission/RelatedMissions",

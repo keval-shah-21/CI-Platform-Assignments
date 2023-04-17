@@ -17,7 +17,7 @@ public class MissionTimesheetService : IMissionTimesheetService
 
     public MissionTimesheetGoalVM GetTimesheetGoalById(long timesheetId)
     {
-        MissionTimesheet obj = _unitOfWork.MissionTimesheet.GetFirstOrDefault(mt => mt.TimesheetId == timesheetId);
+        MissionTimesheet obj = _unitOfWork.MissionTimesheet.GetFirstOrDefaultWithInclude(mt => mt.TimesheetId == timesheetId);
         return obj == null ? null! : new MissionTimesheetGoalVM()
         {
             TimesheetId = obj.TimesheetId,
@@ -26,13 +26,14 @@ public class MissionTimesheetService : IMissionTimesheetService
                     obj.ApprovalStatus == 1 ? ApprovalStatus.APPROVED : ApprovalStatus.DECLINED,
             DateVolunteered = obj.DateVolunteered,
             MissionId = obj.MissionId,
+            MissionName = obj.Mission.Title,
             Notes = obj.Notes,
             UserId = obj.UserId
         };
     }
     public MissionTimesheetHourVM GetTimesheetHourById(long timesheetId)
     {
-        MissionTimesheet obj = _unitOfWork.MissionTimesheet.GetFirstOrDefault(mt => mt.TimesheetId == timesheetId);
+        MissionTimesheet obj = _unitOfWork.MissionTimesheet.GetFirstOrDefaultWithInclude(mt => mt.TimesheetId == timesheetId);
         return obj == null ? null! : new MissionTimesheetHourVM()
         {
             TimesheetId = obj.TimesheetId,
@@ -43,6 +44,7 @@ public class MissionTimesheetService : IMissionTimesheetService
             DateVolunteered = obj.DateVolunteered,
             MissionId = obj.MissionId,
             Notes = obj.Notes,
+            MissionName = obj.Mission.Title,
             UserId = obj.UserId
         };
     }
@@ -135,7 +137,8 @@ public class MissionTimesheetService : IMissionTimesheetService
             : mt
                 .Where(m => m.User.FirstName.ToLower().Contains(query.ToLower()) ||
                             m.User.LastName.ToLower().Contains(query.ToLower()) ||
-                            m.Mission.Title.ToLower().Contains(query.ToLower()))
+                            m.Mission.Title.ToLower().Contains(query.ToLower()) ||
+                            (m.User.FirstName.ToLower() + ' ' + m.User.LastName.ToLower()).Contains(query.ToLower()))
                 .Select(m => ConvertTimesheetToVM(m))
                 .ToList();
     }
@@ -149,7 +152,8 @@ public class MissionTimesheetService : IMissionTimesheetService
             : mt
                 .Where(m => m.User.FirstName.ToLower().Contains(query.ToLower()) ||
                             m.User.LastName.ToLower().Contains(query.ToLower()) ||
-                            m.Mission.Title.ToLower().Contains(query.ToLower()))
+                            m.Mission.Title.ToLower().Contains(query.ToLower()) ||
+                            (m.User.FirstName.ToLower() + ' ' + m.User.LastName.ToLower()).Contains(query.ToLower()))
                 .Select(m => ConvertTimesheetToVM(m))
                 .ToList();
     }
@@ -157,7 +161,6 @@ public class MissionTimesheetService : IMissionTimesheetService
     {
         _unitOfWork.MissionTimesheet.UpdateStatus(id, value);
     }
-
     public static MissionTimesheetVM ConvertTimesheetToVM(MissionTimesheet mt)
     {
         return new MissionTimesheetVM()
@@ -167,6 +170,7 @@ public class MissionTimesheetService : IMissionTimesheetService
             MissionType = mt.Mission.MissionType ? MissionType.GOAL : MissionType.TIME,
             MissionName = mt.Mission.Title,
             UserId = mt.UserId,
+            User = UserService.ConvertUserToVM(mt.User),
             Action = mt?.Action,
             DateVolunteered = mt.DateVolunteered,
             Notes = mt.Notes,

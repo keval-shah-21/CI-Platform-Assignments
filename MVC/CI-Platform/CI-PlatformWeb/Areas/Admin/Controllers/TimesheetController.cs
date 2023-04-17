@@ -28,7 +28,7 @@ public class TimesheetController : Controller
     {
         try
         {
-            return PartialView("_Timesheet", _unitOfService.MissionTimesheet.GetHourTimesheetAdmin());
+            return PartialView("_Goalsheet", _unitOfService.MissionTimesheet.GetGoalTimesheetAdmin());
         }
         catch (Exception e)
         {
@@ -38,12 +38,19 @@ public class TimesheetController : Controller
         }
     }
 
-    public IActionResult UpdateStatus(long id, byte value)
+    public IActionResult UpdateStatus(long id, byte status, long missionId, int? action, bool isTime)
     {
         try
         {
-            _unitOfService.MissionTimesheet.UpdateStatus(id, value);
-            return PartialView("_Timesheet", _unitOfService.MissionTimesheet.GetHourTimesheetAdmin());
+            _unitOfService.MissionTimesheet.UpdateStatus(id, status);
+            if (isTime)
+                return PartialView("_Timesheet", _unitOfService.MissionTimesheet.GetHourTimesheetAdmin());
+            if (status == 1)
+            {
+                _unitOfService.MissionGoal.UpdateGoalAchieved(missionId, action);
+                _unitOfService.Save();
+            }
+            return PartialView("_Goalsheet", _unitOfService.MissionTimesheet.GetGoalTimesheetAdmin());
         }
         catch (Exception e)
         {
@@ -52,12 +59,11 @@ public class TimesheetController : Controller
             return StatusCode(500);
         }
     }
-
     public IActionResult SearchGoalsheet(string? query)
     {
         try
         {
-            return PartialView("_Timesheet", _unitOfService.MissionTimesheet.SearchGoalTimehseet(query));
+            return PartialView("_Goalsheet", _unitOfService.MissionTimesheet.SearchGoalTimehseet(query));
         }
         catch (Exception e)
         {
@@ -75,6 +81,33 @@ public class TimesheetController : Controller
         catch (Exception e)
         {
             Console.WriteLine("Error searching timesheet: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
+    }
+
+    public IActionResult ViewGoal(long id)
+    {
+        try
+        {
+            return PartialView("_ViewGoalsheet", _unitOfService.MissionTimesheet.GetTimesheetGoalById(id));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error viewing timesheet: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
+    }
+    public IActionResult ViewTime(long id)
+    {
+        try
+        {
+            return PartialView("_ViewTimesheet", _unitOfService.MissionTimesheet.GetTimesheetHourById(id));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error viewing timesheet: " + e.Message);
             Console.WriteLine(e.StackTrace);
             return StatusCode(500);
         }

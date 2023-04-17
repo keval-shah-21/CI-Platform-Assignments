@@ -505,3 +505,29 @@ form input:focus {
 .adminSearchContainer {
     max-width: 28rem !important;
 }
+.PENDING {
+    color: #007bff;
+}
+
+.APPROVED {
+    color: #28a745;
+}
+
+.DECLINED {
+    color: #dc3545;
+}
+
+.button-plain {
+    border: 2px solid var(--light-orange);
+    font-size: 17px;
+    border-radius: 50rem;
+    color: var(--light-orange);
+}
+    .button-plain:hover {
+        background-color: var(--light-orange);
+        color: white;
+    }
+    .active-button-plain {
+        background-color: var(--light-orange);
+        color: white;
+    }

@@ -56,10 +56,42 @@ $(document).ready(() => {
             createPaginationHTML(totalMissions);
             handleIndexFavouriteMissions();
             handleIndexRecommendMission();
+            handleCancelMission();
             $('.index-list-view').addClass("d-none");
         }
     })
+    
 });
+function handleCancelMission() {
+    document.querySelectorAll("[data-cancelmission]").forEach(cancel => {
+        $(cancel).click(() => {
+            console.log("hell")
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Cancel!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Volunteer/Mission/CancelMission",
+                        method: "POST",
+                        data: {missionId: $(cancel).data("cancelmission"), userId: $("#userId").val()},
+                        success: _ => {
+                            MakeAjaxCall();
+                        },
+                        error: error => {
+                            console.log(error);
+                            simpleAlert("Something went wrong!", "error");
+                        }
+                    });
+                }
+            })
+        });
+    });
+}
 function debounce(cb, delay = 800) {
     let timeout;
     return (...arg) => {
@@ -253,6 +285,7 @@ function MakeAjaxCall() {
             }
             handleIndexFavouriteMissions();
             handleIndexRecommendMission();
+            handleCancelMission();
         }
     })
 }

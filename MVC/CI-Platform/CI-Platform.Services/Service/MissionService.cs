@@ -72,7 +72,6 @@ public class MissionService : IMissionService
     public List<MissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId){
         return MissionFilterService.FilterMissions(country, city, theme, skill, search, sort, userId, _unitOfWork);
     }
-
     public List<MissionVM> GetRelatedMissions(long id){
         MissionVM missionVM = GetMissionById(id);
         return GetAllMissions()

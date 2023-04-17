@@ -177,11 +177,11 @@
                     @if ((!string.IsNullOrEmpty(userId) && mission?.MissionApplicationVM?.LongCount() > 0 &&
                    mission.MissionApplicationVM.Any(ma => ma.UserId == long.Parse(userId) && ma.ApprovalStatus == ApprovalStatus.PENDING)))
                     {
-                        <a href="#"
+                        <button data-cancelmission="@mission.MissionId"
                    class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-conatent">
                             <span>Cancel</span>
                             <img src="/images/static/right-arrow.png" alt="rigth arrow">
-                        </a>
+                        </button>
                     }
                     else
                     {

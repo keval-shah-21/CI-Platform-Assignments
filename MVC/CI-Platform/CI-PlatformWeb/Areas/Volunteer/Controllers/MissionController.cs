@@ -16,11 +16,12 @@ public class MissionController : Controller
         _unitOfService = unitOfService;
     }
 
-    public IActionResult MissionDetails(long? id)
+    public IActionResult MissionDetails(long? id, string? applySuccess)
     {
         if (id == 0) return NotFound();
         MissionVM missionVM = _unitOfService.Mission.GetMissionById(id);
         if (missionVM == null) return NotFound();
+        ViewBag.ApplySuccess = applySuccess;
         return View(missionVM);
     }
 
@@ -71,6 +72,37 @@ public class MissionController : Controller
             _unitOfService.FavouriteMission.AddToFavourite(missionId, userId);
         _unitOfService.Save();
         return NoContent();
+    }
+
+    [HttpPost]
+    public IActionResult ApplyMission(long missionId, long userId)
+    {
+        try
+        {
+            _unitOfService.MissionApplication.ApplyMission(missionId, userId);
+            _unitOfService.Save();
+            return Ok(200);
+        }catch(Exception e)
+        {
+            Console.WriteLine("Error applying mission: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
+    }
+
+    public IActionResult CancelMission(long missionId, long userId)
+    {
+        try
+        {
+            _unitOfService.MissionApplication.CancelMission(missionId, userId);
+            return Ok(200);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error cancelling mission: " + e.Message);
+            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
     }
 
     [Authentication]

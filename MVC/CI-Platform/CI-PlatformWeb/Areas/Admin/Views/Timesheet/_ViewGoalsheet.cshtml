@@ -1,0 +1,43 @@
+﻿@model MissionTimesheetGoalVM
+<div class="modal fade" id="viewGoalModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Volunteering Goal
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form class="d-grid gap-3">
+                <div class="modal-body d-grid gap-2 color-darkgray">
+                    <div>
+                        <label class="form-label">Mission</label>
+                        <select class="form-select" readonly>
+                            <option selected disabled>@Model.MissionName</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label asp-for="DateVolunteered"></label>
+                        <input type="date" class="form-control" readonly asp-for="DateVolunteered" placeholder="Select date">
+                    </div>
+                    <div>
+                        <label asp-for="Action"></label>
+                        <input type="text" class="form-control" readonly asp-for="Action" placeholder="Enter Actions">
+                    </div>
+                    <div>
+                        <label asp-for="Notes"></label>
+                        <textarea asp-for="Notes" class="form-control" readonly rows="4" placeholder="Enter your Message"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-dark px-4"
+                            data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
