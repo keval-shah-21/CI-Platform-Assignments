@@ -37,11 +37,12 @@ public class MissionGoalService : IMissionGoalService
         mg.GoalValue = missionGoal.GoalValue;
         mg.UpdatedAt = DateTimeOffset.Now;
     }
-    public void UpdateGoalAchieved(long id, int? value)
+    public bool UpdateGoalAchieved(long id, int? value)
     {
         MissionGoal mg = _unitOfWork.MissionGoal.GetFirstOrDefault(m => m.MissionId == id);
         mg.UpdatedAt = DateTimeOffset.Now;
         mg.GoalAchieved = mg.GoalAchieved + value;
+        return mg.GoalAchieved >= mg.GoalValue;
     }
     public static MissionGoalVM ConvertMissionGoalToVM(MissionGoal mg)
     {

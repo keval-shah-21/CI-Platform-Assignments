@@ -54,7 +54,8 @@ public class TimesheetController : Controller
             }
             if (status == 1)
             {
-                _unitOfService.MissionGoal.UpdateGoalAchieved(missionId, action);
+                bool isAchieved = _unitOfService.MissionGoal.UpdateGoalAchieved(missionId, action);
+                if(isAchieved) _unitOfService.Mission.UpdateStatus(missionId, 0);
                 _unitOfService.Save();
             }
             List<MissionTimesheetVM> mgs = _unitOfService.MissionTimesheet.GetGoalTimesheetAdmin();

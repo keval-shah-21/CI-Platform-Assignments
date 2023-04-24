@@ -2,15 +2,10 @@
 using CI_Platform.Entities.DataModels;
 using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CI_Platform.Services.Service
 {
-    public class StoryInviteService: IStoryInviteService
+    public class StoryInviteService : IStoryInviteService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailService _emailService;
@@ -21,7 +16,8 @@ namespace CI_Platform.Services.Service
             _emailService = emailService;
         }
 
-        public static StoryInviteVM ConvertStoryInviteToVM(StoryInvite si) {
+        public static StoryInviteVM ConvertStoryInviteToVM(StoryInvite si)
+        {
             return new StoryInviteVM()
             {
                 FromUserId = si.FromUserId,
@@ -31,6 +27,11 @@ namespace CI_Platform.Services.Service
             };
         }
 
+        public void RemoveByStoryId(long id)
+        {
+            IEnumerable<StoryInvite> si = _unitOfWork.StoryInvite.GetAll().Where(s => s.StoryId == id);
+            _unitOfWork.StoryInvite.RemoveRange(si);
+        }
         public void RecommendStory(long storyId, long userId, long[] toUsers, string url)
         {
             User user = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == userId);

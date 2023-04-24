@@ -42,6 +42,18 @@ namespace CI_Platform.Services.Service
         {
             _unitOfWork.StoryMedia.RemoveRange(_unitOfWork.StoryMedia.GetAll().Where(sm => sm.StoryId == storyId));
         }
+        public void RemoveMediaFromFolder(long storyId, string wwwRootPath)
+        {
+            IEnumerable<StoryMedium> sm = _unitOfWork.StoryMedia.GetAll().Where(sm => sm.StoryId == storyId);
+            foreach(var s in sm)
+            {
+                string path = Path.Combine(wwwRootPath, s.MediaPath.TrimStart('\\') + s.MediaName + s.MediaType);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+            }
+        }
         public static StoryMediaVM ConvertStoryMediaToVM(StoryMedium sm)
         {
             return new StoryMediaVM()

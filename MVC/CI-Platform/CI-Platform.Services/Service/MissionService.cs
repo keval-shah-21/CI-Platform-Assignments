@@ -4,6 +4,7 @@ using CI_Platform.DataAccess.Repository.Interface;
 using CI_Platform.Entities.ViewModels;
 using CI_Platform.Entities.DataModels;
 using CI_Platform.Entities.Constants;
+using Microsoft.AspNetCore.Http;
 
 namespace CI_Platform.Services.Service;
 
@@ -177,7 +178,7 @@ public class MissionService : IMissionService
             MissionThemeId = mission.MissionThemeId,
         };
     }
-    public void UpdateTimeMission(TimeMissionVM time)
+    public async Task UpdateTimeMission(TimeMissionVM time, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, List<string> preLoadedImages, List<string> preLoadedDocs, List<string> preLoadedSkills, string wwwRootPath)
     {
         Mission mission = _unitOfWork.Mission.GetFirstOrDefault(m => m.MissionId == time.MissionId);
         mission.Title = time.Title;
@@ -195,9 +196,28 @@ public class MissionService : IMissionService
         mission.Availability = (byte)time.Availability;
         mission.IsActive = time.IsActive;
         mission.MissionThemeId = time.MissionThemeId;
+        using (var transaction = await _unitOfWork.BeginTransactionAsync())
+        {
+            try
+            {
+                List<Task> tasks = new List<Task>();
+                tasks.Add(Task.Run(() => EditMedia(wwwRootPath, ImagesInput, preLoadedImages, mission.MissionId)));
+                tasks.Add(Task.Run(() => EditDocuments(wwwRootPath, DocumentsInput, preLoadedDocs, mission.MissionId)));
+                if (!MissionSkills.SequenceEqual(preLoadedSkills))
+                    tasks.Add(Task.Run(() => EditMissionSkill(MissionSkills, preLoadedSkills, mission.MissionId)));
+                await Task.WhenAll(tasks);
+                await _unitOfWork.SaveAsync();
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
     }
-    public void UpdateGoalMission(GoalMissionVM goal)
-    {
+    public async Task UpdateGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, List<string> preLoadedImages, List<string> preLoadedDocs, List<string> preLoadedSkills, string wwwRootPath){
         Mission mission = _unitOfWork.Mission.GetFirstOrDefault(m => m.MissionId == goal.MissionId);
         mission.Title = goal.Title;
         mission.ShortDescription = goal.ShortDescription;
@@ -214,9 +234,35 @@ public class MissionService : IMissionService
         mission.Availability = (byte)goal.Availability;
         mission.IsActive = goal.IsActive;
         mission.MissionThemeId = goal.MissionThemeId;
+        using (var transaction = await _unitOfWork.BeginTransactionAsync())
+        {
+            try
+            {
+                List<Task> tasks = new List<Task>();
+                _missionGoalService.UpdateMissionGoal(new MissionGoalVM()
+                {
+                    GoalObjective = goal.GoalObjective,
+                    GoalValue = goal.GoalValue,
+                    MissionGoalId = goal.MissionGoalId
+                });
+                tasks.Add(Task.Run(() => EditMedia(wwwRootPath, ImagesInput, preLoadedImages, mission.MissionId)));
+                tasks.Add(Task.Run(() => EditDocuments(wwwRootPath, DocumentsInput, preLoadedDocs, mission.MissionId)));
+                if (!MissionSkills.SequenceEqual(preLoadedSkills))
+                    tasks.Add(Task.Run(() => EditMissionSkill(MissionSkills, preLoadedSkills, mission.MissionId)));
+                await Task.WhenAll(tasks);
+                await _unitOfWork.SaveAsync();
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
     }
     public List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId) {
-        return MissionFilterService.FilterMissions(country, city, theme, skill, search, sort, userId, _unitOfWork);
+        return new MissionFilterService().FilterMissions(country, city, theme, skill, search, sort, userId, GetAllIndexMissions());
     }
     public List<IndexMissionVM> GetRelatedMissions(long id) {
         MissionVM missionVM = GetMissionById(id);
@@ -234,7 +280,7 @@ public class MissionService : IMissionService
         return ConvertMissionToVM(mission);
     }
 
-    public long AddTimeMission(TimeMissionVM time)
+    public async Task AddTimeMission(TimeMissionVM time, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath)
     {
         Mission mission = new Mission()
         {
@@ -256,11 +302,29 @@ public class MissionService : IMissionService
             ShortDescription = time.ShortDescription,
             MissionType = false,
         };
-        _unitOfWork.Mission.Add(mission);
-        _unitOfWork.Save();
-        return mission.MissionId;
+        using(var transaction = await _unitOfWork.BeginTransactionAsync())
+        {
+            try {
+                _unitOfWork.Mission.Add(mission);
+                _unitOfWork.Save();
+                long id = mission.MissionId;
+                List<Task> tasks = new List<Task>();
+                tasks.Add(Task.Run(() => AddMedia(wwwRootPath, ImagesInput, id)));
+                tasks.Add(Task.Run(() => AddDocuments(wwwRootPath, DocumentsInput, id)));
+                tasks.Add(Task.Run(() => AddMissionSkill(MissionSkills, id)));
+                await Task.WhenAll(tasks);
+                await _unitOfWork.SaveAsync();
+                transaction.Commit();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
     }
-    public long AddGoalMission(GoalMissionVM goal)
+    public async Task AddGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath)
     {
         Mission mission = new Mission()
         {
@@ -282,9 +346,34 @@ public class MissionService : IMissionService
             ShortDescription = goal.ShortDescription,
             MissionType = true,
         };
-        _unitOfWork.Mission.Add(mission);
-        _unitOfWork.Save();
-        return mission.MissionId;
+        using (var transaction = await _unitOfWork.BeginTransactionAsync())
+        {
+            try
+            {
+                _unitOfWork.Mission.Add(mission);
+                await _unitOfWork.SaveAsync();
+                long id = mission.MissionId;
+                _missionGoalService.AddMissionGoal(new MissionGoalVM()
+                {
+                    MissionId = id,
+                    GoalObjective = goal.GoalObjective, 
+                    GoalValue = goal.GoalValue,
+                });
+                List<Task> tasks = new List<Task>();
+                tasks.Add(Task.Run(() => AddMedia(wwwRootPath, ImagesInput, id)));
+                tasks.Add(Task.Run(() => AddDocuments(wwwRootPath, DocumentsInput, id)));
+                tasks.Add(Task.Run(() => AddMissionSkill(MissionSkills, id)));
+                await Task.WhenAll(tasks);
+                await _unitOfWork.SaveAsync();
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
     }
     public List<AdminMissionVM> Search(string? query)
     {
@@ -362,5 +451,30 @@ public class MissionService : IMissionService
     }
     internal static List<MissionMediaVM> GetMissionMedia(Mission mission) {
         return mission.MissionMedia.Select(mm => MissionMediaService.ConvertMissionMediaToVM(mm)).ToList();
+    }
+
+    private void AddMedia(string wwwRootPath, List<IFormFile> images, long missionId)
+    {
+        _missionMediaService.AddMissionMedia(wwwRootPath, images, missionId);
+    }
+    private void AddDocuments(string wwwRootPath, List<IFormFile> docs, long missionId)
+    {
+        _missionDocumentService.AddMissionDocuments(wwwRootPath, docs, missionId);
+    }
+    private void AddMissionSkill(List<string> skills, long missionId)
+    {
+        _missionSkillService.AddMissionSkill(skills, missionId);
+    }
+    private void EditMedia(string wwwRootPath, List<IFormFile> images, List<string> preLoaded, long missionId)
+    {
+        _missionMediaService.EditMissionMedia(wwwRootPath, images, missionId, preLoaded);
+    }
+    private void EditDocuments(string wwwRootPath, List<IFormFile> docs, List<string> preLoaded, long missionId)
+    {
+        _missionDocumentService.EditMissionDocuments(wwwRootPath, docs, missionId, preLoaded);
+    }
+    private void EditMissionSkill(List<string> skills, List<string> preLoaded, long missionId)
+    {
+        _missionSkillService.EditMissionSkill(skills, preLoaded, missionId);
     }
 }

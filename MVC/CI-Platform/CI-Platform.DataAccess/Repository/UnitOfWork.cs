@@ -89,6 +89,10 @@ public class UnitOfWork : IUnitOfWork
     {
         _context.SaveChanges();
     }
+    public async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
     public async Task<IDbContextTransaction> BeginTransactionAsync()
     {
         if (_context.Database.CurrentTransaction != null)

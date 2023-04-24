@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace CI_Platform.DataAccess.Repository.Interface;
 
 public interface IUnitOfWork{
@@ -48,5 +50,6 @@ public interface IUnitOfWork{
 
     IBannerRepository Banner { get; }
     void Save();
+    Task SaveAsync();
     Task<IDbContextTransaction> BeginTransactionAsync();
 }

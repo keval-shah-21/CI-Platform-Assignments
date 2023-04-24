@@ -1,15 +1,12 @@
-﻿using CI_Platform.DataAccess.Repository.Interface;
-using CI_Platform.Entities.ViewModels;
+﻿using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
 
 namespace CI_Platform.Services.Service
 {
     public class MissionFilterService : IMissionFilterService
     {
-        public static List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId, IUnitOfWork _unitOfWork)
+        public List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId, List<IndexMissionVM> missionVM)
         {
-            List<IndexMissionVM> missionVM = new MissionService(_unitOfWork).GetAllIndexMissions();
-
             if (!string.IsNullOrEmpty(search))
             {
                 missionVM = missionVM.Where(mission => mission.Title.ToLower().Contains(search.ToLower())).ToList();
@@ -54,7 +51,8 @@ namespace CI_Platform.Services.Service
             }
             else if (sort == 5)
             {
-                missionVM = missionVM.Where(mission => {
+                missionVM = missionVM.Where(mission =>
+                {
                     if (mission?.FavouriteMissionVM?.LongCount() > 0)
                         return mission.FavouriteMissionVM.Any(fm => fm.UserId == userId);
                     else

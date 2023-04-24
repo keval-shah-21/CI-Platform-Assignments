@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LEhTAEvbIo/CVZQom/lRFAxw10DSU394Vud0bNUPUGI=",
+  "Hash": "A6WH1sDDN865pxNMt9MJ9cFQrn+M5boKs90kBHldEpI=",
   "Source": "CI-PlatformWeb",
   "BasePath": "_content/CI-PlatformWeb",
   "Mode": "Default",
@@ -236,23 +236,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\banner\\db4cd3e9-32be-454c-a8a6-85a4e9b0e852.png"
-    },
-    {
-      "Identity": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\mission\\eb297d04-797d-4d1e-9a61-38940352ab46.png",
-      "SourceId": "CI-PlatformWeb",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
-      "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "images/mission/eb297d04-797d-4d1e-9a61-38940352ab46.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\mission\\eb297d04-797d-4d1e-9a61-38940352ab46.png"
     },
     {
       "Identity": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\404-Page-image.png",
@@ -2871,23 +2854,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\story\\8aeffee0-87e1-4fdb-b5b6-54755c3260a4.png"
-    },
-    {
-      "Identity": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\story\\8e61876a-5779-442f-966a-8c68a6e1a24e.png",
-      "SourceId": "CI-PlatformWeb",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
-      "BasePath": "_content/CI-PlatformWeb",
-      "RelativePath": "images/story/8e61876a-5779-442f-966a-8c68a6e1a24e.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\story\\8e61876a-5779-442f-966a-8c68a6e1a24e.png"
     },
     {
       "Identity": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\story\\9d477883-ec0a-4993-b25a-b1b1f0f23c14.png",

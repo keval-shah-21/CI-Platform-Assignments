@@ -12,5 +12,6 @@ namespace CI_Platform.Services.Service.Interface
         void SaveAllStoryMedia(List<StoryMediaVM> storyMediaVM);
         void RemoveStoryMedia(long storyId, string mediaName);
         void RemoveAllStoryMediaByStoryId(long storyId);
+        void RemoveMediaFromFolder(long storyId, string wwwRootPath);
     }
 }

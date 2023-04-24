@@ -10,7 +10,6 @@ public class UnitOfService : IUnitOfService
     {   
         _unitOfWork = unitOfWork;
         ResetPassword = new ResetPasswordService(_unitOfWork);
-        Mission = new MissionService(_unitOfWork);
         City = new CityService(_unitOfWork);
         Country = new CountryService(_unitOfWork);
         MissionApplication = new MissionApplicationService(_unitOfWork);
@@ -33,6 +32,7 @@ public class UnitOfService : IUnitOfService
         MissionTimesheet = new MissionTimesheetService(_unitOfWork);
         CmsPage = new CmsPageService(_unitOfWork);
         Banner = new BannerService(_unitOfWork);
+        Mission = new MissionService(_unitOfWork, MissionMedia, MissionSkill, MissionGoal, MissionDocument);
     }
 
     public IUserService User{get; private set;}

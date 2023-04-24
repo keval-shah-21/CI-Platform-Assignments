@@ -146,6 +146,23 @@ function validateMissionForm() {
     } else {
         $('#skillError').text("");
     }
+
+    const startDate = $("#StartDate").val();
+    const endDate = $("#EndDate").val();
+    if (startDate != null && endDate != null && startDate >= endDate) {
+        document.querySelector("#StartDateError").textContent = "Invalid Start date!";
+        error = true;
+    } else {
+        document.querySelector("#StartDateError").textContent = "";
+    }
+
+    const regDead = new Date($("#RegistrationDeadline").val());
+    if (regDead != null && regDead < new Date()) {
+        $("#RegistrationDeadlineError").text("Invalid registration deadline!");
+        error = true;
+    } else {
+        $("#RegistrationDeadlineError").text("");
+    }
     return error;
 }
 function setImageInput() {
@@ -299,7 +316,7 @@ function addMissionFormEvents(url, method, successCB) {
     $("#MissionForm").on("submit", (e) => {
         e.preventDefault();
 
-        let isValid = $("#MissionForm").valid();
+        const isValid = $("#MissionForm").valid();
         if (validateMissionForm() || !isValid) return;
         setImageInput();
 

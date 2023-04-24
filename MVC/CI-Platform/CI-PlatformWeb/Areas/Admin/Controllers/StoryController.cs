@@ -6,10 +6,12 @@ namespace CI_PlatformWeb.Areas.Admin.Controllers;
 public class StoryController : Controller
 {
     private readonly IUnitOfService _unitOfService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public StoryController(IUnitOfService unitOfService)
+    public StoryController(IUnitOfService unitOfService, IWebHostEnvironment webHostEnvironment)
     {
         _unitOfService = unitOfService;
+        _webHostEnvironment = webHostEnvironment;
     }
     public IActionResult LoadStoryPage()
     {
@@ -77,6 +79,8 @@ public class StoryController : Controller
     {
         try
         {
+            _unitOfService.StoryInvite.RemoveByStoryId(id);
+            _unitOfService.StoryMedia.RemoveMediaFromFolder(id, _webHostEnvironment.WebRootPath);
             _unitOfService.StoryMedia.RemoveAllStoryMediaByStoryId(id);
             _unitOfService.Save();
             _unitOfService.Story.DeleteStory(id);
