@@ -1,18 +1,85 @@
-﻿@model UserVM
-<div class="modal fade" id="viewApplicationModal" tabindex="-1"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Contact Us</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+﻿@model UserAdminVM
+<form id="UserForm">
+    <div class="border border-2">
+        <div class="py-2 px-4 bg-light fs-4 border-bottom border-2">Add User</div>
+        <div class="d-grid gap-3 p-4 color-darkgray">
+            <div>
+                <img src="/images/static/default-profile.webp" alt="user image" class="rounded-circle object-fit-cover cursor-pointer mx-auto"
+                     height="200px" width="200px" id="profilePic">
+                <input type="file" name="profileInput" id="profileInput" hidden accept=".png, .jpg, .jpeg">
             </div>
-                <div class="modal-body">
-                   
+            <div class="row row-cols-1 row-cols-md-2">
+                <div>
+                    <label asp-for="FirstName"></label>
+                    <input type="text" class="form-control" asp-for="FirstName" placeholder="Enter first name">
+                    <span class="text-danger text-14" asp-validation-for="FirstName"></span>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
+                <div>
+                    <label asp-for="LastName"></label>
+                    <input type="text" class="form-control" asp-for="LastName" placeholder="Enter first name">
+                    <span class="text-danger text-14" asp-validation-for="LastName"></span>
                 </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2">
+                <div>
+                    <label asp-for="Email"></label>
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Enter email">
+                    <span class="text-danger text-14" id="emailError" asp-validation-for="Email"></span>
+                </div>
+                <div>
+                    <label asp-for="Password"></label>
+                    <input type="password" class="form-control" asp-for="Password" placeholder="Enter first name">
+                    <span class="text-danger text-14" asp-validation-for="Password"></span>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2">
+                <div>
+                    <label asp-for="PhoneNumber"></label>
+                    <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Enter phone number">
+                    <span class="text-danger text-14" asp-validation-for="PhoneNumber"></span>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2">
+                <div class="col">
+                    <label class="form-label">Select Your Country</label>
+                    <select class="form-select" asp-for="CountryId" id="countryDropdown">
+                        <option value="0" disabled selected>Select your country</option>
+                        @foreach (CountryVM country in Model.countryVMs)
+                        {
+                            <option value="@country.CountryId">@country.CountryName</option>
+                        }
+                    </select>
+                    <span class="text-danger text-14" asp-validation-for="CountryId"></span>
+                </div>
+                 <div class="col">
+                    <label class="form-label">Select Your City</label>
+                    <select class="form-select" asp-for="CityId" id="cityDropdown">
+                        <option value="0" disabled selected>Select your city</option>
+                        @foreach (CityVM city in Model.cityVMs)
+                        {
+                            <option data-id="@city.CountryId" value="@city.CityId">@city.CityName</option>
+                        }
+                    </select>
+                    <span class="text-danger text-14" asp-validation-for="CityId"></span>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2">
+                <div>
+                    <label asp-for="EmployeeId"></label>
+                    <input type="text" class="form-control" asp-for="EmployeeId" placeholder="Enter employee id">
+                </div>
+                <div>
+                    <label asp-for="Department"></label>
+                    <input type="text" class="form-control" asp-for="Department" placeholder="Enter department">
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    <div class="text-end mt-4">
+        <button type="button" id="cancelBtn" class="btn button-dark px-4">
+            Cancel
+        </button>
+        <button type="submit" class="btn button px-4">Save</button>
+    </div>
+</form>
+<partial name="_ValidationScriptsPartial"></partial>

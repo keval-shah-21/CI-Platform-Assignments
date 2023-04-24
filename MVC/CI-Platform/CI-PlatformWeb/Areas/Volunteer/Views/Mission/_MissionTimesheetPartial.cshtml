@@ -51,7 +51,9 @@
                         else if (time.ApprovalStatus == ApprovalStatus.APPROVED)
                         {
                             <td>
+                                <div class="width-max-conatent">
                                 <img src="/images/static/check-circle.svg" alt="edit" height="20px" width="20px">
+                                </div>
                             </td>
                         }
                         else
@@ -107,6 +109,19 @@
                                     <img src="/images/static/bin.png" class="deleteGoal cursor-pointer" alt="bin" height="20px" width="20px"
                                  data-id="@goal.TimesheetId">
                                 </div>
+                            </td>
+                        }else if (goal.ApprovalStatus == ApprovalStatus.APPROVED)
+                        {
+                            <td>
+                                <div class="width-max-conatent">
+                                <img src="/images/static/check-circle.svg" alt="edit" height="20px" width="20px">
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <img src="/images/static/x-circle.svg" alt="edit" height="20px" width="20px">
                             </td>
                         }
                     </tr>

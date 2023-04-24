@@ -21,7 +21,7 @@ public interface IUnitOfService
     IMissionGoalService MissionGoal{get;}
 
     IMissionMediaService MissionMedia {get;}
-
+    IMissionDocumentService MissionDocument {get;}
     IMissionRatingService MissionRating{get;}
 
     IMissionSkillService MissionSkill {get;}

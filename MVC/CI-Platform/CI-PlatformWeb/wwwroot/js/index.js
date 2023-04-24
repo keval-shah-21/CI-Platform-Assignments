@@ -109,6 +109,8 @@ const searchMission = debounce((query) => {
 });
 const query = document.querySelector("#Search");
 $(query).on('input', () => {
+    $(".spinner-border").removeClass("opacity-0");
+    $(".spinner-border").addClass("opacity-1");
     searchMission($(query).val());
 })
 $("#sortDropdown li").on("click", (e) => {
@@ -265,6 +267,8 @@ function MakeAjaxCall() {
         data: obj,
         success: (result) => {
             $('#partialViewContainer').html('');
+            $(".spinner-border").removeClass("opacity-1");
+            $(".spinner-border").addClass("opacity-0");
             $('#partialViewContainer').html(result);
             if (currentView == "grid") {
                 $(".index-list-view").addClass("d-none");

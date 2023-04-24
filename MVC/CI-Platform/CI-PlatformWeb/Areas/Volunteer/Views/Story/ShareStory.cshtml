@@ -13,13 +13,13 @@
             {
                 @foreach (StoryMediaVM sm in Model.StoryMediaVM)
                 {
-                    <input hidden name="preLoaded" value="@sm.MediaName@sm.MediaType" data-type="@sm.MediaType" data-path="@sm.MediaPath@sm.MediaName@sm.MediaType"/>
+                    <input hidden name="preLoaded" value="@sm.MediaName@sm.MediaType" data-type="@sm.MediaType" data-path="@sm.MediaPath@sm.MediaName@sm.MediaType" />
                 }
             }
-            <input hidden asp-for="StoryId" id="storyId"/>
+            <input hidden asp-for="StoryId" id="storyId" />
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col">
-                    <span> Select Mission </span>
+                    <span>Select Mission</span>
                     <select class="form-select" id="MissionId" asp-for="MissionId">
                         <option value="0" disabled selected>Select your mission</option>
                         @foreach (var mission in Model.MissionVMs)
@@ -38,7 +38,7 @@
 
             <div>
                 <label asp-for="ShortDescription">Enter Short Description</label>
-                <input type="text" id="ShortDescription" asp-for="ShortDescription" class="form-control" placeholder="Enter short description"/>
+                <input type="text" id="ShortDescription" asp-for="ShortDescription" class="form-control" placeholder="Enter short description" />
                 <span asp-validation-for="ShortDescription" class="text-danger text-14"></span>
             </div>
 

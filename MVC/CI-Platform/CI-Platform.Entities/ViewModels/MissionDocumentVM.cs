@@ -11,5 +11,7 @@
         public string? DocumentType { get; set; }
 
         public string? DocumentPath { get; set; }
+
+        public string? Title { get; set; }
     }
 }

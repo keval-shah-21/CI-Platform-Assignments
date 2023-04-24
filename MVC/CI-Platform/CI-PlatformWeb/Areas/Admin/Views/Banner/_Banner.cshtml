@@ -1,22 +1,11 @@
 ﻿@model List<BannerVM>
-<div class="border-bottom mb-4">
+<div class="border-bottom mb-3">
     <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Banner Management</h4>
 </div>
-@*<div class="d-flex justify-content-between align-items-center mb-4 gap-1">
-    <div class="flex-grow-1 d-flex gap-1 align-items-center adminSearchContainer">
-        <div class="d-flex align-items-center border border-2 rounded py-1 ps-2 gap-1 flex-grow-1">
-            <img src="/images/static/search.png" alt="search">
-            <input type="search" id="adminSearch" placeholder="Search" class="form-control border-0">
-        </div>
-        <div class="spinner-border text-secondary opacity-0" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-</div>*@
-    <button class="btn button d-flex align-items-center gap-2 mb-4 ms-auto" id="addBtn">
-        <img src="/images/static/plus.png" alt="plus">
-        Add
-    </button>
+<button class="btn button d-flex align-items-center gap-2 mb-3 ms-auto" id="addBtn">
+    <img src="/images/static/plus.png" alt="plus">
+    Add
+</button>
 <div class="table-responsive border">
     <table class="table table-hover">
         <thead>
@@ -41,8 +30,8 @@
             {
                 <tr>
                     <td>
-                        <img src="@banner.MediaPath@banner.MediaName@banner.MediaType" 
-                        height="200px" width="200px" class="object-fit-cover">
+                        <img src="@banner.MediaPath@banner.MediaName@banner.MediaType"
+                         height="200px" width="200px" class="object-fit-cover">
                     </td>
                     <td>
                         @banner.Title
@@ -70,4 +59,4 @@
         </tbody>
     </table>
 </div>
-<div class="pagination d-flex justify-content-end gap-1 px-3 my-5"></div>
+<div class="pagination d-flex justify-content-end gap-1 px-3 my-4"></div>

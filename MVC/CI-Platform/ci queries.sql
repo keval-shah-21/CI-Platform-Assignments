@@ -108,10 +108,12 @@ create table mission(
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset,
 	mission_rating tinyint default 0,
+	is_active bit default 1,
 	foreign key (mission_city) references city(city_id),
 	foreign key (mission_country) references country(country_id),
 	foreign key (mission_theme_id) references mission_theme(mission_theme_id)
 )
+
 create table mission_skill(
 	mission_skill_id bigint identity(1,1) primary key,
 	skill_id smallint not null,
@@ -183,7 +185,7 @@ create table mission_rating(
 create table mission_goal(
 	mission_goal_id bigint identity(1,1) primary key,
 	mission_id bigint,
-	goal_objective varchar(255),
+	goal_objective varchar(50),
 	goal_value int,
 	goal_achieved int,
 	created_at datetimeoffset not null default current_timestamp,
@@ -191,7 +193,6 @@ create table mission_goal(
 	deleted_at datetimeoffset,
 	foreign key (mission_id) references mission(mission_id),
 )
-
 create table story(
 	story_id bigint identity(1,1) primary key,
 	mission_id bigint not null,

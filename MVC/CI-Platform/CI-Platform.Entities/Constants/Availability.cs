@@ -1,10 +1,16 @@
-﻿namespace CI_Platform.Entities.Constants
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CI_Platform.Entities.Constants
 {
     public enum Availability
     {
-        DAILY,
-        WEEKLY,
-        WEEK_END,
-        MONTHLY
+        [Display(Name = "Daily")]
+        DAILY = 1,
+        [Display(Name = "Weekly")]
+        WEEKLY = 2,
+        [Display(Name = "Week-end")]
+        WEEK_END = 3,
+        [Display(Name = "Monthly")]
+        MONTHLY = 4
     }
 }

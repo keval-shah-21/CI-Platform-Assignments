@@ -182,11 +182,11 @@
         <div class="d-flex align-items-center translate-middle-y bg-white width-max-conatent mx-auto gap-1">
             @for (byte i = 0; i < @userRate; i++)
             {
-                <img src="/images/static/selected-star.png" data-star="i" alt="selected-star" height="30px" width="32px">
+                <img src="/images/static/selected-star.png" data-star="i" alt="selected-star" class="cursor-pointer" height="30px" width="32px">
             }
             @for (byte i = 0; i < 5 - @userRate; i++)
             {
-                <img src="/images/static/star.png" alt="star" data-star="i" height="30px" width="32px">
+                <img src="/images/static/star.png" alt="star" data-star="i" class="cursor-pointer" height="30px" width="32px">
             }
         </div>
         <div class="row g-3 row-cols-2 row-cols-md-4">
@@ -224,7 +224,13 @@
                             Date
                         </div>
                         <div class="text-15">
-                            Ongoing Opportunity
+                            From @Model.StartDate?.ToString("d")
+                            @if (Model.EndDate != null)
+                            {
+                                <span>
+                                    Until @Model.EndDate?.ToString("d")
+                                </span>
+                            }
                         </div>
                     </div>
                 </div>
@@ -310,7 +316,7 @@
                 <p class="text-15 fw-light text-secondary">
                     @if (Model.OrganizationDetails != null)
                     {
-                        @Model.OrganizationDetails
+                        @Html.Raw(Model.OrganizationDetails)
                     }
                     else
                     {
@@ -350,22 +356,7 @@
                 </div>
                 <div class="d-flex gap-4 text-15 fw-light text-secondary border-bottom py-3">
                     <span>Days</span>
-                    @if (@Model.Availability == Availability.DAILY)
-                    {
-                        <div>Daily</div>
-                    }
-                    else if (@Model.Availability == Availability.MONTHLY)
-                    {
-                        <div>Monthly</div>
-                    }
-                    else if (@Model.Availability == Availability.WEEK_END)
-                    {
-                        <div>Week end only</div>
-                    }
-                    else
-                    {
-                        <div>Weekly</div>
-                    }
+                    <div>@Html.DisplayFor(model => Model.Availability)</div>
                 </div>
                 <div id="MissionRatingContainer">
                     <partial name="_MissionRating"></partial>
@@ -421,6 +412,6 @@
 <partial name="_Footer"></partial>
 
 @section Scripts{
-    <script src="/js/sweetAlerts.js"></script>
+<script src="/js/sweetAlerts.js"></script>
 <script src="/js/missionDetails.js"></script>
 }

@@ -3,7 +3,7 @@
     ViewData["Title"] = "Login";
 }
 <main class="d-flex flex-column flex-lg-row">
-    <partial name="_HeroSectionCarousel"></partial>
+    <partial name="_HeroSectionCarousel" model="@Model.bannerVMs"></partial>
     <section class="right-section d-flex flex-column gap-3 justify-content-center align-items-center p-5 p-lg-0">
         <span class="text-danger text-14"></span>
         <form method="post" asp-route="LoginPost" class="login-form d-grid gap-4">

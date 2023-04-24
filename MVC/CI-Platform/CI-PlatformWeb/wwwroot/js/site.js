@@ -3,6 +3,20 @@
 
 // Write your JavaScript code.
 
+const drop = document.querySelector(".cms-dropdown");
+if (drop != null) {
+    $.ajax({
+        url: "/Volunteer/Cms/GetCmsList",
+        success: (result) => {
+            for (var cms of result) {
+                drop.innerHTML += `<li><a href="/Volunteer/Cms/CmsPage/${cms.cmsPageId}" class="dropdown-item">${cms.title}</a></li>`;
+            }
+        },
+        error: error => {
+            console.log(error);
+        }
+    });
+}
 $('#logoutBtn').click(() => {
     Swal.fire({
         title: 'Are you sure?',

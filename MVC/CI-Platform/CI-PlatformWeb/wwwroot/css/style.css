@@ -380,8 +380,8 @@ form input:focus {
     max-height: 25rem;
 }
 
-#storyImage, #missionImage{
-    max-height : 380px;
+#storyImage, #missionImage {
+    max-height: 380px;
 }
 /* story list page */
 .sl-top {
@@ -457,23 +457,31 @@ form input:focus {
 .active-navitem {
     color: var(--light-orange) !important;
 }
-.active-privacy{
+
+.active-privacy {
     color: var(--dark-gray) !important;
     font-weight: 500;
-}   
+}
 /*admin css*/
 .sidebar {
     width: 270px;
-    height: 100vh;
-    position: absolute;
+    min-height: 100vh;
+    max-height: 100% !important;
+    position: fixed;
     transform: translateX(-100%);
     z-index: 4;
     background-color: var(--light-orange);
     transition: 0.2s all linear;
 }
-@media(min-width: 1400px){
-    .sidebar{
+
+@media(min-width: 1400px) {
+    .sidebar {
         width: 330px;
+    }
+}
+@media(min-width: 768px) {
+    .sidebar {
+        width: 285px;
     }
 }
 @media(min-width: 992px) {
@@ -482,29 +490,40 @@ form input:focus {
         transform: translateX(0);
         width: 300px;
     }
+
     .overlay {
         display: none;
     }
 }
+
 .sidebar-open {
     transform: translateX(0);
     transition: 0.3s all linear;
 }
-[data-item]:hover{
+
+[data-item]:hover {
     border: 1px solid white;
 }
-.active-sidebar-item{
+
+.active-sidebar-item {
     background-color: white;
     color: var(--light-orange) !important;
 }
+
 .overlay {
     inset: 0;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
     z-index: 3;
 }
+
 .adminSearchContainer {
     max-width: 28rem !important;
 }
+#adminSearch:focus, #Search:focus {
+    outline-color: transparent !important;
+    box-shadow: none !important;
+}
+
 .PENDING {
     color: #007bff;
 }
@@ -523,11 +542,13 @@ form input:focus {
     border-radius: 50rem;
     color: var(--light-orange);
 }
+
     .button-plain:hover {
         background-color: var(--light-orange);
         color: white;
     }
-    .active-button-plain {
-        background-color: var(--light-orange);
-        color: white;
-    }
+
+.active-button-plain {
+    background-color: var(--light-orange);
+    color: white;
+}

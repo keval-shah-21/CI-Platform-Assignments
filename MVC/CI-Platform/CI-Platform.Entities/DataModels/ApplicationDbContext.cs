@@ -189,7 +189,7 @@ public partial class ApplicationDbContext : DbContext
                 .HasDefaultValueSql("((1))")
                 .HasColumnName("status");
             entity.Property(e => e.Title)
-                .HasMaxLength(255)
+                .HasMaxLength(80)
                 .IsUnicode(false)
                 .HasColumnName("title");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
@@ -318,6 +318,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.EndDate).HasColumnName("end_date");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("is_active");
             entity.Property(e => e.MissionCity).HasColumnName("mission_city");
             entity.Property(e => e.MissionCountry).HasColumnName("mission_country");
             entity.Property(e => e.MissionRating).HasColumnName("mission_rating");

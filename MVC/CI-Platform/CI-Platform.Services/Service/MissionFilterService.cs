@@ -6,14 +6,9 @@ namespace CI_Platform.Services.Service
 {
     public class MissionFilterService : IMissionFilterService
     {
-        public static List<MissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId, IUnitOfWork _unitOfWork)
+        public static List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId, IUnitOfWork _unitOfWork)
         {
-            List<MissionVM> missionVM = new MissionService(_unitOfWork).GetAllMissions();
-            List<CityVM> cityVM = new CityService(_unitOfWork).GetAll();
-            List<CountryVM> countryVM = new CountryService(_unitOfWork).GetAll();
-            List<MissionThemeVM> missionThemeVM = new MissionThemeService(_unitOfWork).GetAll();
-            List<MissionSkillVM> missionSkillVM = new MissionSkillService(_unitOfWork).GetAll();
-            List<SkillVM> skillVM = new SkillService(_unitOfWork).GetAll();
+            List<IndexMissionVM> missionVM = new MissionService(_unitOfWork).GetAllIndexMissions();
 
             if (!string.IsNullOrEmpty(search))
             {
@@ -43,11 +38,11 @@ namespace CI_Platform.Services.Service
 
             if (sort == 1)
             {
-                missionVM = missionVM.OrderBy(m => m.SeatsLeft == null).ThenByDescending(mission => mission.StartDate).ToList();
+                missionVM = missionVM.OrderByDescending(mission => mission.StartDate).ToList();
             }
             else if (sort == 2)
             {
-                missionVM = missionVM.OrderBy(m => m.SeatsLeft == null).ThenBy(mission => mission.StartDate).ToList();
+                missionVM = missionVM.OrderBy(mission => mission.StartDate).ToList();
             }
             else if (sort == 3)
             {
@@ -68,7 +63,7 @@ namespace CI_Platform.Services.Service
             }
             else if (sort == 6)
             {
-                missionVM = missionVM.OrderBy(m => m.SeatsLeft == null).ThenByDescending(mission => mission.RegistrationDeadline).ToList();
+                missionVM = missionVM.OrderBy(m => m.RegistrationDeadline == null).ThenByDescending(mission => mission.RegistrationDeadline).ToList();
             }
             return missionVM;
         }

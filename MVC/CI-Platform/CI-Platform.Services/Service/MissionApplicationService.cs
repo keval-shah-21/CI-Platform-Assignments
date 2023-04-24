@@ -15,14 +15,12 @@ public class MissionApplicationService : IMissionApplicationService
     {
         _unitOfWork = unitOfWork;
     }
-    public List<MissionApplicationVM> GetAll()
+    public List<MissionApplicationVM> GetAllAdmin()
     {
-        IEnumerable<MissionApplication> obj = _unitOfWork.MissionApplication.GetAll();
-        if (obj == null) return null!;
-        return obj.Select(ma => ConvertMissionApplicationToVM(ma)
+        IEnumerable<MissionApplication> obj = _unitOfWork.MissionApplication.GetAllAdmin();
+        return obj.Select(ma => ConvertToVMAdmin(ma)
         ).ToList();
     }
-
     public List<MissionApplicationVM> GetAllWithInclude()
     {
         IEnumerable<MissionApplication> obj = _unitOfWork.MissionApplication.GetAllWithInclude();
@@ -32,9 +30,23 @@ public class MissionApplicationService : IMissionApplicationService
     }
     public MissionApplicationVM GetById(long id)
     {
-        return ConvertMissionApplicationToVM(_unitOfWork.MissionApplication.GetFirstOrDefaultWithInclude(m => m.MissionApplicationId == id));
+        return ConvertToVMAdmin(_unitOfWork.MissionApplication.GetFirstOrDefaultWithInclude(m => m.MissionApplicationId == id));
     }
     public static MissionApplicationVM ConvertMissionApplicationToVM(MissionApplication ma)
+    {
+        return new MissionApplicationVM()
+        {
+            MissionApplicationId = ma.MissionApplicationId,
+            MissionId = ma.MissionId,
+            MissionName = ma.Mission.Title,
+            UserId = ma.UserId,
+            AppliedAt = ma.AppliedAt,
+            ApprovalStatus = (ApprovalStatus)ma.ApprovalStatus,
+            UserName = ma.User?.FirstName + " " + ma.User?.LastName,
+            Avatar = ma.User?.Avatar,
+        };
+    }
+    public static MissionApplicationVM ConvertToVMAdmin(MissionApplication ma)
     {
         return new MissionApplicationVM()
         {
@@ -62,9 +74,12 @@ public class MissionApplicationService : IMissionApplicationService
             Department = user.Department,
             LinkedInUrl = user.LinkedInUrl,
             EmployeeId = user.EmployeeId,
-            Availability = user.Availability,
+            Availability = (Availability)user.Availability,
             CityId = user.CityId,
+            CityName = user.City.CityName,
+            CountryName = user.Country.CountryName,
             CountryId = user.CountryId,
+            UserSkillVMs = user.UserSkills.Select(us => UserSkillService.ConvertUserSkillToVM(us)).ToList(),
         };
     }
     public void ApplyMission(long missionId, long userId)
@@ -84,13 +99,13 @@ public class MissionApplicationService : IMissionApplicationService
     }
     public List<MissionApplicationVM> Search(string? query)
     {
-        IEnumerable<MissionApplication> apps = _unitOfWork.MissionApplication.GetAllWithInclude();
+        IEnumerable<MissionApplication> apps = _unitOfWork.MissionApplication.GetAllAdmin();
 
-        return string.IsNullOrEmpty(query) ? apps.Select(s => ConvertMissionApplicationToVM(s)).ToList()
+        return string.IsNullOrEmpty(query) ? apps.Select(s => ConvertToVMAdmin(s)).ToList()
             : apps
                 .Where(s => s.Mission.Title.ToLower().Contains(query.ToLower()) ||
                         (s.User.FirstName.ToLower() + ' ' + s.User.LastName.ToLower()).Contains(query.ToLower()))
-                .Select(s => ConvertMissionApplicationToVM(s))
+                .Select(s => ConvertToVMAdmin(s))
                 .ToList();
     }
     public void CancelMission(long missionId, long userId)

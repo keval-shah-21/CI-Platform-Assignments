@@ -1,6 +1,116 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-m
+﻿@using CI_Platform.Entities.Constants
+@model IEnumerable<AdminMissionVM>
+</style>
+<div class="border-bottom mb-4">
+    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Goal Timesheet</h4>
+</div>
+<div class="d-flex justify-content-between align-items-center mb-4 gap-2 flex-wrap">
+    <div class="flex-grow-1 d-flex gap-1 align-items-center adminSearchContainer">
+        <div class="d-flex align-items-center border border-2 rounded py-1 ps-2 gap-1 flex-grow-1">
+            <img src="/images/static/search.png" alt="search">
+            <input type="search" id="adminSearch" placeholder="Search" class="form-control border-0">
+        </div>
+        <div class="spinner-border text-secondary opacity-0" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="d-flex gap-1 flex-wrap justify-content-center">
+        <button class="btn button d-flex align-items-center gap-2 flex-shrink-0" id="addTimeBtn">
+            <img src="/images/static/plus.png" alt="plus">
+            Add Time Mission
+        </button>
+        <button class="btn button d-flex align-items-center gap-2 flex-shrink-0" id="addGoalBtn">
+            <img src="/images/static/plus.png" alt="plus">
+            Add Goal Mission
+        </button>
+    </div>
+</div>
+<div class="table-responsive border">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Mission Title</th>
+                <th>Mission Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.LongCount() == 0)
+            {
+                <tr>
+                    <td colspan="100%">
+                        <div class="text-center py-3">No missions found.</div>
+                    </td>
+                </tr>
+            }
+            @foreach (AdminMissionVM m in Model)
+            {
+                <tr>
+                    <td>
+                        @m.Title
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => m.MissionType)
+                    </td>
+                    <td>
+                        @m.StartDate?.ToString("d")
+                    </td>
+                    @if (m.EndDate == null)
+                    {
+                        <td class="text-center">
+                            -
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @m.EndDate?.ToString("d")
+                        </td>
+                    }
+                    <td>
+                        @m.CityName
+                    </td>
+                    <td>
+                        @m.CountryName
+                    </td>
+                    @if (m.IsActive == false)
+                    {
+                        <td class="text-danger">Not Active</td>
+                    }
+                    else
+                    {
+                        <td class="text-success">Active</td>
+                    }
+                    <td>
+                        <div class="width-max-conatent">
+                            <button data-view="@m.MissionId" class="btn button-plain text-14 px-3 py-1 me-2">View</button>
+                            <img src="/images/static/editing.png"
+                             class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                             height="20px" width="20px"
+                             data-type="@m.MissionType"
+                             data-edit="@m.MissionId">
+                            @if (m.IsActive == true)
+                            {
+                                <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent"
+                             alt="bin" height="20px" width="20px"
+                             data-deactivate="@m.MissionId">
+                            }
+                            else
+                            {
+                                <img src="/images/static/arrow-clockwise.svg" class="cursor-pointer d-inline width-max-conatent"
+                             alt="bin" height="20px" width="20px"
+                             data-activate="@m.MissionId">
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination d-flex justify-content-end gap-1 px-3 my-4"></div>

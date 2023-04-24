@@ -16,9 +16,26 @@ public class MissionGoalService : IMissionGoalService
     public List<MissionGoalVM> GetAll()
     {
         IEnumerable<MissionGoal> obj = _unitOfWork.MissionGoal.GetAll();
-        if(obj == null) return null!;
         return obj.Select(mg => ConvertMissionGoalToVM(mg)
         ).ToList();
+    }
+    public void AddMissionGoal(MissionGoalVM mg)
+    {
+        _unitOfWork.MissionGoal.Add(new MissionGoal()
+        {
+            GoalObjective = mg.GoalObjective,
+            GoalAchieved = 0,
+            GoalValue = mg.GoalValue,
+            CreatedAt = DateTimeOffset.Now,
+            MissionId = mg.MissionId,
+        });
+    }
+    public void UpdateMissionGoal(MissionGoalVM missionGoal)
+    {
+        MissionGoal mg = _unitOfWork.MissionGoal.GetFirstOrDefault(m => m.MissionGoalId == missionGoal.MissionGoalId);
+        mg.GoalObjective = missionGoal.GoalObjective;
+        mg.GoalValue = missionGoal.GoalValue;
+        mg.UpdatedAt = DateTimeOffset.Now;
     }
     public void UpdateGoalAchieved(long id, int? value)
     {

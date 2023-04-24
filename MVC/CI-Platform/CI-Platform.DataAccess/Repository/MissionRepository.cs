@@ -1,5 +1,6 @@
 using CI_Platform.DataAccess.Repository.Interface;
 using CI_Platform.Entities.DataModels;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -7,8 +8,10 @@ namespace CI_Platform.DataAccess.Repository;
 
 public class MissionRepository : Repository<Mission>, IMissionRepository
 {
+    private readonly ApplicationDbContext _context;
     public MissionRepository(ApplicationDbContext context) : base(context)
     {
+        _context = context;
     }
     public override IEnumerable<Mission> GetAll()
     {
@@ -26,7 +29,7 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
         .ToList();
     }
 
-    public override Mission GetFirstOrDefault(Expression<Func<Mission, bool>> filter)
+    public Mission GetFirstOrDefaultWithInclude(Expression<Func<Mission, bool>> filter)
     {
         return dbSet
         .Include(m => m.MissionMedia)
@@ -44,5 +47,13 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
         .Include(m => m.MissionRatings)
         .Include(m => m.MissionDocuments)
         .FirstOrDefault(filter)!;
+    }
+
+    public void UpdateStatus(long id, int value)
+    {
+        SqlParameter idParameter = new SqlParameter("@id", id);
+        SqlParameter activeParameter = new SqlParameter("@value", value);
+
+        _context.Database.ExecuteSqlRaw("UPDATE mission SET is_active = @value WHERE mission_id = @id", activeParameter, idParameter);
     }
 }

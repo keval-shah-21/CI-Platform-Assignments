@@ -52,28 +52,30 @@
                         @(story.PublishedAt?.ToString("d") ?? "-")
                     </td>
                     <td>
-                        <a asp-action="ViewStory" target="_blank" asp-route-id="@story.StoryId" class="btn button-plain text-14 px-3 py-1">View</a>
-                        @if (story.ApprovalStatus == ApprovalStatus.DECLINED)
-                        {
-                            <img src="/images/static/arrow-clockwise.svg" class="cursor-pointer d-inline width-max-conatent"
-                         alt="bin" height="25px" width="25px" data-restore="@story.StoryId">
-                        }
-                        else if (story.ApprovalStatus == ApprovalStatus.PENDING)
-                        {
-                            <img src="/images/static/check-circle.svg" class="cursor-pointer d-inline width-max-conatent me-1"
-                         alt="bin" height="25px" width="25px" data-accept="@story.StoryId">
-                        }
-                        @if (story.ApprovalStatus != ApprovalStatus.DECLINED)
-                        {
-                        <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent me-1"
-                         alt="bin" height="25px" width="25px" data-decline="@story.StoryId">
-                        }
-                        <img src="/images/static/bin.png" class="cursor-pointer d-inline width-max-conatent"
-                         alt="bin" height="22px" width="22px" data-delete="@story.StoryId">
+                        <div class="width-max-conatent">
+                            <a asp-action="ViewStory" target="_blank" asp-route-id="@story.StoryId" class="btn button-plain text-14 px-3 py-1">View</a>
+                            @if (story.ApprovalStatus == ApprovalStatus.DECLINED)
+                            {
+                                <img src="/images/static/arrow-clockwise.svg" class="cursor-pointer d-inline width-max-conatent"
+                             alt="bin" height="25px" width="25px" data-restore="@story.StoryId">
+                            }
+                            else if (story.ApprovalStatus == ApprovalStatus.PENDING)
+                            {
+                                <img src="/images/static/check-circle.svg" class="cursor-pointer d-inline width-max-conatent me-1"
+                             alt="bin" height="25px" width="25px" data-accept="@story.StoryId">
+                            }
+                            @if (story.ApprovalStatus != ApprovalStatus.DECLINED)
+                            {
+                                <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent me-1"
+                             alt="bin" height="25px" width="25px" data-decline="@story.StoryId">
+                            }
+                            <img src="/images/static/bin.png" class="cursor-pointer d-inline width-max-conatent"
+                             alt="bin" height="22px" width="22px" data-delete="@story.StoryId">
+                        </div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-<div class="pagination d-flex justify-content-end gap-1 px-3 my-5"></div>
+<div class="pagination d-flex justify-content-end gap-1 px-3 my-4"></div>

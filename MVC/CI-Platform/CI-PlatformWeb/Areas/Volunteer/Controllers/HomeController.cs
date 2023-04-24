@@ -20,7 +20,7 @@ public class HomeController : Controller
 
     public IActionResult Index(string? profileSuccess, string? registered)
     {
-        List<MissionVM> missionVM = _unitOfService.Mission.GetAllMissions();
+        List<IndexMissionVM> missionVM = _unitOfService.Mission.GetAllIndexMissions();
         ViewBag.ProfileSuccess = profileSuccess;
         ViewBag.Registered = registered;
         return View(new IndexHeaderVM()
@@ -39,7 +39,7 @@ public class HomeController : Controller
         if(HttpContext.Session.GetString("UserId") != null){
             userId = long.Parse(HttpContext.Session.GetString("UserId"));
         }
-        List<MissionVM> missionVMs = _unitOfService.Mission.FilterMissions(country, city, theme, skill, search, sort, userId);
+        List<IndexMissionVM> missionVMs = _unitOfService.Mission.FilterMissions(country, city, theme, skill, search, sort, userId);
         ViewBag.TotalMissions = missionVMs.LongCount();
         missionVMs = missionVMs.Skip((page - 1) * 9).Take(9).ToList();
         return PartialView("_IndexMissions", missionVMs);

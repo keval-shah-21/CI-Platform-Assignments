@@ -7,10 +7,12 @@ namespace CI_PlatformWeb.Areas.Admin.Controllers;
 public class UserController : Controller
 {
     private readonly IUnitOfService _unitOfService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public UserController(IUnitOfService unitOfService)
+    public UserController(IUnitOfService unitOfService, IWebHostEnvironment webHostEnvironment)
     {
         _unitOfService = unitOfService;
+        _webHostEnvironment = webHostEnvironment;
     }
     public IActionResult LoadUserPage()
     {
@@ -29,18 +31,97 @@ public class UserController : Controller
 
     public IActionResult ActivateUser(string email)
     {
-        try { 
+        try
+        {
             _unitOfService.User.ActivateUserByEmail(email);
             List<UserVM> users = _unitOfService.User.GetAll().ToList();
             return PartialView("_User", users);
         }
-        catch(Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine("Error activating user: " + e.Message);
             Console.WriteLine(e.StackTrace);
             return StatusCode(500);
         }
     }
+    public IActionResult AddUser()
+    {
+        UserAdminVM user = new()
+        {
+            cityVMs = _unitOfService.City.GetAll(),
+            countryVMs = _unitOfService.Country.GetAll()
+        };
+        return PartialView("_AddUser", user);
+    }
+    [HttpPost]
+    public IActionResult AddUser(UserAdminVM user, IFormFile? profileInput)
+    {
+        try
+        {
+            if (_unitOfService.User.GetFirstOrDefaultByEmail(user.Email) == null)
+            {
+                if (profileInput == null)
+                    user.Avatar = @"\images\static\default-profile.webp";
+                else
+                {
+                    string wwwRootPath = _webHostEnvironment.WebRootPath;
+                    user.Avatar = _unitOfService.User.SaveProfileImage(wwwRootPath, profileInput);
+                }
+                _unitOfService.User.AddUserAdmin(user);
+                _unitOfService.Save();
+                return StatusCode(200);
+            }
+            return NoContent();
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
+    }
 
+    public void SendAccountMail(string email, string password)
+    {
+        string token = Guid.NewGuid().ToString();
+        var url = Url.Action("Login", "User", new { area = "Volunteer", email = email, token = token }, "https");
+
+        _unitOfService.User.SaveVerifyAccountDetails(email, token);
+        _unitOfService.User.SendAccountCreatedMail(email, password, url);
+    }
+    public IActionResult EditUser(long id)
+    {
+        try
+        {
+            UserAdminVM userVM = _unitOfService.User.GetFirstOrDefaultUserAdmin(id);
+            userVM.cityVMs = _unitOfService.City.GetAll();
+            userVM.countryVMs = _unitOfService.Country.GetAll();
+            return PartialView("_EditUser", userVM);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
+    }
+    [HttpPut]
+    public IActionResult EditUser(UserAdminVM user, IFormFile? profileInput)
+    {
+        try
+        {
+            if (profileInput != null)
+            {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                _unitOfService.User.RemoveProfileImage(wwwRootPath, user.Avatar);
+                user.Avatar = _unitOfService.User.SaveProfileImage(wwwRootPath, profileInput);
+            }
+            _unitOfService.User.UpdateUserAdmin(user);
+
+            _unitOfService.Save();
+            return NoContent();
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
+    }
     public IActionResult DeactivateUser(string email)
     {
         try

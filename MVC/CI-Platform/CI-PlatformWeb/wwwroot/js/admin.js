@@ -3,7 +3,7 @@ const partialModalContainer = $('#partialModalContainer');
 let currentSidebarItem = document.querySelector("[data-item='cms']");
 const sidebarItems = document.querySelectorAll("[data-item]");
 
-loadIntialPartial("/Admin/Cms/LoadCmsPage", "cms");
+loadInitialPartial("/Admin/Cms/LoadCmsPage", "cms");
 addSidebarEvents();
 toggleSidebarCSS(currentSidebarItem);
 
@@ -85,67 +85,449 @@ function addSidebarEvents() {
             $(".btn-close").click();
             if (currentSidebarItem.dataset.item == item.dataset.item) return;
             toggleSidebarCSS(item);
+            window.scroll(0, 0);
             switch (item.dataset.item) {
                 case "user":
-                    loadIntialPartial("/Admin/User/LoadUserPage", item.dataset.item);
+                    loadInitialPartial("/Admin/User/LoadUserPage", item.dataset.item);
                     break;
                 case "cms":
-                    loadIntialPartial("/Admin/Cms/LoadCmsPage", item.dataset.item);
+                    loadInitialPartial("/Admin/Cms/LoadCmsPage", item.dataset.item);
                     break;
                 case "mission":
-                    loadIntialPartial("/Admin/Mission/LoadMissionPage", item.dataset.item);
+                    loadInitialPartial("/Admin/Mission/LoadMissionPage", item.dataset.item);
                     break;
                 case "theme":
-                    loadIntialPartial("/Admin/Theme/LoadThemePage", item.dataset.item);
+                    loadInitialPartial("/Admin/Theme/LoadThemePage", item.dataset.item);
                     break;
                 case "skill":
-                    loadIntialPartial("/Admin/Skill/LoadSkillPage", item.dataset.item);
+                    loadInitialPartial("/Admin/Skill/LoadSkillPage", item.dataset.item);
                     break;
                 case "application":
-                    loadIntialPartial("/Admin/Application/LoadApplicationPage", item.dataset.item);
+                    loadInitialPartial("/Admin/Application/LoadApplicationPage", item.dataset.item);
                     break;
                 case "timesheet":
-                    loadIntialPartial("/Admin/Timesheet/LoadTimesheetPage", item.dataset.item);
+                    loadInitialPartial("/Admin/Timesheet/LoadTimesheetPage", item.dataset.item);
                     break;
                 case "story":
-                    loadIntialPartial("/Admin/Story/LoadStoryPage", item.dataset.item);
+                    loadInitialPartial("/Admin/Story/LoadStoryPage", item.dataset.item);
                     break;
                 case "banner":
-                    loadIntialPartial("/Admin/Banner/LoadBannerPage", item.dataset.item);
+                    loadInitialPartial("/Admin/Banner/LoadBannerPage", item.dataset.item);
                     break;
                 case "contact":
-                    loadIntialPartial("/Admin/Contact/LoadContactPage", item.dataset.item);
+                    loadInitialPartial("/Admin/Contact/LoadContactPage", item.dataset.item);
                     break;
             }
         })
     })
 }
-function setSidebarHeight() {
-    const adminRight = $(".admin-right").outerHeight();
-    const sidebar = $(".sidebar").outerHeight();
-    if (adminRight > sidebar) {
-        $(".sidebar").outerHeight(adminRight);
+
+let files = [];
+let documents = [];
+function validateMissionForm() {
+    let error = false;
+
+    if (tinymce.get("tiny").getContent() == null || tinymce.get("tiny").getContent() == "") {
+        $('#descriptionError').text("The description field is required.");
+        error = true;
+    } else
+        $('#descriptionError').text("");
+
+    if (files.length == 0) {
+        $('#mediaError').text("Please upload at least one image.");
+        error = true;
+    } else
+        $('#mediaError').text("");
+
+    const skills = $('#MissionSkills option:selected').length;
+    if (skills == 0) {
+        $('#skillError').text("Please select at least one skill.");
+        error = true;
     } else {
-        $(".sidebar").outerHeight('100vh');
+        $('#skillError').text("");
+    }
+    return error;
+}
+function setImageInput() {
+    let myFileList = new DataTransfer();
+    files.forEach(function (file) {
+        myFileList.items.add(file);
+    });
+    document.querySelector("#ImagesInput").files = myFileList.files;
+}
+function setDocsInput() {
+    let myFileList = new DataTransfer();
+    documents.forEach(function (file) {
+        myFileList.items.add(file);
+    });
+    document.querySelector("#DocumentsInput").files = myFileList.files;
+}
+function addMissionEvents() {
+    $("#addTimeBtn").click(() => {
+        $.ajax({
+            url: "/Admin/Mission/AddTimeMission",
+            success: (result) => {
+                partialContainer.html(result);
+                $.getScript("/js/tinymceScript.js");
+                addMissionFormEvents("/Admin/Mission/AddTimeMission", "post", (_) => {
+                    simpleAlert("Successfully added the mission!", "success");
+                    loadInitialPartial("/Admin/Mission/LoadMissionPage", "mission");
+                });
+            },
+            error: (error) => {
+                console.log(error);
+                simpleAlert("Something went wrong!", "error");
+            }
+        });
+    })
+    $("#addGoalBtn").click(() => {
+        $.ajax({
+            url: "/Admin/Mission/AddGoalMission",
+            success: (result) => {
+                partialContainer.html(result);
+                $.getScript("/js/tinymceScript.js");
+                addMissionFormEvents("/Admin/Mission/AddGoalMission", "post", (_) => {
+                    simpleAlert("Successfully added the mission!", "success");
+                    loadInitialPartial("/Admin/Mission/LoadMissionPage", "mission");
+                });
+            },
+            error: (error) => {
+                console.log(error);
+                simpleAlert("Something went wrong!", "error");
+            }
+        });
+    })
+}
+function missionTableEvents() {
+    document.querySelectorAll("[data-edit]").forEach((edit) => {
+        edit.addEventListener("click", () => {
+            const type = edit.getAttribute("data-type");
+            let url = '';
+            if (type == "TIME") {
+                url = "/Admin/Mission/EditTimeMission";
+            } else {
+                url = "/Admin/Mission/EditGoalMission";
+            }
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: { id: $(edit).data("edit") },
+                success: (result) => {
+                    partialContainer.html(result);
+                    $.getScript("/js/tinymceScript.js");
+                    if (type == "TIME") {
+                        addMissionFormEvents("/Admin/Mission/EditTimeMission", "put", (_) => {
+                            simpleAlert("Successfully updated the mission!", "success");
+                            loadInitialPartial("/Admin/Mission/LoadMissionPage", "mission");
+                        });
+                    } else {
+                        addMissionFormEvents("/Admin/Mission/EditGoalMission", "put", (_) => {
+                            simpleAlert("Successfully updated the mission!", "success");
+                            loadInitialPartial("/Admin/Mission/LoadMissionPage", "mission");
+                        });
+                    }
+                },
+                error: (error) => {
+                    console.log(error);
+                    simpleAlert("Something went wrong!", "error");
+                }
+            });
+        })
+    });
+    document.querySelectorAll("[data-activate]").forEach((act) => {
+        act.addEventListener("click", () => {
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#5cb85c',
+                confirmButtonText: 'Yes, Activate!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Mission/UpdateStatus",
+                        method: "PUT",
+                        data: { id: $(act).data("activate"), value: 1 },
+                        success: (_) => {
+                            simpleAlert("Successfully activated the mission!", "success");
+                            loadInitialPartial("/Admin/Mission/LoadMissionPage", "mission");
+                        },
+                        error: error => {
+                            console.log(error);
+                            simpleAlert("Something went wrong!", "error");
+                        }
+                    });
+                }
+            })
+        })
+    });
+    document.querySelectorAll("[data-deactivate]").forEach((act) => {
+        act.addEventListener("click", () => {
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'question',
+                text: "User won't be able to login after this!",
+                showCancelButton: true,
+                confirmButtonColor: '#df4759',
+                confirmButtonText: 'Yes, Deactivate!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Mission/UpdateStatus",
+                        method: "PUT",
+                        data: { id: $(act).data("deactivate"), value: 0 },
+                        success: (_) => {
+                            simpleAlert("Successfully deactivated the mission!", "success");
+                            loadInitialPartial("/Admin/Mission/LoadMissionPage", "mission");
+                        },
+                        error: error => {
+                            console.log(error);
+                            simpleAlert("Something went wrong!", "error");
+                        }
+                    });
+                }
+            })
+        })
+    });
+}
+function addMissionFormEvents(url, method, successCB) {
+    files = [];
+    documents = [];
+    handleImagesEvents(true);
+    handleDropdownEvents();
+    $("#cancelBtn").click(() => loadInitialPartial("/Admin/Mission/LoadMissionPage", "mission"))
+    $("#MissionForm").on("submit", (e) => {
+        e.preventDefault();
+
+        let isValid = $("#MissionForm").valid();
+        if (validateMissionForm() || !isValid) return;
+        setImageInput();
+
+        const formData = new FormData($("#MissionForm")[0])
+        formData.set("Description", tinymce.get("tiny").getContent());
+        $.ajax({
+            url: url,
+            method: method,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: successCB,
+            error: error => {
+                console.log(error);
+                simpleAlert("Something went wrong!", "error");
+            }
+        });
+    })
+}
+function handleDropdownEvents() {
+    if ($('countryDropdown').val() != 0) {
+        const countryId = $("#countryDropdown").val();
+        document.querySelectorAll('#cityDropdown option').forEach(city => {
+            if ($(city).data('id') == countryId) {
+                $(city).removeClass("d-none");
+            } else {
+                $(city).addClass("d-none");
+            }
+        })
+    }
+    $('#countryDropdown').on("change", e => {
+        if ($("#cityDropdown").val() != e.currentTarget.value) {
+            $('#cityDropdown').val(0);
+        }
+        document.querySelectorAll('#cityDropdown option').forEach(city => {
+            if ($(city).data('id') == e.currentTarget.value) {
+                $(city).removeClass("d-none");
+            } else {
+                $(city).addClass("d-none");
+            }
+        })
+    })
+}
+function handleImagesEvents(isEdit) {
+    const dragarea = document.querySelector(".dragarea");
+    const imagesInput = document.querySelector("#ImagesInput");
+    const selectedImages = document.querySelector(".selected-images");
+    dragarea.addEventListener("click", () => imagesInput.click())
+
+    imagesInput.addEventListener("change", () => {
+        let file = imagesInput.files;
+        // if user select no image
+        if (file.length == 0) return;
+
+        for (let i = 0; i < file.length; i++) {
+            if (file[i].type.split("/")[0] != "image") continue;
+            if (!files.some((e) => e.name == file[i].name)) {
+                files.push(file[i]);
+                showImage(URL.createObjectURL(file[i]), files.length - 1)
+            }
+        }
+        addEvents();
+    });
+    dragarea.addEventListener("dragover", e => e.preventDefault());
+    dragarea.addEventListener("dragenter", e => e.preventDefault());
+    dragarea.addEventListener("drop", e => {
+        e.preventDefault();
+        let file = e.dataTransfer.files;
+        for (let i = 0; i < file.length; i++) {
+            /** Check selected file is image */
+            if (file[i].type.split("/")[1] != "png" && file[i].type.split("/")[1] != "jpg" && file[i].type.split("/")[1] != "jpeg") continue;
+            if (!files.some((e) => e.name == file[i].name)) {
+                files.push(file[i]);
+                showImage(URL.createObjectURL(file[i]), files.length - 1)
+            }
+        }
+        addEvents();
+    });
+    function showImage(src, index) {
+        selectedImages.innerHTML += `<div class="position-relative">
+        <img src="${src}" alt="story image" class="object-fit-cover" height="90px" width="90px" />
+        <div class="position-absolute top-0 end-0 p-1 bg-dark cursor-pointer" data-img="${index}">
+          <img src="/images/static/cross.png" alt="cross" height="10px"/>
+        </div>`;
+    }
+    function resetData() {
+        Array.from(document.querySelectorAll(`[data-img]`)).forEach((element, i) => {
+            $(element).data("img", i);
+        })
+    }
+    function addEvents() {
+        Array.from(document.querySelectorAll(`[data-img]`)).forEach(img => {
+            $(img).click(() => {
+                files.splice($(img).data('img'), 1)
+                $(img).parent().remove();
+                resetData();
+            })
+        });
+    }
+
+    documentsInput = document.querySelector("#DocumentsInput");
+    selectedDocuments = document.querySelector(".selected-documents");
+    documentsInput.addEventListener("change", () => {
+        selectedDocuments.innerHTML = '';
+        const documents = documentsInput.files;
+        for (let i = 0; i < documentsInput.files.length; i++) {
+            selectedDocuments.innerHTML += `<a target="_blank" href="${URL.createObjectURL(documents[i])}"
+                       class="btn border border-dark rounded-pill p-2 d-flex align-items-center gap-2 text-15">${documents[i].name}</a>`
+        }
+    })
+
+    if (isEdit) {
+        Promise.all(Array.from(document.querySelectorAll('[data-path]')).map((image, index) => {
+            const fileName = image.value;
+            const url = $(image).data("path");
+            const type = $(image).data("type");
+            return fetch(url)
+                .then(response => response.arrayBuffer())
+                .then(buffer => {
+                    const myFile = new File([buffer], fileName, { type: `image/${type.slice(1)}` });
+                    files.push(myFile);
+                    showImage(url, index)
+                });
+        }))
+            .then(() => {
+                addEvents();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        let titles = [];
+        Promise.all(Array.from(document.querySelectorAll('[data-doc]')).map((image) => {
+            const fileName = image.value;
+            const url = $(image).data("doc");
+            const type = $(image).data("type");
+            const title = $(image).data("title");
+            return fetch(url)
+                .then(response => response.arrayBuffer())
+                .then(buffer => {
+                    const myFile = new File([buffer], fileName, { type: `image/${type.slice(1)}` });
+                    documents.push(myFile);
+                    titles.push(title);
+                });
+        }))
+            .then(() => {
+                setDocsInput();
+                selectedDocuments.innerHTML = '';
+                for (let i = 0; i < documents.length; i++) {
+                    selectedDocuments.innerHTML += `<a target="_blank" href="${URL.createObjectURL(documents[i])}"
+                       class="btn border border-dark rounded-pill p-2 d-flex align-items-center gap-2 text-15">${titles[i]}</a>`
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
     }
 }
-observeSizeChanges();
-function observeSizeChanges() {
-    const targetNode = document.querySelector('#partialAdminPageContainer');
-    const observer = new ResizeObserver(entries => {
-        setSidebarHeight();
-    });
-    observer.observe(targetNode);
-}
-$(window).on("resize", () => setSidebarOnResize());
-const setSidebarOnResize = debounce(() => setSidebarHeight());
 
 //application events
-function addApplicationEvents() {
-
-}
-function applicationTableEvents(){
-
+function applicationTableEvents() {
+    document.querySelectorAll("[data-view]").forEach((view) => {
+        view.addEventListener("click", () => {
+            $.ajax({
+                url: "/Admin/Application/ViewApplication",
+                method: "GET",
+                data: { id: $(view).data("view") },
+                success: (result) => {
+                    partialModalContainer.html(result);
+                    $("#viewApplicationModal").modal("show");
+                },
+                error: (error) => {
+                    console.log(error);
+                    simpleAlert("Something went wrong!", "error");
+                }
+            });
+        })
+    });
+    document.querySelectorAll("[data-accept]").forEach((accept) => {
+        accept.addEventListener("click", () => {
+            $.ajax({
+                url: "/Admin/Application/UpdateStatus",
+                method: "PUT",
+                data: { id: $(accept).data("accept"), value: 1 },
+                success: (result) => {
+                    partialContainer.html(result);
+                    createPagination();
+                    simpleAlert("Successfully approved the application!", "success");
+                    addAllEvents("application");
+                },
+                error: (error) => {
+                    console.log(error);
+                    simpleAlert("Something went wrong!", "error");
+                }
+            });
+        })
+    });
+    document.querySelectorAll("[data-decline]").forEach((decline) => {
+        decline.addEventListener("click", () => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to change it back!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Decline!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Application/UpdateStatus",
+                        method: "PUT",
+                        data: { id: $(decline).data("decline"), value: 2 },
+                        success: (result) => {
+                            partialContainer.html(result);
+                            createPagination();
+                            simpleAlert("Successfully declined the application!", "success");
+                            addAllEvents("application");
+                        },
+                        error: (error) => {
+                            console.log(error);
+                            simpleAlert("Something went wrong!", "error");
+                        }
+                    });
+                }
+            })
+        })
+    });
 }
 
 //timesheet events
@@ -160,11 +542,11 @@ function addTimesheetEvents() {
             searchBar("/Admin/Timesheet/SearchGoalsheet", query, "timesheet");
     })
     $("#hourBtn").click(() => {
-        loadIntialPartial("/Admin/Timesheet/LoadTimesheetPage", "timesheet");
+        loadInitialPartial("/Admin/Timesheet/LoadTimesheetPage", "timesheet");
         addAllEvents("timesheet");
     });
     $("#goalBtn").click(() => {
-        loadIntialPartial("/Admin/Timesheet/LoadGoalsheetPage", "timesheet")
+        loadInitialPartial("/Admin/Timesheet/LoadGoalsheetPage", "timesheet")
         addAllEvents("timesheet");
     });
 }
@@ -268,14 +650,6 @@ function timesheetTableEvents() {
 }
 
 //story events
-function addStoryEvents() {
-    $("#adminSearch").on("input", () => {
-        $(".spinner-border").removeClass("opacity-0");
-        $(".spinner-border").addClass("opacity-1");
-        const query = $('#adminSearch').val();
-        searchBar("/Admin/Story/SearchStory", query, "story");
-    })
-}
 function storyTableEvents() {
     document.querySelectorAll("[data-decline]").forEach((decline) => {
         decline.addEventListener("click", () => {
@@ -317,7 +691,7 @@ function storyTableEvents() {
                 success: (result) => {
                     partialContainer.html(result);
                     createPagination();
-                    simpleAlert("Successfully updated the story!", "success");
+                    simpleAlert("Successfully restored the story!", "success");
                     addAllEvents("story");
                 },
                 error: (error) => {
@@ -396,7 +770,7 @@ function addBannerEvents() {
     })
 }
 function addBannerFormEvent() {
-    $("#cancelBtn").click(() => loadIntialPartial("/Admin/Banner/LoadBannerPage", "banner"))
+    $("#cancelBtn").click(() => loadInitialPartial("/Admin/Banner/LoadBannerPage", "banner"))
     const preview = document.getElementById("preview");
     $("#bannerImage").on("change", () => {
         preview.src = URL.createObjectURL(document.querySelector("#bannerImage").files[0]);
@@ -435,7 +809,7 @@ function addBannerFormEvent() {
     })
 }
 function editBannerFormEvents() {
-    $("#cancelBtn").click(() => loadIntialPartial("/Admin/Banner/LoadBannerPage", "banner"))
+    $("#cancelBtn").click(() => loadInitialPartial("/Admin/Banner/LoadBannerPage", "banner"))
 
     const url = $("#MediaPath").val() + $("#MediaName").val() + $("#MediaType").val();
     const fileName = $("#MediaName").val() + $("#MediaType").val();
@@ -542,14 +916,6 @@ function bannerTableEvents() {
 }
 
 //contact events
-function addContactEvents() {
-    $("#adminSearch").on("input", () => {
-        $(".spinner-border").removeClass("opacity-0");
-        $(".spinner-border").addClass("opacity-1");
-        const query = $('#adminSearch').val();
-        searchBar("/Admin/Contact/SearchContact", query, "contact");
-    })
-}
 function contactTableEvents() {
     document.querySelectorAll("[data-view]").forEach((view) => {
         view.addEventListener("click", () => {
@@ -606,9 +972,7 @@ function contactTableEvents() {
                         data: { id: $(del).data("delete") },
                         success: (result) => {
                             simpleAlert("Successfully removed the message!", "success")
-                            partialContainer.html(result);
-                            createPagination();
-                            addAllEvents("contact")
+                            loadInitialPartial("/Admin/Contact/LoadContactPage", "contact")
                         },
                         error: (error) => {
                             console.log(error);
@@ -647,16 +1011,14 @@ function contactFormEvents() {
         } else {
             $("#replyError").text("");
         }
+        $("#contactReplyModal").modal("hide");
         $.ajax({
             url: "/Admin/Contact/ReplyMessage",
             method: "PUT",
             data: $("#contactForm").serialize(),
             success: (result) => {
-                $("#contactReplyModal").modal("hide");
+                loadInitialPartial("/Admin/Contact/LoadContactPage", "contact")
                 simpleAlert("Successfully replied to the user!", "success");
-                partialContainer.html(result);
-                createPagination();
-                addAllEvents("contact")
             },
             error: (error) => {
                 console.log(error);
@@ -665,6 +1027,7 @@ function contactFormEvents() {
         });
     })
 }
+
 //skill events
 function addSkillEvents() {
     $("#addBtn").click(() => {
@@ -680,12 +1043,6 @@ function addSkillEvents() {
                 simpleAlert("Something went wrong!", "error");
             }
         });
-    })
-    $("#adminSearch").on("input", () => {
-        $(".spinner-border").removeClass("opacity-0");
-        $(".spinner-border").addClass("opacity-1");
-        const query = $('#adminSearch').val();
-        searchBar("/Admin/Skill/SearchSkill", query, "skill");
     })
 }
 function skillFormEvents(url, method) {
@@ -825,12 +1182,6 @@ function addThemeEvents() {
             }
         });
     })
-    $("#adminSearch").on("input", () => {
-        $(".spinner-border").removeClass("opacity-0");
-        $(".spinner-border").addClass("opacity-1");
-        const query = $('#adminSearch').val();
-        searchBar("/Admin/Theme/SearchTheme", query, "theme");
-    })
 }
 function themeFormEvents(url, method) {
     $("#themeForm").on("submit", (e) => {
@@ -955,12 +1306,103 @@ function themeTableEvents() {
 
 //user page events
 function addUserEvents() {
-    $("#adminSearch").on("input", () => {
-        $(".spinner-border").addClass("opacity-1");
-        $(".spinner-border").removeClass("opacity-0");
-        const query = $('#adminSearch').val();
-        searchBar("/Admin/User/SearchUser", query, "user");
+    $("#addBtn").click(() => {
+        $.ajax({
+            url: "/Admin/User/AddUser",
+            success: (result) => {
+                partialContainer.html(result);
+                addUserFormEvents();
+            },
+            error: (error) => {
+                console.log(error);
+                simpleAlert("Something went wrong!", "error");
+            }
+        });
     })
+}
+function addUserFormEvents() {
+    $("#cancelBtn").click(() => loadInitialPartial("/Admin/User/LoadUserPage", "user"))
+    handleDropdownEvents();
+    $("#profilePic").click(() => { $('#profileInput').click(); });
+    $("#profileInput").on("change", () => {
+        $("#profilePic").attr("src", URL.createObjectURL($("#profileInput").prop('files')[0]))
+    })
+
+    $("#UserForm").on("submit", (e) => {
+        e.preventDefault();
+        let isValid = $("#UserForm").valid();
+        if (!isValid) return;
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'question',
+            text: "You won't be able to change email and password later!",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Submit!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/Admin/User/AddUser",
+                    method: "POST",
+                    data: new FormData($("#UserForm")[0]),
+                    processData: false,
+                    contentType: false,
+                    success: (_, __, status) => {
+                        if (status.status == 204) {
+                            $("#emailError").text("User already exist with this email address!");
+                            return;
+                        }
+                        UserEmailAjax($("#Email").val(), $("#Password").val());
+                        simpleAlert("User added and mail send to email address!", "success");
+                        loadInitialPartial("/Admin/User/LoadUserPage", "user");
+                    },
+                    error: (error) => {
+                        console.log(error);
+                        simpleAlert("Something went wrong!", "error");
+                    }
+                });
+            }
+        })
+    })
+}
+function UserEmailAjax(email, password) {
+    console.log(email, password)
+    $.ajax({
+        url: "/Admin/User/SendAccountMail",
+        data: { email, password }
+    });
+}
+function editUserFormEvents() {
+    $("#cancelBtn").click(() => loadInitialPartial("/Admin/User/LoadUserPage", "user"))
+    handleDropdownEvents();
+    $("#profilePic").click(() => { $('#profileInput').click(); });
+    $("#profileInput").on("change", () => {
+        $("#profilePic").attr("src", URL.createObjectURL($("#profileInput").prop('files')[0]))
+    })
+
+    $("#UserForm").on("submit", (e) => {
+        e.preventDefault();
+        let isValid = $("#UserForm").valid();
+        if (!isValid) return;
+        $.ajax({
+            url: "/Admin/User/EditUser",
+            method: "PUT",
+            data: new FormData($("#UserForm")[0]),
+            processData: false,
+            contentType: false,
+            success: (_) => {
+                simpleAlert("User updated successfully!", "success");
+                loadInitialPartial("/Admin/User/LoadUserPage", "user");
+            },
+            error: (error) => {
+                console.log(error);
+                simpleAlert("Something went wrong!", "error");
+            }
+        });
+    })
+}
+function userTableEvents() {
     document.querySelectorAll("[data-activate]").forEach((act) => {
         act.addEventListener("click", () => {
             Swal.fire({
@@ -1008,7 +1450,7 @@ function addUserEvents() {
                             partialContainer.html(result);
                             simpleAlert("Successfully deactivated the user!", "success");
                             createPagination();
-                            addUserEvents();
+                            addAllEvents("user");
                         },
                         error: error => {
                             console.log(error);
@@ -1017,6 +1459,23 @@ function addUserEvents() {
                     });
                 }
             })
+        })
+    });
+    document.querySelectorAll("[data-edit]").forEach((edit) => {
+        edit.addEventListener("click", () => {
+            $.ajax({
+                url: "/Admin/User/EditUser",
+                method: "GET",
+                data: { id: $(edit).data("edit") },
+                success: (result) => {
+                    partialContainer.html(result);
+                    editUserFormEvents();
+                },
+                error: (error) => {
+                    console.log(error);
+                    simpleAlert("Something went wrong!", "error");
+                }
+            });
         })
     });
 }
@@ -1037,15 +1496,9 @@ function addCmsEvents() {
             }
         });
     })
-    $("#adminSearch").on("input", () => {
-        $(".spinner-border").removeClass("opacity-0");
-        $(".spinner-border").addClass("opacity-1");
-        const query = $('#adminSearch').val();
-        searchBar("/Admin/Cms/SearchCmsPage", query, "cms");
-    })
 }
 function cmsFormEvents(url, method) {
-    $("#cancelBtn").click(() => loadIntialPartial("/Admin/Cms/LoadCmsPage", "cms"))
+    $("#cancelBtn").click(() => loadInitialPartial("/Admin/Cms/LoadCmsPage", "cms"))
     $("#CmsForm").on("submit", (e) => {
         e.preventDefault();
         let isValid = $("#CmsForm").valid();
@@ -1167,7 +1620,7 @@ function cmsTableEvents() {
 }
 
 //load function
-function loadIntialPartial(url, action) {
+function loadInitialPartial(url, action) {
     tinymce.remove("textarea#tiny");
     $.ajax({
         url: url,
@@ -1184,6 +1637,16 @@ function loadIntialPartial(url, action) {
             simpleAlert("Something went wrong!", "error");
         }
     });
+}
+
+//search event
+function searchEvent(url, action) {
+    $("#adminSearch").on("input", () => {
+        $(".spinner-border").removeClass("opacity-0");
+        $(".spinner-border").addClass("opacity-1");
+        const query = $('#adminSearch').val();
+        searchBar(url, query, action);
+    })
 }
 
 //search function
@@ -1203,6 +1666,8 @@ const searchBar = debounce((url, query, action) => {
         },
         error: error => {
             console.log(error);
+            $(".spinner-border").removeClass("opacity-1");
+            $(".spinner-border").addClass("opacity-0");
             simpleAlert("Something went wrong!", "error");
         }
     });
@@ -1212,22 +1677,27 @@ const searchBar = debounce((url, query, action) => {
 function addAllEvents(action) {
     switch (action) {
         case "cms":
+            searchEvent("/Admin/Cms/SearchCmsPage", action);
             addCmsEvents();
             cmsTableEvents();
             break;
         case "user":
+            searchEvent("/Admin/User/SearchUser", action);
             addUserEvents();
+            userTableEvents();
             break;
         case "theme":
+            searchEvent("/Admin/Theme/SearchTheme", action);
             addThemeEvents();
             themeTableEvents();
             break;
         case "skill":
+            searchEvent("/Admin/Skill/SearchSkill", action);
             addSkillEvents();
             skillTableEvents();
             break;
         case "contact":
-            addContactEvents();
+            searchEvent("/Admin/Contact/SearchContact", action);
             contactTableEvents();
             break;
         case "banner":
@@ -1239,12 +1709,17 @@ function addAllEvents(action) {
             timesheetTableEvents();
             break;
         case "mission":
+            searchEvent("/Admin/Mission/SearchMission", action);
+            addMissionEvents();
+            missionTableEvents();
             break;
         case "story":
-            addStoryEvents();
+            searchEvent("/Admin/Story/SearchStory", action);
             storyTableEvents();
             break;
         case "application":
+            searchEvent("/Admin/Application/SearchApplication", action);
+            applicationTableEvents();
             break;
     }
 }

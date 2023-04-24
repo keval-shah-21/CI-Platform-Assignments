@@ -8,6 +8,7 @@ public interface IMissionApplicationRepository : IRepository<MissionApplication>
     IEnumerable<MissionApplication> GetAllForStoryMissions();
     void CancelMission(long missionId, long userId);
     IEnumerable<MissionApplication> GetAllWithInclude();
+    IEnumerable<MissionApplication> GetAllAdmin();
     void UpdateStatus(long id, byte value);
     MissionApplication GetFirstOrDefaultWithInclude(Expression<Func<MissionApplication, bool>> filter);
 }

@@ -10,4 +10,6 @@ public class ResetPasswordDataVM : ResetPasswordVM
     [Required]
     [Display(Name ="Confirm Password")]
     public string ConfirmPassword {get; set;} = string.Empty;
+
+    public IEnumerable<BannerVM>? bannerVMs {get; set;}
 }

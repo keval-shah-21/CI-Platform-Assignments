@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CI_Platform.Entities.Constants;
+using System.ComponentModel.DataAnnotations;
 
 namespace CI_Platform.Entities.ViewModels
 {
@@ -48,20 +49,21 @@ namespace CI_Platform.Entities.ViewModels
         public string? Title { get; set; }
 
         [Required]
-        public byte? Availability { get; set; }
+        public Availability? Availability { get; set; }
 
         [Required]
         [Display(Name ="City")]
         public int? CityId { get; set; }
 
+        [Display(Name ="City")]
         public string? CityName { get; set; }
 
         [Required]
         [Display(Name ="Country")]
         public short? CountryId { get; set; }
-        public string? CountryName { get; set; }
 
-        public List<String>? skillList { get; set; } = new();
+        [Display(Name = "Country")]
+        public string? CountryName { get; set; }
 
         public List<UserSkillVM>? UserSkillVMs { get; set; } = new List<UserSkillVM>();
         public List<CityVM> cityVMs { get; set; } = new();

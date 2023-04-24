@@ -1,4 +1,4 @@
-@model List<MissionVM>
+@model List<IndexMissionVM>
 @using CI_Platform.Entities.Constants
 @{
     var userId = Context.Session.GetString("UserId");
@@ -7,7 +7,7 @@
 <input hidden value="@userId" id='userId' />
 <div id="partialRecommendContainer"></div>
 <section class="index-grid-view row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-    @foreach (MissionVM mission in Model)
+    @foreach (IndexMissionVM mission in Model)
     {
         <div class="col">
             <div class="card shadow-sm h-100">
@@ -209,7 +209,7 @@
 </section>
 
 <section class="index-list-view d-grid gap-3">
-    @foreach (MissionVM mission in Model)
+    @foreach (IndexMissionVM mission in Model)
     {
         <div class="card shadow-sm">
             <div class="row g-0">

@@ -33,6 +33,7 @@ public class UserVM{
     public string PhoneNumber {get; set;} = string.Empty;
 
     public string? WhyIVolunteer { get; set; }
+
     public string? ProfileText { get; set; }
 
     public string? Avatar {get; set;}
@@ -48,4 +49,5 @@ public class UserVM{
     public List<StoryInviteVM>? StoryInviteFromVM { get; set; }
     public List<MissionInviteVM>? MissionInviteToVM { get; set; }
     public List<StoryInviteVM>? StoryInviteToVM { get; set; }
+    public IEnumerable<BannerVM>? bannerVMs { get; set; }
 }

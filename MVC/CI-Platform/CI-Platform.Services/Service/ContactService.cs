@@ -58,27 +58,27 @@ public class ContactService : IContactService
         _unitOfWork.Contact.RemoveById(id);
     }
 
-    public void ReplyContact(ContactVM contactVM)
+    public Task ReplyContact(ContactVM contactVM)
     {
         Contact contact = _unitOfWork.Contact.GetFirstOrDefault(c => c.ContactId == contactVM.ContactId);
         contact.Reply = contactVM.Reply;
         contact.Status = true;
         contact.UpdatedAt = DateTimeOffset.Now;
+        return Task.CompletedTask;
     }
-    public void SendReplyEmail(ContactVM contactVM)
+    public Task SendReplyEmail(ContactVM contactVM)
     {
         string subject = "CI Platform - Contact US";
         string body = $"<div style='font-size:1rem'><p>Thank you for reaching us out through Contact Us. We appreciate your feedback/inquiry and apologize for any inconvenience caused.</p><p>{contactVM.Reply}</p><p style='margin-top:0.5rem;'>Best Regards,</p><p>CSR Team</p></div>";
         _emailService.SendEmail(contactVM.User.Email, subject, body);
+        return Task.CompletedTask;
     }
     public List<ContactVM> SearchContact(string? query)
     {
         IEnumerable<Contact> contact= _unitOfWork.Contact.GetAllWithInclude();
         return string.IsNullOrEmpty(query) ? contact.Select(u => ConvertContactToVM(u)).ToList()
             : contact
-                .Where(u => u.User.FirstName.ToLower().Contains(query.ToLower()) ||
-                u.User.LastName.ToLower().Contains(query.ToLower()) ||
-                u.Subject.ToLower().Contains(query.ToLower()) ||
+                .Where(u => u.Subject.ToLower().Contains(query.ToLower()) ||
                             (u.User.FirstName.ToLower() + ' ' + u.User.LastName.ToLower()).Contains(query.ToLower()))
                 .Select(u => ConvertContactToVM(u))
                 .ToList();

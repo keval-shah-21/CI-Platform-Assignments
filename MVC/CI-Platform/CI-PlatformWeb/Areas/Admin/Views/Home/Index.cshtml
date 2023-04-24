@@ -32,7 +32,7 @@
 
 <main class="d-lg-flex">
     <div class="overlay position-absolute d-none"></div>
-    <aside class="sidebar px-4 py-3 text-white d-flex flex-column gap-1 overflow-auto">
+    <aside class="sidebar px-4 py-3 text-white d-flex flex-column gap-1 overflow-auto flex-shrink-0">
         <div class="d-flex justify-content-between mb-2">
             <span>NAVIGATION</span>
             <button type="button" class="btn-close d-lg-none bg-white" aria-label="Close"></button>
@@ -78,7 +78,7 @@
             Contact Us
         </div>
     </aside>
-    <div class="flex-grow-1 admin-right">
+    <div class="flex-grow-1 flex-shrink-1 admin-right">
         <nav class="d-flex justify-content-between align-items-center py-1 px-3 shadow-sm">
             <div class="d-flex gap-3 align-items-center">
                 <img src="/images/static/list.png" alt="list" class="hamburger d-lg-none cursor-pointer">
@@ -94,8 +94,8 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
                     <li>
-                        <a class="dropdown-item" id="myprofileBtn" asp-action="AdminProfile" asp-controller="Home"
-                           asp-route-userId="@userId">My Profile</a>
+                        @*<a class="dropdown-item" id="myprofileBtn" asp-action="AdminProfile" asp-controller="Home"
+                           asp-route-userId="@userId">My Profile</a>*@
                     </li>
                     <li><a id="logoutBtn" class="dropdown-item">Logout</a></li>
                 </ul>

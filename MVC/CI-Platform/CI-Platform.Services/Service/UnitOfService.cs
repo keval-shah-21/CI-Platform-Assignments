@@ -17,6 +17,7 @@ public class UnitOfService : IUnitOfService
         FavouriteMission = new FavouriteMissionService(_unitOfWork);
         MissionGoal = new MissionGoalService(_unitOfWork);
         MissionMedia = new MissionMediaService(_unitOfWork);
+        MissionDocument = new MissionDocumentService(_unitOfWork);
         MissionSkill = new MissionSkillService(_unitOfWork);
         MissionTheme = new MissionThemeService(_unitOfWork);
         MissionRating = new MissionRatingService(_unitOfWork);
@@ -50,6 +51,7 @@ public class UnitOfService : IUnitOfService
     public IMissionGoalService MissionGoal{get; private set;}
 
     public IMissionMediaService MissionMedia{get; private set;}
+    public IMissionDocumentService MissionDocument{get; private set;}
 
     public IMissionRatingService MissionRating{get; private set;}
 

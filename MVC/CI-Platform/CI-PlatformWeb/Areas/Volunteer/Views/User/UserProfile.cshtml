@@ -106,11 +106,11 @@
                 <div class="col">
                     <label class="form-label">Select Your Availability</label>
                     <select class="form-select" asp-for=Availability>
-                        <option value="-1" disabled selected>Select your availability</option>
-                        <option value="0">Daily</option>
-                        <option value="1">Weekly</option>
-                        <option value="2">Week-end Only</option>
-                        <option value="3">Monthly</option>
+                        <option value="0" disabled selected>Select your availability</option>
+                        <option value="1">Daily</option>
+                        <option value="2">Weekly</option>
+                        <option value="3">Week-end Only</option>
+                        <option value="4">Monthly</option>
                     </select>
                     <span class="text-danger text-14" asp-validation-for="Availability"></span>
                 </div>

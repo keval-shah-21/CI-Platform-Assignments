@@ -2,14 +2,20 @@
 <div class="border-bottom mb-4">
     <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">User</h4>
 </div>
-<div class="d-flex align-items-center adminSearchContainer mb-4 gap-1">
-    <div class="d-flex align-items-center border border-2 rounded py-1 ps-2 gap-1 flex-grow-1">
-        <img src="/images/static/search.png" alt="search">
-        <input type="search" id="adminSearch" placeholder="Search" class="form-control border-0">
+<div class="d-flex justify-content-between align-items-center mb-4 gap-1">
+    <div class="flex-grow-1 d-flex gap-1 align-items-center adminSearchContainer">
+        <div class="d-flex align-items-center border border-2 rounded py-1 ps-2 gap-1 flex-grow-1">
+            <img src="/images/static/search.png" alt="search">
+            <input type="search" id="adminSearch" placeholder="Search" class="form-control border-0">
+        </div>
+        <div class="spinner-border text-secondary opacity-0" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
-    <div class="spinner-border text-secondary opacity-0" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
+    <button class="btn button d-flex align-items-center gap-2" id="addBtn">
+        <img src="/images/static/plus.png" alt="plus">
+        Add
+    </button>
 </div>
 <div class="table-responsive border">
     <table class="table table-hover">
@@ -54,7 +60,7 @@
                     else
                     {
                         <td>
-                            @user.EmployeeId-
+                            @user.EmployeeId
                         </td>
                     }
                     @if (string.IsNullOrEmpty(user.Department))
@@ -78,6 +84,9 @@
                         <td class="text-danger">Not Active</td>
                     }
                     <td>
+                        <div class="width-max-conatent">
+                            <img src="/images/static/editing.png" class="cursor-pointer d-inline width-max-conatent"
+                         alt="bin" height="20px" width="20px" data-edit="@user.UserId">
                         @if (user.Status == true)
                         {
                             <img src="/images/static/bin.png" class="cursor-pointer d-inline width-max-conatent"
@@ -88,10 +97,11 @@
                             <img src="/images/static/arrow-clockwise.svg" class="cursor-pointer d-inline width-max-conatent"
                          alt="bin" height="20px" width="20px" data-activate="@user.Email">
                         }
+                        </div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-<div class="pagination d-flex justify-content-end gap-1 px-3 my-5"></div>
+<div class="pagination d-flex justify-content-end gap-1 px-3 my-4"></div>

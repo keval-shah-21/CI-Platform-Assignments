@@ -48,4 +48,5 @@ public interface IUnitOfWork{
 
     IBannerRepository Banner { get; }
     void Save();
+    Task<IDbContextTransaction> BeginTransactionAsync();
 }

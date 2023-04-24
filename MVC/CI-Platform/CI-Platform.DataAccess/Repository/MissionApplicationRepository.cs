@@ -30,7 +30,21 @@ public class MissionApplicationRepository : Repository<MissionApplication>, IMis
     {
         return dbSet
             .Include(mi => mi.Mission)
-            .Include(mi => mi.User);
+            .Include(mi => mi.User)
+            .ToList();
+    }
+    public IEnumerable<MissionApplication> GetAllAdmin()
+    {
+        return dbSet
+            .Include(m => m.Mission)
+            .Include(m => m.User)
+                .ThenInclude(u => u.City)
+            .Include(m => m.User)
+                .ThenInclude(u => u.Country)
+            .Include(m => m.User)
+                .ThenInclude(u => u.UserSkills)
+                .ThenInclude(u => u.Skill)
+                .ToList();
     }
     public MissionApplication GetFirstOrDefaultWithInclude(Expression<Func<MissionApplication, bool>> filter)
     {

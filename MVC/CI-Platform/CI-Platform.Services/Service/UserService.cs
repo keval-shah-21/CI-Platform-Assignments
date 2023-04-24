@@ -3,6 +3,8 @@ using CI_Platform.Entities.ViewModels;
 using CI_Platform.Entities.DataModels;
 using CI_Platform.DataAccess.Repository.Interface;
 using System.Linq.Expressions;
+using CI_Platform.Entities.Constants;
+using Microsoft.AspNetCore.Http;
 
 namespace CI_Platform.Services.Service;
 public class UserService : IUserService
@@ -61,13 +63,31 @@ public class UserService : IUserService
             LinkedInUrl = user.LinkedInUrl,
             EmployeeId = user.EmployeeId,
             Title = user.Title,
-            Availability = user.Availability,
+            Availability = (Availability)(user.Availability ?? 0),
             CityId = user.CityId,
             CountryId = user.CountryId,
             skillVMs = _skillService.GetAll(),
             cityVMs = _cityService.GetAll(),
             countryVMs = _countryService.GetAll(),
             UserSkillVMs = _userSkillService.GetUserSkillsByUserId(user.UserId)
+        };
+    }
+    public static UserAdminVM ConvertUserAdminToVM(User user)
+    {
+        return new UserAdminVM()
+        {
+            UserId = user.UserId,
+            Avatar = user.Avatar,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            CityId = user.CityId,
+            CountryId = user.CountryId,
+            ProfileText = user.ProfileText,
+            PhoneNumber = user.PhoneNumber,
+            EmployeeId = user.EmployeeId,
+            Department = user.Department,
+            Status = user.Status,
         };
     }
 
@@ -95,7 +115,26 @@ public class UserService : IUserService
         };
         _unitOfWork.User.Add(obj);
     }
-
+    public void AddUserAdmin(UserAdminVM user)
+    {
+        User obj = new User()
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            Password = user.Password,
+            PhoneNumber = user.PhoneNumber,
+            CreatedAt = DateTimeOffset.Now,
+            ProfileText = user.ProfileText,
+            Avatar = user.Avatar,
+            Status = false,
+            CityId = user.CityId,
+            CountryId = user.CountryId,
+            EmployeeId = user.EmployeeId,
+            Department = user.Department,
+        };
+        _unitOfWork.User.Add(obj);
+    }
     public UserVM AdminLogin(LoginVM loginVM)
     {
         Expression<Func<Admin, bool>> filter = user => (user.Email == loginVM.Email && user.Password == loginVM.Password);
@@ -122,7 +161,11 @@ public class UserService : IUserService
         User obj = _unitOfWork.User.GetFirstOrDefault(user => user.Email.Equals(email));
         return obj == null ? null! : ConvertUserToVM(obj);
     }
-
+    public UserAdminVM GetFirstOrDefaultUserAdmin(long id)
+    {
+        User obj = _unitOfWork.User.GetFirstOrDefault(user => user.UserId == id);
+        return obj == null ? null! : ConvertUserAdminToVM(obj);
+    }
     public UserVM GetFirstOrDefaultAdminByEmail(string email)
     {
         Admin obj = _unitOfWork.Admin.GetFirstOrDefault(user => user.Email.Equals(email));
@@ -148,7 +191,26 @@ public class UserService : IUserService
             Email = admin.Email
         };
     }
-
+    public string SaveProfileImage(string wwwRootPath, IFormFile profileInput)
+    {
+        string fileName = Guid.NewGuid().ToString();
+        var uploads = Path.Combine(wwwRootPath, @"images\user");
+        string extension = Path.GetExtension(profileInput.FileName);
+        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+        {
+            profileInput.CopyTo(fileStreams);
+        }
+        return @"\images\user\" + fileName + extension;
+    }
+    public void RemoveProfileImage(string wwwRootPath, string preloadedImage)
+    {
+        string oldPath = Path.Combine(wwwRootPath, preloadedImage.TrimStart('\\'));
+        bool isDefault = preloadedImage.Split("\\").Last().Split(".")[0].Equals("default-profile");
+        if (System.IO.File.Exists(oldPath) && !isDefault)
+        {
+            System.IO.File.Delete(oldPath);
+        }
+    }
     public ProfileVM GetUserProfileById(long userId)
     {
         User obj = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == userId);
@@ -160,7 +222,7 @@ public class UserService : IUserService
         user.FirstName = profileVM.FirstName;
         user.LastName = profileVM.LastName;
         user.LinkedInUrl = profileVM.LinkedInUrl;
-        user.Availability = profileVM.Availability;
+        user.Availability = (byte?)profileVM.Availability;
         user.Avatar = profileVM.Avatar;
         user.UpdatedAt = DateTimeOffset.Now;
         user.CityId = profileVM.CityId;
@@ -172,6 +234,21 @@ public class UserService : IUserService
         user.WhyIVolunteer = profileVM.WhyIVolunteer;
         user.PhoneNumber = profileVM.PhoneNumber;
     }
+    public void UpdateUserAdmin(UserAdminVM userAdmin)
+    {
+        User user = _unitOfWork.User.GetFirstOrDefault(user => user.UserId == userAdmin.UserId);
+        user.FirstName = userAdmin.FirstName;
+        user.LastName = userAdmin.LastName;
+        user.PhoneNumber = userAdmin.PhoneNumber;
+        user.UpdatedAt = DateTimeOffset.Now;
+        user.ProfileText = userAdmin.ProfileText;
+        user.Avatar = userAdmin.Avatar;
+        user.Status = (bool)userAdmin.Status;
+        user.CityId = userAdmin.CityId;
+        user.CountryId = userAdmin.CountryId;
+        user.EmployeeId = userAdmin.EmployeeId;
+        user.Department = userAdmin.Department;
+    }
     public void UpdateAdminProfile(ProfileVM profile)
     {
         Admin admin = _unitOfWork.Admin.GetFirstOrDefault(admin => admin.AdminId == profile.UserId);
@@ -181,7 +258,7 @@ public class UserService : IUserService
     }
     public bool IsProfileFilled(long id)
     {
-        return _unitOfWork.User.GetFirstOrDefault(user => user.UserId == id).CityId != null;
+        return _unitOfWork.User.GetFirstOrDefault(user => user.UserId == id).Availability != null;
     }
     public void SendResetPasswordEmail(string email, string url)
     {
@@ -220,6 +297,13 @@ public class UserService : IUserService
         string subject = "CI Platform - Verify Account";
         string link = $"<a href='{url}' style='text-decoration:none;display:block;width:max-content;border:1px solid black;border-radius:5rem;padding:0.75rem 1rem;margin:1rem auto;color:black;font-size:1rem;'>Reset Password</a>";
         string body = $"<p style='text-align:center;font-size:1.5rem'>Click on the link below to verify your account</p><hr/>{link}";
+        _emailService.SendEmail(email, subject, body);
+    }
+    public void SendAccountCreatedMail(string email, string password, string url)
+    {
+        string subject = "CI Platform - Account Created";
+        string link = $"<a href='{url}' style='text-decoration:none;display:block;width:max-content;border:1px solid black;border-radius:5rem;padding:0.75rem 1rem;margin:1rem auto;color:black;font-size:1rem;'>Verify Account</a>";
+        string body = $"<div style='font-size:1rem'><p>Your email address: {email}</p><p>Your password: {password}</p><p style='text-align:center;font-size:1.5rem'>Click on the link below to verify your account</p></div><hr/>{link}";
         _emailService.SendEmail(email, subject, body);
     }
     public bool IsPasswordValid(string email, string password)

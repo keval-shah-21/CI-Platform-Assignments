@@ -1,4 +1,5 @@
 ﻿using CI_Platform.Services.Service.Interface;
+using CI_PlatformWeb.Areas.Volunteer.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CI_PlatformWeb.Areas.Admin.Controllers;
@@ -15,14 +16,10 @@ public class HomeController : Controller
     //[Authentication]
     public IActionResult Index()
     {
+        //if (_unitOfService.User.GetFirstOrDefaultAdminByEmail(HttpContext.Session.GetString("Email")) == null)
+        //{
+        //    return RedirectToAction("Index", "Home", new { area = "Volunteer" });
+        //}
         return View();
     }
-
-    //public IActionResult AdminProfile(long id)
-    //{
-    //    if (id == 0) return NotFound();
-    //    ProfileVM user = _unitOfService.User.GetUserProfileById(id);
-    //    if (user == null) return NotFound();
-    //    return View(user);
-    //}
 }

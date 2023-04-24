@@ -184,7 +184,7 @@ if ($('countryDropdown').val() != 0) {
         }
     })
 }
-$('#countryDropdown option').on("click", e => {
+$('#countryDropdown').on("change", e => {
     if ($("#cityDropdown").val() != e.currentTarget.value) {
         $('#cityDropdown').val(0);
     }

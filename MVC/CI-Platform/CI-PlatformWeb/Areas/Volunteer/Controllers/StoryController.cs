@@ -19,13 +19,16 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
         public IActionResult StoryList(string? missionError)
         {
             ViewBag.MissionError = missionError;
-            List<StoryVM> stories = _unitOfService.Story.GetAll().Where(s => s.ApprovalStatus == ApprovalStatus.APPROVED).ToList();
-            ViewBag.TotalStories = stories.LongCount();
+            ViewBag.TotalStories = _unitOfService.Story.GetAll().
+                Where(s => s.ApprovalStatus == ApprovalStatus.APPROVED).LongCount();
             return View();
         }
         public IActionResult StoryListPartial(int page)
         {
-            List<StoryVM> stories = _unitOfService.Story.GetAll().Where(s => s.ApprovalStatus == ApprovalStatus.APPROVED).ToList();
+            List<StoryVM> stories = _unitOfService.Story.GetAll().
+                Where(s => s.ApprovalStatus == ApprovalStatus.APPROVED)
+                .OrderByDescending(s => s.PublishedAt)
+                .ToList();
             return PartialView("_StoryList", stories.Skip((page - 1) * 9).Take(9).ToList());
         }
         public IActionResult ShareStory()

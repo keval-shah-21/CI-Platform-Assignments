@@ -1,4 +1,6 @@
-﻿using CI_Platform.Services.Service.Interface;
+﻿using CI_Platform.Entities.Constants;
+using CI_Platform.Entities.ViewModels;
+using CI_Platform.Services.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CI_PlatformWeb.Areas.Admin.Controllers;
@@ -14,7 +16,8 @@ public class TimesheetController : Controller
     {
         try
         {
-            return PartialView("_Timesheet", _unitOfService.MissionTimesheet.GetHourTimesheetAdmin());
+            List<MissionTimesheetVM> mts = _unitOfService.MissionTimesheet.GetHourTimesheetAdmin();
+            return PartialView("_Timesheet", mts.OrderByDescending(m => m.ApprovalStatus == ApprovalStatus.PENDING).ToList());
         }
         catch (Exception e)
         {
@@ -28,7 +31,8 @@ public class TimesheetController : Controller
     {
         try
         {
-            return PartialView("_Goalsheet", _unitOfService.MissionTimesheet.GetGoalTimesheetAdmin());
+            List<MissionTimesheetVM> mts = _unitOfService.MissionTimesheet.GetGoalTimesheetAdmin();
+            return PartialView("_Goalsheet", mts.OrderByDescending(m => m.ApprovalStatus == ApprovalStatus.PENDING).ToList());
         }
         catch (Exception e)
         {
@@ -44,13 +48,17 @@ public class TimesheetController : Controller
         {
             _unitOfService.MissionTimesheet.UpdateStatus(id, status);
             if (isTime)
-                return PartialView("_Timesheet", _unitOfService.MissionTimesheet.GetHourTimesheetAdmin());
+            {
+                List<MissionTimesheetVM> mts = _unitOfService.MissionTimesheet.GetHourTimesheetAdmin();
+                return PartialView("_Timesheet", mts.OrderByDescending(m => m.ApprovalStatus == ApprovalStatus.PENDING).ToList());
+            }
             if (status == 1)
             {
                 _unitOfService.MissionGoal.UpdateGoalAchieved(missionId, action);
                 _unitOfService.Save();
             }
-            return PartialView("_Goalsheet", _unitOfService.MissionTimesheet.GetGoalTimesheetAdmin());
+            List<MissionTimesheetVM> mgs = _unitOfService.MissionTimesheet.GetGoalTimesheetAdmin();
+            return PartialView("_Goalsheet", mgs.OrderByDescending(m => m.ApprovalStatus == ApprovalStatus.PENDING).ToList());
         }
         catch (Exception e)
         {
@@ -63,7 +71,8 @@ public class TimesheetController : Controller
     {
         try
         {
-            return PartialView("_Goalsheet", _unitOfService.MissionTimesheet.SearchGoalTimehseet(query));
+            List<MissionTimesheetVM> mts = _unitOfService.MissionTimesheet.SearchGoalTimehseet(query);
+            return PartialView("_Goalsheet", mts.OrderByDescending(m => m.ApprovalStatus == ApprovalStatus.PENDING).ToList());
         }
         catch (Exception e)
         {
@@ -76,7 +85,8 @@ public class TimesheetController : Controller
     {
         try
         {
-            return PartialView("_Timesheet", _unitOfService.MissionTimesheet.SearchHourTimehseet(query));
+            List<MissionTimesheetVM> mts = _unitOfService.MissionTimesheet.SearchHourTimehseet(query);
+            return PartialView("_Timesheet", mts.OrderByDescending(m => m.ApprovalStatus == ApprovalStatus.PENDING).ToList());
         }
         catch (Exception e)
         {

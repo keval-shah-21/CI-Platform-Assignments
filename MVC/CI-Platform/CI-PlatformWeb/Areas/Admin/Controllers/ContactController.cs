@@ -27,43 +27,18 @@ public class ContactController : Controller
             return StatusCode(500);
         }
     }
-    public IActionResult ViewMessage(long id)
-    {
-        try
-        {
-            return PartialView("_ViewContact", _unitOfService.Contact.GetContactById(id));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Error loading view contact: " + e.Message);
-            Console.WriteLine(e.StackTrace);
-            return StatusCode(500);
-        }
-    }
-    public IActionResult ReplyMessage(long id)
-    {
-        try
-        {
-            return PartialView("_ReplyContact", _unitOfService.Contact.GetContactById(id));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Error loadin reply contact: " + e.Message);
-            Console.WriteLine(e.StackTrace);
-            return StatusCode(500);
-        }
-    }
+    public IActionResult ViewMessage(long id) => PartialView("_ViewContact", _unitOfService.Contact.GetContactById(id));
+    public IActionResult ReplyMessage(long id) => PartialView("_ReplyContact", _unitOfService.Contact.GetContactById(id));
+    
     [HttpPut]
-    public IActionResult ReplyMessage(ContactVM contact)
+    public async Task<IActionResult> ReplyMessage(ContactVM contact)
     {
         try
         {
-            _unitOfService.Contact.ReplyContact(contact);
+            await _unitOfService.Contact.SendReplyEmail(contact);
+            await _unitOfService.Contact.ReplyContact(contact);
             _unitOfService.Save();
-            _unitOfService.Contact.SendReplyEmail(contact);
-            List<ContactVM> contacts = _unitOfService.Contact.GetAll();
-            contacts = contacts.OrderBy(c => c.Status).ToList();
-            return PartialView("_Contact", contacts);
+            return NoContent();
         }
         catch (Exception e)
         {
@@ -72,14 +47,13 @@ public class ContactController : Controller
             return StatusCode(500);
         }
     }
+    [HttpDelete]
     public IActionResult DeleteMessage(long id)
     {
         try
         {
             _unitOfService.Contact.RemoveContactById(id);
-            List<ContactVM> contacts = _unitOfService.Contact.GetAll();
-            contacts = contacts.OrderBy(c => c.Status).ToList();
-            return PartialView("_Contact", contacts);
+            return NoContent();
         }
         catch (Exception e)
         {

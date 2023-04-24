@@ -48,21 +48,23 @@
                         @Html.DisplayFor(model => @ma.ApprovalStatus)
                     </td>
                     <td>
-                        <button data-view="@ma.UserId" class="btn button-plain text-14 px-3 py-1 me-1">View</button>
-                        @if (ma.ApprovalStatus == ApprovalStatus.PENDING)
-                        {
-                            <img src="/images/static/check-circle.svg"
-                         class="cursor-pointer d-inline width-max-conatent me-1" alt="edit"
-                         height="23px" width="23px" 
-                         data-accept="@ma.MissionApplicationId">
-                            <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent"
-                         alt="bin" height="23px" width="23px" 
-                         data-decline="@ma.MissionApplicationId">
-                        }
+                        <div class="width-max-conatent">
+                            <button data-view="@ma.MissionApplicationId" class="btn button-plain text-14 px-3 py-1 me-1">View</button>
+                            @if (ma.ApprovalStatus == ApprovalStatus.PENDING)
+                            {
+                                <img src="/images/static/check-circle.svg"
+                             class="cursor-pointer d-inline width-max-conatent me-1" alt="edit"
+                             height="23px" width="23px"
+                             data-accept="@ma.MissionApplicationId">
+                                <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent"
+                             alt="bin" height="23px" width="23px"
+                             data-decline="@ma.MissionApplicationId">
+                            }
+                        </div>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
-<div class="pagination d-flex justify-content-end gap-1 px-3 my-5"></div>
+<div class="pagination d-flex justify-content-end gap-1 px-3 my-4"></div>

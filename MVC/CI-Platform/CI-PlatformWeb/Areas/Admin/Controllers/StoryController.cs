@@ -1,6 +1,4 @@
-﻿using CI_Platform.Entities.Constants;
-using CI_Platform.Entities.ViewModels;
-using CI_Platform.Services.Service.Interface;
+﻿using CI_Platform.Services.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CI_PlatformWeb.Areas.Admin.Controllers;
@@ -79,6 +77,8 @@ public class StoryController : Controller
     {
         try
         {
+            _unitOfService.StoryMedia.RemoveAllStoryMediaByStoryId(id);
+            _unitOfService.Save();
             _unitOfService.Story.DeleteStory(id);
             return PartialView("_Story", _unitOfService.Story.GetAdminStories());
         }

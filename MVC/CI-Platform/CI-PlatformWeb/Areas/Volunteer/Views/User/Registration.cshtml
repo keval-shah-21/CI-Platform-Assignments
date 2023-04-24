@@ -4,7 +4,7 @@
 }
 
 <main class="d-flex flex-column flex-lg-row">
-    <partial name="_HeroSectionCarousel"></partial>
+    <partial name="_HeroSectionCarousel" model="@Model.bannerVMs"></partial>
     <section
         class="right-section d-flex flex-column gap-3 gap-lg-1 gap-xxl-3 justify-content-center align-items-center p-5 p-lg-0 mb-lg-4">
         <form method="post" asp-route="RegistrationPost" class="d-grid gap-3 gap-lg-1 gap-xxl-3" id="RegistrationForm">

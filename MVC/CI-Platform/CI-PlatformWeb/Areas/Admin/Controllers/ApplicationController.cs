@@ -15,8 +15,8 @@ public class ApplicationController : Controller
     {
         try
         {
-            List<MissionApplicationVM> applications = _unitOfService.MissionApplication.GetAllWithInclude();
-            applications = applications.OrderBy(m => m.ApprovalStatus == 0).ToList();
+            List<MissionApplicationVM> applications = _unitOfService.MissionApplication.GetAllAdmin();
+            applications = applications.OrderByDescending(m => m.ApprovalStatus == 0).ToList();
             return PartialView("_Application", applications);
         }
         catch (Exception e)
@@ -27,13 +27,14 @@ public class ApplicationController : Controller
         }
     }
 
+    [HttpPut]
     public IActionResult UpdateStatus(long id, byte value)
     {
         try
         {
             _unitOfService.MissionApplication.UpdateStatus(id, value);  
-            List<MissionApplicationVM> applications = _unitOfService.MissionApplication.GetAllWithInclude();
-            applications = applications.OrderBy(m => m.ApprovalStatus == 0).ToList();
+            List<MissionApplicationVM> applications = _unitOfService.MissionApplication.GetAllAdmin();
+            applications = applications.OrderByDescending(m => m.ApprovalStatus == 0).ToList();
             return PartialView("_Application", applications);
         }
         catch (Exception e)
@@ -63,7 +64,7 @@ public class ApplicationController : Controller
         try
         {
             List<MissionApplicationVM> applications = _unitOfService.MissionApplication.Search(query);
-            applications = applications.OrderBy(m => m.ApprovalStatus == 0).ToList();
+            applications = applications.OrderByDescending(m => m.ApprovalStatus == 0).ToList();
             return PartialView("_Application", applications);
         }
         catch (Exception e)

@@ -27,7 +27,7 @@ public class MissionController : Controller
 
     public IActionResult RelatedMissions(long id)
     {
-        List<MissionVM> missionVM = _unitOfService.Mission.GetRelatedMissions(id);
+        List<IndexMissionVM> missionVM = _unitOfService.Mission.GetRelatedMissions(id);
         missionVM = missionVM.Take(3).ToList();
         ViewBag.TotalMissions = missionVM.Count();
         return PartialView("_IndexMissions", missionVM);

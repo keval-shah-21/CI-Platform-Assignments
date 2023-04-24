@@ -16,11 +16,39 @@ public class MissionSkillService: IMissionSkillService
     public List<MissionSkillVM> GetAll()
     {
         IEnumerable<MissionSkill> obj = _unitOfWork.MissionSkill.GetAll();
-        if(obj == null) return null!;
         return obj.Select(ms => ConvertMissionSkillToVM(ms)
         ).ToList();
     }
-
+    public void AddMissionSkill(List<string> skills, long missionId)
+    {
+        var missionSkills = skills.Select(s => new MissionSkill()
+        {
+            MissionId = missionId,
+            SkillId = short.Parse(s),
+            CreatedAt = DateTimeOffset.Now
+        });
+        _unitOfWork.MissionSkill.AddRange(missionSkills);
+    }
+    public void EditMissionSkill(List<string> skills, List<string> preLoadedSkills, long missionId)
+    {
+        preLoadedSkills.ForEach(pre =>
+        {
+            if (!skills.Contains(pre))
+            {
+                _unitOfWork.MissionSkill.RemoveMissionSkill(pre, missionId);
+            }
+        });
+        List<string> newSkills = new();
+        skills.ForEach(s =>
+        {
+            if (!preLoadedSkills.Contains(s))
+            {
+                newSkills.Add(s);
+            }
+        });
+        if (newSkills.Any())
+            AddMissionSkill(newSkills, missionId);
+    }
     public static MissionSkillVM ConvertMissionSkillToVM(MissionSkill ms)
     {
         return new MissionSkillVM()

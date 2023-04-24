@@ -8,7 +8,7 @@ public interface IContactService
     List<ContactVM> GetAll();
     ContactVM GetContactById(long id);
     void RemoveContactById(long id);
-    void ReplyContact(ContactVM contactVM);
-    void SendReplyEmail(ContactVM contactVM);
+    Task ReplyContact(ContactVM contactVM);
+    Task SendReplyEmail(ContactVM contactVM);
     List<ContactVM> SearchContact(string? query);
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CI_Platform.Entities.DataModels;
+﻿namespace CI_Platform.Entities.DataModels;
 
 public partial class Mission
 {
@@ -44,6 +41,8 @@ public partial class Mission
     public byte? MissionRating { get; set; }
 
     public bool? Status { get; set; }
+
+    public bool? IsActive { get; set; }
 
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
 

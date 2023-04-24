@@ -32,7 +32,11 @@ public class UserController : Controller
                 _unitOfService.Save();
             }
         }
-        return View();
+        LoginVM login = new LoginVM()
+        {
+            bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder)
+        };
+        return View(login);
     }
 
     [Route("logout", Name = "Logout")]
@@ -74,6 +78,7 @@ public class UserController : Controller
                 TempData["Error"] = "Invalid username or password.";
             }
         }
+        loginVM.bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder);
         return View(loginVM);
     }
 
@@ -89,7 +94,11 @@ public class UserController : Controller
     [Route("registration", Name = "Registration")]
     public IActionResult Registration()
     {
-        return View();
+        UserVM user = new UserVM()
+        {
+            bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder)
+        };
+        return View(user);
     }
 
     [HttpPost]
@@ -114,14 +123,12 @@ public class UserController : Controller
             }
             TempData["Error"] = "This email is already registered.";
         }
+        userVM.bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder);
         return View(userVM);
     }
 
     [Route("forgot-password", Name = "ForgotPassword")]
-    public IActionResult ForgotPassword()
-    {
-        return View();
-    }
+    public IActionResult ForgotPassword() => View(_unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder));
 
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -181,7 +188,8 @@ public class UserController : Controller
             new ResetPasswordDataVM()
             {
                 Email = email,
-                Token = token
+                Token = token,
+                bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder)
             }
         );
     }
@@ -204,6 +212,7 @@ public class UserController : Controller
             TempData["Success"] = "Password updated successfully.";
             return RedirectToRoute("Login");
         }
+        resetPasswordDataVM.bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder);
         return View(resetPasswordDataVM);
     }
 
@@ -246,21 +255,8 @@ public class UserController : Controller
             string wwwRootPath = _webHostEnvironment.WebRootPath;
             if (profileInput != null)
             {
-                string oldPath = Path.Combine(wwwRootPath, preloadedImage.TrimStart('\\'));
-                bool isDefault = preloadedImage.Split("\\").Last().Split(".")[0].Equals("default-profile");
-                if (System.IO.File.Exists(oldPath) && !isDefault)
-                {
-                    System.IO.File.Delete(oldPath);
-                }
-
-                string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(wwwRootPath, @"images\user");
-                string extension = Path.GetExtension(profileInput.FileName);
-                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
-                {
-                    profileInput.CopyTo(fileStreams);
-                }
-                profileVM.Avatar = @"\images\user\" + fileName + extension;
+                _unitOfService.User.RemoveProfileImage(wwwRootPath, preloadedImage);
+                profileVM.Avatar = _unitOfService.User.SaveProfileImage(wwwRootPath, profileInput);
             }
             _unitOfService.User.UpdateUserProfile(profileVM);
             if ((preloadedSkills.Count() > 0 && skillIds.Count() == 0) || skillIds.Count() > 0)
@@ -310,8 +306,5 @@ public class UserController : Controller
     }
 
     [Route("is-profile-filled")]
-    public bool IsProfileFilled(long userId)
-    {
-        return _unitOfService.User.IsProfileFilled(userId);
-    }
+    public bool IsProfileFilled(long userId) => _unitOfService.User.IsProfileFilled(userId);
 }

@@ -338,7 +338,7 @@ function toggleFavouriteButton(isFavourite) {
 let currentPage = 1;
 const totalVolunteers = document.querySelector("#totalVolunteers").value;
 if (totalVolunteers > 0) {
-    const totalPages = Math.ceil(totalVolunteers / 2);
+    const totalPages = Math.ceil(totalVolunteers / 9);
     const recentVolunteers = document.querySelectorAll("[data-recent]");
     const rightPage = document.querySelector("#rightPage");
     const leftPage = document.querySelector("#leftPage");
@@ -358,7 +358,7 @@ function setPage(recentVolunteers) {
     let count = 0;
     Array.from($(recentVolunteers)).forEach((vol) => {
         const i = $(vol).data('recent');
-        if (i >= (currentPage - 1) * 2 && i < currentPage * 2) {
+        if (i >= (currentPage - 1) * 9 && i < currentPage * 9) {
             $(vol).removeClass("d-none");
             count++;
         } else {
@@ -366,7 +366,7 @@ function setPage(recentVolunteers) {
         }
     })
     const pageRange = document.querySelector("#pageRange");
-    const start = (currentPage - 1) * 2 + 1;
+    const start = (currentPage - 1) * 9 + 1;
     pageRange.textContent = `${start} - ${start + count - 1} of ${totalVolunteers} recent volunteers`
 }
 

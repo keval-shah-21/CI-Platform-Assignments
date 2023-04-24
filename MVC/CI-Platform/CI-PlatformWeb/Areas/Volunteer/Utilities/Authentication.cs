@@ -15,7 +15,8 @@ public class Authentication : ActionFilterAttribute
                 { "Action", "Login" },
                 {"Area", "Volunteer" }
             });
-        } else if (arguments.Count() > 0 && filterContext.HttpContext.Session.GetString("UserId") != arguments["userId"].ToString())
+        }
+        else if (arguments.Count() > 0 && filterContext.HttpContext.Session.GetString("UserId") != arguments["userId"].ToString())
         {
             filterContext.Result = new RedirectToRouteResult(
             new RouteValueDictionary {
@@ -24,6 +25,5 @@ public class Authentication : ActionFilterAttribute
                 {"Area", "Volunteer" }
             });
         }
-
     }
 }
