@@ -58,24 +58,24 @@ function addEvents() {
 //handle draft images
 const isDraft = $('#isDraft').val();
 if (isDraft == "true") {
-    Promise.all(Array.from(document.querySelectorAll('[data-path]')).map((image, index) => {
-        const fileName = image.value;
-        const url = $(image).data("path");
-        const type = $(image).data("type");
-        return fetch(url)
-            .then(response => response.arrayBuffer())
-            .then(buffer => {
-                const myFile = new File([buffer], fileName, { type: `image/${type.slice(1)}` });
-                files.push(myFile);
-                showImage(url, index)
-            });
-    }))
-        .then(() => {
-            addEvents();
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    async function fetchAndCreateFiles() {
+        const images = Array.from(document.querySelectorAll('[data-path]'));
+        for (let i = 0; i < images.length; i++) {
+            const image = images[i];
+            const fileName = image.value;
+            const url = $(image).data("path");
+            const type = $(image).data("type");
+
+            const response = await fetch(url);
+            const buffer = await response.arrayBuffer();
+            const myFile = new File([buffer], fileName, { type: `image/${type.slice(1)}` });
+            files.push(myFile);
+
+            showImage(url, i);
+        }
+        addEvents();
+    }
+    fetchAndCreateFiles()
 }
 const form = document.querySelector('#ssForm');
 form.addEventListener('submit', (e) => {

@@ -81,6 +81,7 @@
                     <label asp-for="StartDate"></label>
                     <input type="date" class="form-control" asp-for="StartDate" placeholder="Select date">
                     <span class="text-danger text-14" asp-validation-for="StartDate"></span>
+                    <span class="text-danger text-14" id="StartDateError"></span>
                 </div>
                 <div>
                     <label asp-for="EndDate"></label>
@@ -108,6 +109,7 @@
                 <div>
                     <label asp-for="RegistrationDeadline"></label>
                     <input type="date" class="form-control" asp-for="RegistrationDeadline" placeholder="Select date">
+                    <span class="text-danger text-14" id="RegistrationDeadlineError"></span>
                 </div>
             </div>
             <div>

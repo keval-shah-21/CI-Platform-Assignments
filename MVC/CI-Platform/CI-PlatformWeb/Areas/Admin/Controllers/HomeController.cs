@@ -13,13 +13,14 @@ public class HomeController : Controller
         _unitOfService = unitOfService;
     }
 
-    //[Authentication]
+    [Authentication]
     public IActionResult Index()
     {
-        //if (_unitOfService.User.GetFirstOrDefaultAdminByEmail(HttpContext.Session.GetString("Email")) == null)
-        //{
-        //    return RedirectToAction("Index", "Home", new { area = "Volunteer" });
-        //}
+        string isAdmin = HttpContext.Session.GetString("IsAdmin");
+        if (HttpContext.Session.GetString("IsAdmin") == "False")
+        {
+            return RedirectToAction("Index", "Home", new { area = "Volunteer" });
+        }
         return View();
     }
 }

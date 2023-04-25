@@ -5,4 +5,5 @@ namespace CI_Platform.Services.Service.Interface;
 public interface ICityService
 {
     List<CityVM> GetAll();
+    List<CityVM> GetCitiesByMissions(List<IndexMissionVM> missions);
 }

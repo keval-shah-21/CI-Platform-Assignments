@@ -19,7 +19,18 @@ public class CountryService: ICountryService
         if(obj == null) return null!;
         return obj.Select(c => ConvertCountryToVM(c)).ToList();
     }
+    public List<CountryVM> GetCountriesByMissions(List<IndexMissionVM> missions)
+    {
+        var missionCountryNames = missions.Select(m => m.CountryVM.CountryName).Distinct();
+        var countryVM = _unitOfWork.Country
+            .GetAll()
+            .Where(c => missionCountryNames.Contains(c.CountryName))
+            .Select(ConvertCountryToVM)
+            .Distinct()
+            .ToList();
 
+        return countryVM;
+    }
     public static CountryVM ConvertCountryToVM(Country country)
     {
         return new CountryVM(){

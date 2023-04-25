@@ -150,7 +150,7 @@ function validateMissionForm() {
     const startDate = $("#StartDate").val();
     const endDate = $("#EndDate").val();
     if (startDate != null && endDate != null && startDate >= endDate) {
-        document.querySelector("#StartDateError").textContent = "Invalid Start date!";
+        document.querySelector("#StartDateError").textContent = "Start date can't be sooner than end date!";
         error = true;
     } else {
         document.querySelector("#StartDateError").textContent = "";
@@ -318,8 +318,8 @@ function addMissionFormEvents(url, method, successCB) {
 
         const isValid = $("#MissionForm").valid();
         if (validateMissionForm() || !isValid) return;
-        setImageInput();
 
+        setImageInput();
         const formData = new FormData($("#MissionForm")[0])
         formData.set("Description", tinymce.get("tiny").getContent());
         $.ajax({
@@ -429,50 +429,48 @@ function handleImagesEvents(isEdit) {
     })
 
     if (isEdit) {
-        Promise.all(Array.from(document.querySelectorAll('[data-path]')).map((image, index) => {
-            const fileName = image.value;
-            const url = $(image).data("path");
-            const type = $(image).data("type");
-            return fetch(url)
-                .then(response => response.arrayBuffer())
-                .then(buffer => {
-                    const myFile = new File([buffer], fileName, { type: `image/${type.slice(1)}` });
-                    files.push(myFile);
-                    showImage(url, index)
-                });
-        }))
-            .then(() => {
-                addEvents();
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        async function fetchAndCreateImages() {
+            const images = Array.from(document.querySelectorAll('[data-path]'));
+            for (let i = 0; i < images.length; i++) {
+                const image = images[i];
+                const fileName = image.value;
+                const url = $(image).data("path");
+                const type = $(image).data("type");
+
+                const response = await fetch(url);
+                const buffer = await response.arrayBuffer();
+                const myFile = new File([buffer], fileName, { type: `image/${type.slice(1)}` });
+                files.push(myFile);
+
+                showImage(url, i);
+            }
+            addEvents();
+        }
+        fetchAndCreateImages();
 
         let titles = [];
-        Promise.all(Array.from(document.querySelectorAll('[data-doc]')).map((image) => {
-            const fileName = image.value;
-            const url = $(image).data("doc");
-            const type = $(image).data("type");
-            const title = $(image).data("title");
-            return fetch(url)
-                .then(response => response.arrayBuffer())
-                .then(buffer => {
-                    const myFile = new File([buffer], fileName, { type: `image/${type.slice(1)}` });
-                    documents.push(myFile);
-                    titles.push(title);
-                });
-        }))
-            .then(() => {
-                setDocsInput();
-                selectedDocuments.innerHTML = '';
-                for (let i = 0; i < documents.length; i++) {
-                    selectedDocuments.innerHTML += `<a target="_blank" href="${URL.createObjectURL(documents[i])}"
-                       class="btn border border-dark rounded-pill p-2 d-flex align-items-center gap-2 text-15">${titles[i]}</a>`
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        async function fetchAndCreateFiles() {
+            const docImages = Array.from(document.querySelectorAll('[data-doc]'));
+            for (const image of docImages) {
+                const fileName = image.value;
+                const url = $(image).data("doc");
+                const type = $(image).data("type");
+                const title = $(image).data("title");
+
+                const response = await fetch(url);
+                const buffer = await response.arrayBuffer();
+                const myFile = new File([buffer], fileName, { type: `image/${type.slice(1)}` });
+                documents.push(myFile);
+                titles.push(title);
+            }
+            setDocsInput();
+            selectedDocuments.innerHTML = '';
+            for (let i = 0; i < documents.length; i++) {
+                selectedDocuments.innerHTML += `<a target="_blank" href="${URL.createObjectURL(documents[i])}"
+                class="btn border border-dark rounded-pill p-2 d-flex align-items-center gap-2 text-15">${titles[i]}</a>`
+            }
+        }
+        fetchAndCreateFiles();
     }
 }
 
@@ -497,22 +495,34 @@ function applicationTableEvents() {
     });
     document.querySelectorAll("[data-accept]").forEach((accept) => {
         accept.addEventListener("click", () => {
-            $.ajax({
-                url: "/Admin/Application/UpdateStatus",
-                method: "PUT",
-                data: { id: $(accept).data("accept"), value: 1 },
-                success: (result) => {
-                    partialContainer.html(result);
-                    createPagination();
-                    simpleAlert("Successfully approved the application!", "success");
-                    addAllEvents("application");
-                },
-                error: (error) => {
-                    console.log(error);
-                    simpleAlert("Something went wrong!", "error");
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert it back!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Approve!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Application/UpdateStatus",
+                        method: "PUT",
+                        data: { id: $(accept).data("accept"), value: 1 },
+                        success: (result) => {
+                            partialContainer.html(result);
+                            createPagination();
+                            simpleAlert("Successfully approved the application!", "success");
+                            addAllEvents("application");
+                        },
+                        error: (error) => {
+                            console.log(error);
+                            simpleAlert("Something went wrong!", "error");
+                        }
+                    });
                 }
-            });
-        })
+            })
+        });
     });
     document.querySelectorAll("[data-decline]").forEach((decline) => {
         decline.addEventListener("click", () => {
@@ -672,7 +682,6 @@ function storyTableEvents() {
         decline.addEventListener("click", () => {
             Swal.fire({
                 title: 'Are you sure?',
-                text: "User will be notified!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -702,9 +711,9 @@ function storyTableEvents() {
     document.querySelectorAll("[data-restore]").forEach((restore) => {
         restore.addEventListener("click", () => {
             $.ajax({
-                url: "/Admin/Story/UpdateStatus",
+                url: "/Admin/Story/AcceptStory",
                 method: "PUT",
-                data: { id: $(restore).data("restore"), value: 1 },
+                data: { id: $(restore).data("restore") },
                 success: (result) => {
                     partialContainer.html(result);
                     createPagination();
@@ -741,7 +750,7 @@ function storyTableEvents() {
         del.addEventListener("click", () => {
             Swal.fire({
                 title: 'Are you sure?',
-                text: "You won't be able to retrieve it back!",
+                text: "It will be deleted permenantly, You won't be able to retrieve it back!",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -803,9 +812,9 @@ function addBannerFormEvent() {
         } else {
             $("#imageError").text("");
         }
+        if (!isValid) return;
         let formData = new FormData($("#bannerForm")[0]);
         formData.append("bannerImage", document.querySelector("#bannerImage").files[0]);
-        if (!isValid) return;
         $.ajax({
             url: "/Admin/Banner/AddBanner",
             method: "POST",

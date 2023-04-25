@@ -6,9 +6,9 @@ using CI_Platform.Services.Service.Interface;
 
 namespace CI_Platform.Services.Service
 {
-    public class StoryService:IStoryService
+    public class StoryService : IStoryService
     {
-readonly IUnitOfWork _unitOfWork;
+        readonly IUnitOfWork _unitOfWork;
 
         public StoryService(IUnitOfWork unitOfWork)
         {
@@ -79,7 +79,7 @@ readonly IUnitOfWork _unitOfWork;
         public StoryVM GetDraftStoryByUserId(long userId)
         {
             Story s = _unitOfWork.Story.GetFirstOrDefaultWithInclude(s => s.UserId == userId && s.ApprovalStatus == 3);
-            if(s == null) return new();
+            if (s == null) return new();
             return ConvertStoryToVM(s);
         }
         public void RemoveStoryById(long storyId)
@@ -101,7 +101,7 @@ readonly IUnitOfWork _unitOfWork;
         {
             return _unitOfWork.Story.GetAllWithInclude()
                 .Where(s => s.ApprovalStatus != 3)
-                .OrderByDescending(s => s.ApprovalStatus == 0)
+                .OrderBy(s => s.ApprovalStatus == 0 ? 0 : 1)
                 .Select(s => ConvertStoryToVM(s))
                 .ToList();
         }
@@ -109,7 +109,8 @@ readonly IUnitOfWork _unitOfWork;
         {
             Story story = _unitOfWork.Story.GetFirstOrDefault(s => s.StoryId == id);
             story.ApprovalStatus = 1;
-            story.PublishedAt = DateTimeOffset.Now;
+            if (story.PublishedAt == null)
+                story.PublishedAt = DateTimeOffset.Now;
         }
         public void UpdateStatus(long id, byte value)
         {

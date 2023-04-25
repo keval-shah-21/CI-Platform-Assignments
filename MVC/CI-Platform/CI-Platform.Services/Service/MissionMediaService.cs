@@ -21,7 +21,7 @@ public class MissionMediaService: IMissionMediaService
         return obj.Select(mm => ConvertMissionMediaToVM(mm)
         ).ToList();
     }
-    public void AddMissionMedia(string wwwRootPath, List<IFormFile> images, long missionId)
+    public void AddAllMissionMedia(string wwwRootPath, List<IFormFile> images, long missionId)
     {
         var medias = images.Select(image =>
         {
@@ -42,7 +42,7 @@ public class MissionMediaService: IMissionMediaService
         });
         _unitOfWork.MissionMedia.AddRange(medias);
     }
-    public void EditMissionMedia(string wwwRootPath, List<IFormFile> images, long missionId, List<string>? preLoaded)
+    public void EditAllMissionMedia(string wwwRootPath, List<IFormFile> images, long missionId, List<string>? preLoaded)
     {
         preLoaded?.ForEach(pre =>
         {
@@ -63,7 +63,7 @@ public class MissionMediaService: IMissionMediaService
             }
         });
         if (newImages.Count > 0)
-            AddMissionMedia(wwwRootPath, newImages, missionId);
+            AddAllMissionMedia(wwwRootPath, newImages, missionId);
     }
     public static MissionMediaVM ConvertMissionMediaToVM(MissionMedium mm)
     {

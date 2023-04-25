@@ -92,7 +92,8 @@ public class MissionService : IMissionService
     public IEnumerable<AdminMissionVM> GetAllAdminMission()
     {
         IEnumerable<Mission> obj = _unitOfWork.Mission.GetAll();
-        return obj.Select(mission => {
+        return obj.Select(mission =>
+        {
             return new AdminMissionVM()
             {
                 MissionId = mission.MissionId,
@@ -110,13 +111,23 @@ public class MissionService : IMissionService
     public List<IndexMissionVM> GetAllIndexMissions()
     {
         IEnumerable<Mission> obj = _unitOfWork.Mission.GetAll();
-        return obj.Select(mission => {
+        return obj.Select(mission =>
+        {
             return ConvertIndexMissionToVM(mission);
         }).ToList();
     }
     public void UpdateStatus(long id, int value)
     {
         _unitOfWork.Mission.UpdateStatus(id, value);
+    }
+    public void CloseMission(long id)
+    {
+        Mission mission = _unitOfWork.Mission.GetFirstOrDefault(m => m.MissionId == id);
+        if (mission.EndDate == null)
+        {
+            mission.EndDate = DateTime.Now;
+        }
+        mission.Status = false;
     }
     public MissionVM GetMissionById(long? id)
     {
@@ -217,7 +228,8 @@ public class MissionService : IMissionService
             }
         }
     }
-    public async Task UpdateGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, List<string> preLoadedImages, List<string> preLoadedDocs, List<string> preLoadedSkills, string wwwRootPath){
+    public async Task UpdateGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, List<string> preLoadedImages, List<string> preLoadedDocs, List<string> preLoadedSkills, string wwwRootPath)
+    {
         Mission mission = _unitOfWork.Mission.GetFirstOrDefault(m => m.MissionId == goal.MissionId);
         mission.Title = goal.Title;
         mission.ShortDescription = goal.ShortDescription;
@@ -261,10 +273,12 @@ public class MissionService : IMissionService
             }
         }
     }
-    public List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId) {
+    public List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId)
+    {
         return new MissionFilterService().FilterMissions(country, city, theme, skill, search, sort, userId, GetAllIndexMissions());
     }
-    public List<IndexMissionVM> GetRelatedMissions(long id) {
+    public List<IndexMissionVM> GetRelatedMissions(long id)
+    {
         MissionVM missionVM = GetMissionById(id);
         return GetAllIndexMissions()
         .Where(mission =>
@@ -272,7 +286,8 @@ public class MissionService : IMissionService
         && mission.MissionId != missionVM.MissionId).ToList();
     }
 
-    public MissionVM UpdateMissionRating(long id) {
+    public MissionVM UpdateMissionRating(long id)
+    {
         Mission mission = _unitOfWork.Mission.GetFirstOrDefaultWithInclude(mission => mission.MissionId == id);
         byte average = (byte)Math.Ceiling(mission.MissionRatings.Average(mr => mr.Rating));
         mission.MissionRating = average;
@@ -302,9 +317,10 @@ public class MissionService : IMissionService
             ShortDescription = time.ShortDescription,
             MissionType = false,
         };
-        using(var transaction = await _unitOfWork.BeginTransactionAsync())
+        using (var transaction = await _unitOfWork.BeginTransactionAsync())
         {
-            try {
+            try
+            {
                 _unitOfWork.Mission.Add(mission);
                 _unitOfWork.Save();
                 long id = mission.MissionId;
@@ -316,7 +332,7 @@ public class MissionService : IMissionService
                 await _unitOfWork.SaveAsync();
                 transaction.Commit();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 await transaction.RollbackAsync();
@@ -356,7 +372,7 @@ public class MissionService : IMissionService
                 _missionGoalService.AddMissionGoal(new MissionGoalVM()
                 {
                     MissionId = id,
-                    GoalObjective = goal.GoalObjective, 
+                    GoalObjective = goal.GoalObjective,
                     GoalValue = goal.GoalValue,
                 });
                 List<Task> tasks = new List<Task>();
@@ -383,31 +399,9 @@ public class MissionService : IMissionService
             : missions
                 .Where(m => m.Title.ToLower().Contains(query.ToLower()) ||
                     m.CityName.ToLower().Contains(query.ToLower()) ||
-                    m.CountryName.ToLower().Contains(query.ToLower()) 
+                    m.CountryName.ToLower().Contains(query.ToLower())
                 ).ToList();
     }
-
-    public List<CountryVM> GetCountriesByMissions(List<IndexMissionVM> missionVM){
-        List<CountryVM> allCountries = new CountryService(_unitOfWork).GetAll();
-        List<CountryVM> countryVM = new();
-        missionVM.ForEach(mission => {
-            CountryVM co = allCountries.Where(all => all.CountryName == mission.CountryVM.CountryName).First();
-            if(!countryVM.Contains(co))
-                countryVM.Add(co);
-        });
-        return countryVM;
-    }
-    public List<CityVM> GetCitiesByMissions(List<IndexMissionVM> missionVM){
-        List<CityVM> allCities = new CityService(_unitOfWork).GetAll();
-        List<CityVM> cityVM = new();
-        missionVM.ForEach(mission => {
-            CityVM co = allCities.Where(all => all.CityName == mission.CityVM.CityName).First();
-            if(!cityVM.Contains(co))
-                cityVM.Add(co);
-        });
-        return cityVM;
-    }
-
     internal static List<MissionRatingVM> GetMissionRatingsByMission(Mission mission)
     {
         return mission.MissionRatings.LongCount() > 0 ? mission.MissionRatings.Select(r =>
@@ -428,10 +422,11 @@ public class MissionService : IMissionService
     internal static List<FavouriteMissionVM> GetFavouriteByMission(Mission mission)
     {
         return mission.FavouriteMissions.LongCount() > 0 ? mission.FavouriteMissions.Select(fm =>
-            FavouriteMissionService.ConvertFavouriteMissionToVM(fm)    
+            FavouriteMissionService.ConvertFavouriteMissionToVM(fm)
         ).ToList() : new();
     }
-    internal static MissionGoalVM GetMissionGoal(Mission mission){
+    internal static MissionGoalVM GetMissionGoal(Mission mission)
+    {
         return mission.MissionGoals.LongCount() > 0 ? MissionGoalService.ConvertMissionGoalToVM(mission.MissionGoals.First()) : new();
     }
     internal static List<MissionDocumentVM> GetMissionDocumentsByMission(Mission mission)
@@ -439,23 +434,26 @@ public class MissionService : IMissionService
         return mission.MissionDocuments.LongCount() > 0 ? mission.MissionDocuments.Select(md =>
         MissionDocumentService.ConvertMissionDocumentToVM(md)).ToList() : new();
     }
-    internal static List<MissionApplicationVM>? GetMissionApplication(Mission mission){
+    internal static List<MissionApplicationVM>? GetMissionApplication(Mission mission)
+    {
         return mission?.MissionApplications?.Select(ma =>
             MissionApplicationService.ConvertMissionApplicationToVM(ma)
             ).ToList();
     }
-    internal static List<MissionSkillVM> GetMissionSkill(Mission mission){
+    internal static List<MissionSkillVM> GetMissionSkill(Mission mission)
+    {
         return mission.MissionSkills.LongCount() > 0 ? mission.MissionSkills.Select(ms =>
-            MissionSkillService.ConvertMissionSkillToVM(ms)    
+            MissionSkillService.ConvertMissionSkillToVM(ms)
         ).ToList() : new();
     }
-    internal static List<MissionMediaVM> GetMissionMedia(Mission mission) {
+    internal static List<MissionMediaVM> GetMissionMedia(Mission mission)
+    {
         return mission.MissionMedia.Select(mm => MissionMediaService.ConvertMissionMediaToVM(mm)).ToList();
     }
 
     private void AddMedia(string wwwRootPath, List<IFormFile> images, long missionId)
     {
-        _missionMediaService.AddMissionMedia(wwwRootPath, images, missionId);
+        _missionMediaService.AddAllMissionMedia(wwwRootPath, images, missionId);
     }
     private void AddDocuments(string wwwRootPath, List<IFormFile> docs, long missionId)
     {
@@ -467,7 +465,7 @@ public class MissionService : IMissionService
     }
     private void EditMedia(string wwwRootPath, List<IFormFile> images, List<string> preLoaded, long missionId)
     {
-        _missionMediaService.EditMissionMedia(wwwRootPath, images, missionId, preLoaded);
+        _missionMediaService.EditAllMissionMedia(wwwRootPath, images, missionId, preLoaded);
     }
     private void EditDocuments(string wwwRootPath, List<IFormFile> docs, List<string> preLoaded, long missionId)
     {

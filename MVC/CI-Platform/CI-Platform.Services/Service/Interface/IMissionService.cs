@@ -8,10 +8,6 @@ public interface IMissionService
     List<IndexMissionVM> GetAllIndexMissions();
     IEnumerable<AdminMissionVM> GetAllAdminMission();
 
-    List<CountryVM> GetCountriesByMissions(List<IndexMissionVM> missionVM);
-
-    List<CityVM> GetCitiesByMissions(List<IndexMissionVM> missionVM);
-
     List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId);
 
     MissionVM GetMissionById(long? id);
@@ -29,4 +25,5 @@ public interface IMissionService
     GoalMissionVM GetGoalMissionById(long id);
     Task UpdateTimeMission(TimeMissionVM time, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, List<string> preLoadedImages, List<string> preLoadedDocs, List<string> preLoadedSkills, string wwwRootPath);
     Task UpdateGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, List<string> preLoadedImages, List<string> preLoadedDocs, List<string> preLoadedSkills, string wwwRootPath);
+    void CloseMission(long id);
 }

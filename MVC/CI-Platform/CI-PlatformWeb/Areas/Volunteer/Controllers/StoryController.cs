@@ -1,11 +1,13 @@
 ﻿using CI_Platform.Entities.Constants;
 using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
+using CI_PlatformWeb.Areas.Volunteer.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CI_PlatformWeb.Areas.Volunteer.Controllers
 {
     [Area("Volunteer")]
+    [AuthenticateAdmin]
     public class StoryController : Controller
     {
         private readonly IUnitOfService _unitOfService;
@@ -57,7 +59,7 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
         }
 
         [HttpPost]
-        public IActionResult ShareStory(StoryVM storyVM, IFormFileCollection ssImagesInput, string isDraft, string action, List<string>? preLoaded)
+        public IActionResult ShareStory(StoryVM storyVM, List<IFormFile> ssImagesInput, string isDraft, string action, List<string>? preLoaded)
         {
             ViewBag.draft = isDraft;
             long userId = long.Parse(HttpContext.Session.GetString("UserId")!);
@@ -76,29 +78,11 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             if(isDraft == "false")
             {
                 long latestStoryId = _unitOfService.Story.GetLatestStoryId(userId);
-                List<StoryMediaVM> storyMediaVMs = ssImagesInput.Select((image, i) =>
-                    SaveStoryMedia(image, wwwRootPath, latestStoryId)).ToList();
-                _unitOfService.StoryMedia.SaveAllStoryMedia(storyMediaVMs);
+                _unitOfService.StoryMedia.AddAllStoryMedia(wwwRootPath, ssImagesInput, latestStoryId);
             }
             else
             {
-                preLoaded?.ForEach(image =>
-                {
-                    if(!ssImagesInput.Any(ss => image == ss.FileName)){
-                        System.IO.File.Delete(Path.Combine(wwwRootPath, @"images\story", image));
-                        _unitOfService.StoryMedia.RemoveStoryMedia(storyVM.StoryId, image.Split(".")[0]);
-                    }
-                });
-                List<StoryMediaVM> storyMediaVMs = new();
-                ssImagesInput.ToList().ForEach(image =>
-                {
-                    if (!preLoaded.Contains(image.FileName))
-                    {
-                        storyMediaVMs.Add(SaveStoryMedia(image, wwwRootPath, storyVM.StoryId));
-                    }
-                });
-                if(storyMediaVMs.Count > 0)
-                    _unitOfService.StoryMedia.SaveAllStoryMedia(storyMediaVMs);
+                _unitOfService.StoryMedia.EditAllStoryMedia(wwwRootPath, ssImagesInput, storyVM.StoryId, preLoaded);
             }
             _unitOfService.Save();
             return RedirectToAction("StoryList");
@@ -117,13 +101,9 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
         public IActionResult RemoveDraftStory(long storyId)
         {
             string wwwRootPath = _webHostEnvironment.WebRootPath;
-            StoryVM story = _unitOfService.Story.GetStoryById(storyId);
-            story.StoryMediaVM.ForEach(sm =>
-            {
-                System.IO.File.Delete(Path.Combine(wwwRootPath, @"images\story", sm.MediaName+sm.MediaType));
-            });
-            _unitOfService.StoryMedia.RemoveAllStoryMediaByStoryId(story.StoryId);
-            _unitOfService.Story.RemoveStoryById(story.StoryId);
+            _unitOfService.StoryMedia.RemoveMediaFromFolder(storyId, wwwRootPath);
+            _unitOfService.StoryMedia.RemoveAllStoryMediaByStoryId(storyId);
+            _unitOfService.Story.RemoveStoryById(storyId);
             _unitOfService.Save();
             return RedirectToAction("StoryList");
         }
@@ -138,25 +118,6 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             ViewBag.UserId = userId;
             ViewBag.StoryId = storyId;
             return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
-        }
-
-        [NonAction]
-        internal StoryMediaVM SaveStoryMedia(IFormFile image, string wwwRootPath, long storyId)
-        {
-            string fileName = Guid.NewGuid().ToString();
-            var uploads = Path.Combine(wwwRootPath, @"images\story");
-            string extension = Path.GetExtension(image.FileName);
-            using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
-            {
-                image.CopyTo(fileStreams);
-            }
-            return new StoryMediaVM()
-            {
-                MediaPath = @"\images\story\",
-                MediaName = fileName,
-                MediaType = extension,
-                StoryId = storyId
-            };
         }
     }
 }

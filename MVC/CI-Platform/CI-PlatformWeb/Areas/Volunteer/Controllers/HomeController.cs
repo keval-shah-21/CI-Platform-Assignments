@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using CI_PlatformWeb.Models;
 using CI_Platform.Services.Service.Interface;
 using CI_Platform.Entities.ViewModels;
+using CI_PlatformWeb.Areas.Volunteer.Utilities;
 
 namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
 
 [Area("Volunteer")]
+[AuthenticateAdmin]
 public class HomeController : Controller
 {
     private readonly IUnitOfService _unitOfService;
@@ -25,8 +27,8 @@ public class HomeController : Controller
         ViewBag.Registered = registered;
         return View(new IndexHeaderVM()
         {
-            cityVM = _unitOfService.Mission.GetCitiesByMissions(missionVM),
-            countryVM = _unitOfService.Mission.GetCountriesByMissions(missionVM),
+            cityVM = _unitOfService.City.GetCitiesByMissions(missionVM),
+            countryVM = _unitOfService.Country.GetCountriesByMissions(missionVM),
             skillVM = _unitOfService.Skill.GetAll(),
             missionThemeVM = _unitOfService.MissionTheme.GetAll()
         });

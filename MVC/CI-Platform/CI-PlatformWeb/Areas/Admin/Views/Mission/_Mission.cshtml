@@ -1,6 +1,5 @@
 ﻿@using CI_Platform.Entities.Constants
 @model IEnumerable<AdminMissionVM>
-</style>
 <div class="border-bottom mb-4">
     <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Goal Timesheet</h4>
 </div>
@@ -33,8 +32,7 @@
                 <th>Mission Type</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>City</th>
-                <th>Country</th>
+                <th>Location</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -73,10 +71,7 @@
                         </td>
                     }
                     <td>
-                        @m.CityName
-                    </td>
-                    <td>
-                        @m.CountryName
+                        @m.CityName, @m.CountryName
                     </td>
                     @if (m.IsActive == false)
                     {
@@ -88,7 +83,6 @@
                     }
                     <td>
                         <div class="width-max-conatent">
-                            <button data-view="@m.MissionId" class="btn button-plain text-14 px-3 py-1 me-2">View</button>
                             <img src="/images/static/editing.png"
                              class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
                              height="20px" width="20px"
@@ -96,7 +90,7 @@
                              data-edit="@m.MissionId">
                             @if (m.IsActive == true)
                             {
-                                <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent"
+                                <img src="/images/static/bin.png" class="cursor-pointer d-inline width-max-conatent"
                              alt="bin" height="20px" width="20px"
                              data-deactivate="@m.MissionId">
                             }

@@ -19,7 +19,18 @@ public class CityService : ICityService
         if(obj == null) return null!;
         return obj.Select(c => ConvertCityToVM(c)).ToList();
     }
+    public List<CityVM> GetCitiesByMissions(List<IndexMissionVM> missions)
+    {
+        var missionCityNames = missions.Select(m => m.CityVM.CityName).Distinct();
+        var cityVM = _unitOfWork.City
+            .GetAll()
+            .Where(c => missionCityNames.Contains(c.CityName))
+            .Select(ConvertCityToVM)
+            .Distinct()
+            .ToList();
 
+        return cityVM;
+    }
     public static CityVM ConvertCityToVM(City city)
     {
         return new CityVM()

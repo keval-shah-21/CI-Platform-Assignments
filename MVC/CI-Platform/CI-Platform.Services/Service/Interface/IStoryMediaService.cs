@@ -1,9 +1,5 @@
 ﻿using CI_Platform.Entities.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace CI_Platform.Services.Service.Interface
 {
@@ -13,5 +9,7 @@ namespace CI_Platform.Services.Service.Interface
         void RemoveStoryMedia(long storyId, string mediaName);
         void RemoveAllStoryMediaByStoryId(long storyId);
         void RemoveMediaFromFolder(long storyId, string wwwRootPath);
+        void AddAllStoryMedia(string wwwRootPath, List<IFormFile> images, long storyId);
+        void EditAllStoryMedia(string wwwRootPath, List<IFormFile> images, long storyId, List<string>? preLoaded);
     }
 }

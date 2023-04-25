@@ -123,7 +123,7 @@ $("#sortDropdown li").on("click", (e) => {
 })
 $("#themeDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
-    if (theme.includes(id)) return;
+    if (theme.includes(+id)) return;
     theme.push(+id);
     createFilterHTML("Theme", e.currentTarget.textContent, id);
     page = 1;
@@ -132,7 +132,7 @@ $("#themeDropdown li").on("click", (e) => {
 })
 $("#skillDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
-    if (skill.includes(id)) return;
+    if (skill.includes(+id)) return;
     skill.push(+id);
     createFilterHTML("Skill", e.currentTarget.textContent, id);
     page = 1;
@@ -158,7 +158,7 @@ $("#countryDropdown li").on("click", (e) => {
 })
 $("#cityDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
-    if (city.includes(id)) return;
+    if (city.includes(+id)) return;
     const countryId = e.currentTarget.getAttribute('data-country');
     if (country == 0) {
         document.querySelectorAll('#countryDropdown li').forEach((li) => {

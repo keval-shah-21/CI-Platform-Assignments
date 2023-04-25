@@ -7,6 +7,7 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
 
 [Area("Volunteer")]
 [Route("/volunteer/user/")]
+[AuthenticateAdmin]
 public class UserController : Controller
 {
     private readonly IUnitOfService _unitOfService;
@@ -56,7 +57,7 @@ public class UserController : Controller
             UserVM userVM = _unitOfService.User.AdminLogin(loginVM);
             if (userVM != null)
             {
-                SetUserLoginSession(userVM.FirstName, userVM.LastName, userVM.Avatar, userVM.UserId, userVM.Email);
+                SetUserLoginSession(userVM.FirstName, userVM.LastName, userVM.Avatar, userVM.UserId, userVM.Email, true);
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
             userVM = _unitOfService.User.Login(loginVM);
@@ -69,7 +70,7 @@ public class UserController : Controller
                 }
                 else
                 {
-                    SetUserLoginSession(userVM.FirstName, userVM.LastName, userVM.Avatar, userVM.UserId, userVM.Email);
+                    SetUserLoginSession(userVM.FirstName, userVM.LastName, userVM.Avatar, userVM.UserId, userVM.Email, false);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -82,13 +83,14 @@ public class UserController : Controller
         return View(loginVM);
     }
 
-    public void SetUserLoginSession(string firstName, string lastName, string avatar, long userId, string email)
+    public void SetUserLoginSession(string firstName, string lastName, string avatar, long userId, string email, bool isAdmin)
     {
         HttpContext.Session.SetString("FirstName", firstName);
         HttpContext.Session.SetString("LastName", lastName);
         HttpContext.Session.SetString("UserId", userId.ToString());
         HttpContext.Session.SetString("Email", email);
         HttpContext.Session.SetString("Avatar", avatar);
+        HttpContext.Session.SetString("IsAdmin", isAdmin.ToString());
     }
 
     [Route("registration", Name = "Registration")]
@@ -268,7 +270,7 @@ public class UserController : Controller
                 _unitOfService.UserSkill.SaveAllUserSkills(skillIds, profileVM.UserId);
             }
             _unitOfService.Save();
-            SetUserLoginSession(profileVM.FirstName, profileVM.LastName, profileVM.Avatar, profileVM.UserId, profileVM.Email);
+            SetUserLoginSession(profileVM.FirstName, profileVM.LastName, profileVM.Avatar, profileVM.UserId, profileVM.Email, false);
             return RedirectToAction("Index", "Home", new { profileSuccess = "true" });
         }
 

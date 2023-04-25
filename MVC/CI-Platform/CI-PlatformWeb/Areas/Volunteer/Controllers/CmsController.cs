@@ -1,9 +1,11 @@
 ﻿using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
+using CI_PlatformWeb.Areas.Volunteer.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
 [Area("Volunteer")]
+[AuthenticateAdmin]
 public class CmsController : Controller
 {
     private readonly IUnitOfService _unitOfService;

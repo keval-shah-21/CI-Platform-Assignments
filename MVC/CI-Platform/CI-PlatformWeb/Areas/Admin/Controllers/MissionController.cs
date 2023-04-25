@@ -24,8 +24,8 @@ public class MissionController : Controller
             {
                 CityVMs = _unitOfService.City.GetAll(),
                 CountryVMs = _unitOfService.Country.GetAll(),
-                ThemeVMs = _unitOfService.MissionTheme.GetAll(),
-                SkillVMs = _unitOfService.Skill.GetAll()
+                ThemeVMs = _unitOfService.MissionTheme.GetAll().Where(m => m.Status == true).ToList(),
+                SkillVMs = _unitOfService.Skill.GetAll().Where(s => s.Status == true).ToList(),
             };
             return PartialView("_AddTimeMission", time);
         }
@@ -42,8 +42,8 @@ public class MissionController : Controller
             {
                 CityVMs = _unitOfService.City.GetAll(),
                 CountryVMs = _unitOfService.Country.GetAll(),
-                ThemeVMs = _unitOfService.MissionTheme.GetAll(),
-                SkillVMs = _unitOfService.Skill.GetAll()
+                ThemeVMs = _unitOfService.MissionTheme.GetAll().Where(m => m.Status == true).ToList(),
+                SkillVMs = _unitOfService.Skill.GetAll().Where(s => s.Status == true).ToList(),
             };
             return PartialView("_AddGoalMission", time);
         }
@@ -108,7 +108,7 @@ public class MissionController : Controller
             time.CountryVMs = _unitOfService.Country.GetAll();
             time.ThemeVMs = _unitOfService.MissionTheme.GetAll();
             time.SkillVMs = _unitOfService.Skill.GetAll();
-            
+
             return PartialView("_EditGoalMission", time);
         }
         catch (Exception)
