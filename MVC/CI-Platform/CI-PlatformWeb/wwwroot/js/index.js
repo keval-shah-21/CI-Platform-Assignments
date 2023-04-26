@@ -1,3 +1,4 @@
+$(".explore-dropdown").removeClass("d-none");
 if ($("#profileSuccess").val() == "true") {
     Swal.fire({
         position: 'top-end',
@@ -60,7 +61,6 @@ $(document).ready(() => {
             $('.index-list-view').addClass("d-none");
         }
     })
-    
 });
 function handleCancelMission() {
     document.querySelectorAll("[data-cancelmission]").forEach(cancel => {
@@ -116,6 +116,14 @@ $(query).on('input', () => {
 $("#sortDropdown li").on("click", (e) => {
     const id = e.currentTarget.getAttribute('data-id');
     if (sort == id) return;
+    sort = id;
+    page = 1;
+    MakeAjaxCall();
+    window.scrollTo(0, 0);
+})
+$("#exploreDropdown li").on("click", (e) => {
+    const id = e.currentTarget.getAttribute('data-id');
+    if (sort == id && +id != 10) return;
     sort = id;
     page = 1;
     MakeAjaxCall();

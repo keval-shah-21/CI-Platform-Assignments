@@ -10,24 +10,39 @@
             <a asp-action="Index" asp-controller="Home">
                 <img src="~/images/static/logo.png" alt="logo" class="navbar-brand">
             </a>
+            <div class="dropdown explore-dropdown d-none">
+                <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    Explore
+                    <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-sm-2">
+                </button>
+                <ul class="dropdown-menu" id="exploreDropdown">
+                    <li class="dropdown-item" data-id="7">Top Themes</li>
+                    <li class="dropdown-item" data-id="8">Most Ranked</li>
+                    <li class="dropdown-item" data-id="9">Top Favourites</li>
+                    <li class="dropdown-item" data-id="10">Random</li>
+                </ul>
+            </div>
             <a asp-controller="Story" asp-action="StoryList" class="color-darkgray">Stories</a>
             <div class="dropdown">
                 <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                        aria-expanded="false">
                     CMS Pages
-                    <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-2">
+                    <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-sm-2">
                 </button>
                 <ul class="dropdown-menu cms-dropdown"></ul>
             </div>
         </div>
-        <div>
-            @if(userId != null){
+        <div class="d-flex gap-2 align-items-center">
+            @if (userId != null)
+            {
+                <img src="/images/static/bell.png" alt="bell" class="cursor-pointer"/>
                 <div class="dropdown">
                     <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
-                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src='@avatar' alt="profile" class="rounded-circle object-fit-cover" width="40px" height="40px">
-                    <span class="d-none d-md-inline">@firstName @lastName</span>
-                    <img src="~/images/static/drop-down.png" alt="drop-down">
+                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src='@avatar' alt="profile" class="rounded-circle object-fit-cover" width="40px" height="40px">
+                        <span class="d-none d-md-inline">@firstName @lastName</span>
+                        <img src="~/images/static/drop-down.png" alt="drop-down">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
                         <li><a class="dropdown-item" id="myprofileBtn" asp-action="UserProfile" asp-controller="User" asp-route-userId="@userId">My Profile</a></li>
@@ -35,7 +50,9 @@
                         <li><a id="logoutBtn" class="dropdown-item">Logout</a></li>
                     </ul>
                 </div>
-            }else{
+            }
+            else
+            {
                 <a asp-controller="User" asp-action="Login" class="btn button bg-white">Login</a>
             }
         </div>

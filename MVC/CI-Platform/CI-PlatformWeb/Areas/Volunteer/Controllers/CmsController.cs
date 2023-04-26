@@ -15,12 +15,15 @@ public class CmsController : Controller
     }
     public IActionResult CmsPage(long id)
     {
-        if(id == 0)
+        try
         {
-            RedirectToAction("Index", "Home");
+            CmsPageVM cms = _unitOfService.CmsPage.GetCmsPageById(id);
+            return View(cms);
         }
-        CmsPageVM cms = _unitOfService.CmsPage.GetCmsPageById(id);
-        return View(cms);
+        catch (Exception)
+        {
+            return RedirectToAction("Error", "Home", new { area = "Volunteer" });
+        }
     }
     public IActionResult GetCmsList()
     {

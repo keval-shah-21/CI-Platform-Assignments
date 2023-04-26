@@ -20,5 +20,7 @@ public class AdminMissionVM
 
     public bool? IsActive { get; set; }
 
+    public bool? Status { get; set; }
+
     public DateTimeOffset CreatedAt { get; set; }
 }

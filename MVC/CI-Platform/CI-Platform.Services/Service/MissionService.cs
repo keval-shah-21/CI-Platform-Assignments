@@ -86,7 +86,8 @@ public class MissionService : IMissionService
             FavouriteMissionVM = GetFavouriteByMission(mission),
             MissionApplicationVM = maVM,
             MissionGoalVM = GetMissionGoal(mission),
-            MissionSkillVM = GetMissionSkill(mission)
+            MissionSkillVM = GetMissionSkill(mission),
+            CreatedAt = mission.CreatedAt
         };
     }
     public IEnumerable<AdminMissionVM> GetAllAdminMission()
@@ -104,6 +105,7 @@ public class MissionService : IMissionService
                 Title = mission.Title,
                 MissionType = mission.MissionType ? MissionType.GOAL : MissionType.TIME,
                 IsActive = mission.IsActive,
+                Status = mission.Status,
                 CreatedAt = mission.CreatedAt,
             };
         });
@@ -116,9 +118,9 @@ public class MissionService : IMissionService
             return ConvertIndexMissionToVM(mission);
         }).ToList();
     }
-    public void UpdateStatus(long id, int value)
+    public void UpdateActiveStatus(long id, int value)
     {
-        _unitOfWork.Mission.UpdateStatus(id, value);
+        _unitOfWork.Mission.UpdateActiveStatus(id, value);
     }
     public void CloseMission(long id)
     {

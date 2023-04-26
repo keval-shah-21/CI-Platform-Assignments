@@ -14,21 +14,29 @@
             </div>
             <div>
                 <label asp-for="Password" class="fw-light"></label>
-                <input type="password" asp-for="Password" class="form-control">
+                <div class="position-relative">
+                    <input type="password" asp-for="Password" class="form-control pe-5">
+                    <img src="/images/static/eye.png" alt="eye" class="password-eye cursor-pointer" />
+                </div>
                 <span asp-validation-for="Password" class="text-14 text-danger"></span>
                 <span class="text-success text-14">@TempData["Success"]</span>
                 <span class="text-danger text-14">@TempData["Error"]</span>
             </div>
             <button type="submit" class="btn button w-100 bg-white">Login</button>
         </form>
-        <a asp-controller="User" asp-action="ForgotPassword" class="fw-light color-darkgray text-14">Lost your
-            password?</a>
-        <div class="fw-light text-14 color-darkgray">Don't have an account? <a asp-controller="User"
-                asp-action="Registration" class="color-blue">Create new account</a></div>
-        <a href="#" class="fw-light color-darkgray privacy-policy text-14">Privacy Policy</a>
+        <a asp-controller="User" asp-action="ForgotPassword" class="fw-light color-darkgray text-14">
+            Lost your
+            password?
+        </a>
+        <div class="fw-light text-14 color-darkgray">
+            Don't have an account? <a asp-controller="User"
+                                      asp-action="Registration" class="color-blue">Create new account</a>
+        </div>
+        <a asp-action="Privacy" class="fw-light color-darkgray privacy-policy text-14">Privacy Policy</a>
     </section>
 </main>
 
 @section Scripts{
-    <partial name="_ValidationScriptsPartial.cshtml"></partial>
+<partial name="_ValidationScriptsPartial.cshtml"></partial>
+<script src="/js/passwordEye.js"></script>
 }

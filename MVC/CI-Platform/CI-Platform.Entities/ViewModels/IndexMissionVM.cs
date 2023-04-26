@@ -41,7 +41,6 @@ public class IndexMissionVM
 
     public Availability Availability { get; set; }
 
-
     public string MissionThumbnail { get; set; } = string.Empty;
 
     public List<FavouriteMissionVM>? FavouriteMissionVM { get; set; } = new();

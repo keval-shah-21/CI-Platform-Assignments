@@ -214,7 +214,7 @@ public class UserService : IUserService
     public ProfileVM GetUserProfileById(long userId)
     {
         User obj = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == userId);
-        return obj == null ? null! : ConvertProfileToVM(obj);
+        return obj == null ? throw new Exception("User profile not found") : ConvertProfileToVM(obj);
     }
     public void UpdateUserProfile(ProfileVM profileVM)
     {

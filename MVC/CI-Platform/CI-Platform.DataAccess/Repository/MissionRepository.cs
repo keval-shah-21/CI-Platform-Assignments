@@ -49,7 +49,7 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
         .FirstOrDefault(filter)!;
     }
 
-    public void UpdateStatus(long id, int value)
+    public void UpdateActiveStatus(long id, int value)
     {
         SqlParameter idParameter = new SqlParameter("@id", id);
         SqlParameter activeParameter = new SqlParameter("@value", value);

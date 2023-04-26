@@ -37,7 +37,8 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
         {
             long id = string.IsNullOrEmpty(HttpContext.Session.GetString("UserId")) ? 0
                 : long.Parse(HttpContext.Session.GetString("UserId"));
-            if (id == 0) return NotFound();
+            if (id == 0)
+                return RedirectToAction("Error", "Home", new { area = "Volunteer" });
             List<MissionVM> missions = _unitOfService.MissionApplication.GetAllUserMissions(id);
             if (missions.Count == 0)
             {
@@ -90,9 +91,11 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
 
         public IActionResult StoryDetails(long? id)
         {
-            if(id == null) return NotFound();
+            if(id == null) 
+                return RedirectToAction("Error", "Home", new { area = "Volunteer" });
             StoryVM story = _unitOfService.Story.GetStoryById(id);
-            if (story == null) return NotFound();
+            if (story == null)
+                return RedirectToAction("Error", "Home", new { area = "Volunteer" });
             story.TotalViews = story.TotalViews + 1;
             _unitOfService.Story.UpdateTotalViews(story.StoryId, (long)story.TotalViews);
             story.StoryMediaVM = story.StoryMediaVM.ToList();

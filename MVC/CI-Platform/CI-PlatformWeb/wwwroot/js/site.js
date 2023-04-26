@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 
 const drop = document.querySelector(".cms-dropdown");
-if (drop != null) {
+if (drop) {
     $.ajax({
         url: "/Volunteer/Cms/GetCmsList",
         success: (result) => {

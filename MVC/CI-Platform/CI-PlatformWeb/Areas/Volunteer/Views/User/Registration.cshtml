@@ -5,8 +5,7 @@
 
 <main class="d-flex flex-column flex-lg-row">
     <partial name="_HeroSectionCarousel" model="@Model.bannerVMs"></partial>
-    <section
-        class="right-section d-flex flex-column gap-3 gap-lg-1 gap-xxl-3 justify-content-center align-items-center p-5 p-lg-0 mb-lg-4">
+    <section class="right-section d-flex flex-column gap-3 gap-lg-1 gap-xxl-3 justify-content-center align-items-center p-5 p-lg-0 mb-lg-4">
         <form method="post" asp-route="RegistrationPost" class="d-grid gap-3 gap-lg-1 gap-xxl-3" id="RegistrationForm">
             <div>
                 <label asp-for="FirstName" class="fw-light"></label>
@@ -31,50 +30,61 @@
             </div>
             <div>
                 <label asp-for="Password" class="fw-light">Password</label>
-                <input type="password" asp-for="Password" class="form-control p-lg-1 p-xxl-2">
+                <div class="position-relative">
+                    <input type="password" asp-for="Password" class="form-control p-lg-1 p-xxl-2 pe-5">
+                    <img src="/images/static/eye.png" alt="eye" class="password-eye cursor-pointer" />
+                </div>
                 <span asp-validation-for="Password" id="Password" class="text-danger text-13"></span>
             </div>
             <div>
                 <label for="ConfirmPassword" class="fw-light">Confirm Password</label>
-                <input type="password" class="form-control p-lg-1 p-xxl-2" id="ConfirmPassword">
-                <span id="ConfirmPasswordError" class="text-danger text-13"></span>
+                <div class="position-relative">
+                    <input type="password" class="form-control p-lg-1 p-xxl-2 pe-5" id="ConfirmPassword">
+                    <img src="/images/static/eye.png" alt="eye" class="password-eye cursor-pointer" />
+                </div>
             </div>
+            <span id="ConfirmPasswordError" class="text-danger text-13"></span>
             <button type="submit" class="btn button w-100 bg-white mt-1">Register</button>
         </form>
-        <a asp-controller="User" asp-action="ForgotPassword" class="fw-light color-darkgray text-14">Lost your
-            password?</a>
-        <div class="fw-light text-14 color-darkgray">Already Registered? <a asp-controller="User" asp-action="Login"
-                class="color-blue">Login now</a></div>
-        <a href="#" class="fw-light color-darkgray privacy-policy text-14">Privacy Policy</a>
+        <a asp-controller="User" asp-action="ForgotPassword" class="fw-light color-darkgray text-14">
+            Lost your
+            password?
+        </a>
+        <div class="fw-light text-14 color-darkgray">
+            Already Registered? <a asp-controller="User" asp-action="Login"
+                                   class="color-blue">Login now</a>
+        </div>
+        <a asp-action="Privacy" class="fw-light color-darkgray privacy-policy text-14">Privacy Policy</a>
     </section>
 </main>
 
 @section Scripts{
-    <partial name="_ValidationScriptsPartial.cshtml"></partial>
-    <script>
-        const ConfirmPassword = document.querySelector("#ConfirmPassword");
-        const Password = document.querySelector("#Password");
-        const RegForm = document.querySelector("#RegistrationForm")
-        const ConfirmPasswordError = document.querySelector("#ConfirmPasswordError");
+<partial name="_ValidationScriptsPartial.cshtml"></partial>
+<script src="/js/passwordEye.js"></script>
+<script>
+    const ConfirmPassword = document.querySelector("#ConfirmPassword");
+    const Password = document.querySelector("#Password");
+    const RegForm = document.querySelector("#RegistrationForm")
+    const ConfirmPasswordError = document.querySelector("#ConfirmPasswordError");
 
-        ConfirmPassword.addEventListener('input', ()=>{
-            if(Password.value != ConfirmPassword.value)
-                ConfirmPasswordError.textContent = "Confirm password must be same as password."
-            else
-                ConfirmPasswordError.textContent = '';
-        })
-        
-        RegForm.addEventListener('submit', (e)=>{
-            e.preventDefault();
-            if(ConfirmPassword.value == null || ConfirmPassword.value == ""){
-                ConfirmPasswordError.textContent = "The Confirm password field is required."
-                return;
-            }
-            if(ConfirmPassword.value != Password.value){
-                ConfirmPasswordError.textContent = "Confirm password must be same as password."
-                return;
-            }
-            RegForm.submit();
-        })
-    </script>
+    ConfirmPassword.addEventListener('input', ()=>{
+        if(Password.value != ConfirmPassword.value)
+            ConfirmPasswordError.textContent = "Confirm password must be same as password."
+        else
+            ConfirmPasswordError.textContent = '';
+    })
+
+    RegForm.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        if(ConfirmPassword.value == null || ConfirmPassword.value == ""){
+            ConfirmPasswordError.textContent = "The Confirm password field is required."
+            return;
+        }
+        if(ConfirmPassword.value != Password.value){
+            ConfirmPasswordError.textContent = "Confirm password must be same as password."
+            return;
+        }
+        RegForm.submit();
+    })
+</script>
 }

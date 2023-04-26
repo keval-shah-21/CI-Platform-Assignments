@@ -240,10 +240,19 @@ public class UserController : Controller
     [Authentication]
     public IActionResult UserProfile(long userId)
     {
-        if (userId == 0) return NotFound();
-        ProfileVM user = _unitOfService.User.GetUserProfileById(userId);
-        if (user == null) return NotFound();
-        return View(user);
+        if (userId != long.Parse(HttpContext.Session.GetString("UserId")))
+        {
+            return RedirectToAction("Error", "Home", new { area = "Volunteer" });
+        }
+        try
+        {
+            ProfileVM user = _unitOfService.User.GetUserProfileById(userId);
+            return View(user);
+        }
+        catch (Exception)
+        {
+            return RedirectToAction("Error", "Home", new { area = "Volunteer" });
+        }
     }
 
     [Route("user-profile")]

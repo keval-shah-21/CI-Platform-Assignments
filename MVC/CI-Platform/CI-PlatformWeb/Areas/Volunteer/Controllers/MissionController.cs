@@ -19,9 +19,11 @@ public class MissionController : Controller
 
     public IActionResult MissionDetails(long? id, string? applySuccess)
     {
-        if (id == 0) return NotFound();
+        if (id == 0)
+            return RedirectToAction("Error", "Home", new { area = "Volunteer" });
         MissionVM missionVM = _unitOfService.Mission.GetMissionById(id);
-        if (missionVM == null) return NotFound();
+        if (missionVM == null)
+            return RedirectToAction("Error", "Home", new { area = "Volunteer" });
         ViewBag.ApplySuccess = applySuccess;
         return View(missionVM);
     }
@@ -109,7 +111,10 @@ public class MissionController : Controller
     [Authentication]
     public IActionResult MissionTimesheet(long userId)
     {
-        if (userId == 0) return NotFound();
+        if(userId != long.Parse(HttpContext.Session.GetString("UserId")))
+        {
+            return RedirectToAction("Error", "Home", new { area = "Volunteer" });
+        }
         List<MissionTimesheetVM> mtVMs = _unitOfService.MissionTimesheet.GetAllByUserId(userId);
         return View(mtVMs);
     }
@@ -117,7 +122,8 @@ public class MissionController : Controller
     public IActionResult AddTimesheetGoal()
     {
         string userId = HttpContext.Session.GetString("UserId");
-        if (string.IsNullOrEmpty(userId)) return NotFound();
+        if (string.IsNullOrEmpty(userId))
+            return RedirectToAction("Error", "Home", new { area = "Volunteer" });
 
         List<MissionVM> missions = _unitOfService.MissionApplication.GetAllUserMissions(long.Parse(userId));
         missions = missions?.Where(m => m.MissionType == MissionType.GOAL)?.ToList();
@@ -150,7 +156,8 @@ public class MissionController : Controller
     public IActionResult AddTimesheetHour()
     {
         string userId = HttpContext.Session.GetString("UserId");
-        if (string.IsNullOrEmpty(userId)) return NotFound();
+        if (string.IsNullOrEmpty(userId))
+            return RedirectToAction("Error", "Home", new { area = "Volunteer" });
 
         List<MissionVM> missions = _unitOfService.MissionApplication.GetAllUserMissions(long.Parse(userId));
         missions = missions?.Where(m => m.MissionType == MissionType.TIME)?.ToList();

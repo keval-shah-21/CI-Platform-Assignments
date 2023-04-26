@@ -23,7 +23,9 @@ public class CmsPageService : ICmsPageService
 
     public CmsPageVM GetCmsPageById(long id)
     {
-        return ConvertCmsToVM(_unitOfWork.CmsPage.GetFirstOrDefault(cms => cms.CmsPageId == id));
+        CmsPage cms = _unitOfWork.CmsPage.GetFirstOrDefault(cms => cms.CmsPageId == id);
+        if (cms == null) throw new Exception("CMS page not found");
+        return ConvertCmsToVM(cms);
     }
 
     public void SaveCmsPage(CmsPageVM cms)

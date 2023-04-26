@@ -147,11 +147,12 @@ public class MissionController : Controller
         }
     }
 
-    public IActionResult UpdateStatus(long id, int value)
+    [HttpPut]
+    public IActionResult UpdateActiveStatus(long id, int value)
     {
         try
         {
-            _unitOfService.Mission.UpdateStatus(id, value);
+            _unitOfService.Mission.UpdateActiveStatus(id, value);
             return NoContent();
         }
         catch (Exception)
@@ -159,5 +160,20 @@ public class MissionController : Controller
             return StatusCode(500);
         }
     }
+    [HttpPut]
+    public IActionResult CloseMission(long id)
+    {
+        try
+        {
+            _unitOfService.Mission.CloseMission(id);
+            _unitOfService.Save();
+            return NoContent();
+        }
+        catch (Exception)
+        {
+            return StatusCode(500);
+        }
+    }
+
     public IActionResult SearchMission(string? query) => PartialView("_Mission", _unitOfService.Mission.Search(query).OrderByDescending(m => m.CreatedAt));
 }

@@ -28,7 +28,10 @@
                 </div>
                 <div>
                     <label asp-for="Password"></label>
-                    <input type="password" class="form-control" asp-for="Password" placeholder="Enter first name">
+                    <div class="position-relative">
+                        <input type="password" class="form-control pe-5" asp-for="Password" placeholder="Enter password">
+                        <img src="/images/static/eye.png" alt="eye" class="password-eye cursor-pointer" />
+                    </div>
                     <span class="text-danger text-14" asp-validation-for="Password"></span>
                 </div>
             </div>
@@ -51,7 +54,7 @@
                     </select>
                     <span class="text-danger text-14" asp-validation-for="CountryId"></span>
                 </div>
-                 <div class="col">
+                <div class="col">
                     <label class="form-label">Select Your City</label>
                     <select class="form-select" asp-for="CityId" id="cityDropdown">
                         <option value="0" disabled selected>Select your city</option>
@@ -82,4 +85,5 @@
         <button type="submit" class="btn button px-4">Save</button>
     </div>
 </form>
+<script src="~/js/passwordEye.js"></script>
 <partial name="_ValidationScriptsPartial"></partial>

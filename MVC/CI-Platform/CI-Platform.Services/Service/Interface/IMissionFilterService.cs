@@ -5,6 +5,6 @@ namespace CI_Platform.Services.Service.Interface
 {
     public interface IMissionFilterService
     {
-        List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId, List<IndexMissionVM> missionVM);
+        List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId, IEnumerable<IndexMissionVM> missionVM);
     }
 }

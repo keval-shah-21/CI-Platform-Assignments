@@ -83,6 +83,13 @@
                     }
                     <td>
                         <div class="width-max-conatent">
+                            @if (@m.MissionType == MissionType.TIME && m.EndDate > DateTime.Now && m.Status == true)
+                            {
+                                <img src="/images/static/stop-circle.svg"
+                                class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
+                                height="20px" width="20px"
+                                data-stop="@m.MissionId">
+                            }
                             <img src="/images/static/editing.png"
                              class="cursor-pointer d-inline width-max-conatent me-2" alt="edit"
                              height="20px" width="20px"
@@ -91,14 +98,14 @@
                             @if (m.IsActive == true)
                             {
                                 <img src="/images/static/bin.png" class="cursor-pointer d-inline width-max-conatent"
-                             alt="bin" height="20px" width="20px"
-                             data-deactivate="@m.MissionId">
+                                alt="bin" height="20px" width="20px"
+                                data-deactivate="@m.MissionId">
                             }
                             else
                             {
                                 <img src="/images/static/arrow-clockwise.svg" class="cursor-pointer d-inline width-max-conatent"
-                             alt="bin" height="20px" width="20px"
-                             data-activate="@m.MissionId">
+                                alt="bin" height="20px" width="20px"
+                                data-activate="@m.MissionId">
                             }
                         </div>
                     </td>

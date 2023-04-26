@@ -262,7 +262,7 @@ function missionTableEvents() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/Admin/Mission/UpdateStatus",
+                        url: "/Admin/Mission/UpdateActiveStatus",
                         method: "PUT",
                         data: { id: $(act).data("activate"), value: 1 },
                         success: (_) => {
@@ -290,11 +290,38 @@ function missionTableEvents() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/Admin/Mission/UpdateStatus",
+                        url: "/Admin/Mission/UpdateActiveStatus",
                         method: "PUT",
                         data: { id: $(act).data("deactivate"), value: 0 },
                         success: (_) => {
                             simpleAlert("Successfully deactivated the mission!", "success");
+                            loadInitialPartial("/Admin/Mission/LoadMissionPage", "mission");
+                        },
+                        error: error => {
+                            console.log(error);
+                            simpleAlert("Something went wrong!", "error");
+                        }
+                    });
+                }
+            })
+        })
+    });
+    document.querySelectorAll("[data-stop]").forEach((act) => {
+        act.addEventListener("click", () => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Mission will be closed and you won't be able to revert it back!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Close!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Mission/CloseMission",
+                        method: "PUT",
+                        data: { id: $(act).data("stop")},
+                        success: (_) => {
+                            simpleAlert("Successfully closed the mission!", "success");
                             loadInitialPartial("/Admin/Mission/LoadMissionPage", "mission");
                         },
                         error: error => {

@@ -16,7 +16,7 @@ public interface IMissionService
 
     List<IndexMissionVM> GetRelatedMissions(long id);
 
-    void UpdateStatus(long id, int value);
+    void UpdateActiveStatus(long id, int value);
 
     Task AddTimeMission(TimeMissionVM time, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath);
     Task AddGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath);
