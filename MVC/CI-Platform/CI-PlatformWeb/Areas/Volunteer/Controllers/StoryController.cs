@@ -18,9 +18,8 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             _unitOfService = unitOfService;
             _webHostEnvironment = webHostEnvironment;
         }
-        public IActionResult StoryList(string? missionError)
+        public IActionResult StoryList()
         {
-            ViewBag.MissionError = missionError;
             ViewBag.TotalStories = _unitOfService.Story.GetAll().
                 Where(s => s.ApprovalStatus == ApprovalStatus.APPROVED).LongCount();
             return View();
@@ -30,8 +29,9 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             List<StoryVM> stories = _unitOfService.Story.GetAll().
                 Where(s => s.ApprovalStatus == ApprovalStatus.APPROVED)
                 .OrderByDescending(s => s.PublishedAt)
+                .Skip((page - 1) * 9).Take(9)
                 .ToList();
-            return PartialView("_StoryList", stories.Skip((page - 1) * 9).Take(9).ToList());
+            return PartialView("_StoryList", stories);
         }
         public IActionResult ShareStory()
         {
@@ -42,7 +42,8 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             List<MissionVM> missions = _unitOfService.MissionApplication.GetAllUserMissions(id);
             if (missions.Count == 0)
             {
-                return RedirectToAction("StoryList", new {missionError = "true" });
+                TempData["MissionError"] = "true";
+                return RedirectToAction("StoryList");
             }
 
             StoryVM storyVM = _unitOfService.Story.GetDraftStoryByUserId(id);

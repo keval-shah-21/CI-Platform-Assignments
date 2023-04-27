@@ -28,6 +28,6 @@ public class CmsController : Controller
     public IActionResult GetCmsList()
     {
         List<CmsPageVM> cmsPageVMs = _unitOfService.CmsPage.GetAll();
-        return Json(cmsPageVMs);
+        return Json(cmsPageVMs.Select(cms => new { cms.Title, cms.CmsPageId}));
     }
 }

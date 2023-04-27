@@ -20,11 +20,10 @@ public class HomeController : Controller
         _unitOfService = unitOfService;
     }
 
-    public IActionResult Index(string? profileSuccess, string? registered)
+    [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Index()
     {
         List<IndexMissionVM> missionVM = _unitOfService.Mission.GetAllIndexMissions();
-        ViewBag.ProfileSuccess = profileSuccess;
-        ViewBag.Registered = registered;
         return View(new IndexHeaderVM()
         {
             cityVM = _unitOfService.City.GetCitiesByMissions(missionVM),

@@ -36,7 +36,7 @@
         <div class="d-flex gap-2 align-items-center">
             @if (userId != null)
             {
-                <img src="/images/static/bell.png" alt="bell" class="cursor-pointer"/>
+                <img src="/images/static/bell.png" alt="bell" class="cursor-pointer" />
                 <div class="dropdown">
                     <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
                         type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,7 +53,8 @@
             }
             else
             {
-                <a asp-controller="User" asp-action="Login" class="btn button bg-white">Login</a>
+                <a asp-controller="User" asp-action="Registration" class="btn button bg-white">Sign Up</a>
+                <a asp-controller="User" asp-action="Login" class="btn button bg-white">Sign In</a>
             }
         </div>
     </div>

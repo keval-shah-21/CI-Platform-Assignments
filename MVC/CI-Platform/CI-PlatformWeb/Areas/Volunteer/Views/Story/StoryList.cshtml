@@ -2,7 +2,8 @@
     ViewData["Title"] = "Stories";
 }
 @{
-    var missionError = ViewBag?.MissionError;
+    var missionError = TempData["MissionError"];
+    TempData.Clear();
     var userId = String.IsNullOrEmpty(Context.Session.GetString("UserId")) ? 0 :
     long.Parse(Context.Session.GetString("UserId"));
 }

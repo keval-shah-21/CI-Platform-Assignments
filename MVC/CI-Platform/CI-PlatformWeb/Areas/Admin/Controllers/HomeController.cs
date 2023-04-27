@@ -6,13 +6,6 @@ namespace CI_PlatformWeb.Areas.Admin.Controllers;
 [Area("Admin")]
 public class HomeController : Controller
 {
-    private readonly IUnitOfService _unitOfService;
-
-    public HomeController(IUnitOfService unitOfService)
-    {
-        _unitOfService = unitOfService;
-    }
-
     [Authentication]
     public IActionResult Index()
     {

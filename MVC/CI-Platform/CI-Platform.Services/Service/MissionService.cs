@@ -139,7 +139,7 @@ public class MissionService : IMissionService
     }
     public TimeMissionVM GetTimeMissionById(long id)
     {
-        Mission mission = _unitOfWork.Mission.GetFirstOrDefaultWithInclude(mission => mission.MissionId == id);
+        Mission mission = _unitOfWork.Mission.GetFirstOrDefaultAdminMission(mission => mission.MissionId == id);
         return new TimeMissionVM()
         {
             MissionId = mission.MissionId,
@@ -164,7 +164,7 @@ public class MissionService : IMissionService
     }
     public GoalMissionVM GetGoalMissionById(long id)
     {
-        Mission mission = _unitOfWork.Mission.GetFirstOrDefaultWithInclude(mission => mission.MissionId == id);
+        Mission mission = _unitOfWork.Mission.GetFirstOrDefaultAdminMission(mission => mission.MissionId == id);
         MissionGoalVM mg = GetMissionGoal(mission);
         return new GoalMissionVM()
         {
@@ -193,86 +193,76 @@ public class MissionService : IMissionService
     }
     public async Task UpdateTimeMission(TimeMissionVM time, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, List<string> preLoadedImages, List<string> preLoadedDocs, List<string> preLoadedSkills, string wwwRootPath)
     {
-        Mission mission = _unitOfWork.Mission.GetFirstOrDefault(m => m.MissionId == time.MissionId);
-        mission.Title = time.Title;
-        mission.ShortDescription = time.ShortDescription;
-        mission.Description = time.Description;
-        mission.UpdatedAt = DateTimeOffset.Now;
-        mission.TotalSeats = time.TotalSeats;
-        mission.RegistrationDeadline = time.RegistrationDeadline;
-        mission.StartDate = time.StartDate;
-        mission.EndDate = time.EndDate;
-        mission.OrganizationName = time.OrganizationName;
-        mission.OrganizationDetails = time.OrganizationDetails;
-        mission.MissionCity = time.MissionCity;
-        mission.MissionCountry = time.MissionCountry;
-        mission.Availability = (byte)time.Availability;
-        mission.IsActive = time.IsActive;
-        mission.MissionThemeId = time.MissionThemeId;
-        using (var transaction = await _unitOfWork.BeginTransactionAsync())
+        try
         {
-            try
-            {
-                List<Task> tasks = new List<Task>();
-                tasks.Add(Task.Run(() => EditMedia(wwwRootPath, ImagesInput, preLoadedImages, mission.MissionId)));
-                tasks.Add(Task.Run(() => EditDocuments(wwwRootPath, DocumentsInput, preLoadedDocs, mission.MissionId)));
-                if (!MissionSkills.SequenceEqual(preLoadedSkills))
-                    tasks.Add(Task.Run(() => EditMissionSkill(MissionSkills, preLoadedSkills, mission.MissionId)));
-                await Task.WhenAll(tasks);
-                await _unitOfWork.SaveAsync();
-                transaction.Commit();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                await transaction.RollbackAsync();
-                throw;
-            }
+            Mission mission = _unitOfWork.Mission.GetFirstOrDefault(m => m.MissionId == time.MissionId);
+            mission.Title = time.Title;
+            mission.ShortDescription = time.ShortDescription;
+            mission.Description = time.Description;
+            mission.UpdatedAt = DateTimeOffset.Now;
+            mission.TotalSeats = time.TotalSeats;
+            mission.RegistrationDeadline = time.RegistrationDeadline;
+            mission.StartDate = time.StartDate;
+            mission.EndDate = time.EndDate;
+            mission.OrganizationName = time.OrganizationName;
+            mission.OrganizationDetails = time.OrganizationDetails;
+            mission.MissionCity = time.MissionCity;
+            mission.MissionCountry = time.MissionCountry;
+            mission.Availability = (byte)time.Availability;
+            mission.IsActive = time.IsActive;
+            mission.MissionThemeId = time.MissionThemeId;
+
+            EditMedia(wwwRootPath, ImagesInput, preLoadedImages, mission.MissionId);
+            EditDocuments(wwwRootPath, DocumentsInput, preLoadedDocs, mission.MissionId);
+            if (!MissionSkills.SequenceEqual(preLoadedSkills))
+                EditMissionSkill(MissionSkills, preLoadedSkills, mission.MissionId);
+
+            await _unitOfWork.SaveAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.StackTrace);
+            throw;
         }
     }
     public async Task UpdateGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, List<string> preLoadedImages, List<string> preLoadedDocs, List<string> preLoadedSkills, string wwwRootPath)
     {
-        Mission mission = _unitOfWork.Mission.GetFirstOrDefault(m => m.MissionId == goal.MissionId);
-        mission.Title = goal.Title;
-        mission.ShortDescription = goal.ShortDescription;
-        mission.Description = goal.Description;
-        mission.UpdatedAt = DateTimeOffset.Now;
-        mission.TotalSeats = goal.TotalSeats;
-        mission.RegistrationDeadline = goal.RegistrationDeadline;
-        mission.StartDate = goal.StartDate;
-        mission.EndDate = goal.EndDate;
-        mission.OrganizationName = goal.OrganizationName;
-        mission.OrganizationDetails = goal.OrganizationDetails;
-        mission.MissionCity = goal.MissionCity;
-        mission.MissionCountry = goal.MissionCountry;
-        mission.Availability = (byte)goal.Availability;
-        mission.IsActive = goal.IsActive;
-        mission.MissionThemeId = goal.MissionThemeId;
-        using (var transaction = await _unitOfWork.BeginTransactionAsync())
+        try
         {
-            try
+            Mission mission = _unitOfWork.Mission.GetFirstOrDefault(m => m.MissionId == goal.MissionId);
+            mission.Title = goal.Title;
+            mission.ShortDescription = goal.ShortDescription;
+            mission.Description = goal.Description;
+            mission.UpdatedAt = DateTimeOffset.Now;
+            mission.TotalSeats = goal.TotalSeats;
+            mission.RegistrationDeadline = goal.RegistrationDeadline;
+            mission.StartDate = goal.StartDate;
+            mission.EndDate = goal.EndDate;
+            mission.OrganizationName = goal.OrganizationName;
+            mission.OrganizationDetails = goal.OrganizationDetails;
+            mission.MissionCity = goal.MissionCity;
+            mission.MissionCountry = goal.MissionCountry;
+            mission.Availability = (byte)goal.Availability;
+            mission.IsActive = goal.IsActive;
+            mission.MissionThemeId = goal.MissionThemeId;
+
+            _missionGoalService.UpdateMissionGoal(new MissionGoalVM()
             {
-                List<Task> tasks = new List<Task>();
-                _missionGoalService.UpdateMissionGoal(new MissionGoalVM()
-                {
-                    GoalObjective = goal.GoalObjective,
-                    GoalValue = goal.GoalValue,
-                    MissionGoalId = goal.MissionGoalId
-                });
-                tasks.Add(Task.Run(() => EditMedia(wwwRootPath, ImagesInput, preLoadedImages, mission.MissionId)));
-                tasks.Add(Task.Run(() => EditDocuments(wwwRootPath, DocumentsInput, preLoadedDocs, mission.MissionId)));
-                if (!MissionSkills.SequenceEqual(preLoadedSkills))
-                    tasks.Add(Task.Run(() => EditMissionSkill(MissionSkills, preLoadedSkills, mission.MissionId)));
-                await Task.WhenAll(tasks);
-                await _unitOfWork.SaveAsync();
-                transaction.Commit();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                await transaction.RollbackAsync();
-                throw;
-            }
+                GoalObjective = goal.GoalObjective,
+                GoalValue = goal.GoalValue,
+                MissionGoalId = goal.MissionGoalId
+            });
+            EditMedia(wwwRootPath, ImagesInput, preLoadedImages, mission.MissionId);
+            EditDocuments(wwwRootPath, DocumentsInput, preLoadedDocs, mission.MissionId);
+            if (!MissionSkills.SequenceEqual(preLoadedSkills))
+                EditMissionSkill(MissionSkills, preLoadedSkills, mission.MissionId);
+
+            await _unitOfWork.SaveAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.StackTrace);
+            throw;
         }
     }
     public List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId)

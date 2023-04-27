@@ -54,13 +54,13 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
-            UserVM userVM = _unitOfService.User.AdminLogin(loginVM);
-            if (userVM != null)
+            AdminVM admin = _unitOfService.User.AdminLogin(loginVM);
+            if (admin != null)
             {
-                SetUserLoginSession(userVM.FirstName, userVM.LastName, userVM.Avatar, userVM.UserId, userVM.Email, true);
+                SetUserLoginSession(admin.FirstName, admin.LastName, admin.Avatar, admin.AdminId, admin.Email, true);
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
-            userVM = _unitOfService.User.Login(loginVM);
+            UserVM userVM = _unitOfService.User.Login(loginVM);
 
             if (userVM != null)
             {
@@ -121,7 +121,8 @@ public class UserController : Controller
                 _unitOfService.User.SendVerifyAccountEmail(userVM.Email, url);
 
                 _unitOfService.Save();
-                return RedirectToAction("Index", "Home", new { registered = "true" });
+                TempData["Registered"] = "true";
+                return RedirectToAction("Index", "Home");
             }
             TempData["Error"] = "This email is already registered.";
         }
@@ -138,11 +139,7 @@ public class UserController : Controller
     public IActionResult ForgotPassword(string? email)
     {
         if (email == null) { return RedirectToAction("Error", "Home"); }
-        UserVM user = _unitOfService.User.GetFirstOrDefaultAdminByEmail(email);
-        if (user == null)
-        {
-            user = _unitOfService.User.GetFirstOrDefaultByEmail(email);
-        }
+        UserVM user = _unitOfService.User.GetFirstOrDefaultByEmail(email);
 
         if (user != null)
         {
@@ -204,10 +201,7 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
             _unitOfService.ResetPassword.Remove(resetPasswordDataVM);
-            if (_unitOfService.User.GetFirstOrDefaultAdminByEmail(resetPasswordDataVM.Email) != null)
-                _unitOfService.User.UpdateAdminPassword(resetPasswordDataVM.Email, resetPasswordDataVM.Password);
-            else
-                _unitOfService.User.UpdatePassword(resetPasswordDataVM.Email, resetPasswordDataVM.Password);
+            _unitOfService.User.UpdatePassword(resetPasswordDataVM.Email, resetPasswordDataVM.Password);
 
             _unitOfService.ResetPassword.RemoveByEmail(resetPasswordDataVM.Email);
             _unitOfService.Save();
@@ -280,7 +274,8 @@ public class UserController : Controller
             }
             _unitOfService.Save();
             SetUserLoginSession(profileVM.FirstName, profileVM.LastName, profileVM.Avatar, profileVM.UserId, profileVM.Email, false);
-            return RedirectToAction("Index", "Home", new { profileSuccess = "true" });
+            TempData["ProfileSuccess"] = "true";
+            return RedirectToAction("Index", "Home");
         }
 
         return View(profileVM);
@@ -293,14 +288,11 @@ public class UserController : Controller
         bool isValid = _unitOfService.User.IsPasswordValid(email, oldPassword);
         if (!isValid) return NoContent();
         _unitOfService.User.UpdatePassword(email, newPassword);
-        return Ok(200);
+        return StatusCode(200);
     }
 
     [Route("contact-partial")]
-    public IActionResult GetContactPartial()
-    {
-        return PartialView("_Contact");
-    }
+    public IActionResult GetContactPartial() => PartialView("_Contact");
 
     [HttpPost]
     [Route("contact-admin")]

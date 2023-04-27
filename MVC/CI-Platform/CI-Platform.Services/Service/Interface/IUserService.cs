@@ -9,26 +9,21 @@ public interface IUserService
     void Add(UserVM userVM);
 
     UserVM Login(LoginVM loginVM);
-    UserVM AdminLogin(LoginVM loginVM);
+    AdminVM AdminLogin(LoginVM loginVM);
 
     UserVM GetFirstOrDefaultByEmail(string email);
-    UserVM GetFirstOrDefaultAdminByEmail(string email);
     UserAdminVM GetFirstOrDefaultUserAdmin(long id);
 
     void SendResetPasswordEmail(string email, string url);
     void SendAccountCreatedMail(string email, string password, string url);
 
     void UpdatePassword(string email, string password);
-    void UpdateAdminPassword(string email, string password);
 
     List<UserVM> GetAllUsersToRecommendMission();
     List<UserVM> GetAllUsersToRecommendStory();
 
     ProfileVM GetUserProfileById(long userId);
-    ProfileVM GetAdminProfileById(long id);
-
     void UpdateUserProfile(ProfileVM profileVM);
-    void UpdateAdminProfile(ProfileVM profileVM);
 
     bool IsPasswordValid(string email, string password);
 

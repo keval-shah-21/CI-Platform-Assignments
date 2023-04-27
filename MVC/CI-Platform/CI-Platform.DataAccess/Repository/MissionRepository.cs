@@ -28,7 +28,13 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
         .Include(m => m.MissionCountryNavigation)
         .ToList();
     }
-
+    public IEnumerable<Mission> GetAllAdmin()
+    {
+        return dbSet
+        .Include(m => m.MissionCityNavigation)
+        .Include(m => m.MissionCountryNavigation)
+        .ToList();
+    }
     public Mission GetFirstOrDefaultWithInclude(Expression<Func<Mission, bool>> filter)
     {
         return dbSet
@@ -49,6 +55,19 @@ public class MissionRepository : Repository<Mission>, IMissionRepository
         .FirstOrDefault(filter)!;
     }
 
+    public Mission GetFirstOrDefaultAdminMission(Expression<Func<Mission, bool>> filter) {
+        return dbSet
+            .Include(m => m.MissionMedia)
+            .Include(m => m.MissionGoals)
+            .Include(m => m.MissionSkills)
+                .ThenInclude(ms => ms.Skill)
+            .Include(m => m.MissionTheme)
+            .Include(m => m.MissionCityNavigation)
+            .Include(m => m.MissionCountryNavigation)
+            .Include(m => m.MissionDocuments)
+            .FirstOrDefault(filter)!;
+    }
+    
     public void UpdateActiveStatus(long id, int value)
     {
         SqlParameter idParameter = new SqlParameter("@id", id);

@@ -105,7 +105,7 @@ public class UserService : IUserService
             FirstName = userVM.FirstName,
             LastName = userVM.LastName,
             Email = userVM.Email,
-            Password = userVM.Password,
+            Password = EncryptionService.EncryptAES(userVM.Password),
             PhoneNumber = userVM.PhoneNumber,
             CreatedAt = userVM.CreatedAt,
             WhyIVolunteer = userVM.WhyIVolunteer,
@@ -122,7 +122,7 @@ public class UserService : IUserService
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email,
-            Password = user.Password,
+            Password = EncryptionService.EncryptAES(user.Password),
             PhoneNumber = user.PhoneNumber,
             CreatedAt = DateTimeOffset.Now,
             ProfileText = user.ProfileText,
@@ -135,13 +135,13 @@ public class UserService : IUserService
         };
         _unitOfWork.User.Add(obj);
     }
-    public UserVM AdminLogin(LoginVM loginVM)
+    public AdminVM AdminLogin(LoginVM loginVM)
     {
-        Expression<Func<Admin, bool>> filter = user => (user.Email == loginVM.Email && user.Password == loginVM.Password);
+        Expression<Func<Admin, bool>> filter = user => (user.Email == loginVM.Email && user.Password == EncryptionService.EncryptAES(loginVM.Password));
         Admin obj = _unitOfWork.Admin.GetFirstOrDefault(filter);
-        return obj == null ? null! : new UserVM()
+        return obj == null ? null! : new AdminVM()
         {
-            UserId = obj.AdminId,
+            AdminId = obj.AdminId,
             FirstName = obj.FirstName,
             LastName = obj.LastName,
             Email = obj.Email,
@@ -151,7 +151,7 @@ public class UserService : IUserService
 
     public UserVM Login(LoginVM loginVM)
     {
-        Expression<Func<User, bool>> filter = user => (user.Email == loginVM.Email && user.Password == loginVM.Password);
+        Expression<Func<User, bool>> filter = user => (user.Email == loginVM.Email && user.Password == EncryptionService.EncryptAES(loginVM.Password));
         User obj = _unitOfWork.User.GetFirstOrDefault(filter);
         return obj == null ? null! : ConvertUserToVM(obj);
     }
@@ -166,31 +166,7 @@ public class UserService : IUserService
         User obj = _unitOfWork.User.GetFirstOrDefault(user => user.UserId == id);
         return obj == null ? null! : ConvertUserAdminToVM(obj);
     }
-    public UserVM GetFirstOrDefaultAdminByEmail(string email)
-    {
-        Admin obj = _unitOfWork.Admin.GetFirstOrDefault(user => user.Email.Equals(email));
-        return obj == null ? null! : new UserVM()
-        {
-            UserId = obj.AdminId,
-            FirstName = obj.FirstName,
-            LastName = obj.LastName,
-            Email = obj.Email,
-            Avatar = obj.Avatar
-        };
-    }
 
-    public ProfileVM GetAdminProfileById(long id)
-    {
-        Admin admin = _unitOfWork.Admin.GetFirstOrDefault(u => u.AdminId == id);
-        return admin == null ? null! : new ProfileVM()
-        {
-            UserId = admin.AdminId,
-            FirstName = admin.FirstName,
-            LastName = admin.LastName,
-            Avatar = admin.Avatar,
-            Email = admin.Email
-        };
-    }
     public string SaveProfileImage(string wwwRootPath, IFormFile profileInput)
     {
         string fileName = Guid.NewGuid().ToString();
@@ -249,13 +225,6 @@ public class UserService : IUserService
         user.EmployeeId = userAdmin.EmployeeId;
         user.Department = userAdmin.Department;
     }
-    public void UpdateAdminProfile(ProfileVM profile)
-    {
-        Admin admin = _unitOfWork.Admin.GetFirstOrDefault(admin => admin.AdminId == profile.UserId);
-        admin.FirstName = profile.FirstName;
-        admin.LastName = profile.LastName;
-        admin.Avatar = profile.Avatar;
-    }
     public bool IsProfileFilled(long id)
     {
         return _unitOfWork.User.GetFirstOrDefault(user => user.UserId == id).Availability != null;
@@ -310,16 +279,12 @@ public class UserService : IUserService
     {
         User user = _unitOfWork.User.GetFirstOrDefault(u => u.Email == email);
         if (user == null) return false;
-        if (user.Password != password) return false;
+        if (user.Password != EncryptionService.EncryptAES(password)) return false;
         return true;
     }
     public void UpdatePassword(string email, string password)
     {
-        _unitOfWork.User.UpdatePassword(email, password);
-    }
-    public void UpdateAdminPassword(string email, string password)
-    {
-        _unitOfWork.Admin.UpdatePassword(email, password);
+        _unitOfWork.User.UpdatePassword(email, EncryptionService.EncryptAES(password));
     }
     public List<UserVM> GetAllUsersToRecommendMission()
     {

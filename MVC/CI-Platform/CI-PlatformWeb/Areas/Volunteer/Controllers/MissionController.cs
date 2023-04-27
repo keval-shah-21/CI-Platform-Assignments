@@ -135,20 +135,13 @@ public class MissionController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddTimesheetGoal(long UserId, long MissionId, int Action, string Notes, DateTime DateVolunteered)
+    public IActionResult AddTimesheetGoal(MissionTimesheetGoalVM mg)
     {
         if (ModelState.IsValid)
         {
-            _unitOfService.MissionTimesheet.AddTimesheetGoal(new MissionTimesheetGoalVM()
-            {
-                MissionId = MissionId,
-                UserId = UserId,
-                Action = Action,
-                Notes = Notes,
-                DateVolunteered = DateVolunteered
-            });
+            _unitOfService.MissionTimesheet.AddTimesheetGoal(mg);
             _unitOfService.Save();
-            List<MissionTimesheetVM> mtVMs = _unitOfService.MissionTimesheet.GetAllByUserId(UserId);
+            List<MissionTimesheetVM> mtVMs = _unitOfService.MissionTimesheet.GetAllByUserId((long)mg.UserId);
             return PartialView("_MissionTimesheetPartial", mtVMs);
         }
         return NoContent();
@@ -168,21 +161,13 @@ public class MissionController : Controller
         }) : NoContent();
     }
     [HttpPost]
-    public IActionResult AddTimesheetHour(long UserId, long MissionId, int Hours, int Minutes, string Notes, DateTime DateVolunteered)
+    public IActionResult AddTimesheetHour(MissionTimesheetHourVM mh)
     {
         if (ModelState.IsValid)
         {
-            _unitOfService.MissionTimesheet.AddTimesheetHour(new MissionTimesheetHourVM()
-            {
-                MissionId = MissionId,
-                UserId = UserId,
-                Notes = Notes,
-                DateVolunteered = DateVolunteered,
-                Hours = Hours,
-                Minutes = Minutes
-            });
+            _unitOfService.MissionTimesheet.AddTimesheetHour(mh);
             _unitOfService.Save();
-            List<MissionTimesheetVM> mtVMs = _unitOfService.MissionTimesheet.GetAllByUserId(UserId);
+            List<MissionTimesheetVM> mtVMs = _unitOfService.MissionTimesheet.GetAllByUserId((long)mh.UserId);
             return PartialView("_MissionTimesheetPartial", mtVMs);
         }
         return NoContent();
@@ -210,21 +195,13 @@ public class MissionController : Controller
     }
 
     [HttpPut]
-    public IActionResult EditTimesheetHour(long UserId, long TimesheetId, long MissionId, int Hours, int Minutes, string Notes, DateTime DateVolunteered)
+    public IActionResult EditTimesheetHour(MissionTimesheetHourVM mh)
     {
         try
         {
-            _unitOfService.MissionTimesheet.EditTimesheetHour(new MissionTimesheetHourVM()
-            {
-                TimesheetId = TimesheetId,
-                MissionId = MissionId,
-                Notes = Notes,
-                DateVolunteered = DateVolunteered,
-                Hours = Hours,
-                Minutes = Minutes
-            });
+            _unitOfService.MissionTimesheet.EditTimesheetHour(mh);
             _unitOfService.Save();
-            List<MissionTimesheetVM> mtVMs = _unitOfService.MissionTimesheet.GetAllByUserId(UserId);
+            List<MissionTimesheetVM> mtVMs = _unitOfService.MissionTimesheet.GetAllByUserId((long)mh.UserId);
             return PartialView("_MissionTimesheetPartial", mtVMs);
         }
         catch (Exception)
@@ -233,20 +210,13 @@ public class MissionController : Controller
         }
     }
     [HttpPut]
-    public IActionResult EditTimesheetGoal(long UserId, long TimesheetId, long MissionId, int Action, string Notes, DateTime DateVolunteered)
+    public IActionResult EditTimesheetGoal(MissionTimesheetGoalVM mg)
     {
         try
         {
-            _unitOfService.MissionTimesheet.EditTimesheetGoal(new MissionTimesheetGoalVM()
-            {
-                TimesheetId = TimesheetId,
-                MissionId = MissionId,
-                Notes = Notes,
-                DateVolunteered = DateVolunteered,
-                Action = Action
-            });
+            _unitOfService.MissionTimesheet.EditTimesheetGoal(mg);
             _unitOfService.Save();
-            List<MissionTimesheetVM> mtVMs = _unitOfService.MissionTimesheet.GetAllByUserId(UserId);
+            List<MissionTimesheetVM> mtVMs = _unitOfService.MissionTimesheet.GetAllByUserId((long)mg.UserId);
             return PartialView("_MissionTimesheetPartial", mtVMs);
         }
         catch (Exception)

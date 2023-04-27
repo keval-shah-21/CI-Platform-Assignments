@@ -1,8 +1,8 @@
 ﻿@model IndexHeaderVM
 @{
     ViewData["Title"] = "Home Page";
-    var profileSuccess = ViewBag?.ProfileSuccess;
-    var registered = ViewBag?.Registered;
+    var profileSuccess = TempData["ProfileSuccess"];
+    var registered = TempData["Registered"];
     var userId = Context.Session.GetString("UserId");
 }
 <input hidden value="@profileSuccess" id="profileSuccess" />
