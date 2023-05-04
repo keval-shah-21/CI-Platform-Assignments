@@ -13,7 +13,7 @@ namespace CI_Platform.Services.Service
                 missionVM = missionVM.Where(mission => mission.Title.ToLower().Contains(search.ToLower()));
             }
 
-            if (country?.Count() > 0)
+            if (country?.Length > 0)
             {
                 missionVM = missionVM.Where(mission => country.Any(c => c == mission.CountryVM.CountryId));
             }

@@ -1,5 +1,4 @@
-﻿using CI_Platform.Services.Service.Interface;
-using CI_PlatformWeb.Areas.Volunteer.Utilities;
+﻿using CI_PlatformWeb.Areas.Volunteer.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CI_PlatformWeb.Areas.Admin.Controllers;

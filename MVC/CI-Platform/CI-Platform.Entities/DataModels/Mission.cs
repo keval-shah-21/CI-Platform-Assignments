@@ -1,4 +1,7 @@
-﻿namespace CI_Platform.Entities.DataModels;
+﻿using System;
+using System.Collections.Generic;
+
+namespace CI_Platform.Entities.DataModels;
 
 public partial class Mission
 {

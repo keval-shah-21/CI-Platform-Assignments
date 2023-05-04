@@ -98,7 +98,7 @@ public class UserService : IUserService
         return users.Select(user => ConvertUserToVM(user)).ToList();
     }
 
-    public void Add(UserVM userVM)
+    public long Add(UserVM userVM)
     {
         User obj = new User()
         {
@@ -114,6 +114,8 @@ public class UserService : IUserService
             Status = false
         };
         _unitOfWork.User.Add(obj);
+        _unitOfWork.Save();
+        return obj.UserId;
     }
     public void AddUserAdmin(UserAdminVM user)
     {

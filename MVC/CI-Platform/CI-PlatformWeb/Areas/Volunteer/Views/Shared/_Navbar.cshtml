@@ -4,49 +4,67 @@
     var userId = Context.Session.GetString("UserId");
     var avatar = Context.Session.GetString("Avatar");
 }
-<nav class="navbar sticky-top bg-white py-1 border-2 border-bottom">
-    <div class="container">
-        <div class="d-flex gap-1 gap-md-5 align-items-center fw-light">
+<input hidden id="userId" value="@userId"/>
+<div class="nav-overlay position-absolute d-none d-md-none"></div>
+<nav class="navbar bg-white py-2 border-2 border-bottom">
+    <div class="container flex-nowrap gap-2">
+        <div class="d-flex align-items-center gap-2">
+            <img src="~/images/static/list.png" alt="list" class="d-md-none cursor-pointer ham">
             <a asp-action="Index" asp-controller="Home">
                 <img src="~/images/static/logo.png" alt="logo" class="navbar-brand">
             </a>
-            <div class="dropdown explore-dropdown d-none">
-                <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                    Explore
-                    <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-sm-2">
-                </button>
-                <ul class="dropdown-menu" id="exploreDropdown">
-                    <li class="dropdown-item" data-id="7">Top Themes</li>
-                    <li class="dropdown-item" data-id="8">Most Ranked</li>
-                    <li class="dropdown-item" data-id="9">Top Favourites</li>
-                    <li class="dropdown-item" data-id="10">Random</li>
-                </ul>
-            </div>
-            <a asp-controller="Story" asp-action="StoryList" class="color-darkgray">Stories</a>
-            <div class="dropdown">
-                <button class="btn color-darkgray dropdown-toggle fw-light" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                    CMS Pages
-                    <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-sm-2">
-                </button>
-                <ul class="dropdown-menu cms-dropdown"></ul>
+            <div class="d-flex gap-1 gap-md-2 gap-lg-5 align-items-center fw-light nav-sidebar bg-white py-4 p-md-0 flex-column flex-md-row">
+                <button class="btn btn-close d-md-none"></button>
+                <hr class="bg-dark w-100 d-md-none">
+                <div class="dropdown explore-dropdown d-none">
+                    <button class="btn color-darkgray dropdown-toggle fw-light" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        Explore
+                        <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-lg-2">
+                    </button>
+                    <ul class="dropdown-menu" id="exploreDropdown">
+                        <li class="dropdown-item" data-id="7">Top Themes</li>
+                        <li class="dropdown-item" data-id="8">Most Ranked</li>
+                        <li class="dropdown-item" data-id="9">Top Favourites</li>
+                        <li class="dropdown-item" data-id="10">Random</li>
+                    </ul>
+                </div>
+                <a asp-controller="Story" asp-action="StoryList" class="color-darkgray">Stories</a>
+                <div class="dropdown">
+                    <button class="btn color-darkgray dropdown-toggle fw-light" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        CMS Pages
+                        <img src="~/images/static/drop-down.png" alt="drop-down" class="d-inline ms-1 ms-lg-2">
+                    </button>
+                    <ul class="dropdown-menu cms-dropdown"></ul>
+                </div>
             </div>
         </div>
-        <div class="d-flex gap-2 align-items-center">
+        <div class="d-flex align-items-center justify-content-end gap-2">
             @if (userId != null)
             {
-                <img src="/images/static/bell.png" alt="bell" class="cursor-pointer" />
+                <div class="position-relative cursor-pointer" id="bell">
+                    <img src="~/images/static/bell.png" alt="bell" />
+                    <div class="notification-count px-1 rounded-circle position-absolute bottom-50 start-50 width-max-conatent bg-light-orange text-white text-13">
+                    </div>
+                </div>
                 <div class="dropdown">
                     <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
                         type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src='@avatar' alt="profile" class="rounded-circle object-fit-cover" width="40px" height="40px">
+                        <img src='~/images/static/user-img.png' alt="profile" class="rounded-circle object-fit-cover"
+                         width="40px" height="40px">
                         <span class="d-none d-md-inline">@firstName @lastName</span>
                         <img src="~/images/static/drop-down.png" alt="drop-down">
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-md-start">
-                        <li><a class="dropdown-item" id="myprofileBtn" asp-action="UserProfile" asp-controller="User" asp-route-userId="@userId">My Profile</a></li>
-                        <li><a class="dropdown-item" id="timesheetBtn" asp-action="MissionTimesheet" asp-controller="Mission" asp-route-userId="@userId">Volunteer TimeSheet</a></li>
+                        <li>
+                            <a class="dropdown-item" id="myprofileBtn" asp-action="UserProfile" asp-controller="User"
+                           asp-route-userId="@userId">My Profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" id="timesheetBtn" asp-action="MissionTimesheet"
+                           asp-controller="Mission" asp-route-userId="@userId">Volunteer TimeSheet</a>
+                        </li>
                         <li><a id="logoutBtn" class="dropdown-item">Logout</a></li>
                     </ul>
                 </div>
@@ -54,8 +72,9 @@
             else
             {
                 <a asp-controller="User" asp-action="Registration" class="btn button bg-white">Sign Up</a>
-                <a asp-controller="User" asp-action="Login" class="btn button bg-white">Sign In</a>
+                <a asp-controller="User" asp-action="Login" class="btn button bg-white">Login</a>
             }
         </div>
     </div>
+    <div id="notificationContainer"></div>
 </nav>

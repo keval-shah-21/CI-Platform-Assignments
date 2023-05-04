@@ -126,6 +126,7 @@ $("#exploreDropdown li").on("click", (e) => {
     if (sort == id && +id != 10) return;
     sort = id;
     page = 1;
+    $(".btn-close").click();
     MakeAjaxCall();
     window.scrollTo(0, 0);
 })

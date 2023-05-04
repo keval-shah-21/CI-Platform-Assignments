@@ -314,7 +314,7 @@ public class MissionService : IMissionService
             try
             {
                 _unitOfWork.Mission.Add(mission);
-                _unitOfWork.Save();
+                await _unitOfWork.SaveAsync();
                 long id = mission.MissionId;
                 List<Task> tasks = new List<Task>();
                 tasks.Add(Task.Run(() => AddMedia(wwwRootPath, ImagesInput, id)));
@@ -322,7 +322,7 @@ public class MissionService : IMissionService
                 tasks.Add(Task.Run(() => AddMissionSkill(MissionSkills, id)));
                 await Task.WhenAll(tasks);
                 await _unitOfWork.SaveAsync();
-                transaction.Commit();
+                await transaction.CommitAsync();
             }
             catch (Exception e)
             {
@@ -373,7 +373,7 @@ public class MissionService : IMissionService
                 tasks.Add(Task.Run(() => AddMissionSkill(MissionSkills, id)));
                 await Task.WhenAll(tasks);
                 await _unitOfWork.SaveAsync();
-                transaction.Commit();
+                await transaction.CommitAsync();
             }
             catch (Exception e)
             {
@@ -403,7 +403,7 @@ public class MissionService : IMissionService
     internal static List<CommentVM> GetCommentsByMission(Mission mission)
     {
         return mission.Comments.Select(c => CommentService.ConvertCommentToVM(c))
-            .Where(c => c.ApprovalStatus == ApprovalStatus.APPROVED || c.ApprovalStatus == ApprovalStatus.PENDING)
+            .Where(c => c.ApprovalStatus == ApprovalStatus.APPROVED)
             .OrderByDescending(c => c.CreatedAt).ToList();
     }
     internal static string GetMissionThumbnail(Mission mission)

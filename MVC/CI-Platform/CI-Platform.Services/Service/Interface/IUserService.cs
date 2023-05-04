@@ -6,7 +6,7 @@ namespace CI_Platform.Services.Service.Interface;
 public interface IUserService
 {
     List<UserVM> GetAll();
-    void Add(UserVM userVM);
+    long Add(UserVM userVM);
 
     UserVM Login(LoginVM loginVM);
     AdminVM AdminLogin(LoginVM loginVM);

@@ -46,5 +46,9 @@ public interface IUnitOfService
     IMissionTimesheetService MissionTimesheet { get; }
 
     ICmsPageService CmsPage { get; }
+
+    IUserNotificationService UserNotification { get; }
+    INotificationSettingService NotificationSetting { get; }
     void Save();
+    Task SaveAsync();
 }

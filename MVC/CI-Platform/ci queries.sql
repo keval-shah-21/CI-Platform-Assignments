@@ -314,3 +314,41 @@ create table verify_email(
 	email varchar(128) primary key,
 	token varchar(255) not null,
 )
+create table notification(
+	notification_id bigint identity(1,1) primary key,
+	message varchar(300),
+	notification_type tinyint,
+)
+
+create table user_notification(
+	user_id bigint not null,
+	notification_id bigint not null,
+	is_read bit default 0,
+	from_user_avatar varchar(max),
+	created_at datetimeoffset not null default current_timestamp,
+	updated_at datetimeoffset,
+	foreign key (user_id) references [user](user_id),
+	foreign key (notification_id) references notification(notification_id)
+)
+
+create table notification_setting(
+	user_id bigint primary key,
+	recommend_mission bit default 0 not null,
+	recommend_story bit default 0 not null,
+	volunteering_hour bit default 0 not null,
+	volunteering_goal bit default 0 not null,
+	comment bit default 0 not null,
+	my_story bit default 0 not null,
+	new_mission bit default 0 not null,
+	new_message bit default 0 not null,
+	mission_application bit default 0 not null,
+	news bit default 0 not null,
+	email bit default 0 not null,
+	foreign key (user_id) references [user](user_id),
+)
+
+create table notification_check(
+	user_id bigint not null unique,
+	last_check datetimeoffset not null,
+	foreign key (user_id) references [user](user_id),
+)

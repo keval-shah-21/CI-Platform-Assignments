@@ -49,6 +49,11 @@ public interface IUnitOfWork{
     ICmsPageRepository CmsPage { get; }
 
     IBannerRepository Banner { get; }
+
+    INotificationRepository Notification { get; }
+    INotificationCheckRepository NotificationCheck { get; }
+    INotificationSettingRepository NotificationSetting { get; }
+    IUserNotificationRepository UserNotification { get; }
     void Save();
     Task SaveAsync();
     Task<IDbContextTransaction> BeginTransactionAsync();

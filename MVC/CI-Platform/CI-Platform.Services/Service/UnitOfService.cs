@@ -33,6 +33,8 @@ public class UnitOfService : IUnitOfService
         CmsPage = new CmsPageService(_unitOfWork);
         Banner = new BannerService(_unitOfWork);
         Mission = new MissionService(_unitOfWork, MissionMedia, MissionSkill, MissionGoal, MissionDocument);
+        UserNotification = new UserNotificationService(_unitOfWork);
+        NotificationSetting = new NotificationSettingService(_unitOfWork);
     }
 
     public IUserService User{get; private set;}
@@ -77,7 +79,14 @@ public class UnitOfService : IUnitOfService
     public IMissionTimesheetService MissionTimesheet { get; private set;}
 
     public ICmsPageService CmsPage { get; private set; }
+
+    public IUserNotificationService UserNotification { get; private set; }
+    public INotificationSettingService NotificationSetting { get; private set; }
     public void Save(){
         _unitOfWork.Save();
+    }
+    public async Task SaveAsync()
+    {
+        await _unitOfWork.SaveAsync();
     }
 }

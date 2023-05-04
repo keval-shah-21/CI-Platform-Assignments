@@ -17,8 +17,7 @@ namespace CI_Platform.Services.Service
         public List<CommentVM> GetAll()
         {
             IEnumerable<Comment> obj = _unitOfWork.Comment.GetAll();
-            if (obj == null) return null!;
-            return obj.Select(c => ConvertCommentToVM(c)).ToList();
+            return obj.Select(ConvertCommentToVM).ToList();
         }
 
         public static CommentVM ConvertCommentToVM(Comment c)
@@ -26,9 +25,7 @@ namespace CI_Platform.Services.Service
             return new CommentVM()
             {
                 CommentId = c.CommentId,
-                ApprovalStatus = c.ApprovalStatus == 0 ? ApprovalStatus.PENDING : 
-                                c.ApprovalStatus == 1 ? ApprovalStatus.APPROVED :
-                                ApprovalStatus.DECLINED,
+                ApprovalStatus = (ApprovalStatus)c.ApprovalStatus,
                 MissionId = c.MissionId,
                 UserId = c.UserId,
                 UserName = c.User.FirstName + " " + c.User.LastName,

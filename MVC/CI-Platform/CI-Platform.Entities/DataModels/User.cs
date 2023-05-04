@@ -65,6 +65,8 @@ public partial class User
 
     public virtual ICollection<MissionTimesheet> MissionTimesheets { get; } = new List<MissionTimesheet>();
 
+    public virtual NotificationSetting? NotificationSetting { get; set; }
+
     public virtual ICollection<Story> Stories { get; } = new List<Story>();
 
     public virtual ICollection<StoryInvite> StoryInviteFromUsers { get; } = new List<StoryInvite>();

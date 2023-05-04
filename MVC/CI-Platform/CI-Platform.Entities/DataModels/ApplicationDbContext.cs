@@ -51,6 +51,12 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<MissionTimesheet> MissionTimesheets { get; set; }
 
+    public virtual DbSet<Notification> Notifications { get; set; }
+
+    public virtual DbSet<NotificationCheck> NotificationChecks { get; set; }
+
+    public virtual DbSet<NotificationSetting> NotificationSettings { get; set; }
+
     public virtual DbSet<ResetPassword> ResetPasswords { get; set; }
 
     public virtual DbSet<Skill> Skills { get; set; }
@@ -62,6 +68,8 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<StoryMedium> StoryMedia { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserNotification> UserNotifications { get; set; }
 
     public virtual DbSet<UserSkill> UserSkills { get; set; }
 
@@ -78,6 +86,8 @@ public partial class ApplicationDbContext : DbContext
             entity.HasKey(e => e.AdminId).HasName("PK__admin__43AA4141AC680507");
 
             entity.ToTable("admin");
+
+            entity.HasIndex(e => e.Email, "UQ_admin_email").IsUnique();
 
             entity.Property(e => e.AdminId)
                 .ValueGeneratedOnAdd()
@@ -133,7 +143,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasMaxLength(5)
                 .IsUnicode(false)
                 .HasColumnName("media_type");
-            entity.Property(e => e.SortOrder).HasColumnName("sort_order");
+            entity.Property(e => e.SortOrder)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("sort_order");
             entity.Property(e => e.Title)
                 .HasMaxLength(200)
                 .IsUnicode(false)
@@ -172,6 +184,10 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("cms_page");
 
             entity.HasIndex(e => e.Slug, "UQ__cms_page__32DD1E4C3D37DEC8").IsUnique();
+
+            entity.HasIndex(e => e.Slug, "UQ__cms_page__32DD1E4C4D874F31").IsUnique();
+
+            entity.HasIndex(e => e.Slug, "UQ__cms_page__32DD1E4CB978E3A6").IsUnique();
 
             entity.Property(e => e.CmsPageId).HasColumnName("cms_page_id");
             entity.Property(e => e.CreatedAt)
@@ -373,7 +389,9 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.MissionApplicationId).HasColumnName("mission_application_id");
             entity.Property(e => e.AppliedAt).HasColumnName("applied_at");
-            entity.Property(e => e.ApprovalStatus).HasColumnName("approval_status");
+            entity.Property(e => e.ApprovalStatus)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("approval_status");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -441,7 +459,7 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
             entity.Property(e => e.GoalAchieved).HasColumnName("goal_achieved");
             entity.Property(e => e.GoalObjective)
-                .HasMaxLength(255)
+                .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("goal_objective");
             entity.Property(e => e.GoalValue).HasColumnName("goal_value");
@@ -628,6 +646,64 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.MissionTimesheets)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK__mission_t__user___467D75B8");
+        });
+
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.HasKey(e => e.NotificationId).HasName("PK__notifica__E059842F7C04AAE1");
+
+            entity.ToTable("notification");
+
+            entity.Property(e => e.NotificationId).HasColumnName("notification_id");
+            entity.Property(e => e.Message)
+                .HasMaxLength(300)
+                .IsUnicode(false)
+                .HasColumnName("message");
+            entity.Property(e => e.NotificationType).HasColumnName("notification_type");
+        });
+
+        modelBuilder.Entity<NotificationCheck>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("notification_check");
+
+            entity.HasIndex(e => e.UserId, "UQ__notifica__B9BE370ED3E83858").IsUnique();
+
+            entity.Property(e => e.LastCheck).HasColumnName("last_check");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithOne()
+                .HasForeignKey<NotificationCheck>(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__notificat__user___4CC05EF3");
+        });
+
+        modelBuilder.Entity<NotificationSetting>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK__notifica__B9BE370F2892E764");
+
+            entity.ToTable("notification_setting");
+
+            entity.Property(e => e.UserId)
+                .ValueGeneratedNever()
+                .HasColumnName("user_id");
+            entity.Property(e => e.Comment).HasColumnName("comment");
+            entity.Property(e => e.Email).HasColumnName("email");
+            entity.Property(e => e.MissionApplication).HasColumnName("mission_application");
+            entity.Property(e => e.MyStory).HasColumnName("my_story");
+            entity.Property(e => e.NewMessage).HasColumnName("new_message");
+            entity.Property(e => e.NewMission).HasColumnName("new_mission");
+            entity.Property(e => e.News).HasColumnName("news");
+            entity.Property(e => e.RecommendMission).HasColumnName("recommend_mission");
+            entity.Property(e => e.RecommendStory).HasColumnName("recommend_story");
+            entity.Property(e => e.VolunteeringGoal).HasColumnName("volunteering_goal");
+            entity.Property(e => e.VolunteeringHour).HasColumnName("volunteering_hour");
+
+            entity.HasOne(d => d.User).WithOne(p => p.NotificationSetting)
+                .HasForeignKey<NotificationSetting>(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__notificat__user___6774552F");
         });
 
         modelBuilder.Entity<ResetPassword>(entity =>
@@ -850,6 +926,36 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Country).WithMany(p => p.Users)
                 .HasForeignKey(d => d.CountryId)
                 .HasConstraintName("FK__user__country_id__59FA5E80");
+        });
+
+        modelBuilder.Entity<UserNotification>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("user_notification");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("created_at");
+            entity.Property(e => e.FromUserAvatar)
+                .IsUnicode(false)
+                .HasColumnName("from_user_avatar");
+            entity.Property(e => e.IsRead)
+                .HasDefaultValueSql("((0))")
+                .HasColumnName("is_read");
+            entity.Property(e => e.NotificationId).HasColumnName("notification_id");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Notification).WithMany()
+                .HasForeignKey(d => d.NotificationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__user_noti__notif__72E607DB");
+
+            entity.HasOne(d => d.User).WithMany()
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__user_noti__user___71F1E3A2");
         });
 
         modelBuilder.Entity<UserSkill>(entity =>

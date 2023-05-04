@@ -469,6 +469,49 @@ form input:focus {
     color: var(--dark-gray) !important;
     font-weight: 500;
 }
+.nav-overlay {
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    z-index: 1021;
+}
+
+.nav-sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    z-index: 1022;
+    transition: 0.2s all linear;
+}
+
+
+@media(min-width: 1400px) {
+    .nav-sidebar {
+        width: 330px;
+    }
+}
+
+@media(min-width: 768px) {
+    .nav-sidebar {
+        transform: translateX(0);
+        position: static;
+        height: auto;
+        width: 285px;
+    }
+}
+
+@media(min-width: 992px) {
+    .nav-sidebar {
+        width: 300px;
+    }
+}
+
+.nav-sidebar-open {
+    transform: translateX(0);
+    transition: 0.3s all linear;
+}
 /*admin css*/
 .sidebar {
     width: 270px;
@@ -558,4 +601,33 @@ form input:focus {
 .active-button-plain {
     background-color: var(--light-orange);
     color: white;
+}
+.notification {
+    max-height: 25rem;
+    max-width: 30rem;
+    z-index: 1000 !important;
+}
+
+@media(min-width:768px) {
+    .notification {
+        width: 30rem !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        max-height: 30rem;
+    }
+}
+
+.older-title {
+    background-color: lightgray;
+}
+
+.orange-dot {
+    height: 15px;
+    width: 15px;
+    background-color: var(--light-orange);
+}
+
+.notification-setting-check:checked {
+    background-color: var(--light-orange);
+    border: none;
 }

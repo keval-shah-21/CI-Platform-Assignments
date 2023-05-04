@@ -36,6 +36,10 @@ public class UnitOfWork : IUnitOfWork
         CmsPage = new CmsPageRepository(_context);
         Banner = new BannerRepository(_context);
         VerifyEmail = new VerifyEmailRepository(_context);
+        Notification = new NotificationRepository(_context);
+        NotificationCheck = new NotificationCheckRepository(_context);
+        NotificationSetting = new NotificationSettingRepository(_context);
+        UserNotification = new UserNotificationRepository(_context);
     }
     public IUserRepository User{get; private set;}
 
@@ -85,6 +89,11 @@ public class UnitOfWork : IUnitOfWork
     public ICmsPageRepository CmsPage { get; private set; }
 
     public IBannerRepository Banner { get; private set; }   
+
+    public INotificationSettingRepository NotificationSetting { get; private set; }
+    public INotificationRepository Notification { get; private set; }
+    public INotificationCheckRepository NotificationCheck { get; private set; }
+    public IUserNotificationRepository UserNotification { get; private set; }
     public void Save()
     {
         _context.SaveChanges();

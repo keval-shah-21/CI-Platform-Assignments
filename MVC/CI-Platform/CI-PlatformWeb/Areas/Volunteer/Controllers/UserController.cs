@@ -113,12 +113,14 @@ public class UserController : Controller
             if (_unitOfService.User.GetFirstOrDefaultByEmail(userVM.Email) == null)
             {
                 userVM.Avatar = @"\images\static\default-profile.webp";
-                _unitOfService.User.Add(userVM);
+                long userId = _unitOfService.User.Add(userVM);
                 string token = Guid.NewGuid().ToString();
                 var url = Url.Action("Login", "User", new { email = userVM.Email, token = token }, "https");
 
                 _unitOfService.User.SaveVerifyAccountDetails(userVM.Email, token);
                 _unitOfService.User.SendVerifyAccountEmail(userVM.Email, url);
+                _unitOfService.NotificationSetting.Add(userId);
+                _unitOfService.UserNotification.AddNotificationCheck(userId);
 
                 _unitOfService.Save();
                 TempData["Registered"] = "true";
