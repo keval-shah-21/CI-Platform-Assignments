@@ -7,9 +7,9 @@ namespace CI_Platform.Entities.ViewModels
         public long CommentId { get; set; }
 
         public long MissionId { get; set; }
+        public string? MissionName { get; set; }
 
         public long UserId { get; set; }
-
         public ApprovalStatus ApprovalStatus { get; set; }
 
         public string? UserName { get; set; }

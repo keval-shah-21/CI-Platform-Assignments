@@ -8,7 +8,6 @@
     <PackageReference Include="TinyMCE" Version="6.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Views\Comment\" />
     <Folder Include="wwwroot\images\banner\" />
     <Folder Include="wwwroot\images\mission\" />
     <Folder Include="wwwroot\images\user\" />

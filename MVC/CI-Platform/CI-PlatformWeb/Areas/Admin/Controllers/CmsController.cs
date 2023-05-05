@@ -1,4 +1,5 @@
-﻿using CI_Platform.Entities.ViewModels;
+﻿using CI_Platform.Entities.Constants;
+using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,7 +44,7 @@ public class CmsController : Controller
     }
 
     [HttpPost]
-    public IActionResult AddCMSPage(CmsPageVM cms)
+    public async Task<IActionResult> AddCMSPage(CmsPageVM cms)
     {
         try
         {
@@ -52,6 +53,8 @@ public class CmsController : Controller
 
             List<CmsPageVM> cmsList = _unitOfService.CmsPage.GetAll();
             cmsList = cmsList.OrderByDescending(c => c.CreatedAt).ToList();
+            await _unitOfService.Notification.SendNotificationToAllUsers($"News - New CMS Page '{cms.Title}' added", NotificationType.ADD, "News");
+
             return PartialView("_CMS_Page", cmsList);
         }
         catch (Exception e)
@@ -127,7 +130,7 @@ public class CmsController : Controller
             cmsList = cmsList.OrderByDescending(c => c.CreatedAt).ToList();
             return PartialView("_CMS_Page", cmsList);
         }
-        catch (Exception e) 
+        catch (Exception e)
         {
             Console.WriteLine("Error deactivating cms: " + e.Message);
             Console.WriteLine(e.StackTrace);

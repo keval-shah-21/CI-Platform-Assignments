@@ -26,6 +26,7 @@ public class UserNotificationRepository : Repository<UserNotification>, IUserNot
     public async Task MarkAsReadNotification(long notificationId)
     {
         SqlParameter idParameter = new SqlParameter("@id", notificationId);
-        await _context.Database.ExecuteSqlRawAsync("UPDATE user_notification SET is_read = 1 WHERE notification_id = @id", idParameter);
+        SqlParameter dateParameter = new SqlParameter("@date", DateTimeOffset.Now);
+        await _context.Database.ExecuteSqlRawAsync("UPDATE user_notification SET is_read = 1, updated_at = @date WHERE notification_id = @id", dateParameter, idParameter);
     }
 }

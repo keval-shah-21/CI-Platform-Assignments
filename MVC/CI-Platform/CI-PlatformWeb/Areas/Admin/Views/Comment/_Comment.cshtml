@@ -1,0 +1,67 @@
+﻿@using CI_Platform.Entities.Constants
+@model IEnumerable<CommentVM>
+<div class="border-bottom mb-4">
+    <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">Comments</h4>
+</div>
+<div class="d-flex align-items-center adminSearchContainer mb-4 gap-1">
+    <div class="d-flex align-items-center border border-2 rounded py-1 ps-2 gap-1 flex-grow-1">
+        <img src="/images/static/search.png" alt="search">
+        <input type="search" id="adminSearch" placeholder="Search" class="form-control border-0">
+    </div>
+    <div class="spinner-border text-secondary opacity-0" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<div class="table-responsive border">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Mission</th>
+                <th>Commented At</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model?.LongCount() == 0)
+            {
+                <tr>
+                    <td colspan="100%">
+                        <div class="text-center py-3">No comments found.</div>
+                    </td>
+                </tr>
+            }
+            @foreach (CommentVM c in Model)
+            {
+                <tr>
+                    <td>
+                        @c.UserName
+                    </td>
+                    <td>
+                        @c.MissionName
+                    </td>
+                    <td>
+                        @c.CreatedAt.ToString("d")
+                    </td>
+                    <td class="@c.ApprovalStatus">
+                        @Html.DisplayFor(model => @c.ApprovalStatus)
+                    </td>
+                    <td>
+                        <div class="width-max-conatent">
+                            <button data-view="@c.CommentId" class="btn button-plain text-14 px-3 py-1 me-1">View</button>
+                            <img src="/images/static/check-circle.svg"
+                                 class="cursor-pointer d-inline width-max-conatent me-1" alt="accept"
+                                 height="23px" width="23px"
+                              data-accept="@c.CommentId">
+                            <img src="/images/static/x-circle.svg" class="cursor-pointer d-inline width-max-conatent"
+                              alt="bin" height="23px" width="23px"
+                              data-decline="@c.CommentId">
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="pagination d-flex justify-content-end gap-1 px-3 my-4"></div>

@@ -1,0 +1,36 @@
+﻿@model CommentVM
+<div class="modal fade" id="commentViewModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Comment</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body d-grid gap-2 color-darkgray">
+                    <div>
+                        <label asp-for="UserName">User Name</label>
+                        <input type="text" class="form-control" asp-for="UserName" readonly />
+                    </div>
+                    <div>
+                        <label asp-for="MissionName">Mission Name</label>
+                        <input type="text" class="form-control" asp-for="MissionName" readonly />
+                    </div>
+                    <div>
+                        <label asp-for="CreatedAt">Commented At</label>
+                        <input type="datetime" class="form-control" value="@Model.CreatedAt.ToString("dddd, MMM dd yyyy HH:mm:ss")" readonly />
+                    </div>
+                    <div>
+                        <label asp-for="Text">Comment</label>
+                        <textarea type="text" class="form-control" asp-for="Text" rows="4" readonly></textarea>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn button-dark px-4" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

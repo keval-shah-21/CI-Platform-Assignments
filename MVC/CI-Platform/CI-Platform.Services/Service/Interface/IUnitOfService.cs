@@ -49,6 +49,7 @@ public interface IUnitOfService
 
     IUserNotificationService UserNotification { get; }
     INotificationSettingService NotificationSetting { get; }
+    INotificationService Notification { get; }
     void Save();
     Task SaveAsync();
 }

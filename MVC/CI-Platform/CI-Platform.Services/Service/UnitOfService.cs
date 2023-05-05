@@ -35,6 +35,7 @@ public class UnitOfService : IUnitOfService
         Mission = new MissionService(_unitOfWork, MissionMedia, MissionSkill, MissionGoal, MissionDocument);
         UserNotification = new UserNotificationService(_unitOfWork);
         NotificationSetting = new NotificationSettingService(_unitOfWork);
+        Notification = new NotificationService(NotificationSetting, emailService, _unitOfWork);
     }
 
     public IUserService User{get; private set;}
@@ -82,6 +83,7 @@ public class UnitOfService : IUnitOfService
 
     public IUserNotificationService UserNotification { get; private set; }
     public INotificationSettingService NotificationSetting { get; private set; }
+    public INotificationService Notification { get; private set; }
     public void Save(){
         _unitOfWork.Save();
     }

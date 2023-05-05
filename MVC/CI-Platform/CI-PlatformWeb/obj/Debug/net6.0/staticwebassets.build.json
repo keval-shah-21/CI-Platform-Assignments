@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Mbd3eUiNSq6hRXn+R0494APKJAqEHr761Jop8qc7jYs=",
+  "Hash": "h0kf2cCj51gj/quVVNjDWFqcdSqtpRLTk7Mn2Oh29UU=",
   "Source": "CI-PlatformWeb",
   "BasePath": "_content/CI-PlatformWeb",
   "Mode": "Default",
@@ -627,6 +627,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\static\\chat-dots-white.svg"
+    },
+    {
+      "Identity": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\chat-quote.svg",
+      "SourceId": "CI-PlatformWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
+      "BasePath": "_content/CI-PlatformWeb",
+      "RelativePath": "images/static/chat-quote.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\static\\chat-quote.svg"
+    },
+    {
+      "Identity": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\chat-quote-fill.svg",
+      "SourceId": "CI-PlatformWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\",
+      "BasePath": "_content/CI-PlatformWeb",
+      "RelativePath": "images/static/chat-quote-fill.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\static\\chat-quote-fill.svg"
     },
     {
       "Identity": "D:\\CI-Platform-Assignments\\MVC\\CI-Platform\\CI-PlatformWeb\\wwwroot\\images\\static\\check-circle.svg",

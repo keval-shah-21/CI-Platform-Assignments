@@ -19,9 +19,19 @@ public class NotificationSettingService : INotificationSettingService
         var setting = await _unitOfWork.NotificationSetting.GetFirstOrDefaultAsync(x => x.UserId == userId);
         return ConvertSettingToVM(setting);
     }
+    public async Task<NotificationSettingVM> GetNotificationSettingByUserIdWithInclude(long userId)
+    {
+        var setting = await _unitOfWork.NotificationSetting.GetFirstOrDefaultWithIncludeAsync(x => x.UserId == userId);
+        return ConvertSettingToVM(setting);
+    }
     public async Task<IEnumerable<NotificationSettingVM>> GetAllAsync()
     {
         var settings = await _unitOfWork.NotificationSetting.GetAllAsync();
+        return settings.Select(ConvertSettingToVM);
+    }
+    public async Task<IEnumerable<NotificationSettingVM>> GetAllWithIncludeAsync()
+    {
+        var settings = await _unitOfWork.NotificationSetting.GetAllWithIncludeAsync();
         return settings.Select(ConvertSettingToVM);
     }
     public async Task Add(long userId)
@@ -54,6 +64,7 @@ public class NotificationSettingService : INotificationSettingService
         return new NotificationSettingVM()
         {
             UserId = setting.UserId,
+            UserEmail = setting.User?.Email,
             Comment = setting.Comment,
             Email = setting.Email,
             MissionApplication = setting.MissionApplication,

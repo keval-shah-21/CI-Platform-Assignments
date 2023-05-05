@@ -41,6 +41,10 @@ function toggleSidebarCSS(item) {
         case "contact":
             currentSidebarItem.firstElementChild.src = "/images/static/chat-dots-white.svg";
             break;
+        case "comment":
+            currentSidebarItem.firstElementChild.src = "/images/static/chat-quote.svg";
+            break;
+
     }
     item.classList.add("active-sidebar-item");
     const data = item.dataset.item;
@@ -74,6 +78,9 @@ function toggleSidebarCSS(item) {
             break;
         case "contact":
             item.firstElementChild.src = "/images/static/chat-dots-fill.svg";
+            break;
+        case "comment":
+            item.firstElementChild.src = "/images/static/chat-quote-fill.svg";
             break;
     }
 
@@ -116,6 +123,9 @@ function addSidebarEvents() {
                     break;
                 case "contact":
                     loadInitialPartial("/Admin/Contact/LoadContactPage", item.dataset.item);
+                    break;
+                case "comment":
+                    loadInitialPartial("/Admin/Comment/LoadCommentPage", item.dataset.item);
                     break;
             }
         })
@@ -499,6 +509,89 @@ function handleImagesEvents(isEdit) {
         }
         fetchAndCreateFiles();
     }
+}
+
+//comment events
+function commentTableEvents() {
+    document.querySelectorAll("[data-view]").forEach((view) => {
+        view.addEventListener("click", () => {
+            $.ajax({
+                url: "/Admin/Comment/ViewComment",
+                method: "GET",
+                data: { id: $(view).data("view") },
+                success: (result) => {
+                    partialModalContainer.html(result);
+                    $("#commentViewModal").modal("show");
+                },
+                error: (error) => {
+                    console.log(error);
+                    simpleAlert("Something went wrong!", "error");
+                }
+            });
+        })
+    });
+    document.querySelectorAll("[data-accept]").forEach((accept) => {
+        accept.addEventListener("click", () => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert it back!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Approve!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Comment/UpdateStatus",
+                        method: "PUT",
+                        data: { id: $(accept).data("accept"), value: 1 },
+                        success: (result) => {
+                            partialContainer.html(result);
+                            createPagination();
+                            simpleAlert("Successfully approved the comment!", "success");
+                            addAllEvents("comment");
+                        },
+                        error: (error) => {
+                            console.log(error);
+                            simpleAlert("Something went wrong!", "error");
+                        }
+                    });
+                }
+            })
+        });
+    });
+    document.querySelectorAll("[data-decline]").forEach((decline) => {
+        decline.addEventListener("click", () => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert it back!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Decline!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/Admin/Comment/UpdateStatus",
+                        method: "PUT",
+                        data: { id: $(decline).data("decline"), value: 2 },
+                        success: (result) => {
+                            partialContainer.html(result);
+                            createPagination();
+                            simpleAlert("Successfully declined the comment!", "success");
+                            addAllEvents("comment");
+                        },
+                        error: (error) => {
+                            console.log(error);
+                            simpleAlert("Something went wrong!", "error");
+                        }
+                    });
+                }
+            })
+        })
+    });
 }
 
 //application events
@@ -1773,6 +1866,10 @@ function addAllEvents(action) {
         case "application":
             searchEvent("/Admin/Application/SearchApplication", action);
             applicationTableEvents();
+            break;
+        case "comment":
+            searchEvent("/Admin/Comment/SearchComment", action);
+            commentTableEvents();
             break;
     }
 }

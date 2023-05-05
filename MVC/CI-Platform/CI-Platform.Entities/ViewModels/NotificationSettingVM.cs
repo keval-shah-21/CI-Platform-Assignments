@@ -5,6 +5,7 @@ namespace CI_Platform.Entities.ViewModels;
 public class NotificationSettingVM
 {
     public long UserId { get; set; }
+    public string? UserEmail { get; set; }
 
     [Display(Name = "Recommend Mission")]
     public bool RecommendMission { get; set; }

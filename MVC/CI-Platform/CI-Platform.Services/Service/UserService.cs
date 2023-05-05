@@ -266,7 +266,7 @@ public class UserService : IUserService
     public void SendVerifyAccountEmail(string email, string url)
     {
         string subject = "CI Platform - Verify Account";
-        string link = $"<a href='{url}' style='text-decoration:none;display:block;width:max-content;border:1px solid black;border-radius:5rem;padding:0.75rem 1rem;margin:1rem auto;color:black;font-size:1rem;'>Reset Password</a>";
+        string link = $"<a href='{url}' style='text-decoration:none;display:block;width:max-content;border:1px solid black;border-radius:5rem;padding:0.75rem 1rem;margin:1rem auto;color:black;font-size:1rem;'>Verify Account</a>";
         string body = $"<p style='text-align:center;font-size:1.5rem'>Click on the link below to verify your account</p><hr/>{link}";
         _emailService.SendEmail(email, subject, body);
     }

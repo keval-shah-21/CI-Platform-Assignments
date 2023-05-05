@@ -14,12 +14,12 @@ $(".nav-overlay").click(() => {
     $(".btn-close").click();
 });
 
-const userId = $("#userId").val();
-if (userId != null && userId != "") {
+const id = $("#userId").val();
+if (id != null && id != "") {
     $.ajax({
         url: "/Volunteer/Notification/GetNotificationPartialByUserId",
         method: "get",
-        data: { userId },
+        data: { userId: id },
         success: (result) => {
             $("#notificationContainer").html(result);
             let count = $("#unread").val();
@@ -53,7 +53,7 @@ function handleBellClick() {
         $.ajax({
             url: "/Volunteer/Notification/UpdateLastCheck",
             method: "put",
-            data: { userId },
+            data: { userId: id },
             error: error => {
                 console.log(error);
             }
@@ -86,7 +86,7 @@ function handleClearAllNotification() {
         $.ajax({
             url: "/Volunteer/Notification/ClearAllNotification",
             method: "delete",
-            data: { userId },
+            data: { userId: id },
             error: error => {
                 console.log(error);
                 simpleAlert("Something went wrong!", "error");
