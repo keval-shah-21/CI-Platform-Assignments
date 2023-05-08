@@ -4,7 +4,7 @@ namespace CI_Platform.Services.Service.Interface;
 
 public interface ICmsPageService
 {
-    void SaveCmsPage(CmsPageVM cms);
+    long SaveCmsPage(CmsPageVM cms);
     List<CmsPageVM> GetAll();
 
     void UpdateCmsPage(CmsPageVM cms);

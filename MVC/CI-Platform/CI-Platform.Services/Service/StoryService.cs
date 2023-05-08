@@ -57,7 +57,11 @@ namespace CI_Platform.Services.Service
                 VideoUrl = storyVM?.VideoUrl
             });
         }
-
+        public async Task<string> GetStoryTitleById(long id)
+        {
+            Story story = await _unitOfWork.Story.GetFirstOrDefaultAsync(s => s.StoryId == id);
+            return story.Title;
+        }
         public void UpdateStory(StoryVM storyVM, byte approvalStatus)
         {
             Story story = _unitOfWork.Story.GetFirstOrDefault(s => s.StoryId == storyVM.StoryId);

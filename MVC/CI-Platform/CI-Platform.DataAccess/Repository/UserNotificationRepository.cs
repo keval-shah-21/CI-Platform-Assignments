@@ -23,10 +23,10 @@ public class UserNotificationRepository : Repository<UserNotification>, IUserNot
         SqlParameter idParameter = new SqlParameter("@id", userId);
         await _context.Database.ExecuteSqlRawAsync("DELETE FROM user_notification WHERE user_id = @id", idParameter);
     }
-    public async Task MarkAsReadNotification(long notificationId)
+    public async Task MarkAsReadNotification(long userNotificationId)
     {
-        SqlParameter idParameter = new SqlParameter("@id", notificationId);
+        SqlParameter idParameter = new SqlParameter("@id", userNotificationId);
         SqlParameter dateParameter = new SqlParameter("@date", DateTimeOffset.Now);
-        await _context.Database.ExecuteSqlRawAsync("UPDATE user_notification SET is_read = 1, updated_at = @date WHERE notification_id = @id", dateParameter, idParameter);
+        await _context.Database.ExecuteSqlRawAsync("UPDATE user_notification SET is_read = 1, updated_at = @date WHERE user_notification_id = @id", dateParameter, idParameter);
     }
 }

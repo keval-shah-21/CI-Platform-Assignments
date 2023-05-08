@@ -9,5 +9,5 @@ public interface IUserNotificationService
     Task UpdateLastCheck(long userId);
     Task AddNotificationCheck(long userId);
     Task ClearAllNotification(long userId);
-    Task MarkAsReadNotification(long notificationId);
+    Task MarkAsReadNotification(long userNotificationId);
 }

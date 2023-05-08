@@ -11,6 +11,7 @@ public interface IMissionService
     List<IndexMissionVM> FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, long? userId);
 
     MissionVM GetMissionById(long? id);
+    Task<string> GetMissionNameById(long id);
 
     MissionVM UpdateMissionRating(long id);
 
@@ -18,8 +19,9 @@ public interface IMissionService
 
     void UpdateActiveStatus(long id, int value);
 
-    Task AddTimeMission(TimeMissionVM time, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath);
-    Task AddGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath);
+    Task<long> AddTimeMission(TimeMissionVM time, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath);
+    Task<long> AddGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath);
+    
     List<AdminMissionVM> Search(string? query);
     TimeMissionVM GetTimeMissionById(long id);
     GoalMissionVM GetGoalMissionById(long id);

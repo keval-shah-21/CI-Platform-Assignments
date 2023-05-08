@@ -12,4 +12,5 @@ public interface IMissionApplicationService
     void ApplyMission(long missionId, long userId);
     List<MissionApplicationVM> GetAllWithInclude();
     List<MissionApplicationVM> Search(string? query);
+    Task<(string, long)> GetMissionNameToSendNotification(long id);
 }

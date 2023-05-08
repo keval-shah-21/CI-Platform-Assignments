@@ -113,7 +113,7 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
         }
 
         [HttpPost]
-        public IActionResult RecommendStory(long storyId, long userId, long[] toUsers)
+        public async Task<IActionResult> RecommendStory(long storyId, long userId, long[] toUsers)
         {
             var url = Url.Action("StoryDetails", "Story", new { id = storyId }, "https");
             _unitOfService.StoryInvite.RecommendStory(storyId, userId, toUsers, url);
@@ -121,6 +121,19 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
             List<UserVM> users = _unitOfService.User.GetAllUsersToRecommendStory();
             ViewBag.UserId = userId;
             ViewBag.StoryId = storyId;
+
+            string title = await _unitOfService.Story.GetStoryTitleById(storyId);
+            UserVM user = await _unitOfService.User.GetFirstOrDefaultById(userId);
+
+            SendNotificationVM sendNotificationVM = new()
+            {
+                Message = $"{user.FirstName} {user.LastName} - Recommended this Story - {title}",
+                SettingType = NotificationSettingType.RECOMMEND_MISSION,
+                NotificationType = NotificationType.RECOMMEND,
+                FromUserAvatar = user.Avatar,
+            };
+            await _unitOfService.Notification.SendNotificationToAllUsers(sendNotificationVM, toUsers.ToList());
+
             return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
         }
     }

@@ -48,12 +48,20 @@ public class CmsController : Controller
     {
         try
         {
-            _unitOfService.CmsPage.SaveCmsPage(cms);
+            long id = _unitOfService.CmsPage.SaveCmsPage(cms);
             _unitOfService.Save();
 
             List<CmsPageVM> cmsList = _unitOfService.CmsPage.GetAll();
             cmsList = cmsList.OrderByDescending(c => c.CreatedAt).ToList();
-            await _unitOfService.Notification.SendNotificationToAllUsers($"News - New CMS Page '{cms.Title}' added", NotificationType.ADD, "News");
+
+            SendNotificationVM sendNotificationVM = new SendNotificationVM
+            {
+                Message = $"News - New CMS Page '{cms.Title}' was recently added by admin.",
+                Url = Url.Action("CmsPage", "Cms", new { area = "Volunteer", id }, "https"),
+                SettingType = NotificationSettingType.NEWS,
+                NotificationType = NotificationType.ADD,
+            };
+            await _unitOfService.Notification.SendNotificationToAllUsers(sendNotificationVM, new List<long>());
 
             return PartialView("_CMS_Page", cmsList);
         }

@@ -15,7 +15,9 @@ public class NotificationController : Controller
     public async Task<IActionResult> GetNotificationPartialByUserId(long userId)
     {
         var notifs = await _unitOfService.UserNotification.GetAllByUserId(userId);
-        var setting = await _unitOfService.NotificationSetting.GetNotificationSettingByUserId(userId);
+        notifs = notifs.OrderByDescending(n => n.CreatedAt);
+
+        var setting = await _unitOfService.NotificationSetting.GetByUserId(userId);
         DateTimeOffset lastCheck = await _unitOfService.UserNotification.GetLastCheckByUserId(userId);
 
         var newNotifications = new List<UserNotificationVM>();
@@ -24,7 +26,7 @@ public class NotificationController : Controller
 
         foreach (var notification in notifs)
         {
-            if (notification.LastModified > lastCheck)
+            if (notification.CreatedAt > lastCheck)
             {
                 newNotifications.Add(notification);
             }
@@ -79,11 +81,11 @@ public class NotificationController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> MarkAsReadNotification(long notificationId)
+    public async Task<IActionResult> MarkAsReadNotification(long userNotificationId)
     {
         try
         {
-            await _unitOfService.UserNotification.MarkAsReadNotification(notificationId);
+            await _unitOfService.UserNotification.MarkAsReadNotification(userNotificationId);
         }
         catch (Exception)
         {

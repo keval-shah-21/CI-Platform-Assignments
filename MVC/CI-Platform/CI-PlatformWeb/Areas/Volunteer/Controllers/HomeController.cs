@@ -1,10 +1,9 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using CI_PlatformWeb.Models;
+﻿using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
-using CI_Platform.Entities.ViewModels;
 using CI_PlatformWeb.Areas.Volunteer.Utilities;
-using CI_Platform.Entities.Constants;
+using CI_PlatformWeb.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace CI_PlatformWeb.Areas.Volunteer.Controllers;
 
@@ -38,7 +37,8 @@ public class HomeController : Controller
     public IActionResult FilterMissions(int[]? country, int[]? city, int[]? theme, int[]? skill, string? search, int? sort, int page)
     {
         long? userId = 0;
-        if(HttpContext.Session.GetString("UserId") != null){
+        if (HttpContext.Session.GetString("UserId") != null)
+        {
             userId = long.Parse(HttpContext.Session.GetString("UserId"));
         }
         List<IndexMissionVM> missionVMs = _unitOfService.Mission.FilterMissions(country, city, theme, skill, search, sort, userId);

@@ -6,5 +6,5 @@ public interface IUserNotificationRepository: IRepository<UserNotification>
 {
     Task<IEnumerable<UserNotification>> GetAllWithIncludeAsync();
     Task ClearAllNotification(long userId);
-    Task MarkAsReadNotification(long notificationId);
+    Task MarkAsReadNotification(long userNotificationId);
 }

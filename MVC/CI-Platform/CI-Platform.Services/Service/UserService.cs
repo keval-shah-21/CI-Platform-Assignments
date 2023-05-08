@@ -163,6 +163,11 @@ public class UserService : IUserService
         User obj = _unitOfWork.User.GetFirstOrDefault(user => user.Email.Equals(email));
         return obj == null ? null! : ConvertUserToVM(obj);
     }
+    public async Task<UserVM> GetFirstOrDefaultById(long id)
+    {
+        User obj = await _unitOfWork.User.GetFirstOrDefaultAsync(user => user.UserId == id);
+        return ConvertUserToVM(obj);
+    }
     public UserAdminVM GetFirstOrDefaultUserAdmin(long id)
     {
         User obj = _unitOfWork.User.GetFirstOrDefault(user => user.UserId == id);

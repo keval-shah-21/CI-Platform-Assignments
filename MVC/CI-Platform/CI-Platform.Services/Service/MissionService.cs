@@ -137,6 +137,11 @@ public class MissionService : IMissionService
         if (mission == null) return null!;
         return ConvertMissionToVM(mission);
     }
+    public async Task<string> GetMissionNameById(long id)
+    {
+        Mission mission = await _unitOfWork.Mission.GetFirstOrDefaultAsync(m => m.MissionId == id);
+        return mission.Title;
+    }
     public TimeMissionVM GetTimeMissionById(long id)
     {
         Mission mission = _unitOfWork.Mission.GetFirstOrDefaultAdminMission(mission => mission.MissionId == id);
@@ -287,7 +292,7 @@ public class MissionService : IMissionService
         return ConvertMissionToVM(mission);
     }
 
-    public async Task AddTimeMission(TimeMissionVM time, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath)
+    public async Task<long> AddTimeMission(TimeMissionVM time, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath)
     {
         Mission mission = new Mission()
         {
@@ -331,8 +336,9 @@ public class MissionService : IMissionService
                 throw;
             }
         }
+        return mission.MissionId;
     }
-    public async Task AddGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath)
+    public async Task<long> AddGoalMission(GoalMissionVM goal, List<IFormFile> ImagesInput, List<IFormFile> DocumentsInput, List<string> MissionSkills, string wwwRootPath)
     {
         Mission mission = new Mission()
         {
@@ -382,6 +388,7 @@ public class MissionService : IMissionService
                 throw;
             }
         }
+        return mission.MissionId;
     }
     public List<AdminMissionVM> Search(string? query)
     {

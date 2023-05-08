@@ -15,6 +15,7 @@ namespace CI_Platform.Services.Service.Interface
         List<StoryVM> GetAll();
         long GetLatestStoryId(long userId);
         void RemoveStoryById(long storyId);
+        Task<string> GetStoryTitleById(long id);
         StoryVM GetStoryById(long? id);
         void UpdateTotalViews(long storyId, long totalViews);
         List<StoryVM> GetAdminStories();

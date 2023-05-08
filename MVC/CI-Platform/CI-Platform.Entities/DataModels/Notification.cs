@@ -7,4 +7,8 @@ public partial class Notification
     public string? Message { get; set; }
 
     public byte? NotificationType { get; set; }
+
+    public byte? SettingType { get; set; }
+
+    public virtual ICollection<UserNotification> UserNotifications { get; } = new List<UserNotification>();
 }

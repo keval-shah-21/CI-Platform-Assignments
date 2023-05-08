@@ -125,4 +125,9 @@ public class MissionApplicationService : IMissionApplicationService
             MissionType = mi.Mission.MissionType ? MissionType.GOAL : MissionType.TIME,
         }).ToList();
     }
+
+    public async Task<(string, long)> GetMissionNameToSendNotification(long id)
+    {
+        return await _unitOfWork.MissionApplication.GetMissionNameToSendNotification(ma => ma.MissionApplicationId == id);
+    }
 }

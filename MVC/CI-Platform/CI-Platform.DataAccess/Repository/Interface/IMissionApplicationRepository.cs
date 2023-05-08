@@ -11,4 +11,5 @@ public interface IMissionApplicationRepository : IRepository<MissionApplication>
     IEnumerable<MissionApplication> GetAllAdmin();
     void UpdateStatus(long id, byte value);
     MissionApplication GetFirstOrDefaultWithInclude(Expression<Func<MissionApplication, bool>> filter);
+    Task<(string, long)> GetMissionNameToSendNotification(Expression<Func<MissionApplication, bool>> filter);
 }

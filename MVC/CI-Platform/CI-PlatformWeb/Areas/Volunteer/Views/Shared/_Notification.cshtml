@@ -1,7 +1,7 @@
 ﻿@using CI_Platform.Entities.Constants
 @model UserNotificationContainerVM
 <input hidden id="unread" value="@Model.Unread" />
-<section class="position-absolute bg-white top-100 end-0 start-0 notification notification-div m-2 d-none border border-2 overflow-auto">
+<section class="position-absolute bg-white top-100 end-0 start-0 notification notification-div m-2 d-none border border-2 overflow-auto shadow">
     <div class="color-darkgray d-flex p-2 p-md-3 justify-content-between align-items-center border-bottom border-2">
         <img src="~/images/static/settings.png" alt="settings" id="NotificationSetting" class="cursor-pointer">
         <h5 class="m-0">Notification</h5>
@@ -10,19 +10,19 @@
     <div class="color-darkgray fw-light text-15">
         @if (!@Model.NewNotificationVMs.Any())
         {
-            <div class="text-center p-2" id="NoNotifications">No new notifications.</div>
+            <div class="text-center p-3" id="NoNotifications">No new notifications.</div>
         }
         else
         {
-            <div class="text-center p-2 d-none" id="NoNotifications">No new notifications.</div>
+            <div class="text-center p-3 d-none" id="NoNotifications">No new notifications.</div>
         }
     </div>
     <div class="notification-content">
         <div class="color-darkgray fw-light text-15">
             @foreach (var notif in @Model.NewNotificationVMs)
             {
-                <div class="d-flex justify-content-between gap-2 border-bottom p-2 p-md-3 align-items-center">
-                    <div class="d-flex gap-2 align-items-center">
+                <div class="d-flex justify-content-between gap-2 gap-md-3 border-bottom p-2 p-md-3 align-items-center">
+                    <div class="d-flex gap-2 gap-md-3 align-items-center">
                         @if (notif.NotificationVM.NotificationType == NotificationType.ADD)
                         {
                             <img src="~/images/static/add.png" alt="add">
@@ -47,7 +47,7 @@
                     }
                     else
                     {
-                        <div data-id="@notif.NotificationId" class="orange-dot rounded-circle flex-shrink-0 cursor-pointer"></div>
+                        <div data-id="@notif.UserNotificationId" class="orange-dot rounded-circle flex-shrink-0 cursor-pointer"></div>
                     }
                 </div>
             }
@@ -60,8 +60,8 @@
             <div class="color-darkgray fw-light text-15">
                 @foreach (var notif in @Model.OldNotificationVMs)
                 {
-                    <div class="d-flex justify-content-between gap-2 border-bottom p-2 p-md-3 align-items-center">
-                        <div class="d-flex gap-2 align-items-center">
+                    <div class="d-flex justify-content-between gap-2 gap-md-3 border-bottom p-2 p-md-3 align-items-center">
+                        <div class="d-flex gap-2 gap-md-3 align-items-center">
                             @if (notif.NotificationVM.NotificationType == NotificationType.ADD)
                             {
                                 <img src="~/images/static/add.png" alt="add">
@@ -86,7 +86,7 @@
                         }
                         else
                         {
-                            <div data-id="@notif.NotificationId" class="orange-dot rounded-circle flex-shrink-0 cursor-pointer"></div>
+                            <div data-id="@notif.UserNotificationId" class="orange-dot rounded-circle flex-shrink-0 cursor-pointer"></div>
                         }
                     </div>
                 }
@@ -94,7 +94,7 @@
         }
     </div>
 </section>
-<section class="position-absolute bg-white top-100 end-0 start-0 notification notification-setting-div m-2 d-none border border-2 overflow-auto">
+<section class="position-absolute bg-white top-100 end-0 start-0 notification notification-setting-div m-2 d-none border border-2 overflow-auto shadow">
     <div class="color-darkgray p-2 p-md-3 text-center border-bottom border-2">
         Notification Settings
     </div>

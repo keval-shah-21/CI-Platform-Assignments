@@ -3,7 +3,6 @@ using CI_Platform.Entities.Constants;
 using CI_Platform.Entities.DataModels;
 using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
-using System.Reflection;
 
 namespace CI_Platform.Services.Service;
 
@@ -19,73 +18,70 @@ public class NotificationService : INotificationService
         _notificationSettingService = notificationSettingService;
         _unitOfWork = unitOfWork;
     }
-    public async Task SendNotificationToAllUsers(string message, NotificationType type, string settingType)
+    public async Task SendNotificationToAllUsers(SendNotificationVM sendNotificationVM, List<long> toUsers)
     {
-        IEnumerable<NotificationSettingVM> settings = await _notificationSettingService.GetAllWithIncludeAsync();
-        List<UserNotification> userNotifications = new();
-        foreach (var setting in settings)
+        IEnumerable<NotificationSettingVM> settings = toUsers?.Count != 0
+            ? await _notificationSettingService.GetAllToSendRecommendNotification(toUsers, sendNotificationVM.SettingType.ToString())
+            : await _notificationSettingService.GetAllToSendNotification(sendNotificationVM.SettingType.ToString());
+        
+        var notification = new Notification()
         {
-            SendNotificationEmail(setting, message, settingType);
-            if ((bool)setting.GetType().GetProperty(settingType).GetValue(setting))
+            Message = sendNotificationVM.Message,
+            NotificationType = (byte?)sendNotificationVM.NotificationType,
+            SettingType = (byte?)sendNotificationVM.SettingType
+        };
+        await _unitOfWork.Notification.AddAsync(notification);
+        await _unitOfWork.SaveAsync();
+
+        IEnumerable<UserNotification> notifs = settings.Select(setting =>
+        {
+            if (setting.Email)
+                _ = SendNotificationEmail(setting.UserEmail, setting.UserName, sendNotificationVM);
+            return new UserNotification()
             {
-                UserNotification userNotification = new UserNotification
-                {
-                    Notification = new Notification
-                    {
-                        Message = message,
-                        NotificationType = (byte?)type,
-                    },
-                    UserId = setting.UserId,
-                    CreatedAt = DateTimeOffset.Now,
-                };
-                userNotifications.Add(userNotification);
-            }
-        }
-        try
-        {
-
-        userNotifications.ForEach(un => _unitOfWork.UserNotification.Add(un));
-        }catch (Exception ex)
-        {
-            Console.WriteLine("error bro: "+ ex.StackTrace);
-        }
-
-        //await _unitOfWork.UserNotification.AddRangeAsync(userNotifications);
+                NotificationId = notification.NotificationId,
+                UserId = setting.UserId,
+                CreatedAt = DateTimeOffset.Now,
+                FromUserAvatar = sendNotificationVM?.FromUserAvatar,
+            };
+        });
+        await _unitOfWork.UserNotification.AddRangeAsync(notifs);
         await _unitOfWork.SaveAsync();
     }
-    public async Task SendUserNotification(string message, NotificationType type, long userId, string settingType, string? avatar)
+    public async Task SendUserNotification(SendNotificationVM sendNotificationVM)
     {
-        NotificationSettingVM setting = await _notificationSettingService.GetNotificationSettingByUserIdWithInclude(userId);
+        NotificationSettingVM setting = await _notificationSettingService.GetByUserIdToSendNotification(sendNotificationVM.UserId, sendNotificationVM.SettingType.ToString());
 
         if (setting == null) return;
-        SendNotificationEmail(setting, message, settingType);
+        if (setting.Email)
+            _ = SendNotificationEmail(setting.UserEmail, setting.UserName, sendNotificationVM);
 
-        if ((bool)setting.GetType().GetProperty(settingType)?.GetValue(setting))
+        UserNotification userNotification = new UserNotification()
         {
-            UserNotification userNotification = new UserNotification()
+            Notification = new Notification()
             {
-                Notification = new Notification
-                {
-                    Message = message,
-                    NotificationType = (byte?)type,
-                },
-                UserId = userId,
-                CreatedAt = DateTimeOffset.Now,
-                FromUserAvatar = avatar,
-            };
-            await _unitOfWork.UserNotification.AddAsync(userNotification);
-            await _unitOfWork.SaveAsync();
-        }
+                Message = sendNotificationVM.Message,
+                NotificationType = (byte?)sendNotificationVM.NotificationType,
+                SettingType = (byte?)sendNotificationVM.SettingType
+            },
+            UserId = setting.UserId,
+            CreatedAt = DateTimeOffset.Now,
+            FromUserAvatar = sendNotificationVM.FromUserAvatar,
+        };
+        await _unitOfWork.UserNotification.AddAsync(userNotification);
+        await _unitOfWork.SaveAsync();
     }
-    private async Task SendNotificationEmail(NotificationSettingVM setting, string message, string settingType)
+    private async Task SendNotificationEmail(string userEmail, string userName, SendNotificationVM snVM)
     {
-        if (setting.Email && settingType != "RecommendMission" && settingType != "RecommendStory" && settingType != "NewMessage")
+        if (snVM.SettingType != NotificationSettingType.RECOMMEND_MISSION && snVM.SettingType != NotificationSettingType.RECOMMEND_STORY && snVM.SettingType != NotificationSettingType.NEW_MESSAGE)
         {
-            PropertyInfo propInfo = typeof(EmailNotificationSubject).GetProperty(settingType);
-            string subject = propInfo.GetValue(null).ToString();
-
-            string body = $"<div style='font-size:1rem'><p>{message}</p><p style='margin-top:0.5rem;'>Best Regards,</p><p>CSR Team</p></div>";
-            await _emailService.SendEmailAsync(setting.UserEmail, subject, body);
+            string subject = NotificationUtility.GetNotificationEmailSubject(snVM.SettingType);
+            string body;
+            if (snVM.SettingType == NotificationSettingType.NEW_MISSION || snVM.SettingType == NotificationSettingType.NEWS)
+                body = NotificationUtility.GetEmailBodyWithLinkHtml(snVM.Message, userName, snVM.Url);
+            else
+                body = NotificationUtility.GetEmailBodyHtml(snVM.Message, userName);
+            _ = _emailService.SendEmailAsync(userEmail, subject, body);
         }
     }
 }

@@ -1,7 +1,12 @@
-﻿namespace CI_Platform.Entities.DataModels;
+﻿using System;
+using System.Collections.Generic;
+
+namespace CI_Platform.Entities.DataModels;
 
 public partial class UserNotification
 {
+    public long UserNotificationId { get; set; }
+
     public long UserId { get; set; }
 
     public long NotificationId { get; set; }

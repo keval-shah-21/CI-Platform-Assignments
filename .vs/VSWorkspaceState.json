@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\MVC",
-    "\\MVC\\CI-Platform",
-    "\\MVC\\CI-Platform\\CI-PlatformWeb"
+    ""
   ],
-  "SelectedNode": "\\MVC\\CI-Platform\\CI-PlatformWeb\\appsettings.json",
+  "SelectedNode": "\\CI-Platform.sln",
   "PreviewInSolutionExplorer": false
 }

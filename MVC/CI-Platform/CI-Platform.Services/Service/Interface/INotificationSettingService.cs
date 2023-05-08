@@ -4,10 +4,10 @@ namespace CI_Platform.Services.Service.Interface;
 
 public interface INotificationSettingService
 {
-    Task<NotificationSettingVM> GetNotificationSettingByUserId(long userId);
-    Task<NotificationSettingVM> GetNotificationSettingByUserIdWithInclude(long userId);
-    Task<IEnumerable<NotificationSettingVM>> GetAllAsync();
-    Task<IEnumerable<NotificationSettingVM>> GetAllWithIncludeAsync();
+    Task<NotificationSettingVM> GetByUserId(long userId);
+    Task<IEnumerable<NotificationSettingVM>> GetAllToSendNotification(string settingType);
+    Task<NotificationSettingVM> GetByUserIdToSendNotification(long? id, string settingType);
     Task UpdateNotificationSetting(NotificationSettingVM setting);
     Task Add(long userId);
+    Task<IEnumerable<NotificationSettingVM>> GetAllToSendRecommendNotification(List<long> toUsers, string settingType);
 }

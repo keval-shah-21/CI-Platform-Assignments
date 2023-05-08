@@ -12,6 +12,7 @@ public interface IUserService
     AdminVM AdminLogin(LoginVM loginVM);
 
     UserVM GetFirstOrDefaultByEmail(string email);
+    Task<UserVM> GetFirstOrDefaultById(long id);
     UserAdminVM GetFirstOrDefaultUserAdmin(long id);
 
     void SendResetPasswordEmail(string email, string url);

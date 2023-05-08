@@ -14,26 +14,31 @@ public class NotificationSettingService : INotificationSettingService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<NotificationSettingVM> GetNotificationSettingByUserId(long userId)
+    public async Task<NotificationSettingVM> GetByUserId(long userId)
     {
         var setting = await _unitOfWork.NotificationSetting.GetFirstOrDefaultAsync(x => x.UserId == userId);
         return ConvertSettingToVM(setting);
     }
-    public async Task<NotificationSettingVM> GetNotificationSettingByUserIdWithInclude(long userId)
+    public async Task<NotificationSettingVM> GetByUserIdToSendNotification(long? id, string settingType)
     {
-        var setting = await _unitOfWork.NotificationSetting.GetFirstOrDefaultWithIncludeAsync(x => x.UserId == userId);
+        var setting = await _unitOfWork.NotificationSetting.GetByUserIdToSendNotification(id, settingType);
+
+        if (setting == null) return null!;
         return ConvertSettingToVM(setting);
     }
-    public async Task<IEnumerable<NotificationSettingVM>> GetAllAsync()
+    
+    public async Task<IEnumerable<NotificationSettingVM>> GetAllToSendNotification(string settingType)
     {
-        var settings = await _unitOfWork.NotificationSetting.GetAllAsync();
+        var settings = await _unitOfWork.NotificationSetting.GetAllToSendNotification(settingType);
         return settings.Select(ConvertSettingToVM);
     }
-    public async Task<IEnumerable<NotificationSettingVM>> GetAllWithIncludeAsync()
+
+    public async Task<IEnumerable<NotificationSettingVM>> GetAllToSendRecommendNotification(List<long> toUsers, string settingType)
     {
-        var settings = await _unitOfWork.NotificationSetting.GetAllWithIncludeAsync();
+        var settings = await _unitOfWork.NotificationSetting.GetAllToSendRecommendNotification(toUsers, settingType);
         return settings.Select(ConvertSettingToVM);
     }
+
     public async Task Add(long userId)
     {
         await _unitOfWork.NotificationSetting.AddAsync(new NotificationSetting()
@@ -48,7 +53,7 @@ public class NotificationSettingService : INotificationSettingService
         notset.News = setting.News;
         notset.RecommendMission = setting.RecommendMission;
         notset.RecommendStory = setting.RecommendStory;
-        notset.VolunteeringHour = setting.VolunteeringHour; 
+        notset.VolunteeringHour = setting.VolunteeringHour;
         notset.VolunteeringGoal = setting.VolunteeringGoal;
         notset.Comment = setting.Comment;
         notset.Email = setting.Email;
@@ -65,6 +70,7 @@ public class NotificationSettingService : INotificationSettingService
         {
             UserId = setting.UserId,
             UserEmail = setting.User?.Email,
+            UserName = setting.User?.FirstName + " " + setting.User?.LastName,
             Comment = setting.Comment,
             Email = setting.Email,
             MissionApplication = setting.MissionApplication,

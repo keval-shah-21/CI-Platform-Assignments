@@ -77,7 +77,7 @@ public partial class ApplicationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=PCE40\\SQL2017;Initial Catalog=CI_platform;Persist Security Info=False;User ID=sa;Password=tatva123;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
+        => optionsBuilder.UseSqlServer("Server=PCE40\\SQL2017;Initial Catalog=CI_Platform;Persist Security Info=False;User ID=sa;Password=tatva123;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -660,6 +660,7 @@ public partial class ApplicationDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("message");
             entity.Property(e => e.NotificationType).HasColumnName("notification_type");
+            entity.Property(e => e.SettingType).HasColumnName("setting_type");
         });
 
         modelBuilder.Entity<NotificationCheck>(entity =>
@@ -930,10 +931,11 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<UserNotification>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("user_notification");
+            entity.HasKey(e => e.UserNotificationId).HasName("PK__user_not__64BFFBDB0AFC1914");
 
+            entity.ToTable("user_notification");
+
+            entity.Property(e => e.UserNotificationId).HasColumnName("user_notification_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -947,15 +949,15 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.Notification).WithMany()
+            entity.HasOne(d => d.Notification).WithMany(p => p.UserNotifications)
                 .HasForeignKey(d => d.NotificationId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__user_noti__notif__72E607DB");
+                .HasConstraintName("FK__user_noti__notif__789EE131");
 
-            entity.HasOne(d => d.User).WithMany()
+            entity.HasOne(d => d.User).WithMany(p => p.UserNotifications)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__user_noti__user___71F1E3A2");
+                .HasConstraintName("FK__user_noti__user___77AABCF8");
         });
 
         modelBuilder.Entity<UserSkill>(entity =>

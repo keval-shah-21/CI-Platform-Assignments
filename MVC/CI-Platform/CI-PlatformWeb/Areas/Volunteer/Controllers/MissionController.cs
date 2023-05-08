@@ -55,7 +55,7 @@ public class MissionController : Controller
     }
 
     [HttpPost]
-    public IActionResult RecommendMission(long missionId, long userId, long[] toUsers)
+    public async Task<IActionResult> RecommendMission(long missionId, long userId, long[] toUsers)
     {
         var url = Url.Action("MissionDetails", "Mission", new { id = missionId }, "https");
         _unitOfService.MissionInvite.RecommendMission(missionId, userId, toUsers, url);
@@ -63,6 +63,18 @@ public class MissionController : Controller
         List<UserVM> users = _unitOfService.User.GetAllUsersToRecommendMission();
         ViewBag.UserId = userId;
         ViewBag.MissionId = missionId;
+
+        string title = await _unitOfService.Mission.GetMissionNameById(missionId);
+        UserVM user = await _unitOfService.User.GetFirstOrDefaultById(userId);
+        
+        SendNotificationVM sendNotificationVM = new SendNotificationVM
+        {
+            Message = $"{user.FirstName} {user.LastName} - Recommended this Mission - {title}",
+            SettingType = NotificationSettingType.RECOMMEND_MISSION,
+            NotificationType = NotificationType.RECOMMEND,
+            FromUserAvatar = user.Avatar,
+        };
+        await _unitOfService.Notification.SendNotificationToAllUsers(sendNotificationVM, toUsers.ToList());
         return PartialView("_RecommendToCoWorker", users?.Where(u => u.UserId != userId).ToList());
     }
 

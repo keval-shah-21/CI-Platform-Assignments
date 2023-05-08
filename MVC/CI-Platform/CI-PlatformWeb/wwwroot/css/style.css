@@ -603,17 +603,15 @@ form input:focus {
     color: white;
 }
 .notification {
-    max-height: 25rem;
     max-width: 30rem;
     z-index: 1000 !important;
 }
 
 @media(min-width:768px) {
     .notification {
-        width: 30rem !important;
+        width: 35rem !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        max-height: 30rem;
     }
 }
 
@@ -630,4 +628,7 @@ form input:focus {
 .notification-setting-check:checked {
     background-color: var(--light-orange);
     border: none;
+}
+.clear-all-notification:hover{
+    color: var(--light-orange);
 }

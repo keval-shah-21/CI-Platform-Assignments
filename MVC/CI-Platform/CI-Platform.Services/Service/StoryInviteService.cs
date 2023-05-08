@@ -50,7 +50,7 @@ namespace CI_Platform.Services.Service
                     StoryId = storyId,
                 });
                 string email = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == toUser).Email;
-                _ = _emailService.SendEmail(email, subject, body);
+                _ = _emailService.SendEmailAsync(email, subject, body);
             }
         }
     }

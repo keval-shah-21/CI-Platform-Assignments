@@ -28,16 +28,18 @@ public class CmsPageService : ICmsPageService
         return ConvertCmsToVM(cms);
     }
 
-    public void SaveCmsPage(CmsPageVM cms)
+    public long SaveCmsPage(CmsPageVM cms)
     {
-        _unitOfWork.CmsPage.Add(new CmsPage()
-        {
+        CmsPage cmsPage = new CmsPage() {
             CreatedAt = DateTimeOffset.Now,
             Title = cms.Title,
             Description = cms.Description,
             Slug = cms.Slug,
             Status = cms.Status
-        });
+        };
+        _unitOfWork.CmsPage.Add(cmsPage);
+        _unitOfWork.Save();
+        return cmsPage.CmsPageId;
     }
 
     public void UpdateCmsPage(CmsPageVM cms)

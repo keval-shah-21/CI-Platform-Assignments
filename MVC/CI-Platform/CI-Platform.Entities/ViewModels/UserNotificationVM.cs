@@ -2,6 +2,7 @@
 
 public class UserNotificationVM
 {
+    public long UserNotificationId { get; set; }
     public long UserId { get; set; }
 
     public long NotificationId { get; set; }
@@ -12,5 +13,5 @@ public class UserNotificationVM
 
     public NotificationVM? NotificationVM { get; set; } = null!;
 
-    public DateTimeOffset LastModified { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
 }

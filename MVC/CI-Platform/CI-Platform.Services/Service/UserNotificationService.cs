@@ -36,16 +36,17 @@ public class UserNotificationService : IUserNotificationService
     }
     public async Task UpdateLastCheck(long userId) => await _unitOfWork.NotificationCheck.UpdateLastCheck(userId);
     public async Task ClearAllNotification(long userId) => await _unitOfWork.UserNotification.ClearAllNotification(userId);
-    public async Task MarkAsReadNotification(long notificationId) => await _unitOfWork.UserNotification.MarkAsReadNotification(notificationId);
+    public async Task MarkAsReadNotification(long userNotificationId) => await _unitOfWork.UserNotification.MarkAsReadNotification(userNotificationId);
     public static UserNotificationVM ConvertUserNotificationToVM(UserNotification notification)
     {
         return new UserNotificationVM()
         {
+            UserNotificationId = notification.UserNotificationId,
             IsRead = notification.IsRead,
             FromUserAvatar = notification.FromUserAvatar,
             UserId = notification.UserId,
             NotificationId = notification.NotificationId,
-            LastModified = notification.UpdatedAt ?? notification.CreatedAt,
+            CreatedAt = notification.CreatedAt,
             NotificationVM = ConvertNotificationToVM(notification.Notification)
         };
     }
@@ -55,12 +56,8 @@ public class UserNotificationService : IUserNotificationService
         {
             Message = notification.Message,
             NotificationId = notification.NotificationId,
-            NotificationType = (NotificationType)notification.NotificationType!
+            NotificationType = (NotificationType)notification.NotificationType!,
+            SettingType = (NotificationSettingType)notification.SettingType!
         };
-    }
-
-    public async Task SendNotifications()
-    {
-
     }
 }

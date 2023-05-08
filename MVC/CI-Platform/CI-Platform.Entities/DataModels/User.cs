@@ -73,5 +73,7 @@ public partial class User
 
     public virtual ICollection<StoryInvite> StoryInviteToUsers { get; } = new List<StoryInvite>();
 
+    public virtual ICollection<UserNotification> UserNotifications { get; } = new List<UserNotification>();
+
     public virtual ICollection<UserSkill> UserSkills { get; } = new List<UserSkill>();
 }

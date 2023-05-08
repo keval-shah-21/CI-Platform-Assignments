@@ -15,6 +15,7 @@ $(".nav-overlay").click(() => {
 });
 
 const id = $("#userId").val();
+let bellClicked = false;
 if (id != null && id != "") {
     $.ajax({
         url: "/Volunteer/Notification/GetNotificationPartialByUserId",
@@ -28,7 +29,7 @@ if (id != null && id != "") {
             else
                 $(".notification-count").text(count);
 
-          $("#NotificationSetting").click(() => {
+            $("#NotificationSetting").click(() => {
                 $(".notification-div").toggleClass("d-none");
                 $(".notification-setting-div").removeClass("d-none");
             });
@@ -50,14 +51,17 @@ function handleBellClick() {
     $("#bell").click(() => {
         $(".notification-div").toggleClass("d-none");
         $(".notification-setting-div").addClass("d-none");
-        $.ajax({
-            url: "/Volunteer/Notification/UpdateLastCheck",
-            method: "put",
-            data: { userId: id },
-            error: error => {
-                console.log(error);
-            }
-        });
+        if (!bellClicked) {
+            bellClicked = true;
+            $.ajax({
+                url: "/Volunteer/Notification/UpdateLastCheck",
+                method: "put",
+                data: { userId: id },
+                error: error => {
+                    console.log(error);
+                }
+            });
+        }
     });
 }
 function handleSettingForm() {
@@ -104,7 +108,7 @@ function markAsReadNotification() {
         $.ajax({
             url: "/Volunteer/Notification/MarkAsReadNotification",
             method: "put",
-            data: { notificationId: $(this).data("id") },
+            data: { userNotificationId: $(this).data("id") },
             success: _ => {
                 $(this).replaceWith('<img src="/images/static/checked.png" alt="check" class="flex-shrink-0">');
             },

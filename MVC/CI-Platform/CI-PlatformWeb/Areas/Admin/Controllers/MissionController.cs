@@ -1,4 +1,5 @@
-﻿using CI_Platform.Entities.ViewModels;
+﻿using CI_Platform.Entities.Constants;
+using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,8 +60,17 @@ public class MissionController : Controller
         try
         {
             string wwwRootPath = _webHostEnvironment.WebRootPath;
-            await _unitOfService.Mission.AddTimeMission(time, ImagesInput, DocumentsInput, MissionSkills, wwwRootPath);
-            return NoContent();
+            long id = await _unitOfService.Mission.AddTimeMission(time, ImagesInput, DocumentsInput, MissionSkills, wwwRootPath);
+
+            SendNotificationVM sendNotificationVM = new SendNotificationVM
+            {
+                Message = $"New Mission - Mission '{time.Title}' was recently added.",
+                Url = Url.Action("MissionDetails", "Mission", new { area = "Volunteer", id }, "https"),
+                SettingType = NotificationSettingType.NEW_MISSION,
+                NotificationType = NotificationType.ADD,
+            };
+            await _unitOfService.Notification.SendNotificationToAllUsers(sendNotificationVM, new List<long>());
+            return NoContent(); 
         }
         catch (Exception)
         {
@@ -73,7 +83,16 @@ public class MissionController : Controller
         try
         {
             string wwwRootPath = _webHostEnvironment.WebRootPath;
-            await _unitOfService.Mission.AddGoalMission(goal, ImagesInput, DocumentsInput, MissionSkills, wwwRootPath);
+            long id = await _unitOfService.Mission.AddGoalMission(goal, ImagesInput, DocumentsInput, MissionSkills, wwwRootPath);
+            
+            SendNotificationVM sendNotificationVM = new SendNotificationVM
+            {
+                Message = $"New Mission - Mission '{goal.Title}' was recently added.",
+                Url = Url.Action("MissionDetails", "Mission", new { area = "Volunteer", id }, "https"),
+                SettingType = NotificationSettingType.NEW_MISSION,
+                NotificationType = NotificationType.ADD,
+            };
+            await _unitOfService.Notification.SendNotificationToAllUsers(sendNotificationVM, new List<long>());
             return NoContent();
         }
         catch (Exception)

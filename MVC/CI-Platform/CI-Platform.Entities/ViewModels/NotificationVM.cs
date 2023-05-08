@@ -9,5 +9,5 @@ public class NotificationVM
     public string? Message { get; set; }
 
     public NotificationType? NotificationType { get; set; }
-
+    public NotificationSettingType? SettingType { get; set; }
 }

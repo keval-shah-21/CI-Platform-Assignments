@@ -318,9 +318,11 @@ create table notification(
 	notification_id bigint identity(1,1) primary key,
 	message varchar(300),
 	notification_type tinyint,
+	setting_type tinyint
 )
 
 create table user_notification(
+	user_notification_id bigint identity(1,1) primary key,
 	user_id bigint not null,
 	notification_id bigint not null,
 	is_read bit default 0,
