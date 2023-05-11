@@ -29,21 +29,6 @@ public class UserController : Controller
         }
     }
 
-    public IActionResult ActivateUser(string email)
-    {
-        try
-        {
-            _unitOfService.User.ActivateUserByEmail(email);
-            List<UserVM> users = _unitOfService.User.GetAll().ToList();
-            return PartialView("_User", users);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Error activating user: " + e.Message);
-            Console.WriteLine(e.StackTrace);
-            return StatusCode(500);
-        }
-    }
     public IActionResult AddUser()
     {
         UserAdminVM user = new()
@@ -122,21 +107,20 @@ public class UserController : Controller
             return StatusCode(500);
         }
     }
-    public IActionResult DeactivateUser(string email)
+    public async Task<IActionResult> UpdateIsBlocked(string email, int value)
     {
         try
         {
-            _unitOfService.User.DeactivateUserByEmail(email);
+            await _unitOfService.User.UpdateIsBlockedAsync(email, value);
             List<UserVM> users = _unitOfService.User.GetAll().ToList();
             return PartialView("_User", users);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Console.WriteLine("Error deactivating user: " + e.Message);
-            Console.WriteLine(e.StackTrace);
             return StatusCode(500);
         }
     }
+
     public IActionResult SearchUser(string? query)
     {
         try

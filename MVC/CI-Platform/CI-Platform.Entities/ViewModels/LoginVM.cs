@@ -13,4 +13,6 @@ public class LoginVM
     public string Password {get; set;} = string.Empty;
 
     public IEnumerable<BannerVM>? bannerVMs { get; set; }
+
+    public string? ReturnURL { get; set; }
 }

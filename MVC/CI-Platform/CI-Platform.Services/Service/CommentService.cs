@@ -28,6 +28,10 @@ namespace CI_Platform.Services.Service
         {
             await _unitOfWork.Comment.UpdateStatusAsync(id, status);
         }
+        public async Task DeleteComment(long id)
+        {
+            await _unitOfWork.Comment.DeleteComment(id);
+        }
         public async Task<CommentVM> GetByIdAsync(long id)
         {
             var comment = await _unitOfWork.Comment.GetFirstOrDefaultWithIncludeAsync(c => c.CommentId == id);
@@ -50,7 +54,9 @@ namespace CI_Platform.Services.Service
                 CreatedAt = c.CreatedAt
             };
         }
-
+        public async Task<(string, long, long)> GetDetailsToSendNotification(long id) {
+            return await _unitOfWork.Comment.GetDetailsToSendNotification(id);
+        }
         public void PostComment(long missionId, long userId, string comment)
         {
             _unitOfWork.Comment.Add(new Comment()

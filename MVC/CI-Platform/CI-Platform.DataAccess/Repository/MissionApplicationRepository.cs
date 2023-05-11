@@ -60,13 +60,12 @@ public class MissionApplicationRepository : Repository<MissionApplication>, IMis
             .FirstOrDefault(filter)!;
     }
 
-    public async Task<(string, long)> GetMissionNameToSendNotification(Expression<Func<MissionApplication, bool>> filter)
+    public async Task<(string, long, long)> GetDetailsToSendNotification(Expression<Func<MissionApplication, bool>> filter)
     {
         var ma = await dbSet
             .Include(m => m.Mission)
-            .Include(m =>m.User)
             .FirstOrDefaultAsync(filter);
-        return (ma.Mission.Title, ma.User.UserId);
+        return (ma.Mission.Title, ma.UserId, ma.MissionId);
     }
     public void UpdateStatus(long id, byte value)
     {

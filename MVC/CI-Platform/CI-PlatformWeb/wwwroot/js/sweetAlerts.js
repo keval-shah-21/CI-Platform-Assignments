@@ -16,11 +16,16 @@ function alertWithOk(text, icon) {
     })
 }
 
-function loginAlert(text) {
+function loginAlert(text, returnURL = "") {
+    let loginPageLink = "/volunteer/user/login";
+    if (returnURL != '') {
+        const encodedReturnUrl = encodeURIComponent(returnURL);
+        loginPageLink = `${loginPageLink}?returnURL=${encodedReturnUrl}`;
+    }
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: text,
-        footer: '<a href="/volunteer/user/login">Login here</a>'
+        footer: `<a href=${loginPageLink}>Login here</a>`
     })
 }

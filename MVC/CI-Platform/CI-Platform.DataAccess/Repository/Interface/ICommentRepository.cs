@@ -8,5 +8,7 @@ namespace CI_Platform.DataAccess.Repository.Interface
         Task UpdateStatusAsync(long id, byte value);
         Task<Comment?> GetFirstOrDefaultWithIncludeAsync(Expression<Func<Comment, bool>> filter);
         Task<IEnumerable<Comment>> GetAllWithIncludeAsync();
+        Task<(string, long, long)> GetDetailsToSendNotification(long id);
+        Task DeleteComment(long id);
     }
 }

@@ -83,10 +83,6 @@ form.addEventListener('submit', (e) => {
     $('#ssForm').valid();
     let error = false;
 
-    if ($('#Title').val() == null || $('#Title').val() == "") error = true;
-    if ($('#MissionId:selected').val() == 0) error = true;
-    if ($('#ShortDescription').val() == null || $('#ShortDescription').val() == '') error = true;
-
     if (tinymce.get("tiny").getContent() == null || tinymce.get("tiny").getContent() == "") {
         error = true;
         $('#DescriptionError').text("The My Story field is required.");
@@ -100,8 +96,8 @@ form.addEventListener('submit', (e) => {
         $('#mediaError').text("");
 
     $('#action').val(e.submitter.getAttribute('value'));
-    setImageInput();
-    if (!error) {
+    if (!error && $("#ssForm").valid()) {
+        setImageInput();
         if (e.submitter.getAttribute("value") == 'submit') {
             Swal.fire({
                 title: 'Are you sure?',

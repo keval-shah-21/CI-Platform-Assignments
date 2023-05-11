@@ -42,16 +42,19 @@ public class TimesheetController : Controller
         }
     }
 
-    public IActionResult UpdateStatus(long id, byte status, long missionId, int? action, bool isTime)
+    public async Task<IActionResult> UpdateStatus(long id, byte status, long missionId, int? action, bool isTime)
     {
         try
         {
             _unitOfService.MissionTimesheet.UpdateStatus(id, status);
+
             if (isTime)
             {
+                await SendHourNotification(id, status, missionId);
                 List<MissionTimesheetVM> mts = _unitOfService.MissionTimesheet.GetHourTimesheetAdmin();
                 return PartialView("_Timesheet", mts.OrderByDescending(m => m.ApprovalStatus == ApprovalStatus.PENDING).ToList());
             }
+            await SendGoalNotification(id, status, missionId);
             if (status == 1)
             {
                 bool isAchieved = _unitOfService.MissionGoal.UpdateGoalAchieved(missionId, action);
@@ -68,6 +71,63 @@ public class TimesheetController : Controller
             return StatusCode(500);
         }
     }
+    private async Task SendHourNotification(long id, byte status,long missionId)
+    {
+        (string, long) result = await _unitOfService.MissionTimesheet.GetDetailsToSendNotification(id);
+        SendNotificationVM sendNotificationVM;
+        if (status == 1)
+        {
+            sendNotificationVM = new SendNotificationVM
+            {
+                Message = $"our volunteering hour request has been approved for this mission - {result.Item1}",
+                SettingType = NotificationSettingType.VOLUNTEERING_HOUR,
+                NotificationType = NotificationType.APPROVE,
+                UserId = result.Item2,
+                Href = $"/volunteer/mission/missiondetails/{missionId}"
+            };
+        }
+        else
+        {
+            sendNotificationVM = new SendNotificationVM
+            {
+                Message = $"Your volunteering hour request has been declined for this mission - {result.Item1}",
+                SettingType = NotificationSettingType.VOLUNTEERING_HOUR,
+                NotificationType = NotificationType.DECLINE,
+                UserId = result.Item2,
+                Href = $"/volunteer/mission/missiondetails/{missionId}"
+            };
+        }
+        await _unitOfService.Notification.SendUserNotification(sendNotificationVM);
+    }
+    private async Task SendGoalNotification(long id, byte status, long missionId)
+    {
+        (string, long) result = await _unitOfService.MissionTimesheet.GetDetailsToSendNotification(id);
+        SendNotificationVM sendNotificationVM;
+        if (status == 1)
+        {
+            sendNotificationVM = new SendNotificationVM
+            {
+                Message = $"Your volunteering goal request has been approved for this mission - {result.Item1}",
+                SettingType = NotificationSettingType.VOLUNTEERING_GOAL,
+                NotificationType = NotificationType.APPROVE,
+                UserId = result.Item2,
+                Href = $"/volunteer/mission/missiondetails/{missionId}"
+            };
+        }
+        else
+        {
+            sendNotificationVM = new SendNotificationVM
+            {
+                Message = $"Your volunteering goal request has been declined for this mission - {result.Item1}",
+                SettingType = NotificationSettingType.VOLUNTEERING_GOAL,
+                NotificationType = NotificationType.DECLINE,
+                UserId = result.Item2,
+                Href = $"/volunteer/mission/missiondetails/{missionId}"
+            };
+        }
+        await _unitOfService.Notification.SendUserNotification(sendNotificationVM);
+    }
+
     public IActionResult SearchGoalsheet(string? query)
     {
         try

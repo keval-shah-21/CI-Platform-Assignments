@@ -313,7 +313,7 @@
                 }
             </div>
             <div class="mp-organization d-none">
-                <p class="text-15 fw-light text-secondary">
+                <p class="text-15 fw-light">
                     @if (Model.OrganizationDetails != null)
                     {
                         @Html.Raw(Model.OrganizationDetails)
@@ -325,7 +325,7 @@
                 </p>
             </div>
             <div class="mp-comments d-none">
-                <textarea id="comment" class="form-control" placeholder="Enter your comments..."></textarea>
+                <textarea id="comment" class="form-control" rows="3" placeholder="Enter your comment..."></textarea>
                 <span class="commentError text-danger text-14"></span>
                 <button class="btn button d-flex gap-2 align-items-center mx-auto mt-3 width-max-content" id="postComment">
                     Post comment

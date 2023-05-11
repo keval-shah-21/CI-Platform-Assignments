@@ -9,4 +9,5 @@ public interface IMissionTimesheetRepository: IRepository<MissionTimesheet>
     void DeleteById(long timesheetId);
     void UpdateStatus(long id, int value);
     MissionTimesheet GetFirstOrDefaultWithInclude(Expression<Func<MissionTimesheet, bool>> filter);
+    Task<(string, long)> GetDetailsToSendNotification(long id);
 }

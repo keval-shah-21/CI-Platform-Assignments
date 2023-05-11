@@ -37,7 +37,7 @@ public class ApplicationController : Controller
             List<MissionApplicationVM> applications = _unitOfService.MissionApplication.GetAllAdmin();
             applications = applications.OrderByDescending(m => m.ApprovalStatus == 0).ToList();
 
-            (string, long) result = await _unitOfService.MissionApplication.GetMissionNameToSendNotification(id);
+            (string, long, long) result = await _unitOfService.MissionApplication.GetDetailsToSendNotification(id);
             SendNotificationVM sendNotificationVM = new(); 
             if (value == 1)
             {
@@ -46,7 +46,8 @@ public class ApplicationController : Controller
                     Message = $"Volunteering request has been approved for this mission - {result.Item1}",
                     SettingType = NotificationSettingType.MISSION_APPLICATION,
                     NotificationType = NotificationType.APPROVE,
-                    UserId = result.Item2
+                    UserId = result.Item2,
+                    Href = "/volunteer/mission/missiondetails/{result.Item3}"
                 };
             }
             else
@@ -56,7 +57,8 @@ public class ApplicationController : Controller
                     Message = $"Volunteering request has been declined for this mission - {result.Item1}",
                     SettingType = NotificationSettingType.MISSION_APPLICATION,
                     NotificationType = NotificationType.DECLINE,
-                    UserId = result.Item2
+                    UserId = result.Item2,
+                    Href = $"/volunteer/mission/missiondetails/{result.Item3}"
                 };
             }
             await _unitOfService.Notification.SendUserNotification(sendNotificationVM);

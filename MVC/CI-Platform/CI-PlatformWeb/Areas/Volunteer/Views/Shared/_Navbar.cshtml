@@ -4,7 +4,7 @@
     var userId = Context.Session.GetString("UserId");
     var avatar = Context.Session.GetString("Avatar");
 }
-<input hidden id="userId" value="@userId"/>
+<input hidden id="userId" value="@userId" />
 <div class="nav-overlay position-absolute d-none d-md-none"></div>
 <nav class="navbar bg-white py-2 border-2 border-bottom">
     <div class="container flex-nowrap gap-2">
@@ -48,11 +48,13 @@
                     <div class="notification-count px-1 rounded-circle position-absolute bottom-50 start-50 width-max-conatent bg-light-orange text-white text-13">
                     </div>
                 </div>
+                <div id="notificationContainer"></div>
+
                 <div class="dropdown">
                     <button class="btn dropdown-toggle d-flex align-items-center gap-2 color-darkgray fw-light"
                         type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src='~/images/static/user-img.png' alt="profile" class="rounded-circle object-fit-cover"
-                         width="40px" height="40px">
+                        <img src='@avatar' alt="profile" class="rounded-circle object-fit-cover"
+                         width="40" height="40">
                         <span class="d-none d-md-inline">@firstName @lastName</span>
                         <img src="~/images/static/drop-down.png" alt="drop-down">
                     </button>
@@ -76,5 +78,4 @@
             }
         </div>
     </div>
-    <div id="notificationContainer"></div>
 </nav>

@@ -43,7 +43,6 @@ public class UserNotificationService : IUserNotificationService
         {
             UserNotificationId = notification.UserNotificationId,
             IsRead = notification.IsRead,
-            FromUserAvatar = notification.FromUserAvatar,
             UserId = notification.UserId,
             NotificationId = notification.NotificationId,
             CreatedAt = notification.CreatedAt,
@@ -57,6 +56,7 @@ public class UserNotificationService : IUserNotificationService
             Message = notification.Message,
             NotificationId = notification.NotificationId,
             NotificationType = (NotificationType)notification.NotificationType!,
+            FromUserAvatar = notification.FromUserAvatar,
             SettingType = (NotificationSettingType)notification.SettingType!
         };
     }

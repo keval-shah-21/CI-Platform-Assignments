@@ -7,7 +7,6 @@ public interface IUserRepository : IRepository<User>
     List<User> GetAllToRecommendMission();
     List<User> GetAllToRecommendStory();
     void UpdatePassword(string email, string password);
-    void ActivateUserByEmail(string email);
-
-    void DeactivateUserByEmail(string email);
+    Task UpdateIsBlockedAsync(string email, int value);
+    Task UpdateStatusAsync(string email, int value);
 }

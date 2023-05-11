@@ -32,7 +32,9 @@ public class FavouriteMissionService : IFavouriteMissionService
 
     public void AddToFavourite(long missionId, long userId)
     {
-        FavouriteMission fmVM = new FavouriteMission()
+        FavouriteMission exisitingFM = _unitOfWork.FavouriteMission.GetFirstOrDefault(fm => fm.UserId == userId && fm.MissionId == missionId);
+        if (exisitingFM != null) return;
+        FavouriteMission fmVM = new()
         {
             MissionId = missionId,
             UserId = userId,
@@ -43,6 +45,7 @@ public class FavouriteMissionService : IFavouriteMissionService
     public void RemoveFromFavourite(long missionId, long userId)
     {
         FavouriteMission fmVM = _unitOfWork.FavouriteMission.GetFirstOrDefault(fm => fm.UserId == userId && fm.MissionId == missionId);
+        if(fmVM == null) return;
         _unitOfWork.FavouriteMission.Remove(fmVM);
     }
     public void Add(FavouriteMission favouriteMission)

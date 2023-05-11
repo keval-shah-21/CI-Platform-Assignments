@@ -8,13 +8,7 @@ if ($("#profileSuccess").val() == "true") {
         timer: 1500
     })
 }
-if ($("#registered").val() == "true") {
-    Swal.fire(
-        'Registered Successfully',
-        'Check your mail to verify account.',
-        'info'
-    )
-}
+
 let currentView = "grid";
 const filterToggleBtn = document.querySelector(".filter-toggle-btn");
 const filterMenu = document.querySelector(".filter-menu");

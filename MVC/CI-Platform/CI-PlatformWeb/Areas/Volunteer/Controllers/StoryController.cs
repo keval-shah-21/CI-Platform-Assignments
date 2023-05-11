@@ -116,7 +116,7 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
         public async Task<IActionResult> RecommendStory(long storyId, long userId, long[] toUsers)
         {
             var url = Url.Action("StoryDetails", "Story", new { id = storyId }, "https");
-            _unitOfService.StoryInvite.RecommendStory(storyId, userId, toUsers, url);
+            await _unitOfService.StoryInvite.RecommendStory(storyId, userId, toUsers, url);
             _unitOfService.Save();
             List<UserVM> users = _unitOfService.User.GetAllUsersToRecommendStory();
             ViewBag.UserId = userId;
@@ -131,6 +131,7 @@ namespace CI_PlatformWeb.Areas.Volunteer.Controllers
                 SettingType = NotificationSettingType.RECOMMEND_MISSION,
                 NotificationType = NotificationType.RECOMMEND,
                 FromUserAvatar = user.Avatar,
+                Href = $"/volunteer/story/storydetails/{storyId}"
             };
             await _unitOfService.Notification.SendNotificationToAllUsers(sendNotificationVM, toUsers.ToList());
 

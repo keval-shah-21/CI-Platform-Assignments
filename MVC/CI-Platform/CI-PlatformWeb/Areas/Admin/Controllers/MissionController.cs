@@ -64,10 +64,11 @@ public class MissionController : Controller
 
             SendNotificationVM sendNotificationVM = new SendNotificationVM
             {
-                Message = $"New Mission - Mission '{time.Title}' was recently added.",
+                Message = $"New Mission - {time.Title} was recently added.",
                 Url = Url.Action("MissionDetails", "Mission", new { area = "Volunteer", id }, "https"),
                 SettingType = NotificationSettingType.NEW_MISSION,
                 NotificationType = NotificationType.ADD,
+                Href = $"/volunteer/mission/missiondetails/{id}"
             };
             await _unitOfService.Notification.SendNotificationToAllUsers(sendNotificationVM, new List<long>());
             return NoContent(); 
@@ -87,10 +88,11 @@ public class MissionController : Controller
             
             SendNotificationVM sendNotificationVM = new SendNotificationVM
             {
-                Message = $"New Mission - Mission '{goal.Title}' was recently added.",
+                Message = $"New Mission - {goal.Title} was recently added.",
                 Url = Url.Action("MissionDetails", "Mission", new { area = "Volunteer", id }, "https"),
                 SettingType = NotificationSettingType.NEW_MISSION,
                 NotificationType = NotificationType.ADD,
+                Href = $"/volunteer/mission/missiondetails/{id}"
             };
             await _unitOfService.Notification.SendNotificationToAllUsers(sendNotificationVM, new List<long>());
             return NoContent();

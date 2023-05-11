@@ -55,5 +55,11 @@ namespace CI_Platform.DataAccess.Repository
 
             _context.Database.ExecuteSqlRaw("UPDATE story SET approval_status = @status WHERE story_id = @storyId", statusParameter,  idParameter);
         }
+        public async Task<(string, long)> GetDetailsToSendNotification(long id)
+        {
+            var result = await dbSet
+                .FirstOrDefaultAsync(c => c.StoryId== id);
+            return (result.Title, result.UserId);
+        }
     }
 }

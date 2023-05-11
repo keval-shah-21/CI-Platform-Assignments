@@ -1,7 +1,7 @@
 ﻿@using CI_Platform.Entities.Constants
 @model UserNotificationContainerVM
 <input hidden id="unread" value="@Model.Unread" />
-<section class="position-absolute bg-white top-100 end-0 start-0 notification notification-div m-2 d-none border border-2 overflow-auto shadow">
+<section class="position-absolute bg-white top-100 end-0 notification notification-div m-2 d-none border border-2 overflow-auto shadow">
     <div class="color-darkgray d-flex p-2 p-md-3 justify-content-between align-items-center border-bottom border-2">
         <img src="~/images/static/settings.png" alt="settings" id="NotificationSetting" class="cursor-pointer">
         <h5 class="m-0">Notification</h5>
@@ -37,9 +37,9 @@
                         }
                         else if (notif.NotificationVM.NotificationType == NotificationType.RECOMMEND)
                         {
-                            <img src="@notif.FromUserAvatar" alt="user" height="35" width="35" class="object-fit-cover rounded-circle">
+                            <img src="@notif.NotificationVM.FromUserAvatar" alt="user" height="35" width="35" style="width:35px !important; height:35px !important;" class="object-fit-cover rounded-circle flex-shrink-0">
                         }
-                        @notif.NotificationVM.Message
+                        @Html.Raw(notif.NotificationVM.Message)
                     </div>
                     @if (notif.IsRead == true)
                     {
@@ -76,9 +76,9 @@
                             }
                             else if (notif.NotificationVM.NotificationType == NotificationType.RECOMMEND)
                             {
-                                <img src="@notif.FromUserAvatar" alt="user" height="30px" widht="30px" class="rounded-circle">
+                                <img src="@notif.NotificationVM.FromUserAvatar" alt="user" height="35" widht="35" style="width:35px !important; height:35px !important;" class="rounded-circle object-fit-cover">
                             }
-                            @notif.NotificationVM.Message
+                            @Html.Raw(notif.NotificationVM.Message)
                         </div>
                         @if (notif.IsRead == true)
                         {
@@ -94,7 +94,7 @@
         }
     </div>
 </section>
-<section class="position-absolute bg-white top-100 end-0 start-0 notification notification-setting-div m-2 d-none border border-2 overflow-auto shadow">
+<section class="position-absolute bg-white top-100 end-0 notification notification-setting-div m-2 d-none border border-2 overflow-auto shadow">
     <div class="color-darkgray p-2 p-md-3 text-center border-bottom border-2">
         Notification Settings
     </div>

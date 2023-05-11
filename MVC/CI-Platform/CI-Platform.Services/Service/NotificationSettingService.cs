@@ -44,7 +44,6 @@ public class NotificationSettingService : INotificationSettingService
         await _unitOfWork.NotificationSetting.AddAsync(new NotificationSetting()
         {
             UserId = userId,
-            MissionApplication = true
         });
     }
     public async Task UpdateNotificationSetting(NotificationSettingVM setting)

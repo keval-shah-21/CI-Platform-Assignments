@@ -12,7 +12,7 @@ public class MissionTimesheetGoalVM
 
     public string? MissionName { get; set; }
 
-    public long? UserId { get; set; }
+    public long UserId { get; set; }
 
     [Required]
     [Display(Name = "Date Volunteered")]

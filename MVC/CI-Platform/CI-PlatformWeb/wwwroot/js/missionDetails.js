@@ -113,12 +113,7 @@ function handleCancelMission() {
 function handleApplyMission() {
     $("#applyBtn").click(() => {
         if (userId == null || userId == "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'You need to Login to recommend your co-workers!',
-                footer: '<a href="/volunteer/user/login">Login here</a>'
-            })
+            loginAlert('You need to Login to apply in this mission!', `/Volunteer/Mission/MissionDetails?id=${missionId}`)
             return;
         }
         $.ajax({
@@ -227,12 +222,7 @@ function handleMissionRating() {
 function handleRecommendMission() {
     $("#recommendBtn").click(() => {
         if (userId == null || userId == "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'You need to Login to recommend your co-workers!',
-                footer: '<a href="/volunteer/user/login">Login here</a>'
-            })
+            loginAlert('You need to Login to recommend your co-workers!', `/Volunteer/Mission/MissionDetails?id=${missionId}`)
             return;
         }
         $.ajax({
@@ -286,12 +276,7 @@ function handleRecommendMission() {
 
 $(".fav-btn").click(() => {
     if (userId == null || userId == "") {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'You need to Login to add this mission as your favourite!',
-            footer: '<a href="/volunteer/user/login">Login here</a>'
-        })
+        loginAlert('You need to Login to add this mission as favourite!', `/Volunteer/Mission/MissionDetails?id=${missionId}`)
         return;
     }
     $.ajax({

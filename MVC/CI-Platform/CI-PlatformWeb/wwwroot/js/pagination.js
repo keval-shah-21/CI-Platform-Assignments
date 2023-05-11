@@ -1,9 +1,10 @@
-﻿let totalPages = 1, pageSet = 1, page = 1, numberOfRows;
+﻿let totalPages = 1, pageSet = 1, page = 1, numberOfRows, total;
 function createPagination(noOfRows = 10) {
     numberOfRows = noOfRows;
     const totalRows = document.querySelectorAll("tbody>tr").length;
+    total = totalRows;
     let pagination = document.querySelector('.pagination');
-    if(pagination)
+    if (pagination)
         pagination.innerHTML = "";
     if (Math.ceil(totalRows / numberOfRows) < 1) return;
 
@@ -49,14 +50,21 @@ function scrollPageSet() {
     });
 }
 function displayRows() {
+    let count = 0;
     document.querySelectorAll("tbody > tr").forEach((row, index) => {
         if (index >= (page - 1) * numberOfRows && index < page * numberOfRows) {
             $(row).removeClass("d-none");
+            count++;
         }
         else {
             $(row).addClass("d-none");
         }
     })
+    if (total > numberOfRows) {
+        const start = (page - 1) * numberOfRows + 1;
+        const paginationRange = document.querySelector(".pagination-range");
+        paginationRange.innerHTML = `<div class="color-darkgray">${start} - ${start + count - 1} of ${total} records</div>`;
+    }
 }
 function handlePagination(value) {
     if (value == 'next') {

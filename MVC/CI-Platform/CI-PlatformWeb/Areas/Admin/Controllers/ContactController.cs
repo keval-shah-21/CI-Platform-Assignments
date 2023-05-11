@@ -1,4 +1,5 @@
-﻿using CI_Platform.Entities.ViewModels;
+﻿using CI_Platform.Entities.Constants;
+using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,17 @@ public class ContactController : Controller
         {
             await _unitOfService.Contact.SendReplyEmail(contact);
             await _unitOfService.Contact.ReplyContact(contact);
-            _unitOfService.Save();
+
+            SendNotificationVM sendNotificationVM = new()
+            {
+                Message = $"Admin sent you a new message.",
+                SettingType = NotificationSettingType.NEW_MESSAGE,
+                NotificationType = NotificationType.ADD,
+                UserId = contact.UserId
+            };
+            await _unitOfService.Notification.SendUserNotification(sendNotificationVM);
+
+            await _unitOfService.SaveAsync();
             return NoContent();
         }
         catch (Exception e)

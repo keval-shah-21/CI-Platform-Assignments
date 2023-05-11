@@ -34,11 +34,11 @@ img {
 
 a {
     text-decoration: none;
+    color: var(--dark-gray);
 }
 
     a:hover {
         color: var(--blue);
-        font-weight: 400 !important;
     }
 
 .flex-basis-100 {
@@ -603,17 +603,25 @@ form input:focus {
     color: white;
 }
 .notification {
-    max-width: 30rem;
+    /*max-width: 30rem;*/
+    width: min(30rem, calc(100vw - 1rem)) !important;
     z-index: 1000 !important;
 }
+@media(min-width:576px){
+    #notificationContainer{
+        position: relative;
+        top: 1rem !important;
+        right: -1rem !important;
+    }
+}
 
-@media(min-width:768px) {
+/*@media(min-width:768px) {
     .notification {
-        width: 35rem !important;
+        max-width: 35rem !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
     }
-}
+}*/
 
 .older-title {
     background-color: lightgray;

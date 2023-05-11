@@ -1,4 +1,7 @@
-﻿namespace CI_Platform.Entities.DataModels;
+﻿using System;
+using System.Collections.Generic;
+
+namespace CI_Platform.Entities.DataModels;
 
 public partial class Notification
 {
@@ -9,6 +12,8 @@ public partial class Notification
     public byte? NotificationType { get; set; }
 
     public byte? SettingType { get; set; }
+
+    public string? FromUserAvatar { get; set; }
 
     public virtual ICollection<UserNotification> UserNotifications { get; } = new List<UserNotification>();
 }

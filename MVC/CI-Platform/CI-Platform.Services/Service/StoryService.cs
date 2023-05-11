@@ -24,8 +24,8 @@ namespace CI_Platform.Services.Service
                 ShortDescription = story.ShortDescription,
                 Description = story.Description,
                 MissionId = story.MissionId,
-                MissionTheme = story.Mission.MissionTheme.MissionThemeName,
-                MissionTitle = story.Mission.Title,
+                MissionTheme = story.Mission?.MissionTheme?.MissionThemeName,
+                MissionTitle = story.Mission?.Title,
                 UserId = story.UserId,
                 PublishedAt = story.PublishedAt,
                 Title = story.Title,
@@ -79,6 +79,16 @@ namespace CI_Platform.Services.Service
             Story story = _unitOfWork.Story.GetFirstOrDefaultWithInclude(s => s.StoryId == id);
             if (story == null) return null!;
             return ConvertStoryToVM(story);
+        }
+        public async Task<StoryVM> GetFirstOrDefaultAsync(long id)
+        {
+            Story story = await _unitOfWork.Story.GetFirstOrDefaultAsync(s => s.StoryId == id);
+            if (story == null) throw new Exception("Invalid story id.");
+            return ConvertStoryToVM(story);
+        } 
+        public async Task<(string, long)> GetDetailsToSendNotification(long id)
+        {
+            return await _unitOfWork.Story.GetDetailsToSendNotification(id);
         }
         public StoryVM GetDraftStoryByUserId(long userId)
         {
@@ -137,7 +147,7 @@ namespace CI_Platform.Services.Service
         }
         internal static string GetStoryThumbnail(Story story)
         {
-            StoryMedium sm = story.StoryMedia.FirstOrDefault();
+            StoryMedium sm = story.StoryMedia?.FirstOrDefault();
             return sm?.MediaPath + sm?.MediaName + sm?.MediaType;
         }
         internal static List<StoryMediaVM> GetStoryMedia(Story story)
@@ -146,6 +156,7 @@ namespace CI_Platform.Services.Service
         }
         internal static UserVM GetStoryUser(Story story)
         {
+            if (story.User == null) return new UserVM();
             return UserService.ConvertUserToVM(story.User);
         }
     }

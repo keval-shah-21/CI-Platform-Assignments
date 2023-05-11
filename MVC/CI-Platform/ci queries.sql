@@ -47,13 +47,13 @@ create table [user](
 	title varchar(255),
 	availability tinyint,
 	status bit not null default 0,
+	is_blocked bit not null default 0,
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset,
 	foreign key (city_id) references city(city_id),
 	foreign key (country_id) references country(country_id)
 )
-
 create table reset_password(
 	email varchar(128) primary key,
 	token varchar(255) not null,
@@ -148,18 +148,20 @@ create table mission_document(
 	deleted_at datetimeoffset,
 	foreign key (mission_id) references mission(mission_id)
 )
+
 create table mission_application(
 	mission_application_id bigint identity(1,1) primary key,
 	mission_id bigint not null,
 	user_id bigint not null,
 	applied_at datetime2 not null,
-	approval_status tinyint not null,
+	approval_status tinyint not null default 0,
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	deleted_at datetimeoffset,
 	foreign key (mission_id) references mission(mission_id),
 	foreign key (user_id) references [user](user_id)
 )
+
 
 create table favourite_mission(
 	favourite_mission_id bigint identity(1,1) primary key,
@@ -274,7 +276,7 @@ create table contact(
 create table mission_timesheet(
 	timesheet_id bigint identity(1,1) primary key,
 	mission_id bigint,
-	user_id bigint,
+	user_id bigint not null,
 	date_volunteered date,
 	time_volunteered time,
 	notes varchar(80),
@@ -286,6 +288,7 @@ create table mission_timesheet(
 	foreign key (user_id) references [user](user_id),
 	foreign key (mission_id) references [mission](mission_id)
 )
+
 create table cms_page(
 	cms_page_id bigint identity(1,1) primary key,
 	title varchar(80),
@@ -318,15 +321,14 @@ create table notification(
 	notification_id bigint identity(1,1) primary key,
 	message varchar(300),
 	notification_type tinyint,
+	from_user_avatar varchar(max),
 	setting_type tinyint
 )
-
 create table user_notification(
 	user_notification_id bigint identity(1,1) primary key,
 	user_id bigint not null,
 	notification_id bigint not null,
 	is_read bit default 0,
-	from_user_avatar varchar(max),
 	created_at datetimeoffset not null default current_timestamp,
 	updated_at datetimeoffset,
 	foreign key (user_id) references [user](user_id),
@@ -341,9 +343,9 @@ create table notification_setting(
 	volunteering_goal bit default 0 not null,
 	comment bit default 0 not null,
 	my_story bit default 0 not null,
-	new_mission bit default 0 not null,
+	new_mission bit default 1 not null,
 	new_message bit default 0 not null,
-	mission_application bit default 0 not null,
+	mission_application bit default 1 not null,
 	news bit default 0 not null,
 	email bit default 0 not null,
 	foreign key (user_id) references [user](user_id),

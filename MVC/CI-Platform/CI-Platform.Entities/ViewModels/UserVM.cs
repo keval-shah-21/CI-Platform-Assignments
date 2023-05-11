@@ -42,6 +42,7 @@ public class UserVM{
     public string? Department { get; set; }
 
     public bool? Status { get; set; }
+    public bool IsBlocked { get; set; }
 
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
 

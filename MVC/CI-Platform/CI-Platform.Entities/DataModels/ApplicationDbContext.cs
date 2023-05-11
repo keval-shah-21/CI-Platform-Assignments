@@ -383,15 +383,13 @@ public partial class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<MissionApplication>(entity =>
         {
-            entity.HasKey(e => e.MissionApplicationId).HasName("PK__mission___DF92838A46DBD73A");
+            entity.HasKey(e => e.MissionApplicationId).HasName("PK__mission___DF92838A7DCA9121");
 
             entity.ToTable("mission_application");
 
             entity.Property(e => e.MissionApplicationId).HasColumnName("mission_application_id");
             entity.Property(e => e.AppliedAt).HasColumnName("applied_at");
-            entity.Property(e => e.ApprovalStatus)
-                .HasDefaultValueSql("((1))")
-                .HasColumnName("approval_status");
+            entity.Property(e => e.ApprovalStatus).HasColumnName("approval_status");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
@@ -403,12 +401,12 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Mission).WithMany(p => p.MissionApplications)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_a__missi__09A971A2");
+                .HasConstraintName("FK__mission_a__missi__7D63964E");
 
             entity.HasOne(d => d.User).WithMany(p => p.MissionApplications)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__mission_a__user___0A9D95DB");
+                .HasConstraintName("FK__mission_a__user___7E57BA87");
         });
 
         modelBuilder.Entity<MissionDocument>(entity =>
@@ -645,6 +643,7 @@ public partial class ApplicationDbContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.MissionTimesheets)
                 .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__mission_t__user___467D75B8");
         });
 
@@ -655,6 +654,9 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("notification");
 
             entity.Property(e => e.NotificationId).HasColumnName("notification_id");
+            entity.Property(e => e.FromUserAvatar)
+                .IsUnicode(false)
+                .HasColumnName("from_user_avatar");
             entity.Property(e => e.Message)
                 .HasMaxLength(300)
                 .IsUnicode(false)
@@ -891,6 +893,7 @@ public partial class ApplicationDbContext : DbContext
                 .HasMaxLength(16)
                 .IsUnicode(false)
                 .HasColumnName("first_name");
+            entity.Property(e => e.IsBlocked).HasColumnName("is_blocked");
             entity.Property(e => e.LastName)
                 .HasMaxLength(16)
                 .IsUnicode(false)
@@ -939,9 +942,6 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnName("created_at");
-            entity.Property(e => e.FromUserAvatar)
-                .IsUnicode(false)
-                .HasColumnName("from_user_avatar");
             entity.Property(e => e.IsRead)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("is_read");

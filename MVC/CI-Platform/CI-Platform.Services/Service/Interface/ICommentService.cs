@@ -10,5 +10,7 @@ namespace CI_Platform.Services.Service.Interface
         void PostComment(long missionId, long userId, string comment);
         Task<CommentVM> GetByIdAsync(long id);
         Task<IEnumerable<CommentVM>> SearchAsync(string? query);
+        Task<(string, long, long)> GetDetailsToSendNotification(long id);
+        Task DeleteComment(long id);
     }
 }

@@ -10,7 +10,7 @@ public interface IUserService
 
     UserVM Login(LoginVM loginVM);
     AdminVM AdminLogin(LoginVM loginVM);
-
+    bool IsAdminEmail(string email);
     UserVM GetFirstOrDefaultByEmail(string email);
     Task<UserVM> GetFirstOrDefaultById(long id);
     UserAdminVM GetFirstOrDefaultUserAdmin(long id);
@@ -32,8 +32,8 @@ public interface IUserService
     void SendVerifyAccountEmail(string email, string url);
 
     bool VerifyEmail(string email, string token);
-    void ActivateUserByEmail(string email);
-    void DeactivateUserByEmail(string email);
+    Task UpdateIsBlockedAsync(string email, int value);
+    Task UpdateStatusAsync(string email, int value);
     void RemoveVerifyEmail(string email);
 
     List<UserVM> SearchUser(string? query);

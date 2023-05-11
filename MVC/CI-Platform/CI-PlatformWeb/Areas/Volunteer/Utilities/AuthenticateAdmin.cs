@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CI_PlatformWeb.Areas.Volunteer.Utilities;
 
-public class AuthenticateAdmin : ActionFilterAttribute
+public class AuthenticateAdminAttribute : ActionFilterAttribute
 {
     public override void OnActionExecuting(ActionExecutingContext filterContext)
     {

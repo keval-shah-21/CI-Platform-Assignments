@@ -41,6 +41,7 @@ public class UserService : IUserService
             EmployeeId = user.EmployeeId,
             Department = user.Department,
             Status = user.Status,
+            IsBlocked = user.IsBlocked,
             MissionInviteFromVM = GetMissionInviteFrom(user),
             MissionInviteToVM = GetMissionInviteTo(user),
             StoryInviteFromVM = GetStoryInviteFrom(user),
@@ -87,7 +88,6 @@ public class UserService : IUserService
             PhoneNumber = user.PhoneNumber,
             EmployeeId = user.EmployeeId,
             Department = user.Department,
-            Status = user.Status,
         };
     }
 
@@ -111,7 +111,6 @@ public class UserService : IUserService
             WhyIVolunteer = userVM.WhyIVolunteer,
             ProfileText = userVM.ProfileText,
             Avatar = userVM.Avatar,
-            Status = false
         };
         _unitOfWork.User.Add(obj);
         _unitOfWork.Save();
@@ -129,7 +128,6 @@ public class UserService : IUserService
             CreatedAt = DateTimeOffset.Now,
             ProfileText = user.ProfileText,
             Avatar = user.Avatar,
-            Status = false,
             CityId = user.CityId,
             CountryId = user.CountryId,
             EmployeeId = user.EmployeeId,
@@ -157,7 +155,11 @@ public class UserService : IUserService
         User obj = _unitOfWork.User.GetFirstOrDefault(filter);
         return obj == null ? null! : ConvertUserToVM(obj);
     }
-
+    public bool IsAdminEmail(string email)
+    {
+        Admin admin = _unitOfWork.Admin.GetFirstOrDefault(admin => admin.Email == email);
+        return admin != null;
+    }
     public UserVM GetFirstOrDefaultByEmail(string email)
     {
         User obj = _unitOfWork.User.GetFirstOrDefault(user => user.Email.Equals(email));
@@ -260,13 +262,13 @@ public class UserService : IUserService
     {
         _unitOfWork.VerifyEmail.Remove(_unitOfWork.VerifyEmail.GetFirstOrDefault(ve => ve.Email == email));
     }
-    public void ActivateUserByEmail(string email)
+    public async Task UpdateIsBlockedAsync(string email, int value)
     {
-        _unitOfWork.User.ActivateUserByEmail(email);
+        await _unitOfWork.User.UpdateIsBlockedAsync(email, value);
     }
-    public void DeactivateUserByEmail(string email)
+    public async Task UpdateStatusAsync(string email, int value)
     {
-        _unitOfWork.User.DeactivateUserByEmail(email);
+        await _unitOfWork.User.UpdateStatusAsync(email, value);
     }
     public void SendVerifyAccountEmail(string email, string url)
     {

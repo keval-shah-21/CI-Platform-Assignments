@@ -84,13 +84,15 @@ public class MissionApplicationService : IMissionApplicationService
     }
     public void ApplyMission(long missionId, long userId)
     {
+        MissionApplication missionApplication = _unitOfWork.MissionApplication.GetFirstOrDefault(m => m.MissionId == missionId && m.UserId == userId);
+        if (missionApplication != null) return;
         _unitOfWork.MissionApplication.Add(new MissionApplication()
         {
             AppliedAt = DateTime.Now,
             UserId = userId,
             MissionId = missionId,
             CreatedAt = DateTimeOffset.Now,
-            ApprovalStatus= 0,
+            ApprovalStatus = 0,
         });
     }
     public void UpdateStatus(long id, byte value)
@@ -126,8 +128,8 @@ public class MissionApplicationService : IMissionApplicationService
         }).ToList();
     }
 
-    public async Task<(string, long)> GetMissionNameToSendNotification(long id)
+    public async Task<(string, long, long)> GetDetailsToSendNotification(long id)
     {
-        return await _unitOfWork.MissionApplication.GetMissionNameToSendNotification(ma => ma.MissionApplicationId == id);
+        return await _unitOfWork.MissionApplication.GetDetailsToSendNotification(ma => ma.MissionApplicationId == id);
     }
 }

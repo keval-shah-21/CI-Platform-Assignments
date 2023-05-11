@@ -2,7 +2,7 @@
 {
     public interface IStoryInviteService
     {
-        void RecommendStory(long storyId, long userId, long[] toUsers, string url);
+        Task RecommendStory(long storyId, long userId, long[] toUsers, string url);
         void RemoveByStoryId(long id);
     }
 }

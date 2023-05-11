@@ -13,8 +13,6 @@ public partial class UserNotification
 
     public bool? IsRead { get; set; }
 
-    public string? FromUserAvatar { get; set; }
-
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset? UpdatedAt { get; set; }

@@ -26,12 +26,12 @@
             </div>
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col">
-                    <label class="form-label" asp-for="FirstName"></label>
+                    <label class="form-label" asp-for="FirstName">First Name<sup class="text-danger">*</sup></label>
                     <input type="text" placeholder="Enter your name" asp-for="FirstName" class="form-control">
                     <span class="text-danger text-14" asp-validation-for="FirstName"></span>
                 </div>
                 <div class="col">
-                    <label class="form-label" asp-for="LastName"></label>
+                    <label class="form-label" asp-for="LastName">Last Name<sup class="text-danger">*</sup></label>
                     <input type="text" asp-for="LastName" placeholder="Enter your surname" class="form-control">
                     <span class="text-danger text-14" asp-validation-for="LastName"></span>
                 </div>
@@ -53,13 +53,13 @@
                     <input type="text" asp-for="Title" placeholder="Enter your title" class="form-control">
                 </div>
                 <div class="col">
-                    <label class="form-label" asp-for="PhoneNumber"></label>
+                    <label class="form-label" asp-for="PhoneNumber">Phone Number<sup class="text-danger">*</sup></label>
                     <input type="text" asp-for="PhoneNumber" placeholder="Enter your phone number" class="form-control">
                     <span class="text-danger text-14" asp-validation-for="PhoneNumber"></span>
                 </div>
             </div>
             <div>
-                <label class="form-label" asp-for="ProfileText"></label>
+                <label class="form-label" asp-for="ProfileText">My Profile<sup class="text-danger">*</sup></label>
                 <textarea rows="4" type="text" asp-for="ProfileText" placeholder="Enter your profile description..."
                           class="form-control"></textarea>
                 <span class="text-danger text-14" asp-validation-for="ProfileText"></span>
@@ -75,7 +75,7 @@
             </div>
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col">
-                    <label class="form-label">Select Your City</label>
+                    <label class="form-label">Select Your City<sup class="text-danger">*</sup></label>
                     <select class="form-select" asp-for="CityId" id="cityDropdown">
                         <option value="0" disabled selected>Select your city</option>
                         @foreach (CityVM city in Model.cityVMs)
@@ -86,7 +86,7 @@
                     <span class="text-danger text-14" asp-validation-for="CityId"></span>
                 </div>
                 <div class="col">
-                    <label class="form-label">Select Your Country</label>
+                    <label class="form-label">Select Your Country<sup class="text-danger">*</sup></label>
                     <select class="form-select" asp-for="CountryId" id="countryDropdown">
                         <option value="0" disabled selected>Select your country</option>
                         @foreach (CountryVM country in Model.countryVMs)
@@ -104,7 +104,7 @@
             </div>
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col">
-                    <label class="form-label">Select Your Availability</label>
+                    <label class="form-label">Select Your Availability<sup class="text-danger">*</sup></label>
                     <select class="form-select" asp-for=Availability>
                         <option value="0" disabled selected>Select your availability</option>
                         <option value="1">Daily</option>

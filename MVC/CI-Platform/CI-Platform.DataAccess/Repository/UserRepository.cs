@@ -17,15 +17,19 @@ public class UserRepository : Repository<User>, IUserRepository
     public List<User> GetAllToRecommendMission()
     {
         return dbSet
+        .Include(u => u.NotificationSetting)
         .Include(u => u.MissionInviteFromUsers)
         .Include(u => u.MissionInviteToUsers)
+        .Where(u => u.NotificationSetting.RecommendMission)
         .ToList();
     }
     public List<User> GetAllToRecommendStory()
     {
         return dbSet
+        .Include(u => u.NotificationSetting)
         .Include(u => u.StoryInviteFromUsers)
         .Include(u => u.StoryInviteToUsers)
+        .Where(u => u.NotificationSetting.RecommendStory)
         .ToList();
     }
     public void UpdatePassword(string email, string password)
@@ -35,17 +39,14 @@ public class UserRepository : Repository<User>, IUserRepository
 
         _context.Database.ExecuteSqlRaw("UPDATE [user] SET password = @password WHERE email = @email",passwordParameter, emailParameter);
     }
-
-    public void ActivateUserByEmail(string email)
+    public async Task UpdateIsBlockedAsync(string email, int value)
     {
-        var emailParameter = new SqlParameter("@email", email);
-
-        _context.Database.ExecuteSqlRaw("UPDATE [user] SET status = 1 WHERE email = @email", emailParameter);
+        string query = "UPDATE [user] set is_blocked = {0} where email = {1}";
+        await _context.Database.ExecuteSqlRawAsync(query, value, email);
     }
-    public void DeactivateUserByEmail(string email)
+    public async Task UpdateStatusAsync(string email, int value)
     {
-        var emailParameter = new SqlParameter("@email", email);
-
-        _context.Database.ExecuteSqlRaw("UPDATE [user] SET status = 0 WHERE email = @email", emailParameter);
-    }
+        string query = "UPDATE [user] set status = {0} where email = {1}";
+        await _context.Database.ExecuteSqlRawAsync(query, value, email);
+    }   
 }

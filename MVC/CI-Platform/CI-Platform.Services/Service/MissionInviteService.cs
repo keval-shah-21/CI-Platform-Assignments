@@ -27,7 +27,7 @@ namespace CI_Platform.Services.Service
             };
         }
 
-        public void RecommendMission(long missionId, long userId, long[] toUsers, string url)
+        public async Task RecommendMission(long missionId, long userId, long[] toUsers, string url)
         {
             User user = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == userId);
             string name = user.FirstName + " " + user.LastName;
@@ -37,15 +37,18 @@ namespace CI_Platform.Services.Service
 
             foreach (long toUser in toUsers)
             {
-                _unitOfWork.MissionInvite.Add(new MissionInvite
+                NotificationSetting setting = await _unitOfWork.NotificationSetting.GetFirstOrDefaultAsync(n => n.UserId == toUser);
+                if (setting.Email == false) continue;
+
+                await _unitOfWork.MissionInvite.AddAsync(new MissionInvite
                 {
                     CreatedAt = DateTimeOffset.Now,
                     FromUserId = userId,
                     ToUserId = toUser,
                     MissionId = missionId,
                 });
-                string email = _unitOfWork.User.GetFirstOrDefault(u => u.UserId == toUser).Email;
-                _ = _emailService.SendEmailAsync(email, subject, body);
+                var newUser = await _unitOfWork.User.GetFirstOrDefaultAsync(u => u.UserId == toUser);
+                _ = _emailService.SendEmailAsync(newUser.Email, subject, body);
             }
         }
     }

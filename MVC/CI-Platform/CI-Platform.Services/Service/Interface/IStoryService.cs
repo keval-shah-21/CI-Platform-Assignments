@@ -12,6 +12,7 @@ namespace CI_Platform.Services.Service.Interface
         void SaveStory(StoryVM storyVM, long userId, byte approvalStatus);
         void UpdateStory(StoryVM storyVM, byte approvalStatus);
         StoryVM GetDraftStoryByUserId(long userId);
+        Task<StoryVM> GetFirstOrDefaultAsync(long id);
         List<StoryVM> GetAll();
         long GetLatestStoryId(long userId);
         void RemoveStoryById(long storyId);
@@ -21,6 +22,7 @@ namespace CI_Platform.Services.Service.Interface
         List<StoryVM> GetAdminStories();
         void AcceptStory(long id);
         void UpdateStatus(long id, byte value);
+        Task<(string, long)> GetDetailsToSendNotification(long id);
         void DeleteStory(long id);
         List<StoryVM> Search(string? query);
     }

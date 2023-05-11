@@ -43,4 +43,12 @@ public class MissionTimesheetRepository : Repository<MissionTimesheet>, IMission
 
         _context.Database.ExecuteSqlRaw("UPDATE mission_timesheet SET approval_status = @status WHERE timesheet_id = @timesheetId", statusParameter, idParameter);
     }
+    public async Task<(string, long)> GetDetailsToSendNotification(long id)
+    {
+        var result = await dbSet
+            .Include(c => c.Mission)
+            .FirstOrDefaultAsync(c => c.TimesheetId == id);
+
+        return (result.Mission.Title, result.UserId);
+    }
 }

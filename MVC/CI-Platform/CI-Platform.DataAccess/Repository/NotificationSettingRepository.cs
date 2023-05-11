@@ -40,7 +40,7 @@ public class NotificationSettingRepository : Repository<NotificationSetting>, IN
 
     public async Task<IEnumerable<NotificationSetting?>> GetAllToSendRecommendNotification(List<long> toUsers, string settingType)
     {
-        return await dbSet.FromSqlRaw($"SELECT * FROM notification_setting WHERE {settingType} = 1 AND user_id IN ({string.Join(",", toUsers)})")
+        return await dbSet.FromSqlRaw($"SELECT * FROM notification_setting WHERE user_id IN ({string.Join(",", toUsers)})")
                        .Include(n => n.User)
                        .ToListAsync();
     }

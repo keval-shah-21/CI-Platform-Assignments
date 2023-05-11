@@ -18,41 +18,48 @@ public class NotificationService : INotificationService
         _notificationSettingService = notificationSettingService;
         _unitOfWork = unitOfWork;
     }
+    private async Task<long> SaveNotification(SendNotificationVM sendNotificationVM)
+    {
+        var notification = new Notification()
+        {
+            Message = string.IsNullOrEmpty(sendNotificationVM.Href) ? sendNotificationVM.Message 
+                    : $"<a href={sendNotificationVM.Href}>{sendNotificationVM.Message}</a>",
+            NotificationType = (byte?)sendNotificationVM.NotificationType,
+            SettingType = (byte?)sendNotificationVM.SettingType,
+            FromUserAvatar = sendNotificationVM.FromUserAvatar,
+        };
+        await _unitOfWork.Notification.AddAsync(notification);
+        await _unitOfWork.SaveAsync();
+        return notification.NotificationId;
+    }
+
     public async Task SendNotificationToAllUsers(SendNotificationVM sendNotificationVM, List<long> toUsers)
     {
         IEnumerable<NotificationSettingVM> settings = toUsers?.Count != 0
             ? await _notificationSettingService.GetAllToSendRecommendNotification(toUsers, sendNotificationVM.SettingType.ToString())
             : await _notificationSettingService.GetAllToSendNotification(sendNotificationVM.SettingType.ToString());
-        
-        var notification = new Notification()
-        {
-            Message = sendNotificationVM.Message,
-            NotificationType = (byte?)sendNotificationVM.NotificationType,
-            SettingType = (byte?)sendNotificationVM.SettingType
-        };
-        await _unitOfWork.Notification.AddAsync(notification);
-        await _unitOfWork.SaveAsync();
 
+        long notificationId = await SaveNotification(sendNotificationVM);
         IEnumerable<UserNotification> notifs = settings.Select(setting =>
         {
             if (setting.Email)
                 _ = SendNotificationEmail(setting.UserEmail, setting.UserName, sendNotificationVM);
             return new UserNotification()
             {
-                NotificationId = notification.NotificationId,
+                NotificationId = notificationId,
                 UserId = setting.UserId,
                 CreatedAt = DateTimeOffset.Now,
-                FromUserAvatar = sendNotificationVM?.FromUserAvatar,
             };
         });
         await _unitOfWork.UserNotification.AddRangeAsync(notifs);
         await _unitOfWork.SaveAsync();
     }
+
     public async Task SendUserNotification(SendNotificationVM sendNotificationVM)
     {
         NotificationSettingVM setting = await _notificationSettingService.GetByUserIdToSendNotification(sendNotificationVM.UserId, sendNotificationVM.SettingType.ToString());
-
         if (setting == null) return;
+
         if (setting.Email)
             _ = SendNotificationEmail(setting.UserEmail, setting.UserName, sendNotificationVM);
 
@@ -60,13 +67,14 @@ public class NotificationService : INotificationService
         {
             Notification = new Notification()
             {
-                Message = sendNotificationVM.Message,
+                Message = string.IsNullOrEmpty(sendNotificationVM.Href) ? sendNotificationVM.Message
+                    : $"<a href={sendNotificationVM.Href}>{sendNotificationVM.Message}</a>",
                 NotificationType = (byte?)sendNotificationVM.NotificationType,
-                SettingType = (byte?)sendNotificationVM.SettingType
+                SettingType = (byte?)sendNotificationVM.SettingType,
+                FromUserAvatar = sendNotificationVM.FromUserAvatar,
             },
             UserId = setting.UserId,
             CreatedAt = DateTimeOffset.Now,
-            FromUserAvatar = sendNotificationVM.FromUserAvatar,
         };
         await _unitOfWork.UserNotification.AddAsync(userNotification);
         await _unitOfWork.SaveAsync();

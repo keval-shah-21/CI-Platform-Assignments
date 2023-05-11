@@ -10,7 +10,7 @@
     <partial name="_Navbar"></partial>
     <main class="container py-4">
         <section class="mp-top d-flex flex-column flex-lg-row pb-4 gap-4">
-            <div class="my-auto">
+            <div class="my-auto position-relative">
                 <img src="@Model.StoryThumbnail"
                      alt="mission image"
                      id="storyImage"
@@ -73,7 +73,7 @@
         </section>
         <section class="mt-4">
             <div class="border-bottom mb-3">
-                <h4 class="border-bottom border-dark width-max-conatent m-0 pb-3 pe-2">@Model.Title</h4>
+                <span class="d-inline-block fs-4 border-bottom border-dark m-0 pb-3 pe-2">@Model.Title</span>
             </div>
             <div class="py-3 text-secondary">
                 @Html.Raw(Model.Description)

@@ -1,8 +1,20 @@
 ﻿@using CI_Platform.Entities.Constants
 @model List<MissionTimesheetVM>
 @{
-    var goalSheet = Model.Where(timesheet => timesheet.MissionType == MissionType.GOAL);
-    var timeSheet = Model.Where(timesheet => timesheet.MissionType == MissionType.TIME);
+    var goalSheet = new List<MissionTimesheetVM>();
+    var timeSheet = new List<MissionTimesheetVM>();
+
+    foreach (var timesheet in Model)
+    {
+        if (timesheet.MissionType == MissionType.GOAL)
+        {
+            goalSheet.Add(timesheet);
+        }
+        else if (timesheet.MissionType == MissionType.TIME)
+        {
+            timeSheet.Add(timesheet);
+        }
+    }
 }
 <div class="flex-basis-100 border shadow-sm p-3 py-md-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -52,7 +64,7 @@
                         {
                             <td>
                                 <div class="width-max-conatent">
-                                <img src="/images/static/check-circle.svg" alt="edit" height="20px" width="20px">
+                                    <img src="/images/static/check-circle.svg" alt="edit" height="20px" width="20px">
                                 </div>
                             </td>
                         }
@@ -110,11 +122,12 @@
                                  data-id="@goal.TimesheetId">
                                 </div>
                             </td>
-                        }else if (goal.ApprovalStatus == ApprovalStatus.APPROVED)
+                        }
+                        else if (goal.ApprovalStatus == ApprovalStatus.APPROVED)
                         {
                             <td>
                                 <div class="width-max-conatent">
-                                <img src="/images/static/check-circle.svg" alt="edit" height="20px" width="20px">
+                                    <img src="/images/static/check-circle.svg" alt="edit" height="20px" width="20px">
                                 </div>
                             </td>
                         }

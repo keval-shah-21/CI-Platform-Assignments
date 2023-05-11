@@ -9,7 +9,7 @@ public partial class MissionTimesheet
 
     public long? MissionId { get; set; }
 
-    public long? UserId { get; set; }
+    public long UserId { get; set; }
 
     public DateTime? DateVolunteered { get; set; }
 
@@ -29,5 +29,5 @@ public partial class MissionTimesheet
 
     public virtual Mission? Mission { get; set; }
 
-    public virtual User? User { get; set; }
+    public virtual User User { get; set; } = null!;
 }

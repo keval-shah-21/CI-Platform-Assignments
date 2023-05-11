@@ -108,7 +108,7 @@ public class MissionTimesheetService : IMissionTimesheetService
         IEnumerable<MissionTimesheet> missionTimesheets = _unitOfWork.MissionTimesheet.GetAllWithInclude();
         if (missionTimesheets.Any())
         {
-            return missionTimesheets.Where(mt => mt.UserId == userId)?.Select(mt => ConvertTimesheetToVM(mt)).ToList();
+            return missionTimesheets.Where(mt => mt.UserId == userId).Select(mt => ConvertTimesheetToVM(mt)).ToList();
         }
         return new();
     }
@@ -160,6 +160,10 @@ public class MissionTimesheetService : IMissionTimesheetService
     public void UpdateStatus(long id, byte value)
     {
         _unitOfWork.MissionTimesheet.UpdateStatus(id, value);
+    }
+    public async Task<(string, long)> GetDetailsToSendNotification(long id)
+    {
+        return await _unitOfWork.MissionTimesheet.GetDetailsToSendNotification(id);
     }
     public static MissionTimesheetVM ConvertTimesheetToVM(MissionTimesheet mt)
     {

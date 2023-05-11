@@ -159,7 +159,7 @@ function validateMissionForm() {
 
     const startDate = $("#StartDate").val();
     const endDate = $("#EndDate").val();
-    if (startDate != null && endDate != null && startDate >= endDate) {
+    if (startDate != "" && endDate != "" && startDate >= endDate) {
         document.querySelector("#StartDateError").textContent = "Start date can't be sooner than end date!";
         error = true;
     } else {
@@ -543,9 +543,9 @@ function commentTableEvents() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/Admin/Comment/UpdateStatus",
+                        url: "/Admin/Comment/AcceptComment",
                         method: "PUT",
-                        data: { id: $(accept).data("accept"), value: 1 },
+                        data: { id: $(accept).data("accept")},
                         success: (result) => {
                             partialContainer.html(result);
                             createPagination();
@@ -574,9 +574,9 @@ function commentTableEvents() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/Admin/Comment/UpdateStatus",
-                        method: "PUT",
-                        data: { id: $(decline).data("decline"), value: 2 },
+                        url: "/Admin/Comment/DeclineComment",
+                        method: "DELETE",
+                        data: { id: $(decline).data("decline") },
                         success: (result) => {
                             partialContainer.html(result);
                             createPagination();
@@ -713,11 +713,11 @@ function timesheetTableEvents() {
                     $.ajax({
                         url: "/Admin/Timesheet/UpdateStatus",
                         method: "PUT",
-                        data: { id: $(decline).data("decline"), status: 2, isTime: $(decline).data("istime") },
+                        data: { id: $(decline).data("decline"), missionId: $(decline).data("missionid"), status: 2, isTime: $(decline).data("istime") },
                         success: (result) => {
+                            simpleAlert("Successfully declined the timesheet!", "success");
                             partialContainer.html(result);
                             createPagination();
-                            simpleAlert("Successfully declined the timesheet!", "success");
                             addAllEvents("timesheet");
                         },
                         error: (error) => {
@@ -746,9 +746,9 @@ function timesheetTableEvents() {
                         method: "PUT",
                         data: { id: $(accept).data("accept"), status: 1, missionId: $(accept).data("missionid"), action: $(accept).data("action"), isTime: $(accept).data("istime") },
                         success: (result) => {
+                            simpleAlert("Successfully approved the timesheet!", "success");
                             partialContainer.html(result);
                             createPagination();
-                            simpleAlert("Successfully approved the timesheet!", "success");
                             addAllEvents("timesheet");
                         },
                         error: (error) => {
@@ -1560,9 +1560,9 @@ function userTableEvents() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/Admin/User/ActivateUser",
+                        url: "/Admin/User/UpdateIsBlocked",
                         method: "GET",
-                        data: { email: $(act).data("activate") },
+                        data: { email: $(act).data("activate"), value:0 },
                         success: (result) => {
                             partialContainer.html(result);
                             simpleAlert("Successfully activated the user!", "success");
@@ -1589,9 +1589,9 @@ function userTableEvents() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/Admin/User/DeactivateUser",
+                        url: "/Admin/User/UpdateIsBlocked",
                         method: "GET",
-                        data: { email: $(act).data("deactivate") },
+                        data: { email: $(act).data("deactivate"), value: 1 },
                         success: (result) => {
                             partialContainer.html(result);
                             simpleAlert("Successfully deactivated the user!", "success");
@@ -1908,4 +1908,4 @@ function updateCurrentDateTime() {
     document.getElementById("currentTime").textContent = `${days[currentDate.getDay()]}, ${months[currentDate.getMonth()]} ${currentDate.getDate()}, ${currentDate.getFullYear()}, ${currentDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`;
 }
 updateCurrentDateTime();
-setInterval(updateCurrentDateTime, 1000);
+setInterval(updateCurrentDateTime, 2000);

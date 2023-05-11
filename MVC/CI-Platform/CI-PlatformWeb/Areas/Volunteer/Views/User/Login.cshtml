@@ -5,22 +5,21 @@
 <main class="d-flex flex-column flex-lg-row">
     <partial name="_HeroSectionCarousel" model="@Model.bannerVMs"></partial>
     <section class="right-section d-flex flex-column gap-3 justify-content-center align-items-center p-5 p-lg-0">
-        <span class="text-danger text-14"></span>
+        <span class="text-danger text-15">@TempData["Error"]</span>
         <form method="post" asp-route="LoginPost" class="login-form d-grid gap-4">
+            <input hidden asp-for="ReturnURL" />
             <div>
-                <label asp-for="Email" class="fw-light"></label>
+                <label asp-for="Email" class="fw-light">Email Address<sup class="text-danger">*</sup></label>
                 <input type="email" asp-for="Email" class="form-control" placeholder="Enter your email address" autofocus>
                 <span asp-validation-for="Email" class="text-14 text-danger"></span>
             </div>
             <div>
-                <label asp-for="Password" class="fw-light"></label>
+                <label asp-for="Password" class="fw-light">Password<sup class="text-danger">*</sup></label>
                 <div class="position-relative">
                     <input type="password" asp-for="Password" class="form-control pe-5">
                     <img src="/images/static/eye.png" alt="eye" class="password-eye cursor-pointer" />
                 </div>
                 <span asp-validation-for="Password" class="text-14 text-danger"></span>
-                <span class="text-success text-14">@TempData["Success"]</span>
-                <span class="text-danger text-14">@TempData["Error"]</span>
             </div>
             <button type="submit" class="btn button w-100 bg-white">Login</button>
         </form>

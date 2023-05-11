@@ -1,4 +1,5 @@
 ﻿using CI_Platform.Entities.Constants;
+using CI_Platform.Entities.ViewModels;
 using CI_Platform.Services.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,19 +30,59 @@ public class CommentController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateStatus(long id, byte value)
+    public async Task<IActionResult> AcceptComment(long id)
     {
         try
         {
-            await _unitOfService.Comment.UpdateStatusAsync(id, value);
+            await _unitOfService.Comment.UpdateStatusAsync(id, 1);
             var comments = await _unitOfService.Comment.GetAllAsync();
             comments = comments.Where(m => m.ApprovalStatus == ApprovalStatus.PENDING);
+
+            (string, long, long) result = await _unitOfService.Comment.GetDetailsToSendNotification(id);
+
+            SendNotificationVM sendNotificationVM = new SendNotificationVM
+            {
+                Message = $"Your comment has been approved for this mission - {result.Item1}",
+                SettingType = NotificationSettingType.COMMENT,
+                NotificationType = NotificationType.APPROVE,
+                UserId = result.Item2,
+                Href = $"/volunteer/mission/missiondetails/{result.Item3}"
+            };
+
+            await _unitOfService.Notification.SendUserNotification(sendNotificationVM);
             return PartialView("_Comment", comments);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Console.WriteLine("Error updating status: " + e.Message);
-            Console.WriteLine(e.StackTrace);
+            return StatusCode(500);
+        }
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeclineComment(long id)
+    {
+        try
+        {
+            (string, long, long) result = await _unitOfService.Comment.GetDetailsToSendNotification(id);
+
+            await _unitOfService.Comment.DeleteComment(id);
+            var comments = await _unitOfService.Comment.GetAllAsync();
+            comments = comments.Where(m => m.ApprovalStatus == ApprovalStatus.PENDING);
+
+            SendNotificationVM sendNotificationVM = new()
+            {
+                Message = $"Your comment has been declined for this mission - {result.Item1}",
+                SettingType = NotificationSettingType.COMMENT,
+                NotificationType = NotificationType.DECLINE,
+                UserId = result.Item2,
+                Href = $"/volunteer/mission/missiondetails/{result.Item3}"
+            };
+
+            await _unitOfService.Notification.SendUserNotification(sendNotificationVM);
+            return PartialView("_Comment", comments);
+        }
+        catch (Exception)
+        {
             return StatusCode(500);
         }
     }
@@ -60,7 +101,7 @@ public class CommentController : Controller
         }
     }
 
-    public async Task<IActionResult> Searchcomment(string? query)
+    public async Task<IActionResult> SearchComment(string? query)
     {
         try
         {

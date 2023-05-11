@@ -54,12 +54,13 @@ public class CmsController : Controller
             List<CmsPageVM> cmsList = _unitOfService.CmsPage.GetAll();
             cmsList = cmsList.OrderByDescending(c => c.CreatedAt).ToList();
 
-            SendNotificationVM sendNotificationVM = new SendNotificationVM
+            SendNotificationVM sendNotificationVM = new()
             {
-                Message = $"News - New CMS Page '{cms.Title}' was recently added by admin.",
+                Message = $"News - New CMS Page {cms.Title} was recently added by admin.",
                 Url = Url.Action("CmsPage", "Cms", new { area = "Volunteer", id }, "https"),
                 SettingType = NotificationSettingType.NEWS,
                 NotificationType = NotificationType.ADD,
+                Href = $"/volunteer/cms/cmspage/{id}"
             };
             await _unitOfService.Notification.SendNotificationToAllUsers(sendNotificationVM, new List<long>());
 

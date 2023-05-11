@@ -62,9 +62,17 @@
             <div class="ss-selected-images d-flex gap-2 gap-md-3 flex-wrap">
             </div>
             <div class="d-flex justify-content-between">
-                <button id="cancelBtn" type="button" class="btn button-dark">
-                    Cancel
-                </button>
+                <div>
+                    <a asp-action="StoryList" type="button" class="btn button-dark">
+                        Cancel
+                    </a>
+                    @if (isDraft == "true")
+                    {
+                        <button id="cancelBtn" type="button" class="btn button-dark">
+                            Clear Draft
+                        </button>
+                    }
+                </div>
                 <div>
                     <button type="submit" value="save" class="btn button me-md-1">Save</button>
                     <button type="submit" value="submit" class="btn button">Submit</button>

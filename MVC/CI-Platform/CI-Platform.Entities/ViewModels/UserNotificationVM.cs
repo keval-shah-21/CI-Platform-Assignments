@@ -9,8 +9,6 @@ public class UserNotificationVM
 
     public bool? IsRead { get; set; }
 
-    public string? FromUserAvatar { get; set; }
-
     public NotificationVM? NotificationVM { get; set; } = null!;
 
     public DateTimeOffset CreatedAt { get; set; }

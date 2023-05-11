@@ -1,8 +1,19 @@
 ﻿tinymce.init({
     menubar: false,
     selector: 'textarea#tiny',
+    image_dimensions: false,
+    media_dimensions: false,
+    setup: function (editor) {
+        editor.on('change', function () {
+            var iframes = editor.contentDocument.getElementsByTagName('iframe');
+            for (var i = 0; i < iframes.length; i++) {
+                iframes[i].removeAttribute('width');
+                iframes[i].removeAttribute('height');
+            }
+        });
+    },
 
-            plugins: [
+    plugins: [
 
         'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
 

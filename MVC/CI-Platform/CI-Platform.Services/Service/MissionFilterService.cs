@@ -17,17 +17,17 @@ namespace CI_Platform.Services.Service
             {
                 missionVM = missionVM.Where(mission => country.Any(c => c == mission.CountryVM.CountryId));
             }
-            if (city?.Count() > 0)
+            if (city?.Length > 0)
             {
                 missionVM = missionVM.Where(mission => city.Any(c => c == mission.CityVM.CityId));
             }
 
-            if (theme?.Count() > 0)
+            if (theme?.Length > 0)
             {
                 missionVM = missionVM.Where(mission => theme.Any(t => t == mission.MissionThemeVM.MissionThemeId));
             }
 
-            if (skill?.Count() > 0)
+            if (skill?.Length > 0)
             {
                 missionVM = missionVM.Where(mission => skill.Any(s =>
                 mission.MissionSkillVM.Any(ms => ms.SkillId == s)
@@ -80,11 +80,11 @@ namespace CI_Platform.Services.Service
             }
             else if (sort == 9)
             {
-                missionVM = missionVM.OrderByDescending(m => m.FavouriteMissionVM.Count());
+                missionVM = missionVM.OrderByDescending(m => m.FavouriteMissionVM.Count);
             }
             else if (sort == 10)
             {
-                Random rand = new Random();
+                Random rand = new();
                 missionVM = missionVM.OrderBy(m => rand.Next());
             }
             return missionVM.ToList();

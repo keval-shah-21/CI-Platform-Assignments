@@ -16,7 +16,7 @@ $(".nav-overlay").click(() => {
 
 const id = $("#userId").val();
 let bellClicked = false;
-if (id != null && id != "") {
+if (id != null && id != "" && id!=0) {
     $.ajax({
         url: "/Volunteer/Notification/GetNotificationPartialByUserId",
         method: "get",

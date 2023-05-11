@@ -18,4 +18,6 @@ public interface IMissionTimesheetService
     List<MissionTimesheetVM> GetGoalTimesheetAdmin();
     List<MissionTimesheetVM> SearchHourTimehseet(string? query);
     List<MissionTimesheetVM> SearchGoalTimehseet(string? query);
+
+    Task<(string, long)> GetDetailsToSendNotification(long id);
 }

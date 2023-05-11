@@ -75,7 +75,7 @@
                             @user.Department
                         </td>
                     }
-                    @if (user.Status == true)
+                    @if (user.IsBlocked == false)
                     {
                         <td class="text-success">Active</td>
                     }
@@ -87,7 +87,7 @@
                         <div class="width-max-conatent">
                             <img src="/images/static/editing.png" class="cursor-pointer d-inline width-max-conatent"
                          alt="bin" height="20px" width="20px" data-edit="@user.UserId">
-                        @if (user.Status == true)
+                        @if (user.IsBlocked == false)
                         {
                             <img src="/images/static/bin.png" class="cursor-pointer d-inline width-max-conatent"
                          alt="bin" height="20px" width="20px" data-deactivate="@user.Email">
@@ -104,4 +104,7 @@
         </tbody>
     </table>
 </div>
-<div class="pagination d-flex justify-content-end gap-1 px-3 my-4"></div>
+<div class="d-flex justify-content-between gap-1 px-3 my-4 flex-wrap align-items-center">
+    <div class="pagination-range"></div>
+    <div class="pagination d-flex justify-content-between gap-1 flex-shrink-0"></div>
+</div>

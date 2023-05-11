@@ -11,12 +11,7 @@ if (missionError == "true") {
 $("#shareStoryBtn").click((e) => {
     if ($('#userId').val() == 0) {
         e.preventDefault();
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'You need to Login to Share story!',
-            footer: '<a href="/volunteer/user/login">Login here</a>'
-        })
+        loginAlert('You need to Login to Share story!', "/volunteer/story/storylist");
     }
 })
 

@@ -45,6 +45,8 @@ public partial class User
 
     public byte? Availability { get; set; }
 
+    public bool IsBlocked { get; set; }
+
     public virtual City? City { get; set; }
 
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();

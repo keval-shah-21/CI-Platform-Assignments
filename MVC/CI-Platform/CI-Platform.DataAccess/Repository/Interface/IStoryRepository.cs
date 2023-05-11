@@ -15,5 +15,6 @@ namespace CI_Platform.DataAccess.Repository.Interface
         void UpdateTotalViews(long storyId, long totalViews);
         void RemoveById(long id);
         void UpdateStats(long id, byte value);
+        Task<(string, long)> GetDetailsToSendNotification(long id);
     }
 }

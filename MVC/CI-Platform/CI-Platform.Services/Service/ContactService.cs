@@ -58,20 +58,18 @@ public class ContactService : IContactService
         _unitOfWork.Contact.RemoveById(id);
     }
 
-    public Task ReplyContact(ContactVM contactVM)
+    public async Task ReplyContact(ContactVM contactVM)
     {
-        Contact contact = _unitOfWork.Contact.GetFirstOrDefault(c => c.ContactId == contactVM.ContactId);
+        Contact contact = await _unitOfWork.Contact.GetFirstOrDefaultAsync(c => c.ContactId == contactVM.ContactId);
         contact.Reply = contactVM.Reply;
         contact.Status = true;
         contact.UpdatedAt = DateTimeOffset.Now;
-        return Task.CompletedTask;
     }
-    public Task SendReplyEmail(ContactVM contactVM)
+    public async Task SendReplyEmail(ContactVM contactVM)
     {
         string subject = "CI Platform - Contact US";
         string body = $"<div style='font-size:1rem'><p>Thank you for reaching us out through Contact Us. We appreciate your feedback/inquiry and apologize for any inconvenience caused.</p><p>{contactVM.Reply}</p><p style='margin-top:0.5rem;'>Best Regards,</p><p>CSR Team</p></div>";
-        _emailService.SendEmail(contactVM.User.Email, subject, body);
-        return Task.CompletedTask;
+        await _emailService.SendEmailAsync(contactVM.User.Email, subject, body);
     }
     public List<ContactVM> SearchContact(string? query)
     {

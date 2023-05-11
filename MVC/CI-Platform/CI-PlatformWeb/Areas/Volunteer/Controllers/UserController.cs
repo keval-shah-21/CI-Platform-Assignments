@@ -22,20 +22,21 @@ public class UserController : Controller
     }
 
     [Route("login", Name = "Login")]
-    public IActionResult Login(string? email, string? token)
+    public async Task<IActionResult> Login(string? email, string? token, string? returnURL)
     {
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(token))
         {
             if (_unitOfService.User.VerifyEmail(email, token))
             {
                 _unitOfService.User.RemoveVerifyEmail(email);
-                _unitOfService.User.ActivateUserByEmail(email);
+                await _unitOfService.User.UpdateStatusAsync(email, 1);
                 _unitOfService.Save();
             }
         }
         LoginVM login = new LoginVM()
         {
-            bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder)
+            bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder),
+            ReturnURL = returnURL,
         };
         return View(login);
     }
@@ -60,17 +61,20 @@ public class UserController : Controller
                 SetUserLoginSession(admin.FirstName, admin.LastName, admin.Avatar, admin.AdminId, admin.Email, true);
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
+
             UserVM userVM = _unitOfService.User.Login(loginVM);
 
             if (userVM != null)
             {
                 if (userVM.Status == false)
-                {
-                    TempData["Error"] = "Account is blocked or not verified yet.";
-                }
+                    TempData["Error"] = "Account is not verified yet.";
+                else if (userVM.IsBlocked)
+                    TempData["Error"] = "Account is blocked by admin.";
                 else
                 {
                     SetUserLoginSession(userVM.FirstName, userVM.LastName, userVM.Avatar, userVM.UserId, userVM.Email, false);
+                    if (loginVM.ReturnURL != null)
+                        return LocalRedirect(loginVM.ReturnURL);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -106,27 +110,45 @@ public class UserController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Route("registration", Name = "RegistrationPost")]
-    public IActionResult Registration(UserVM userVM)
+    public async Task<IActionResult> Registration(UserVM userVM)
     {
-        if (ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
-            if (_unitOfService.User.GetFirstOrDefaultByEmail(userVM.Email) == null)
+            userVM.bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder);
+            return View(userVM);
+        }
+
+        var isAdminEmail = _unitOfService.User.IsAdminEmail(userVM.Email);
+        if (isAdminEmail)
+        {
+            TempData["Error"] = "This email is already registered.";
+        }
+        else if (_unitOfService.User.GetFirstOrDefaultByEmail(userVM.Email) != null)
+        {
+            TempData["Error"] = "This email is already registered.";
+        }
+        else
+        {
+            userVM.Avatar = @"\images\static\default-profile.webp";
+            try
             {
-                userVM.Avatar = @"\images\static\default-profile.webp";
                 long userId = _unitOfService.User.Add(userVM);
+
                 string token = Guid.NewGuid().ToString();
                 var url = Url.Action("Login", "User", new { email = userVM.Email, token = token }, "https");
-
                 _unitOfService.User.SaveVerifyAccountDetails(userVM.Email, token);
                 _unitOfService.User.SendVerifyAccountEmail(userVM.Email, url);
-                _unitOfService.NotificationSetting.Add(userId);
-                _unitOfService.UserNotification.AddNotificationCheck(userId);
 
-                _unitOfService.Save();
+                await _unitOfService.NotificationSetting.Add(userId);
+                await _unitOfService.UserNotification.AddNotificationCheck(userId);
+                await _unitOfService.SaveAsync();
+
                 TempData["Registered"] = "true";
-                return RedirectToAction("Index", "Home");
             }
-            TempData["Error"] = "This email is already registered.";
+            catch (Exception)
+            {
+                TempData["Exception"] = "An error occured while registering.";
+            }
         }
         userVM.bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder);
         return View(userVM);
@@ -143,37 +165,42 @@ public class UserController : Controller
         if (email == null) { return RedirectToAction("Error", "Home"); }
         UserVM user = _unitOfService.User.GetFirstOrDefaultByEmail(email);
 
-        if (user != null)
+        if (user == null)
         {
-            if (user.Status == false)
-            {
-                TempData["Error"] = "Account is blocked or not verified yet.";
-            }
-            else
-            {
-                string token = Guid.NewGuid().ToString();
-                var url = Url.Action("ResetPassword", "User", new { email = email, token = token }, "https");
+            TempData["Error"] = "You don't have an account with this email address.";
+            return RedirectToRoute("ForgotPassword");
+        }
 
-                ResetPasswordVM obj = new ResetPasswordVM() { Email = email, Token = token };
-                byte result = _unitOfService.ResetPassword.IsValidRecord(email);
-                if (result == 0)
-                {
-                    TempData["Error"] = "Try again after sometime.";
-                    return RedirectToRoute("ForgotPassword");
-                }
-                else if (result == 1)
-                    _unitOfService.ResetPassword.RemoveByEmail(email);
-
-                _unitOfService.ResetPassword.Add(obj);
-                _unitOfService.Save();
-
-                _unitOfService.User.SendResetPasswordEmail(email, url!);
-                TempData["Success"] = "Mail is sent on your email address";
-                return RedirectToRoute("Login");
-            }
+        if (user.Status == false)
+        {
+            TempData["Error"] = "Account is not verified yet.";
+        }
+        else if (user.IsBlocked)
+        {
+            TempData["Error"] = "Account is blocked by admin.";
         }
         else
-            TempData["Error"] = "You don't have an account with this email address.";
+        {
+            string token = Guid.NewGuid().ToString();
+            var url = Url.Action("ResetPassword", "User", new { email = email, token = token }, "https");
+
+            ResetPasswordVM obj = new ResetPasswordVM() { Email = email, Token = token };
+            byte result = _unitOfService.ResetPassword.IsValidRecord(email);
+            if (result == 0)
+            {
+                TempData["Error"] = "Try again after sometime.";
+                return RedirectToRoute("ForgotPassword");
+            }
+            else if (result == 1)
+                _unitOfService.ResetPassword.RemoveByEmail(email);
+
+            _unitOfService.ResetPassword.Add(obj);
+            _unitOfService.Save();
+
+            _unitOfService.User.SendResetPasswordEmail(email, url!);
+
+            TempData["ForgotPassword"] = "true";
+        }
         return RedirectToRoute("ForgotPassword");
     }
 
@@ -207,8 +234,8 @@ public class UserController : Controller
 
             _unitOfService.ResetPassword.RemoveByEmail(resetPasswordDataVM.Email);
             _unitOfService.Save();
-            TempData["Success"] = "Password updated successfully.";
-            return RedirectToRoute("Login");
+
+            TempData["ResetPassword"] = "true";
         }
         resetPasswordDataVM.bannerVMs = _unitOfService.Banner.GetAll().OrderBy(b => b.SortOrder);
         return View(resetPasswordDataVM);
